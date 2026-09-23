@@ -119,30 +119,52 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brand {
-  display: flex;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 22px;
-  letter-spacing: -0.02em;
-  color: #0f172a;
   text-decoration: none;
 }
 
-.brand-logo {
-  height: 42px;
+.brand-icon-img {
+  height: 38px;
   width: auto;
   object-fit: contain;
   display: block;
 }
 
-.footer .brand-logo {
-  height: 46px;
+.brand-text-name {
+  font-family: 'Plus Jakarta Sans', var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.025em;
+  color: #001233;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.footer .brand {
+  margin-bottom: 12px;
+}
+
+.footer .brand a {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.footer .brand-icon-img {
+  height: 42px;
   width: auto;
   object-fit: contain;
-  display: block;
-  margin-bottom: 8px;
+}
+
+.footer .brand-text-name {
+  font-size: 23px;
+  font-weight: 800;
+  color: #001233;
 }
 
 .brand-icon-box {
