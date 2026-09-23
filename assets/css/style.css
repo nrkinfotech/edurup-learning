@@ -1,5 +1,5 @@
 /* Edurup Learning — Modern Luxury-Tech Design System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap');
 
 :root {
   --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -1300,89 +1300,71 @@ header .brand img {
    Velocity-Style Hero & First Section Exact Match
    ========================================================================== */
 
+/* ==========================================================================
+   Hero Section - Exact Match to Uploaded Mockup Design
+   ========================================================================== */
+
 .v-hero-section {
-  background: linear-gradient(180deg, #f7f9fe 0%, #ffffff 100%);
-  padding: 40px 0 68px 0;
+  background: linear-gradient(135deg, #ebf5ff 0%, #dbeafe 45%, #f0f7ff 100%);
+  padding: 50px 0 64px 0;
   overflow: hidden;
+  position: relative;
 }
 
 .v-hero-section .wrap {
-  width: min(1400px, calc(100% - 48px));
+  width: min(1340px, calc(100% - 48px));
+  margin: 0 auto;
 }
 
 .v-hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1.25fr;
-  gap: 40px;
-  align-items: flex-start;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 36px;
+  align-items: center;
 }
 
-/* Hero Left Column */
+/* Left Column */
 .v-hero-left {
   display: flex;
   flex-direction: column;
 }
 
-.v-badge-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
-.v-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 16px;
-  border-radius: 999px;
+.v-eyebrow-text {
   font-family: var(--font-display);
-  font-weight: 700;
   font-size: 13px;
-  letter-spacing: 0.02em;
-}
-
-.v-badge-blue {
-  background: #e0e8ff;
-  color: #2563eb;
-}
-
-.v-badge-dot {
-  color: #2563eb;
-  font-size: 11px;
-}
-
-.v-badge-teal {
-  background: #dff6fc;
-  color: #0e7490;
-}
-
-.v-badge-check {
-  color: #0e7490;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #475569;
+  text-transform: uppercase;
+  margin-bottom: 16px;
 }
 
 .v-hero-title {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 68px;
-  line-height: 1.04;
-  letter-spacing: -0.04em;
-  color: #0b0f28;
-  margin: 0 0 22px 0;
+  font-weight: 900;
+  font-size: 58px;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: #001233;
+  margin: 0 0 20px 0;
 }
 
-.v-title-highlight {
-  color: #0e7490;
-  display: inline-block;
+.v-hero-lead {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  line-height: 1.35;
+  color: #001233;
+  margin: 0 0 14px 0;
 }
 
 .v-hero-desc {
-  font-size: 18px;
-  line-height: 1.65;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
   color: #475569;
-  max-width: 620px;
-  margin: 0 0 36px 0;
+  max-width: 530px;
+  margin: 0 0 32px 0;
 }
 
 /* CTA Row */
@@ -1390,16 +1372,16 @@ header .brand img {
   display: flex;
   align-items: center;
   gap: 16px;
-  flex-wrap: nowrap;
-  margin-bottom: 38px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .v-btn-primary {
-  background: #0b0f28 !important;
+  background: #0070f3 !important;
   color: #ffffff !important;
   border: 0 !important;
-  padding: 16px 32px !important;
-  border-radius: 999px !important;
+  padding: 14px 30px !important;
+  border-radius: 10px !important;
   font-family: var(--font-display) !important;
   font-weight: 700 !important;
   font-size: 16px !important;
@@ -1407,292 +1389,191 @@ header .brand img {
   align-items: center !important;
   gap: 10px !important;
   cursor: pointer !important;
-  box-shadow: 0 8px 24px rgba(11, 15, 40, 0.22) !important;
+  box-shadow: 0 8px 24px rgba(0, 112, 243, 0.3) !important;
   transition: all 0.2s ease !important;
   text-decoration: none !important;
   white-space: nowrap !important;
-  flex-shrink: 0 !important;
 }
 
 .v-btn-primary:hover {
-  background: #1e293b !important;
+  background: #005bb5 !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 12px 30px rgba(11, 15, 40, 0.3) !important;
+  box-shadow: 0 12px 30px rgba(0, 112, 243, 0.4) !important;
 }
 
 .v-btn-secondary {
-  background: #edf4ff !important;
-  color: #0f172a !important;
-  border: 0 !important;
-  padding: 12px 26px 12px 16px !important;
-  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #0070f3 !important;
+  border: 1.5px solid #0070f3 !important;
+  padding: 13px 32px !important;
+  border-radius: 10px !important;
   font-family: var(--font-display) !important;
   font-weight: 700 !important;
   font-size: 16px !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 10px !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
   text-decoration: none !important;
   white-space: nowrap !important;
-  flex-shrink: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 112, 243, 0.08) !important;
 }
 
 .v-btn-secondary:hover {
-  background: #e2eeff !important;
+  background: #f0f7ff !important;
   transform: translateY(-2px) !important;
 }
 
-.v-btn-icon-box {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: #dbeafe;
-  color: #0284c7;
+/* 3 Stat Cards Row */
+.v-stats-trio {
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 540px;
 }
 
-.v-social-proof {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-left: 6px;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.v-avatar-stack {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.v-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  font-weight: 700;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  margin-left: -10px;
-}
-
-.v-avatar:first-child {
-  margin-left: 0;
-}
-
-.v-avatar-1 { background: #38bdf8; }
-.v-avatar-2 { background: #0f172a; }
-.v-avatar-3 { background: #93c5fd; }
-
-.v-rating-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.v-stars {
-  color: #0e7490;
-  font-size: 14px;
-  letter-spacing: 2px;
-  line-height: 1;
-}
-
-.v-rating-text {
-  font-size: 13px;
-  font-weight: 600;
-  color: #475569;
-  margin-top: 3px;
-}
-
-/* 4 Stat Cards Row */
-.v-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-bottom: 36px;
-}
-
-.v-stat-card {
+.v-stat-box {
   background: #ffffff;
-  border-radius: 18px;
+  border-radius: 16px;
   padding: 18px 16px;
-  border: 1px solid #f1f5f9;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 6px 20px rgba(0, 112, 243, 0.06);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.v-stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+.v-stat-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 112, 243, 0.12);
 }
 
-.v-stat-icon {
-  width: 40px;
-  height: 40px;
+.v-stat-icon-wrap {
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
+  background: #eff6ff;
   display: grid;
   place-items: center;
 }
 
-.v-icon-calendar { background: #eef2ff; color: #4f46e5; }
-.v-icon-projects { background: #e0f2fe; color: #0284c7; }
-.v-icon-cert { background: #f0fdf4; color: #16a34a; }
-.v-icon-fee { background: #fae8ff; color: #9333ea; }
-
-.v-stat-value {
+.v-stat-val {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 17px;
-  color: #0f172a;
-  line-height: 1.2;
+  font-weight: 900;
+  font-size: 20px;
+  color: #001233;
+  line-height: 1;
 }
 
-.v-stat-label {
-  font-size: 13px;
-  color: #64748b;
-  font-weight: 500;
+.v-stat-lbl {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: #475569;
+  font-weight: 700;
   margin-top: 2px;
 }
 
-/* Specialized Skill Tracks */
-.v-skills-section {
+/* Right Column */
+.v-hero-right {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 490px;
+}
+
+.v-hero-backdrop-circle {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(186, 230, 254, 0.9) 0%, rgba(224, 242, 254, 0.5) 60%, transparent 100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.v-girl-cutout-img {
+  position: relative;
+  z-index: 2;
+  height: 490px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Floating Checklist Card */
+.v-floating-checklist-card {
+  position: absolute;
+  top: 50px;
+  right: -20px;
+  z-index: 4;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 22px;
+  box-shadow: 0 12px 36px rgba(0, 80, 200, 0.1);
   display: flex;
   flex-direction: column;
   gap: 12px;
+  border: 1px solid rgba(224, 242, 254, 0.9);
 }
 
-.v-skills-kicker {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: #64748b;
-  text-transform: uppercase;
-}
-
-.v-skills-row {
+.v-check-item {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
 }
 
-.v-skill-pill {
-  background: #f0f6ff;
-  color: #0f172a;
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  transition: background 0.2s ease;
+.v-check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #eff6ff;
+  border: 1.5px solid #2563eb;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
 }
 
-.v-skill-pill:hover {
-  background: #e2eeff;
-}
-
-.v-pill-bullet {
-  color: #0e7490;
-  font-size: 11px;
-}
-
-/* Hero Right Column Visual */
-.v-hero-right {
-  position: relative;
-  margin-top: 36px;
-  width: 100%;
-}
-
-.v-visual-wrapper {
-  position: relative;
-  padding-top: 24px;
-  padding-bottom: 24px;
-  width: 100%;
-  z-index: 2;
-}
-
-/* Background Soft Organic Blob Accent */
-.v-visual-wrapper::before {
-  content: "";
+/* Handwritten Callouts */
+.v-handwritten-callout {
   position: absolute;
-  top: -20px;
-  left: -50px;
-  right: -40px;
-  bottom: -20px;
-  z-index: 1;
-  background: linear-gradient(135deg, rgba(186, 230, 254, 0.75) 0%, rgba(224, 242, 254, 0.55) 50%, rgba(240, 249, 255, 0.8) 100%);
-  border-radius: 38% 62% 65% 35% / 42% 58% 42% 58%;
-  filter: blur(12px);
+  z-index: 4;
+  font-family: 'Caveat', cursive, sans-serif;
+  color: #1d4ed8;
+  font-weight: 700;
+  line-height: 1.05;
   pointer-events: none;
 }
 
-/* Background Decorative Dot Grid Matrix (Top-Right) */
-.v-visual-wrapper::after {
-  content: "";
-  position: absolute;
-  top: -30px;
-  right: -45px;
-  width: 140px;
-  height: 140px;
-  z-index: 1;
-  background-image: radial-gradient(#38bdf8 2.2px, transparent 2.5px);
-  background-size: 16px 16px;
-  opacity: 0.75;
-  pointer-events: none;
+.callout-top-left {
+  top: 24px;
+  left: -10px;
+  font-size: 28px;
+  transform: rotate(-6deg);
 }
 
-/* Floating Card Animations */
-@keyframes vFloatPlacement {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.callout-bottom-right {
+  bottom: 30px;
+  right: -30px;
+  font-size: 26px;
+  transform: rotate(5deg);
 }
 
-@keyframes vFloatCapstones {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-@keyframes vFloatMentors {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-/* Floating Placement Rate Card */
-.v-float-placement {
-  position: absolute;
-  top: 0;
-  left: -24px;
-  z-index: 10;
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 16px 24px;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border: 1px solid rgba(241, 245, 249, 0.9);
-  animation: vFloatPlacement 4s ease-in-out infinite;
+.handwritten-curve {
+  display: block;
+  margin-top: 2px;
 }
 
 .v-float-icon-box {
