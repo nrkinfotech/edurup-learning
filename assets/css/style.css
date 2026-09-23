@@ -126,19 +126,29 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 
-.brand-icon-img {
-  height: 24px !important;
-  width: auto;
+.brand-icon-img,
+.topbar .brand img,
+header .brand img {
+  width: 52px !important;
+  height: 52px !important;
+  max-width: 52px !important;
+  max-height: 52px !important;
   object-fit: contain;
-  display: block;
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 .brand-text-name {
   font-family: 'Plus Jakarta Sans', var(--font-display), sans-serif;
   font-weight: 800;
-  font-size: 16px !important;
+  font-size: 22px !important;
   letter-spacing: -0.025em;
-  color: #001233;
+  color: #001233 !important;
+  -webkit-text-fill-color: #001233 !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
   white-space: nowrap;
   line-height: 1;
 }
@@ -151,20 +161,29 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-decoration: none;
 }
 
-.footer .brand-icon-img {
-  height: 26px !important;
-  width: auto;
+.footer .brand-icon-img,
+.footer .brand img {
+  width: 52px !important;
+  height: 52px !important;
+  max-width: 52px !important;
+  max-height: 52px !important;
   object-fit: contain;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .footer .brand-text-name {
-  font-size: 17px !important;
+  font-size: 22px !important;
   font-weight: 800;
-  color: #001233;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
 }
 
 .brand-icon-box {
@@ -202,13 +221,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
   font-size: 19px;
   box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
-}
-
-.brand span:last-child {
-  background: linear-gradient(90deg, #0F172A 0%, #312E81 50%, #4F46E5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 .links {
