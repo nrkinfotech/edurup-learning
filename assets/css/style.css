@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brand-icon-img {
-  height: 26px !important;
+  height: 24px !important;
   width: auto;
   object-fit: contain;
   display: block;
@@ -136,7 +136,7 @@ h1, h2, h3, h4, h5, h6 {
 .brand-text-name {
   font-family: 'Plus Jakarta Sans', var(--font-display), sans-serif;
   font-weight: 800;
-  font-size: 17px !important;
+  font-size: 16px !important;
   letter-spacing: -0.025em;
   color: #001233;
   white-space: nowrap;
@@ -156,13 +156,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer .brand-icon-img {
-  height: 28px !important;
+  height: 26px !important;
   width: auto;
   object-fit: contain;
 }
 
 .footer .brand-text-name {
-  font-size: 18px !important;
+  font-size: 17px !important;
   font-weight: 800;
   color: #001233;
 }
