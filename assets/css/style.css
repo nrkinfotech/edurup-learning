@@ -1513,7 +1513,7 @@ header .brand img {
 .v-floating-checklist-card {
   position: absolute;
   top: 40px;
-  right: -15px;
+  right: -50px;
   z-index: 4;
   background: #ffffff;
   border-radius: 16px;
