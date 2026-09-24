@@ -1572,7 +1572,8 @@ header .brand img {
   width: auto;
   object-fit: contain;
   display: block;
-  margin-bottom: -25px;
+  margin-bottom: -65px;
+  transform: translateY(20px);
 }
 
 /* Floating Checklist Card */
