@@ -4330,12 +4330,12 @@ header .brand img {
 
 .blue-banner-box {
   position: relative;
-  background: linear-gradient(135deg, #0056d6 0%, #0042c0 50%, #002e99 100%);
+  background: linear-gradient(135deg, #0247c4 0%, #0036a3 50%, #00247d 100%);
   border-radius: 20px;
-  padding: 42px 48px;
+  padding: 44px 52px;
   color: #ffffff;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 78, 204, 0.25);
+  box-shadow: 0 16px 44px rgba(0, 54, 163, 0.28);
 }
 
 /* Floating Bubbles & Circles Pattern */
@@ -4346,46 +4346,47 @@ header .brand img {
 }
 
 .blue-banner-box .bubble-1 {
-  width: 280px;
-  height: 280px;
-  top: -100px;
-  left: -80px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 70%, transparent 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: 340px;
+  height: 340px;
+  top: -120px;
+  left: -110px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.65) 0%, rgba(37, 99, 235, 0.15) 65%, transparent 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
 }
 
 .blue-banner-box .bubble-2 {
-  width: 200px;
-  height: 200px;
-  bottom: -80px;
-  left: 60px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 80%);
+  width: 260px;
+  height: 260px;
+  bottom: -110px;
+  left: 30px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.5) 0%, transparent 75%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .blue-banner-box .bubble-3 {
-  width: 360px;
-  height: 360px;
-  top: -120px;
-  right: -60px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 70%, transparent 100%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 440px;
+  height: 440px;
+  top: -140px;
+  right: -90px;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.75) 0%, rgba(37, 99, 235, 0.25) 65%, transparent 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
 }
 
 .blue-banner-box .bubble-4 {
-  width: 160px;
-  height: 160px;
-  bottom: -50px;
-  right: 220px;
-  background: rgba(255, 255, 255, 0.07);
+  width: 220px;
+  height: 220px;
+  bottom: -70px;
+  right: 190px;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.35) 0%, transparent 80%);
 }
 
 .blue-banner-box .bubble-5 {
-  width: 440px;
-  height: 440px;
+  width: 500px;
+  height: 500px;
   top: 50%;
-  left: 50%;
+  left: 28%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
 }
 
 .blue-banner-content {
@@ -4398,7 +4399,7 @@ header .brand img {
 }
 
 .blue-banner-left {
-  max-width: 480px;
+  max-width: 490px;
 }
 
 .blue-eyebrow {
@@ -4442,7 +4443,7 @@ header .brand img {
   align-items: center;
   gap: 8px;
   background: #ffffff !important;
-  color: #004ecc !important;
+  color: #0036a3 !important;
   font-family: var(--font-display);
   font-weight: 700 !important;
   font-size: 14.5px !important;
@@ -4464,21 +4465,21 @@ header .brand img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: transparent !important;
   color: #ffffff !important;
   font-family: var(--font-display);
   font-weight: 600 !important;
   font-size: 14.5px !important;
   padding: 13px 28px !important;
   border-radius: 10px !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.75) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.85) !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
   white-space: nowrap !important;
 }
 
 .blue-btn-outline:hover {
-  background: rgba(255, 255, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.18) !important;
   border-color: #ffffff !important;
   transform: translateY(-2px) !important;
 }
@@ -4499,9 +4500,8 @@ header .brand img {
   position: absolute;
   top: -12px;
   left: -14px;
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.95);
-  animation: pulse 2s infinite alternate;
 }
 
 .blue-script-callout .script-lines {
