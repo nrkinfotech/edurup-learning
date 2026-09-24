@@ -4330,12 +4330,12 @@ header .brand img {
 
 .blue-banner-box {
   position: relative;
-  background: linear-gradient(135deg, #0247c4 0%, #0036a3 50%, #00247d 100%);
+  background: linear-gradient(135deg, #002d80 0%, #001f5c 50%, #001238 100%);
   border-radius: 20px;
   padding: 44px 52px;
   color: #ffffff;
   overflow: hidden;
-  box-shadow: 0 16px 44px rgba(0, 54, 163, 0.28);
+  box-shadow: 0 16px 44px rgba(0, 31, 92, 0.35);
 }
 
 /* Floating Bubbles & Circles Pattern */
@@ -4350,8 +4350,8 @@ header .brand img {
   height: 340px;
   top: -120px;
   left: -110px;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.65) 0%, rgba(37, 99, 235, 0.15) 65%, transparent 100%);
-  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.55) 0%, rgba(29, 78, 216, 0.1) 65%, transparent 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
 }
 
 .blue-banner-box .bubble-2 {
@@ -4359,8 +4359,8 @@ header .brand img {
   height: 260px;
   bottom: -110px;
   left: 30px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.5) 0%, transparent 75%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.4) 0%, transparent 75%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .blue-banner-box .bubble-3 {
@@ -4368,8 +4368,8 @@ header .brand img {
   height: 440px;
   top: -140px;
   right: -90px;
-  background: radial-gradient(circle, rgba(29, 78, 216, 0.75) 0%, rgba(37, 99, 235, 0.25) 65%, transparent 100%);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.65) 0%, rgba(29, 78, 216, 0.2) 65%, transparent 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
 }
 
 .blue-banner-box .bubble-4 {
@@ -4377,7 +4377,7 @@ header .brand img {
   height: 220px;
   bottom: -70px;
   right: 190px;
-  background: radial-gradient(circle, rgba(96, 165, 250, 0.35) 0%, transparent 80%);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 80%);
 }
 
 .blue-banner-box .bubble-5 {
@@ -4386,7 +4386,7 @@ header .brand img {
   top: 50%;
   left: 28%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.25) 0%, transparent 70%);
 }
 
 .blue-banner-content {
