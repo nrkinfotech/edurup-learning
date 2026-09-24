@@ -1483,13 +1483,13 @@ header .brand img {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  min-height: 510px;
+  min-height: 560px;
 }
 
 .v-hero-backdrop-circle {
   position: absolute;
-  width: 530px;
-  height: 530px;
+  width: 620px;
+  height: 620px;
   border-radius: 50%;
   background: #cbe5ff;
   top: 48%;
@@ -1502,11 +1502,11 @@ header .brand img {
 .v-girl-cutout-img {
   position: relative;
   z-index: 2;
-  height: 600px;
+  height: 700px;
   width: auto;
   object-fit: contain;
   display: block;
-  margin-bottom: -25px;
+  margin-bottom: -45px;
 }
 
 /* Floating Checklist Card */
