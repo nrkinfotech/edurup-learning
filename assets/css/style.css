@@ -1329,24 +1329,62 @@ header .brand img {
   flex-direction: column;
 }
 
-.v-eyebrow-text {
+/* Eyebrow Pill Tag */
+.v-eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(224, 242, 254, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  padding: 5px 16px 5px 6px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.v-eyebrow-pill span {
   font-family: var(--font-display);
-  font-size: 13.5px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: #475569;
+  color: #0284c7;
   text-transform: uppercase;
-  margin-bottom: 14px;
+}
+
+.v-eyebrow-icon-tile {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0070f3;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.v-eyebrow-icon-tile svg {
+  stroke: #ffffff;
 }
 
 .v-hero-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 56px;
-  line-height: 1.03;
+  font-size: 58px;
+  line-height: 1.05;
   letter-spacing: -0.035em;
   color: #081028;
   margin: 0 0 16px 0;
+  position: relative;
+}
+
+.text-blue {
+  color: #0070f3;
+}
+
+.v-title-spark {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 2px;
+  margin-top: 6px;
 }
 
 .v-hero-lead {
@@ -1363,7 +1401,7 @@ header .brand img {
   font-size: 16.5px;
   line-height: 1.55;
   color: #475569;
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 0 28px 0;
 }
 
@@ -1372,7 +1410,7 @@ header .brand img {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 32px;
+  margin-bottom: 34px;
   flex-wrap: wrap;
 }
 
@@ -1424,57 +1462,85 @@ header .brand img {
   transform: translateY(-2px) !important;
 }
 
-/* 3 Stat Cards Row */
+/* 3 Stat Cards Row - Horizontal Layout */
 .v-stats-trio {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  max-width: 450px;
+  gap: 14px;
+  max-width: 580px;
 }
 
 .v-stat-box {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 12px 10px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 4px 16px rgba(0, 112, 243, 0.05);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 6px 20px rgba(0, 112, 243, 0.05);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 6px;
+  gap: 14px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.v-stat-box.box-blue {
+  background: #ffffff;
+  border: 1px solid rgba(224, 242, 254, 0.9);
+}
+
+.v-stat-box.box-purple {
+  background: #fcfaff;
+  border: 1px solid rgba(243, 232, 255, 0.9);
+}
+
+.v-stat-box.box-green {
+  background: #fbfdfe;
+  border: 1px solid rgba(220, 252, 231, 0.9);
 }
 
 .v-stat-box:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 112, 243, 0.1);
+  box-shadow: 0 10px 24px rgba(0, 112, 243, 0.1);
 }
 
 .v-stat-icon-wrap {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: #eff6ff;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
+}
+
+.v-stat-icon-wrap.icon-blue {
+  background: #e0f2fe;
+}
+
+.v-stat-icon-wrap.icon-purple {
+  background: #f3e8ff;
+}
+
+.v-stat-icon-wrap.icon-green {
+  background: #dcfce7;
+}
+
+.v-stat-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 .v-stat-val {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 18px;
+  font-size: 24px;
   color: #081028;
   line-height: 1;
 }
 
 .v-stat-lbl {
   font-family: var(--font-display);
-  font-size: 11.5px;
+  font-size: 12px;
   color: #475569;
   font-weight: 700;
-  margin-top: 1px;
+  margin-top: 3px;
 }
 
 /* Right Column */
