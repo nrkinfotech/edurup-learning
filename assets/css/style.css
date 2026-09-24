@@ -1307,7 +1307,7 @@ header .brand img {
 .v-hero-section {
   background: linear-gradient(135deg, #ebf5ff 0%, #dbeafe 45%, #f0f7ff 100%);
   padding: 50px 0 64px 0;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
@@ -1483,16 +1483,16 @@ header .brand img {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  min-height: 520px;
+  min-height: 540px;
 }
 
 .v-hero-backdrop-circle {
   position: absolute;
-  width: 520px;
-  height: 520px;
+  width: 580px;
+  height: 580px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(186, 230, 254, 0.9) 0%, rgba(224, 242, 254, 0.5) 60%, transparent 100%);
-  top: 46%;
+  background: radial-gradient(circle, rgba(186, 230, 254, 0.95) 0%, rgba(224, 242, 254, 0.5) 60%, transparent 100%);
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -1502,11 +1502,12 @@ header .brand img {
 .v-girl-cutout-img {
   position: relative;
   z-index: 2;
-  height: 660px;
+  height: 740px;
   width: auto;
   object-fit: contain;
   display: block;
-  margin-bottom: -64px;
+  margin-bottom: -115px;
+  transform: translateY(35px);
 }
 
 /* Floating Checklist Card */
