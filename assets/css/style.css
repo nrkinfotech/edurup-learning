@@ -1306,8 +1306,8 @@ header .brand img {
 
 .v-hero-section {
   background: linear-gradient(135deg, #ebf5ff 0%, #dbeafe 45%, #f0f7ff 100%);
-  padding: 50px 0 64px 0;
-  overflow: visible;
+  padding: 56px 0 64px 0;
+  overflow: hidden;
   position: relative;
 }
 
@@ -1318,7 +1318,7 @@ header .brand img {
 
 .v-hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.12fr 0.88fr;
   gap: 36px;
   align-items: center;
 }
@@ -1342,11 +1342,11 @@ header .brand img {
 .v-hero-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 58px;
-  line-height: 1.05;
+  font-size: 56px;
+  line-height: 1.04;
   letter-spacing: -0.035em;
-  color: #001233;
-  margin: 0 0 20px 0;
+  color: #081028;
+  margin: 0 0 18px 0;
 }
 
 .v-hero-lead {
@@ -1354,16 +1354,16 @@ header .brand img {
   font-weight: 800;
   font-size: 19px;
   line-height: 1.35;
-  color: #001233;
+  color: #081028;
   margin: 0 0 14px 0;
 }
 
 .v-hero-desc {
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.55;
   color: #475569;
-  max-width: 530px;
+  max-width: 520px;
   margin: 0 0 32px 0;
 }
 
@@ -1372,7 +1372,7 @@ header .brand img {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 38px;
   flex-wrap: wrap;
 }
 
@@ -1429,13 +1429,13 @@ header .brand img {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  max-width: 540px;
+  max-width: 520px;
 }
 
 .v-stat-box {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 18px 16px;
+  border-radius: 14px;
+  padding: 16px 14px;
   border: 1px solid rgba(226, 232, 240, 0.8);
   box-shadow: 0 6px 20px rgba(0, 112, 243, 0.06);
   display: flex;
@@ -1464,14 +1464,14 @@ header .brand img {
 .v-stat-val {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 20px;
-  color: #001233;
+  font-size: 22px;
+  color: #081028;
   line-height: 1;
 }
 
 .v-stat-lbl {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 13px;
   color: #475569;
   font-weight: 700;
   margin-top: 2px;
@@ -1483,16 +1483,16 @@ header .brand img {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  min-height: 540px;
+  min-height: 480px;
 }
 
 .v-hero-backdrop-circle {
   position: absolute;
-  width: 580px;
-  height: 580px;
+  width: 450px;
+  height: 450px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(186, 230, 254, 0.95) 0%, rgba(224, 242, 254, 0.5) 60%, transparent 100%);
-  top: 48%;
+  background: radial-gradient(circle, rgba(186, 230, 254, 0.95) 0%, rgba(224, 242, 254, 0.45) 60%, transparent 100%);
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -1502,27 +1502,26 @@ header .brand img {
 .v-girl-cutout-img {
   position: relative;
   z-index: 2;
-  height: 740px;
+  height: 510px;
   width: auto;
   object-fit: contain;
   display: block;
-  margin-bottom: -115px;
-  transform: translateY(35px);
+  margin-bottom: -15px;
 }
 
 /* Floating Checklist Card */
 .v-floating-checklist-card {
   position: absolute;
-  top: 50px;
-  right: -20px;
+  top: 40px;
+  right: -15px;
   z-index: 4;
   background: #ffffff;
   border-radius: 16px;
-  padding: 18px 22px;
-  box-shadow: 0 12px 36px rgba(0, 80, 200, 0.1);
+  padding: 16px 20px;
+  box-shadow: 0 10px 30px rgba(0, 80, 200, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 11px;
   border: 1px solid rgba(224, 242, 254, 0.9);
 }
 
@@ -1560,15 +1559,15 @@ header .brand img {
 }
 
 .callout-top-left {
-  top: 24px;
+  top: 15px;
   left: -10px;
   font-size: 28px;
   transform: rotate(-6deg);
 }
 
 .callout-bottom-right {
-  bottom: 30px;
-  right: -30px;
+  bottom: 40px;
+  right: -25px;
   font-size: 26px;
   transform: rotate(5deg);
 }
