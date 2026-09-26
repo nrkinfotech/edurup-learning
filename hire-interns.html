@@ -707,6 +707,360 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- HOW IT WORKS & INDUSTRY PARTNERSHIP SECTIONS -->
+<section class="hi-how-partner-wrapper" style="background: #ffffff !important; padding: 40px 0 70px 0 !important; width: 100% !important;">
+  <style>
+    .hi-how-partner-wrapper * { box-sizing: border-box !important; }
+    .hi-hp-container {
+      max-width: 1340px !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 40px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 60px !important;
+    }
+
+    /* SECTION 1: HOW IT WORKS */
+    .hi-how-block {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      width: 100% !important;
+    }
+    .hi-how-block .hi-how-h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 38px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin: 0 0 10px 0 !important;
+      letter-spacing: -0.03em !important;
+    }
+    .hi-how-block .hi-how-desc {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 16.5px !important;
+      color: #4b5e7e !important;
+      max-width: 660px !important;
+      margin: 0 0 44px 0 !important;
+      line-height: 1.6 !important;
+    }
+
+    .hi-how-block .hi-how-steps-row {
+      display: flex !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      gap: 16px !important;
+    }
+    .hi-how-block .hi-how-step-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      flex: 1 !important;
+      max-width: 260px !important;
+    }
+    .hi-how-block .hi-how-num-badge {
+      width: 68px !important;
+      height: 68px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 22px !important;
+      font-weight: 800 !important;
+      color: #ffffff !important;
+      margin-bottom: 16px !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+    }
+    .hi-how-block .hi-how-num-badge.blue { background: #0052ff !important; }
+    .hi-how-block .hi-how-num-badge.purple { background: #a855f7 !important; }
+    .hi-how-block .hi-how-num-badge.pink { background: #f43f5e !important; }
+    .hi-how-block .hi-how-num-badge.green { background: #10b981 !important; }
+
+    .hi-how-block .hi-how-step-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 16px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin: 0 0 8px 0 !important;
+      line-height: 1.3 !important;
+    }
+    .hi-how-block .hi-how-step-sub {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 14px !important;
+      color: #4b5e7e !important;
+      margin: 0 !important;
+      line-height: 1.5 !important;
+    }
+
+    .hi-how-block .hi-how-arrow {
+      color: #cbd5e1 !important;
+      font-size: 24px !important;
+      font-weight: 600 !important;
+      margin-top: 18px !important;
+    }
+
+    /* SECTION 2: INDUSTRY PARTNERSHIP CARD */
+    .hi-partner-hero-card {
+      background: #09192f !important;
+      border-radius: 24px !important;
+      padding: 48px 56px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 40px !important;
+      box-shadow: 0 20px 50px rgba(9, 25, 47, 0.15) !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    .hi-partner-hero-card .hi-pt-left {
+      flex: 1 1 520px !important;
+      max-width: 560px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      z-index: 2 !important;
+    }
+    .hi-partner-hero-card .hi-pt-eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      color: #38bdf8 !important;
+      margin-bottom: 12px !important;
+    }
+    .hi-partner-hero-card .hi-pt-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 34px !important;
+      font-weight: 800 !important;
+      color: #ffffff !important;
+      line-height: 1.2 !important;
+      margin: 0 0 14px 0 !important;
+      letter-spacing: -0.025em !important;
+    }
+    .hi-partner-hero-card .hi-pt-desc {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 16px !important;
+      line-height: 1.6 !important;
+      color: #94a3b8 !important;
+      margin: 0 0 28px 0 !important;
+    }
+    .hi-partner-hero-card .hi-pt-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      background: #ffffff !important;
+      color: #0052ff !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 15.5px !important;
+      font-weight: 700 !important;
+      padding: 13px 32px !important;
+      border-radius: 999px !important;
+      text-decoration: none !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+      transition: all 0.25s ease !important;
+    }
+    .hi-partner-hero-card .hi-pt-btn:hover {
+      background: #f8fafc !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.25) !important;
+    }
+
+    .hi-partner-hero-card .hi-pt-right-grid {
+      display: flex !important;
+      align-items: center !important;
+      gap: 20px !important;
+      z-index: 2 !important;
+    }
+    .hi-partner-hero-card .hi-pt-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      gap: 10px !important;
+      min-width: 100px !important;
+    }
+    .hi-partner-hero-card .hi-pt-badge {
+      width: 68px !important;
+      height: 68px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #ffffff !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
+    }
+    .hi-partner-hero-card .hi-pt-badge.purple { background: #7c3aed !important; }
+    .hi-partner-hero-card .hi-pt-badge.green { background: #16a34a !important; }
+    .hi-partner-hero-card .hi-pt-badge.orange { background: #f97316 !important; }
+    .hi-partner-hero-card .hi-pt-badge.blue { background: #0052ff !important; }
+
+    .hi-partner-hero-card .hi-pt-item-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13.5px !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      line-height: 1.3 !important;
+      margin: 0 !important;
+    }
+
+    @media (max-width: 1024px) {
+      .hi-how-block .hi-how-steps-row {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 24px !important;
+      }
+      .hi-how-block .hi-how-arrow {
+        display: none !important;
+      }
+      .hi-partner-hero-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 36px 28px !important;
+      }
+      .hi-partner-hero-card .hi-pt-left {
+        max-width: 100% !important;
+      }
+      .hi-partner-hero-card .hi-pt-right-grid {
+        width: 100% !important;
+        justify-content: space-between !important;
+        flex-wrap: wrap !important;
+        gap: 16px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hi-hp-container {
+        padding: 0 16px !important;
+        gap: 40px !important;
+      }
+      .hi-how-block .hi-how-steps-row {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+      }
+      .hi-partner-hero-card .hi-pt-right-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+      }
+      .hi-partner-hero-card .hi-pt-title {
+        font-size: 26px !important;
+      }
+    }
+  </style>
+
+  <div class="hi-hp-container">
+    <!-- SECTION 1: HOW IT WORKS -->
+    <div class="hi-how-block">
+      <h2 class="hi-how-h2">How It Works</h2>
+      <p class="hi-how-desc">A simple and quick process to hire interns for your organization.</p>
+
+      <div class="hi-how-steps-row">
+        <!-- Step 01 -->
+        <div class="hi-how-step-item">
+          <div class="hi-how-num-badge blue">01</div>
+          <div class="hi-how-step-title">Share Your Requirements</div>
+          <div class="hi-how-step-sub">Tell us about your project needs and role requirements.</div>
+        </div>
+
+        <div class="hi-how-arrow">→</div>
+
+        <!-- Step 02 -->
+        <div class="hi-how-step-item">
+          <div class="hi-how-num-badge purple">02</div>
+          <div class="hi-how-step-title">Get Matched Interns</div>
+          <div class="hi-how-step-sub">We shortlist suitable interns from our talent pool.</div>
+        </div>
+
+        <div class="hi-how-arrow">→</div>
+
+        <!-- Step 03 -->
+        <div class="hi-how-step-item">
+          <div class="hi-how-num-badge pink">03</div>
+          <div class="hi-how-step-title">Interview &amp; Select</div>
+          <div class="hi-how-step-sub">Conduct interviews and choose the best fit.</div>
+        </div>
+
+        <div class="hi-how-arrow">→</div>
+
+        <!-- Step 04 -->
+        <div class="hi-how-step-item">
+          <div class="hi-how-num-badge green">04</div>
+          <div class="hi-how-step-title">Onboard &amp; Collaborate</div>
+          <div class="hi-how-step-sub">Start working with your interns and get full support from our team.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: INDUSTRY PARTNERSHIP CARD -->
+    <div class="hi-partner-hero-card">
+      <div class="hi-pt-left">
+        <div class="hi-pt-eyebrow">INDUSTRY PARTNERSHIP</div>
+        <h2 class="hi-pt-title">Build Your Team With Fresh Talent</h2>
+        <p class="hi-pt-desc">Partner with Edurup Learning to hire skilled interns and build a strong talent pipeline for your organization.</p>
+        <a href="mailto:hello@eduruplearning.com?subject=Industry Partnership Enquiry" class="hi-pt-btn">Partner With Us →</a>
+      </div>
+
+      <div class="hi-pt-right-grid">
+        <!-- Badge 1: Trained Interns -->
+        <div class="hi-pt-item">
+          <div class="hi-pt-badge purple">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="hi-pt-item-title">Trained<br>Interns</div>
+        </div>
+
+        <!-- Badge 2: Multiple Domains -->
+        <div class="hi-pt-item">
+          <div class="hi-pt-badge green">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <div class="hi-pt-item-title">Multiple<br>Domains</div>
+        </div>
+
+        <!-- Badge 3: Flexible Engagement -->
+        <div class="hi-pt-item">
+          <div class="hi-pt-badge orange">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+              <path d="M9 22v-4h6v4"/>
+              <line x1="8" y1="6" x2="10" y2="6"/>
+              <line x1="14" y1="6" x2="16" y2="6"/>
+              <line x1="8" y1="10" x2="10" y2="10"/>
+              <line x1="14" y1="10" x2="16" y2="10"/>
+            </svg>
+          </div>
+          <div class="hi-pt-item-title">Flexible<br>Engagement</div>
+        </div>
+
+        <!-- Badge 4: Potential Full-Time Hire -->
+        <div class="hi-pt-item">
+          <div class="hi-pt-badge blue">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </div>
+          <div class="hi-pt-item-title">Potential<br>Full-Time Hire</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section><section class="section"><div class="wrap"><div class="section-head"><div class="kicker">Company Enquiry</div><h2>Tell us what you need.</h2></div><form class="form" action="mailto:hello@eduruplearning.com" method="post" enctype="text/plain"><div class="form-grid"><input class="input" name="Company" placeholder="Company name" required><input class="input" name="Contact" placeholder="Contact person" required></div><div class="form-grid"><input class="input" name="Email" type="email" placeholder="Work email" required><input class="input" name="Role" placeholder="Internship role / domain"></div><textarea class="textarea" name="Requirement" placeholder="Tell us about skills, number of interns, project requirements and timeline"></textarea><button class="btn" type="submit">Submit Enquiry →</button><span class="small">Submitting opens your email application. Replace the email address in the HTML with your official company inbox before launch.</span></form></div></section>
 <section class="docs-suite" id="internship-documents">
   <div class="wrap">
