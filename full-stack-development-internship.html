@@ -61,6 +61,7 @@
 <main class="da-page-main">
 <section class="da-hero-exact" style="background: linear-gradient(180deg, #edf4ff 0%, #f7faff 100%) !important; padding: 44px 0 54px 0 !important; overflow: hidden !important; width: 100% !important;">
   <style>
+    /* Centered Compact Hero Layout (980px Max-Width Grid) */
     .da-hero-exact * { box-sizing: border-box !important; }
     .da-hero-exact .da-container {
       max-width: 1380px !important;
@@ -249,78 +250,102 @@
       align-items: center !important;
       justify-content: flex-start !important;
       text-align: center !important;
+      height: 130px !important;
+      box-sizing: border-box !important;
+      position: relative !important;
+      z-index: 10 !important;
     }
-    .da-hero-exact .da-card-pill {
-      background: #0052ff !important;
-      color: #ffffff !important;
-      font-size: 15px !important;
-      font-weight: 800 !important;
-      padding: 7px 18px !important;
-      border-radius: 999px !important;
-      margin-bottom: 14px !important;
-      display: inline-block !important;
-      box-shadow: 0 4px 12px rgba(0, 82, 255, 0.25) !important;
-    }
-    .da-hero-exact .da-card-h3 {
-      font-size: 19px !important;
-      font-weight: 800 !important;
-      color: #001233 !important;
-      margin: 0 0 8px 0 !important;
-      line-height: 1.25 !important;
-    }
-    .da-hero-exact .da-card-p {
-      font-size: 14px !important;
-      color: #526685 !important;
-      line-height: 1.45 !important;
-      margin: 0 !important;
-    }
-
-    .da-hero-exact .da-strip {
-      background: #ffffff !important;
-      border: 1px solid #e1ebf7 !important;
-      border-radius: 999px !important;
-      padding: 14px 28px !important;
-      box-shadow: 0 8px 24px rgba(0, 30, 84, 0.08) !important;
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: center !important;
-      justify-content: space-around !important;
-      width: 100% !important;
-    }
-    .da-hero-exact .da-strip-item {
-      display: flex !important;
-      align-items: center !important;
-      gap: 10px !important;
-      font-size: 16px !important;
-      font-weight: 700 !important;
-      color: #001233 !important;
-    }
-    .da-hero-exact .da-strip-icon {
-      width: 26px !important;
-      height: 26px !important;
-      background: #eef5ff !important;
-      border-radius: 50% !important;
+    .da-hero-exact .da-card-icon {
+      height: 32px !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      color: #0052ff !important;
+      margin-bottom: 8px !important;
+      width: 100% !important;
+    }
+    .da-hero-exact .da-card-icon svg {
+      width: 28px !important;
+      height: 28px !important;
+    }
+    .da-hero-exact .da-card-text-block {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      width: 100% !important;
+    }
+    .da-hero-exact .da-card-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 20px !important;
       font-weight: 800 !important;
+      color: #001233 !important;
+      line-height: 1.15 !important;
+      margin: 0 0 2px 0 !important;
+      min-height: 24px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+    }
+    .da-hero-exact .da-card-sub {
       font-size: 14px !important;
+      font-weight: 700 !important;
+      color: #526685 !important;
+      line-height: 1.2 !important;
+      margin: 0 !important;
+      min-height: 18px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
     }
 
-    @media (max-width: 1080px) {
-      .da-hero-exact .da-top-row { flex-direction: column !important; text-align: center !important; gap: 32px !important; }
-      .da-hero-exact .da-left-col { align-items: center !important; max-width: 100% !important; }
-      .da-hero-exact .da-right-col { flex: 0 0 auto !important; }
-      .da-hero-exact .da-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
-      .da-hero-exact .da-strip { flex-wrap: wrap !important; border-radius: 20px !important; gap: 16px !important; }
+    .da-hero-exact .da-buttons-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 20px !important;
+      width: 100% !important;
     }
-    @media (max-width: 640px) {
-      .da-hero-exact .da-cards-grid { grid-template-columns: 1fr !important; }
-      .da-hero-exact .da-container { padding: 0 20px !important; }
-      .da-hero-exact .da-stage { width: 340px !important; height: 260px !important; }
-      .da-hero-exact .da-blue-circle { width: 260px !important; height: 260px !important; }
-      .da-hero-exact .da-girl-img { max-height: 290px !important; transform: translateY(70px) !important; }
+    .da-hero-exact .da-btn-primary {
+      background: #0052ff !important;
+      color: #ffffff !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 17.5px !important;
+      padding: 18px !important;
+      border-radius: 16px !important;
+      border: none !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      text-decoration: none !important;
+      box-shadow: 0 8px 24px rgba(0, 82, 255, 0.25) !important;
+    }
+    .da-hero-exact .da-btn-whatsapp {
+      background: #ffffff !important;
+      color: #0052ff !important;
+      border: 2px solid #0052ff !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 17.5px !important;
+      padding: 17px !important;
+      border-radius: 16px !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      text-decoration: none !important;
+    }
+
+    @media (max-width: 992px) {
+      .da-hero-exact .da-top-row { flex-direction: column !important; }
+      .da-hero-exact .da-left-col, .da-hero-exact .da-right-col { max-width: 100% !important; width: 100% !important; flex: 1 1 100% !important; }
+      .da-hero-exact .da-stage { width: 100% !important; }
+      .da-hero-exact .da-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .da-hero-exact .da-buttons-grid { grid-template-columns: 1fr !important; }
     }
   </style>
 
@@ -362,47 +387,62 @@
       </div>
     </div>
 
-    <div class="da-bottom-row">
+        <div class="da-bottom-row">
       <div class="da-cards-grid">
         <div class="da-card">
-          <span class="da-card-pill">6 Months</span>
-          <div class="da-card-h3">Structured Internship</div>
-          <p class="da-card-p">Industry-aligned curriculum with step-by-step full-stack app building.</p>
+          <div class="da-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#0052FF" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C6.55228 2 7 2.44772 7 3V4H17V3C17 2.44772 17.4477 2 18 2C18.5523 2 19 2.44772 19 3V4H20C21.6569 4 23 5.34315 23 7V19C23 20.6569 21.6569 22 20 22H4C2.34315 22 1 20.6569 1 19V7C1 5.34315 2.34315 4 4 4H5V3C5 2.44772 5.44772 2 6 2ZM3 9V19C3 19.5523 3.44772 20 4 20H20C20.5523 20 21 19.5523 21 19V9H3ZM6 12C6 11.4477 6.44772 11 7 11H9C9.55228 11 10 11.4477 10 12V14C10 14.5523 9.55228 15 9 15H7C6.44772 15 6 14.5523 6 14V12ZM11 12C11 11.4477 11.4477 11 12 11H14C14.5523 11 15 11.4477 15 12V14C15 14.5523 14.5523 15 14 15H12C11.4477 15 11 14.5523 11 14V12ZM16 12C16 11.4477 16.4477 11 17 11H18C18.5523 11 19 11.4477 19 12V14C19 14.5523 18.5523 15 18 15H17C16.4477 15 6 14.5523 6 14V12Z"/>
+            </svg>
+          </div>
+          <div class="da-card-text-block">
+            <div class="da-card-title" style="font-size: 22px !important;">6</div>
+            <div class="da-card-sub">Months</div>
+          </div>
         </div>
         <div class="da-card">
-          <span class="da-card-pill">10+ Projects</span>
-          <div class="da-card-h3">Software Portfolio</div>
-          <p class="da-card-p">Build responsive frontends, secure APIs, and database-backed web apps.</p>
+          <div class="da-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#0052FF" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M3 4C2.44772 4 2 4.44772 2 5V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V8C22 6.89543 21.1046 6 20 6H12.5858L10.5858 4H4ZM4 8H20V19H4V8ZM8 11C7.44772 11 7 11.4477 7 12V16C7 16.5523 7.44772 17 8 17C8.55228 17 9 16.5523 9 16V12C9 11.4477 8.55228 11 8 11ZM12 10C11.4477 10 11 10.4477 11 11V16C11 16.5523 11.4477 17 12 17C12.5523 17 13 16.5523 13 16V11C13 10.4477 12.5523 10 12 10ZM16 13C15.4477 13 15 13.4477 15 14V16C15 16.5523 15.4477 17 16 17C16.5523 17 17 16.5523 17 16V14C17 13.4477 16.5523 13 16 13Z"/>
+            </svg>
+          </div>
+          <div class="da-card-text-block">
+            <div class="da-card-title" style="font-size: 22px !important;">10+</div>
+            <div class="da-card-sub">Projects</div>
+          </div>
         </div>
         <div class="da-card">
-          <span class="da-card-pill">Live Projects</span>
-          <div class="da-card-h3">Client Project Exposure</div>
-          <p class="da-card-p">Gain hands-on corporate project experience with full-stack development.</p>
+          <div class="da-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#0052FF" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9 3C8.44772 3 8 3.44772 8 4V6H4C2.34315 6 1 7.34315 1 9V19C1 20.6569 2.34315 22 4 22H20C21.6569 22 23 20.6569 23 19V9C23 7.34315 21.6569 6 20 6H16V4C16 3.44772 15.5523 3 15 3H9ZM10 5H14V6H10V5ZM3 11V9C3 8.44772 3.44772 8 4 8H20C20.5523 8 21 8.44772 21 9V11H14V10C14 9.44772 10 9.44772 10 10V11H3ZM3 13V19C3 19.5523 3.44772 20 4 20H20C20.5523 20 21 19.5523 21 19V13H15V14C15 14.5523 14.5523 15 14 15H10C9.44772 15 9 14.5523 9 14V13H3Z"/>
+            </svg>
+          </div>
+          <div class="da-card-text-block">
+            <div class="da-card-title" style="font-size: 17px !important;">Corporate</div>
+            <div class="da-card-sub">Experience</div>
+          </div>
         </div>
         <div class="da-card">
-          <span class="da-card-pill">Certificates</span>
-          <div class="da-card-h3">Internship + LOR</div>
-          <p class="da-card-p">Receive verifiable Internship Completion Certificate and Recommendation Letter.</p>
+          <div class="da-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#0052FF" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M5 2C3.34315 2 2 3.34315 2 5V19C2 20.6569 3.34315 22 5 22H19C20.6569 22 22 20.6569 22 19V5C22 3.34315 20.6569 2 19 2H5ZM6 6C6 5.44772 6.44772 5 7 5H17C17.5523 5 18 5.44772 18 6C18 6.55228 17.5523 7 17 7H7C6.44772 7 6 6.55228 6 6ZM6 10C6 9.44772 6.44772 9 7 9H13C13.5523 9 14 9.44772 14 10C14 10.5523 13.5523 11 13 11H7C6.44772 11 6 10.5523 6 10ZM6 14C6 13.4477 6.44772 13 7 13H11C11.5523 13 12 13.4477 12 14C12 14.5523 11.5523 15 11 15H7C6.44772 15 6 14.5523 6 14ZM16.5 13.25C15.2574 13.25 14.25 14.2574 14.25 15.5C14.25 16.7426 15.2574 17.75 16.5 17.75C17.7426 17.75 18.75 16.7426 18.75 15.5C18.75 14.2574 17.7426 13.25 16.5 13.25ZM16.5 19.25C15.2155 19.25 14.0754 18.6083 13.4 17.6358L13.1 19.8L14.7 19.3L15.6 20.6L16.5 19.25Z"/>
+            </svg>
+          </div>
+          <div class="da-card-text-block">
+            <div class="da-card-title" style="font-size: 17px !important;">Certificate</div>
+            <div class="da-card-sub">+ Letter + LOR</div>
+          </div>
         </div>
       </div>
-
-      <div class="da-strip">
-        <div class="da-strip-item">
-          <div class="da-strip-icon">✓</div>
-          <span>HTML5, CSS3 & Responsive UI</span>
-        </div>
-        <div class="da-strip-item">
-          <div class="da-strip-icon">✓</div>
-          <span>JavaScript & React</span>
-        </div>
-        <div class="da-strip-item">
-          <div class="da-strip-icon">✓</div>
-          <span>Node.js & REST APIs</span>
-        </div>
-        <div class="da-strip-item">
-          <div class="da-strip-icon">✓</div>
-          <span>SQL Databases & Deployment</span>
-        </div>
+      <div class="da-buttons-grid">
+        <button type="button" class="da-btn-primary" data-open-lead>Enquire Now <span class="arrow">→</span></button>
+        <a href="https://wa.me/919999999999?text=Hi%2C%20I%20am%20interested%20in%20Full%20Stack%20Development%20Internship" target="_blank" rel="noopener" class="da-btn-whatsapp">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382C17.115 14.204 15.36 13.342 15.033 13.224C14.706 13.105 14.468 13.046 14.23 13.403C13.992 13.76 13.308 14.562 13.099 14.801C12.891 15.039 12.683 15.068 12.326 14.89C11.969 14.711 10.82 14.335 9.458 13.121C8.397 12.176 7.681 11.009 7.473 10.652C7.265 10.295 7.451 10.102 7.63 9.924C7.79 9.765 7.986 9.508 8.164 9.3C8.342 9.092 8.401 8.943 8.52 8.705C8.639 8.467 8.58 8.259 8.491 8.081C8.402 7.903 7.688 6.149 7.391 5.435C7.102 4.739 6.81 4.834 6.591 4.823C6.383 4.812 6.145 4.812 5.907 4.812C5.669 4.812 5.283 4.901 4.956 5.258C4.629 5.615 3.707 6.477 3.707 8.232C3.707 9.987 4.986 11.682 5.164 11.92C5.342 12.158 7.681 15.762 11.266 17.311C12.119 17.68 12.784 17.901 13.302 18.065C14.157 18.337 14.935 18.298 15.549 18.207C16.234 18.105 17.659 17.345 17.956 16.512C18.253 15.679 18.253 14.965 18.164 14.817C18.075 14.668 17.837 14.56 17.472 14.382Z" fill="#0052FF"/>
+            <path d="M12.001 2C6.477 2 1.996 6.48 1.996 12C1.996 13.916 2.537 15.702 3.473 17.227L2 22.5L7.425 21.053C8.889 21.861 10.395 22.28 12.001 22.28C17.525 22.28 22.006 17.8 22.006 12.28C22.006 6.76 17.525 2 12.001 2ZM12.001 20.407C10.589 20.407 9.208 20.02 8.01 19.309L7.724 19.139L4.502 19.999L5.378 16.927L5.19 16.628C4.385 15.346 3.96 13.84 3.96 12.28C3.96 7.844 7.565 4.239 12.001 4.239C16.437 4.239 20.042 7.844 20.042 12.28C20.042 16.716 16.437 20.407 12.001 20.407Z" fill="#0052FF"/>
+          </svg>
+          Chat on WhatsApp
+        </a>
       </div>
     </div>
   </div>
