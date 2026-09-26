@@ -6127,6 +6127,293 @@ header .brand img {
   }
 }
 
+/* Standardized Internship Page Sections */
+.da-sec-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 50px !important;
+  font-weight: 800 !important;
+  color: #001233 !important;
+  margin: 0 0 10px 0 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.15 !important;
+}
+.da-sec-kicker {
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  color: #526685 !important;
+  text-transform: uppercase !important;
+  margin-bottom: 30px !important;
+}
+
+/* Corporate Experience */
+.da-corp-block { margin-top: 80px !important; }
+.da-corp-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 36px !important;
+  margin-top: 36px !important;
+  width: 100% !important;
+}
+.da-corp-img-col {
+  flex: 0 0 560px !important;
+  max-width: 580px !important;
+  width: 100% !important;
+}
+.da-corp-img {
+  width: 100% !important;
+  height: 350px !important;
+  object-fit: cover !important;
+  border-radius: 20px !important;
+  display: block !important;
+  box-shadow: 0 8px 30px rgba(0, 30, 84, 0.08) !important;
+}
+.da-corp-cards-col {
+  flex: 1 1 auto !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 16px !important;
+  width: 100% !important;
+}
+.da-corp-card {
+  background: #edf4fe !important;
+  border-radius: 16px !important;
+  padding: 24px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+.da-corp-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.08) !important;
+}
+.da-corp-card-icon {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  background: #dbeafe !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+.da-corp-card-icon svg {
+  width: 24px !important;
+  height: 24px !important;
+  fill: #0052ff !important;
+}
+.da-corp-card-text {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  color: #001233 !important;
+  line-height: 1.35 !important;
+}
+
+/* What You Gain */
+.da-gain-block { margin-top: 80px !important; }
+.da-gain-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  margin-top: 36px !important;
+  width: 100% !important;
+}
+.da-gain-card {
+  border-radius: 20px !important;
+  padding: 38px 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+  transition: transform 0.2s ease !important;
+}
+.da-gain-card:hover { transform: translateY(-3px) !important; }
+.da-gain-card-1 { background: #e6f9f0 !important; }
+.da-gain-card-2 { background: #f1eafd !important; }
+.da-gain-card-3 { background: #e0edff !important; }
+.da-gain-icon {
+  margin-bottom: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 56px !important;
+  width: 100% !important;
+}
+.da-gain-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  color: #001233 !important;
+  margin-bottom: 8px !important;
+  line-height: 1.25 !important;
+}
+.da-gain-sub {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #526685 !important;
+  line-height: 1.4 !important;
+}
+
+/* Who Can Join */
+.da-join-block { margin-top: 80px !important; }
+.da-join-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+  margin-top: 36px !important;
+  width: 100% !important;
+}
+.da-join-card {
+  border-radius: 18px !important;
+  padding: 32px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+  transition: transform 0.2s ease !important;
+}
+.da-join-card:hover { transform: translateY(-3px) !important; }
+.da-join-card-1 { background: #edf4fe !important; }
+.da-join-card-2 { background: #e6f9f5 !important; }
+.da-join-card-3 { background: #edf4fe !important; }
+.da-join-card-4 { background: #f1eafd !important; }
+.da-join-icon {
+  width: 54px !important;
+  height: 54px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 16px !important;
+}
+.da-join-card-1 .da-join-icon, .da-join-card-3 .da-join-icon { background: #dbeafe !important; }
+.da-join-card-2 .da-join-icon { background: #ccfbf1 !important; }
+.da-join-card-4 .da-join-icon { background: #e9d5ff !important; }
+.da-join-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  color: #001233 !important;
+  line-height: 1.25 !important;
+}
+
+/* What Our Learners Say */
+.da-testimonial-block { margin-top: 80px !important; }
+.da-testimonial-card {
+  background: #f4f8ff !important;
+  border-radius: 24px !important;
+  padding: 40px 48px !important;
+  margin-top: 36px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 32px !important;
+}
+.da-test-content-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 36px !important;
+}
+.da-test-avatar-wrap {
+  flex: 0 0 110px !important;
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  border: 4px solid #dbeafe !important;
+  box-shadow: 0 8px 24px rgba(0, 82, 255, 0.1) !important;
+}
+.da-test-avatar {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+.da-test-text-wrap { flex: 1 1 auto !important; }
+.da-test-quote {
+  font-size: 19.5px !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  line-height: 1.55 !important;
+  margin-bottom: 14px !important;
+}
+.da-test-author {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #001233 !important;
+  margin-bottom: 2px !important;
+}
+.da-test-role {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #526685 !important;
+}
+.da-test-controls-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-top: 10px !important;
+}
+.da-test-dots {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.da-test-dot {
+  height: 10px !important;
+  border-radius: 5px !important;
+  background: #cbd5e1 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+.da-test-dot.active { width: 28px !important; background: #0052ff !important; }
+.da-test-dot:not(.active) { width: 10px !important; }
+.da-test-arrows {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+.da-test-arrow-btn {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  background: #e0edff !important;
+  color: #0052ff !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  font-size: 18px !important;
+  transition: background 0.2s ease, color 0.2s ease !important;
+}
+.da-test-arrow-btn:hover {
+  background: #0052ff !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 868px) {
+  .da-corp-grid { flex-direction: column !important; }
+  .da-corp-img-col { max-width: 100% !important; }
+  .da-gain-grid { grid-template-columns: 1fr !important; }
+  .da-join-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .da-test-content-row { flex-direction: column !important; text-align: center !important; }
+  .da-testimonial-card { padding: 32px 24px !important; }
+  .da-sec-title { font-size: 32px !important; }
+}
+@media (max-width: 540px) {
+  .da-corp-cards-col { grid-template-columns: 1fr !important; }
+  .da-join-grid { grid-template-columns: 1fr !important; }
+}
+
 
 
 

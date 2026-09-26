@@ -1518,50 +1518,6 @@
       </div>
     </div>
 
-    <!-- Sample Internship Documents Section -->
-    <div class="da-docs-block" id="sample-documents-sec">
-      <h2 class="da-sec-title">Sample Internship Documents</h2>
-      <div class="da-sec-kicker">SEE WHAT YOU WILL RECEIVE.</div>
-
-      <div class="da-docs-carousel-wrap">
-        <button class="da-docs-nav-btn da-docs-nav-prev" onclick="scrollDocCards(-1)" aria-label="Previous Document">‹</button>
-
-        <div class="da-docs-grid" id="daDocsGrid">
-          <!-- Document 1: Certificate -->
-          <div class="da-doc-card-item" onclick="openDocModal('assets/Internship Certificate.png', 'Sample Internship Certificate')">
-            <div class="da-doc-frame">
-              <img src="assets/Internship Certificate.png" alt="Sample Internship Certificate" class="da-doc-img">
-            </div>
-            <div class="da-doc-caption">Sample Internship Certificate</div>
-          </div>
-
-          <!-- Document 2: Letter -->
-          <div class="da-doc-card-item" onclick="openDocModal('assets/Internship Letter.jpeg', 'Sample Internship Letter')">
-            <div class="da-doc-frame">
-              <img src="assets/Internship Letter.jpeg" alt="Sample Internship Letter" class="da-doc-img">
-            </div>
-            <div class="da-doc-caption">Sample Internship Letter</div>
-          </div>
-
-          <!-- Document 3: LOR -->
-          <div class="da-doc-card-item" onclick="openDocModal('assets/LOR.png', 'Sample Letter of Recommendation')">
-            <div class="da-doc-frame">
-              <img src="assets/LOR.png" alt="Sample Letter of Recommendation" class="da-doc-img">
-            </div>
-            <div class="da-doc-caption">Sample Letter of Recommendation</div>
-          </div>
-        </div>
-
-        <button class="da-docs-nav-btn da-docs-nav-next" onclick="scrollDocCards(1)" aria-label="Next Document">›</button>
-      </div>
-
-      <div class="da-docs-btn-wrap">
-        <button type="button" onclick="openDocModal('assets/Internship Certificate.png', 'Sample Internship Certificate')" class="da-btn-outlined">
-          View All Sample Documents <span class="arrow">→</span>
-        </button>
-      </div>
-    </div>
-
     <!-- Who Can Join Section -->
     <div class="da-join-block" id="who-can-join-sec">
       <h2 class="da-sec-title">Who Can Join?</h2>
@@ -1792,66 +1748,7 @@
 })();
 </script>
 
-<!-- Full View Document Lightbox Modal -->
-<div class="da-doc-modal-overlay" id="daDocModal" onclick="closeDocModal(event)">
-  <div class="da-doc-modal-content" onclick="event.stopPropagation()">
-    <button class="da-doc-modal-close" onclick="closeDocModal(event)" aria-label="Close modal">✕</button>
-    <div id="daDocModalBody" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-      <!-- Dynamic modal image or preview element inserted here -->
-    </div>
-    <div class="da-doc-modal-title" id="daDocModalTitle">Sample Internship Certificate</div>
-  </div>
-</div>
 
-<script>
-function openDocModal(src, title) {
-  const modal = document.getElementById('daDocModal');
-  const modalBody = document.getElementById('daDocModalBody');
-  const modalTitle = document.getElementById('daDocModalTitle');
-
-  if (!modal || !modalBody || !modalTitle) return;
-
-  modalTitle.innerText = title;
-
-  if (src === 'letter-preview') {
-    modalBody.innerHTML = `
-      <div style="background: #ffffff; width: 100%; max-width: 650px; padding: 48px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); text-align: left; font-family: 'Plus Jakarta Sans', sans-serif;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #0052ff; padding-bottom: 16px; margin-bottom: 24px;">
-          <div style="font-size: 24px; font-weight: 800; color: #0052ff; letter-spacing: -0.02em;">EDURUP LEARNING</div>
-          <div style="font-size: 13px; font-weight: 700; color: #526685; text-align: right;">INTERNSHIP OFFER LETTER<br><span style="color: #94a3b8; font-weight: 500;">Ref: EL/INT/2026</span></div>
-        </div>
-        <p style="font-weight: 700; color: #001233; margin-bottom: 16px;">To Whom It May Concern,</p>
-        <p style="color: #334155; line-height: 1.7; font-size: 16px; margin-bottom: 16px;">We are pleased to confirm that the candidate has been accepted for the <b>6-Month Corporate Internship Program</b> in <b>Data Analytics</b> at Edurup Learning.</p>
-        <p style="color: #334155; line-height: 1.7; font-size: 16px; margin-bottom: 24px;">During this internship, the intern will engage in structured learning, execute 10+ industry capstones, work with SQL, Python, and Power BI dashboards, and participate in corporate workflows.</p>
-        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #0052ff; margin-bottom: 28px;">
-          <div style="font-weight: 700; color: #001233; margin-bottom: 6px;">Program Specifications:</div>
-          <div style="font-size: 15px; color: #475569; line-height: 1.6;">
-            • <b>Domain:</b> Data Analytics<br>
-            • <b>Duration:</b> 6 Months<br>
-            • <b>Format:</b> Corporate Remote Internship
-          </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 20px;">
-          <div><div style="font-weight: 800; color: #001233;">Edurup Learning</div><div style="font-size: 13px; color: #64748b;">Authorized Signatory</div></div>
-          <div style="background: #e0edff; color: #0052ff; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 13px;">Official Engagement Document</div>
-        </div>
-      </div>
-    `;
-  } else {
-    modalBody.innerHTML = `<img src="${src}" alt="${title}" class="da-doc-modal-img">`;
-  }
-
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeDocModal(event) {
-  const modal = document.getElementById('daDocModal');
-  if (modal) {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-}
 
 function scrollDocCards(direction) {
   const grid = document.getElementById('daDocsGrid');
