@@ -6527,6 +6527,7 @@ header .brand img {
   grid-template-columns: repeat(3, 1fr) !important;
   gap: 24px !important;
   width: 100% !important;
+  margin-top: 0 !important;
 }
 .da-doc-card-item,
 .da-about-journey-exact .da-doc-card-item {
