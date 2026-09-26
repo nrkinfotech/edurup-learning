@@ -6315,21 +6315,21 @@ header .brand img {
   box-sizing: border-box !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 32px !important;
+  gap: 28px !important;
 }
 .da-test-content-row {
   display: flex !important;
   align-items: center !important;
-  gap: 36px !important;
+  gap: 32px !important;
 }
 .da-test-avatar-wrap {
-  flex: 0 0 110px !important;
-  width: 110px !important;
-  height: 110px !important;
+  flex: 0 0 96px !important;
+  width: 96px !important;
+  height: 96px !important;
   border-radius: 50% !important;
   overflow: hidden !important;
-  border: 4px solid #dbeafe !important;
-  box-shadow: 0 8px 24px rgba(0, 82, 255, 0.1) !important;
+  border: 3px solid #ffffff !important;
+  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.15) !important;
 }
 .da-test-avatar {
   width: 100% !important;
@@ -6338,29 +6338,30 @@ header .brand img {
 }
 .da-test-text-wrap { flex: 1 1 auto !important; }
 .da-test-quote {
-  font-size: 19.5px !important;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+  font-size: 18.5px !important;
   font-weight: 600 !important;
   color: #1e293b !important;
-  line-height: 1.55 !important;
-  margin-bottom: 14px !important;
+  line-height: 1.5 !important;
+  margin-bottom: 16px !important;
 }
 .da-test-author {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  font-size: 20px !important;
+  font-size: 19px !important;
   font-weight: 800 !important;
   color: #001233 !important;
   margin-bottom: 2px !important;
 }
 .da-test-role {
-  font-size: 15px !important;
-  font-weight: 600 !important;
-  color: #526685 !important;
+  font-size: 14.5px !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
 }
 .da-test-controls-row {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding-top: 10px !important;
+  padding-top: 4px !important;
 }
 .da-test-dots {
   display: flex !important;
@@ -6368,45 +6369,40 @@ header .brand img {
   gap: 8px !important;
 }
 .da-test-dot {
-  height: 10px !important;
-  border-radius: 5px !important;
+  height: 8px !important;
+  border-radius: 4px !important;
   background: #cbd5e1 !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
 }
-.da-test-dot.active { width: 28px !important; background: #0052ff !important; }
-.da-test-dot:not(.active) { width: 10px !important; }
+.da-test-dot.active { width: 24px !important; background: #0052ff !important; }
+.da-test-dot:not(.active) { width: 8px !important; border-radius: 50% !important; }
 .da-test-arrows {
   display: flex !important;
   align-items: center !important;
   gap: 12px !important;
 }
 .da-test-arrow-btn {
-  width: 44px !important;
-  height: 44px !important;
+  width: 40px !important;
+  height: 40px !important;
   border-radius: 50% !important;
   background: #e0edff !important;
   color: #0052ff !important;
   border: none !important;
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
   transition: all 0.2s ease !important;
-  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.08) !important;
-}
-.da-test-arrow-btn svg {
-  width: 20px !important;
-  height: 20px !important;
-  stroke: currentColor !important;
-  transition: stroke 0.2s ease !important;
-  display: block !important;
 }
 .da-test-arrow-btn:hover {
-  background: #0052ff !important;
-  color: #ffffff !important;
-  transform: translateY(-1px) scale(1.05) !important;
-  box-shadow: 0 6px 16px rgba(0, 82, 255, 0.25) !important;
+  background: #d4e5ff !important;
+  color: #0040d6 !important;
+  transform: scale(1.05) !important;
 }
 
 @media (max-width: 868px) {
