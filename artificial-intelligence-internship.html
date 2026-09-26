@@ -445,7 +445,7 @@
       <div class="da-testimonial-card">
         <div class="da-test-content-row">
           <div class="da-test-avatar-wrap">
-            <img src="assets/ananya-avatar.jpg" alt="Ananya S. - Data Analytics Intern" class="da-test-avatar">
+            <img src="assets/ananya-avatar.jpg" alt="Ananya S." class="da-test-avatar">
           </div>
           <div class="da-test-text-wrap">
             <p class="da-test-quote">“The Data Analytics internship at Edurup Learning helped me gain practical skills and confidence. The projects were industry-focused and the support from the team was excellent.”</p>
@@ -456,13 +456,17 @@
 
         <div class="da-test-controls-row">
           <div class="da-test-dots">
-            <span class="da-test-dot active"></span>
-            <span class="da-test-dot"></span>
-            <span class="da-test-dot"></span>
+            <span class="da-test-dot active" onclick="setDaTestimonial(this, 0)"></span>
+            <span class="da-test-dot" onclick="setDaTestimonial(this, 1)"></span>
+            <span class="da-test-dot" onclick="setDaTestimonial(this, 2)"></span>
           </div>
           <div class="da-test-arrows">
-            <button class="da-test-arrow-btn" aria-label="Previous review">←</button>
-            <button class="da-test-arrow-btn" aria-label="Next review">→</button>
+            <button type="button" class="da-test-arrow-btn" aria-label="Previous review" onclick="prevDaTestimonial(this)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <button type="button" class="da-test-arrow-btn" aria-label="Next review" onclick="nextDaTestimonial(this)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -540,6 +544,73 @@
   const close=()=>{overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true')};
   document.querySelectorAll('[data-open-lead]').forEach(el=>el.addEventListener('click',open));
   document.querySelectorAll('[data-close-lead]').forEach(el=>el.addEventListener('click',close));
+})();
+</script>
+<script>
+(function(){
+  const daReviews = [
+    {
+      avatar: 'assets/ananya-avatar.jpg',
+      quote: '“The Data Analytics internship at Edurup Learning helped me gain practical skills and confidence. The projects were industry-focused and the support from the team was excellent.”',
+      author: 'Ananya S.',
+      role: 'B.Com Student'
+    },
+    {
+      avatar: 'assets/testimonial-rahul.jpg',
+      quote: '“Great mentors, practical corporate projects, and excellent guidance throughout the 6 months. Working on real scenarios boosted my problem-solving ability.”',
+      author: 'Rahul K.',
+      role: 'B.Tech Student'
+    },
+    {
+      avatar: 'assets/testimonial-sneha.jpg',
+      quote: '“It was an amazing learning experience. The structured curriculum and hands-on project feedback really helped me build a professional portfolio.”',
+      author: 'Sneha M.',
+      role: 'MBA Student'
+    }
+  ];
+
+  window.setDaTestimonial = function(btnEl, index) {
+    const block = btnEl.closest('.da-testimonial-block') || document.querySelector('.da-testimonial-block');
+    if (!block) return;
+    const dots = block.querySelectorAll('.da-test-dot');
+
+    let newIdx = index;
+    if (newIdx < 0) newIdx = daReviews.length - 1;
+    if (newIdx >= daReviews.length) newIdx = 0;
+
+    const avatar = block.querySelector('.da-test-avatar');
+    const quote = block.querySelector('.da-test-quote');
+    const author = block.querySelector('.da-test-author');
+    const role = block.querySelector('.da-test-role');
+
+    if (avatar) { avatar.src = daReviews[newIdx].avatar; avatar.alt = daReviews[newIdx].author; }
+    if (quote) quote.textContent = daReviews[newIdx].quote;
+    if (author) author.textContent = daReviews[newIdx].author;
+    if (role) role.textContent = daReviews[newIdx].role;
+
+    dots.forEach((dot, idx) => {
+      if (idx === newIdx) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  };
+
+  window.prevDaTestimonial = function(btnEl) {
+    const block = btnEl.closest('.da-testimonial-block') || document.querySelector('.da-testimonial-block');
+    if (!block) return;
+    const dots = block.querySelectorAll('.da-test-dot');
+    let currentIdx = 0;
+    dots.forEach((d, i) => { if (d.classList.contains('active')) currentIdx = i; });
+    window.setDaTestimonial(btnEl, currentIdx - 1);
+  };
+
+  window.nextDaTestimonial = function(btnEl) {
+    const block = btnEl.closest('.da-testimonial-block') || document.querySelector('.da-testimonial-block');
+    if (!block) return;
+    const dots = block.querySelectorAll('.da-test-dot');
+    let currentIdx = 0;
+    dots.forEach((d, i) => { if (d.classList.contains('active')) currentIdx = i; });
+    window.setDaTestimonial(btnEl, currentIdx + 1);
+  };
 })();
 </script>
 </body>

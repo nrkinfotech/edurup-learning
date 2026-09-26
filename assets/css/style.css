@@ -6392,12 +6392,21 @@ header .brand img {
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  font-size: 18px !important;
-  transition: background 0.2s ease, color 0.2s ease !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.08) !important;
+}
+.da-test-arrow-btn svg {
+  width: 20px !important;
+  height: 20px !important;
+  stroke: currentColor !important;
+  transition: stroke 0.2s ease !important;
+  display: block !important;
 }
 .da-test-arrow-btn:hover {
   background: #0052ff !important;
   color: #ffffff !important;
+  transform: translateY(-1px) scale(1.05) !important;
+  box-shadow: 0 6px 16px rgba(0, 82, 255, 0.25) !important;
 }
 
 @media (max-width: 868px) {
