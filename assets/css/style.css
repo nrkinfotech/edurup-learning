@@ -5541,41 +5541,10 @@ header .brand img {
     margin: 0 0 18px 0 !important;
   }
 
-  /* Hero Student Cutout Photo on Mobile */
-  .v-hero-right {
-    order: 5 !important;
-    min-height: auto !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    position: relative !important;
-    margin: 8px 0 20px 0 !important;
-  }
-
+  /* Remove Girl Cutout Photo from Hero on Mobile */
+  .v-hero-right,
+  .v-girl-cutout-img,
   .v-hero-backdrop-circle {
-    width: 210px !important;
-    height: 210px !important;
-    border-radius: 50% !important;
-    background: #cbe5ff !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    z-index: 1 !important;
-  }
-
-  .v-girl-cutout-img {
-    height: 230px !important;
-    width: auto !important;
-    position: relative !important;
-    z-index: 2 !important;
-    margin-bottom: 0 !important;
-    transform: none !important;
-    object-fit: contain !important;
-  }
-
-  .v-floating-checklist-card {
     display: none !important;
   }
 
@@ -5894,35 +5863,38 @@ header .brand img {
 
   .journey-v2-stepper {
     display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
     width: 100% !important;
+    gap: 4px !important;
+    position: relative !important;
   }
 
   .j-step-item {
     display: flex !important;
-    flex-direction: row !important;
+    flex-direction: column !important;
     align-items: center !important;
-    text-align: left !important;
-    gap: 14px !important;
-    padding: 14px 16px !important;
-    background: #f8fafc !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 14px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
-    width: 100% !important;
+    text-align: center !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   .j-step-num {
-    width: 44px !important;
-    height: 44px !important;
+    width: 36px !important;
+    height: 36px !important;
     border-radius: 50% !important;
     display: grid !important;
     place-items: center !important;
-    font-size: 15px !important;
+    font-size: 13.5px !important;
     font-weight: 800 !important;
+    margin-bottom: 8px !important;
     flex-shrink: 0 !important;
-    margin-bottom: 0 !important;
+    z-index: 2 !important;
   }
 
   .j-step-num.num-blue {
@@ -5944,18 +5916,24 @@ header .brand img {
   }
 
   .j-step-divider {
-    display: none !important;
+    display: block !important;
+    flex: 1 1 0% !important;
+    height: 0 !important;
+    border-top: 2px dashed #cbd5e1 !important;
+    margin-top: 18px !important;
+    min-width: 8px !important;
   }
 
   .j-step-title {
-    font-size: 15px !important;
+    font-size: 13.5px !important;
     font-weight: 800 !important;
-    margin: 0 0 2px 0 !important;
+    margin: 0 0 3px 0 !important;
     color: #0f172a !important;
+    line-height: 1.2 !important;
   }
 
   .j-step-sub {
-    font-size: 12px !important;
+    font-size: 10.5px !important;
     line-height: 1.35 !important;
     color: #64748b !important;
     margin: 0 !important;
