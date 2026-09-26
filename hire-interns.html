@@ -990,9 +990,9 @@
 
     /* STANDALONE SECTIONS WRAPPER */
     .hi-standalone-section {
-      max-width: 1200px !important;
-      margin: 60px auto !important;
-      padding: 0 24px !important;
+      max-width: 1400px !important;
+      margin: 70px auto !important;
+      padding: 0 32px !important;
       width: 100% !important;
       box-sizing: border-box !important;
     }
@@ -1002,54 +1002,54 @@
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
-      gap: 36px !important;
+      gap: 40px !important;
       width: 100% !important;
     }
     .hi-ss-header {
       text-align: center !important;
-      max-width: 650px !important;
+      max-width: 750px !important;
     }
     .hi-ss-title {
       font-family: 'Plus Jakarta Sans', sans-serif !important;
-      font-size: 34px !important;
+      font-size: 38px !important;
       font-weight: 800 !important;
       color: #0f172a !important;
-      margin: 0 0 8px 0 !important;
+      margin: 0 0 10px 0 !important;
       letter-spacing: -0.025em !important;
     }
     .hi-ss-subtitle {
       font-family: 'Inter', sans-serif !important;
-      font-size: 16px !important;
+      font-size: 17px !important;
       color: #64748b !important;
       margin: 0 !important;
     }
     .hi-ss-grid {
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
-      gap: 24px !important;
+      gap: 28px !important;
       width: 100% !important;
     }
     .hi-ss-card {
       background: #ffffff !important;
       border: 1px solid #e2e8f0 !important;
-      border-radius: 20px !important;
-      padding: 32px 28px !important;
+      border-radius: 24px !important;
+      padding: 36px 32px !important;
       display: flex !important;
       flex-direction: column !important;
       justify-content: space-between !important;
-      gap: 24px !important;
+      gap: 28px !important;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
       transition: all 0.3s ease !important;
       position: relative !important;
     }
     .hi-ss-card:hover {
-      transform: translateY(-4px) !important;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+      transform: translateY(-5px) !important;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08) !important;
       border-color: #cbd5e1 !important;
     }
     .hi-ss-quote-mark {
       font-family: 'Plus Jakarta Sans', Georgia, serif !important;
-      font-size: 48px !important;
+      font-size: 52px !important;
       line-height: 1 !important;
       font-weight: 800 !important;
       color: #38bdf8 !important;
@@ -1057,7 +1057,7 @@
     }
     .hi-ss-text {
       font-family: 'Inter', sans-serif !important;
-      font-size: 15px !important;
+      font-size: 16px !important;
       line-height: 1.65 !important;
       color: #334155 !important;
       margin: 0 !important;
@@ -1067,18 +1067,18 @@
     .hi-ss-author-box {
       display: flex !important;
       align-items: center !important;
-      gap: 14px !important;
+      gap: 16px !important;
     }
     .hi-ss-avatar {
-      width: 48px !important;
-      height: 48px !important;
+      width: 52px !important;
+      height: 52px !important;
       border-radius: 50% !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       color: #ffffff !important;
       flex-shrink: 0 !important;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12) !important;
     }
     .hi-ss-avatar.purple { background: #7c3aed !important; }
     .hi-ss-avatar.blue { background: #0052ff !important; }
@@ -1090,14 +1090,14 @@
     }
     .hi-ss-name {
       font-family: 'Plus Jakarta Sans', sans-serif !important;
-      font-size: 15px !important;
+      font-size: 16px !important;
       font-weight: 800 !important;
       color: #0f172a !important;
       line-height: 1.3 !important;
     }
     .hi-ss-company {
       font-family: 'Inter', sans-serif !important;
-      font-size: 13px !important;
+      font-size: 13.5px !important;
       color: #64748b !important;
       font-weight: 500 !important;
     }
@@ -1105,17 +1105,124 @@
     /* SECTION 4: HIRE INTERNS TODAY / GET STARTED FORM (STANDALONE) */
     .hi-gs-container {
       background: #e4f3fd !important;
-      border-radius: 28px !important;
-      padding: 54px 60px !important;
+      border-radius: 32px !important;
+      padding: 64px 80px !important;
       display: flex !important;
       align-items: center !important;
       justify-content: space-between !important;
-      gap: 48px !important;
+      gap: 60px !important;
       position: relative !important;
       overflow: hidden !important;
-      box-shadow: 0 12px 35px rgba(0, 82, 255, 0.05) !important;
+      box-shadow: 0 16px 40px rgba(0, 82, 255, 0.06) !important;
       width: 100% !important;
       box-sizing: border-box !important;
+    }
+    .hi-gs-circle-1 {
+      position: absolute !important;
+      width: 380px !important;
+      height: 380px !important;
+      border-radius: 50% !important;
+      background: rgba(186, 224, 255, 0.6) !important;
+      bottom: -120px !important;
+      left: 350px !important;
+      pointer-events: none !important;
+    }
+    .hi-gs-circle-2 {
+      position: absolute !important;
+      width: 260px !important;
+      height: 260px !important;
+      border-radius: 50% !important;
+      background: rgba(186, 224, 255, 0.45) !important;
+      top: -70px !important;
+      right: -40px !important;
+      pointer-events: none !important;
+    }
+    .hi-gs-left {
+      flex: 1 1 440px !important;
+      max-width: 500px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      z-index: 2 !important;
+    }
+    .hi-gs-eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13.5px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      color: #0052ff !important;
+      margin-bottom: 12px !important;
+    }
+    .hi-gs-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 42px !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      line-height: 1.15 !important;
+      margin: 0 0 16px 0 !important;
+      letter-spacing: -0.03em !important;
+    }
+    .hi-gs-desc {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 17px !important;
+      line-height: 1.6 !important;
+      color: #475569 !important;
+      margin: 0 0 36px 0 !important;
+    }
+    .hi-gs-contact-list {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 20px !important;
+      width: 100% !important;
+    }
+    .hi-gs-contact-item {
+      display: flex !important;
+      align-items: center !important;
+      gap: 18px !important;
+    }
+    .hi-gs-icon {
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: 50% !important;
+      background: #0052ff !important;
+      color: #ffffff !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 6px 18px rgba(0, 82, 255, 0.28) !important;
+      flex-shrink: 0 !important;
+    }
+    .hi-gs-contact-text {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 16px !important;
+      font-weight: 700 !important;
+      color: #0f172a !important;
+      text-decoration: none !important;
+      transition: color 0.2s ease !important;
+    }
+    .hi-gs-contact-text:hover {
+      color: #0052ff !important;
+    }
+
+    .hi-gs-right-card {
+      flex: 1 1 620px !important;
+      max-width: 680px !important;
+      background: #ffffff !important;
+      border-radius: 24px !important;
+      padding: 44px 48px !important;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08) !important;
+      z-index: 2 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .hi-gs-form-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 24px !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      margin: 0 0 28px 0 !important;
+      letter-spacing: -0.02em !important;
     }
     .hi-gs-circle-1 {
       position: absolute !important;
