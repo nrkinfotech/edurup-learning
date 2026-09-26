@@ -60,22 +60,23 @@
 </header>
 
 <main>
-<section class="ab-hero-exact" style="background: linear-gradient(180deg, #edf4ff 0%, #f7faff 100%) !important; padding: 20px 0 40px 0 !important; overflow: hidden !important; width: 100% !important;">
+<section class="ab-hero-exact" style="background: linear-gradient(180deg, #edf4ff 0%, #f7faff 100%) !important; padding: 20px 0 0 0 !important; overflow: hidden !important; width: 100% !important;">
   <style>
     .ab-hero-exact * { box-sizing: border-box !important; }
     .ab-hero-exact .ab-container {
-      max-width: 1400px !important;
+      max-width: 1480px !important;
       width: 100% !important;
-      margin: 0 auto !important;
-      padding: 0 40px !important;
+      margin: 0 0 0 auto !important;
+      padding: 0 0 0 40px !important;
       display: flex !important;
       align-items: center !important;
       justify-content: space-between !important;
-      gap: 36px !important;
+      gap: 30px !important;
     }
     .ab-hero-exact .ab-left-col {
-      flex: 1 1 540px !important;
-      max-width: 620px !important;
+      flex: 1 1 520px !important;
+      max-width: 600px !important;
+      padding: 30px 0 40px 0 !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: flex-start !important;
@@ -91,10 +92,10 @@
     }
     .ab-hero-exact .ab-title {
       font-family: 'Plus Jakarta Sans', sans-serif !important;
-      font-size: clamp(38px, 4.8vw, 56px) !important;
+      font-size: clamp(40px, 5vw, 60px) !important;
       font-weight: 800 !important;
       color: #001233 !important;
-      line-height: 1.12 !important;
+      line-height: 1.1 !important;
       letter-spacing: -0.035em !important;
       margin: 0 0 20px 0 !important;
     }
@@ -104,11 +105,11 @@
     }
     .ab-hero-exact .ab-desc {
       font-family: 'Inter', sans-serif !important;
-      font-size: 18.5px !important;
+      font-size: 19px !important;
       line-height: 1.65 !important;
       color: #4b5e7e !important;
       margin: 0 0 32px 0 !important;
-      max-width: 580px !important;
+      max-width: 560px !important;
     }
     .ab-hero-exact .ab-btn {
       display: inline-flex !important;
@@ -119,7 +120,7 @@
       font-family: 'Plus Jakarta Sans', sans-serif !important;
       font-size: 17px !important;
       font-weight: 700 !important;
-      padding: 14px 34px !important;
+      padding: 15px 36px !important;
       border-radius: 999px !important;
       text-decoration: none !important;
       box-shadow: 0 8px 24px rgba(0, 82, 255, 0.25) !important;
@@ -132,42 +133,54 @@
     }
 
     .ab-hero-exact .ab-right-col {
-      flex: 1 1 680px !important;
-      max-width: 760px !important;
+      flex: 1 1 780px !important;
+      width: 58% !important;
       display: flex !important;
       justify-content: flex-end !important;
-      align-items: center !important;
+      align-items: flex-end !important;
+      margin-right: 0 !important;
     }
     .ab-hero-exact .ab-main-photo {
       width: 100% !important;
+      max-width: 880px !important;
       height: auto !important;
-      max-height: 560px !important;
+      max-height: 650px !important;
       object-fit: contain !important;
+      object-position: right bottom !important;
       display: block !important;
+      margin-left: auto !important;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1080px) {
       .ab-hero-exact .ab-container {
         flex-direction: column !important;
         text-align: center !important;
-        padding: 20px 20px 30px 20px !important;
-        gap: 32px !important;
+        padding: 30px 20px 0 20px !important;
+        margin: 0 auto !important;
+        gap: 24px !important;
       }
       .ab-hero-exact .ab-left-col {
         align-items: center !important;
         max-width: 100% !important;
+        padding: 0 !important;
       }
       .ab-hero-exact .ab-desc {
         max-width: 100% !important;
       }
       .ab-hero-exact .ab-right-col {
-        max-width: 100% !important;
+        width: 100% !important;
         justify-content: center !important;
+        max-width: 100% !important;
+      }
+      .ab-hero-exact .ab-main-photo {
+        max-width: 100% !important;
+        max-height: 480px !important;
+        object-position: center bottom !important;
       }
     }
     @media (max-width: 640px) {
       .ab-hero-exact .ab-title {
-        font-size: 32px !important;
+        font-size: 34px !important;
       }
       .ab-hero-exact .ab-desc {
         font-size: 16px !important;
