@@ -381,6 +381,50 @@
       </div>
     </div>
 
+        <!-- Sample Internship Documents Section -->
+    <div class="da-docs-block" id="sample-documents-sec">
+      <h2 class="da-sec-title">Sample Internship Documents</h2>
+      <div class="da-sec-kicker">SEE WHAT YOU WILL RECEIVE.</div>
+
+      <div class="da-docs-carousel-wrap">
+        <button type="button" class="da-docs-nav-btn da-docs-nav-prev" onclick="scrollDocCards(-1)" aria-label="Previous Document">‹</button>
+
+        <div class="da-docs-grid" id="daDocsGrid">
+          <!-- Document 1: Certificate -->
+          <div class="da-doc-card-item" onclick="openDocModal('assets/Internship Certificate.png', 'Sample Internship Certificate')">
+            <div class="da-doc-frame">
+              <img src="assets/Internship Certificate.png" alt="Sample Internship Certificate" class="da-doc-img">
+            </div>
+            <div class="da-doc-caption">Sample Internship Certificate</div>
+          </div>
+
+          <!-- Document 2: Letter -->
+          <div class="da-doc-card-item" onclick="openDocModal('assets/Internship Letter.jpeg', 'Sample Internship Letter')">
+            <div class="da-doc-frame">
+              <img src="assets/Internship Letter.jpeg" alt="Sample Internship Letter" class="da-doc-img">
+            </div>
+            <div class="da-doc-caption">Sample Internship Letter</div>
+          </div>
+
+          <!-- Document 3: LOR -->
+          <div class="da-doc-card-item" onclick="openDocModal('assets/LOR.png', 'Sample Letter of Recommendation')">
+            <div class="da-doc-frame">
+              <img src="assets/LOR.png" alt="Sample Letter of Recommendation" class="da-doc-img">
+            </div>
+            <div class="da-doc-caption">Sample Letter of Recommendation</div>
+          </div>
+        </div>
+
+        <button type="button" class="da-docs-nav-btn da-docs-nav-next" onclick="scrollDocCards(1)" aria-label="Next Document">›</button>
+      </div>
+
+      <div class="da-docs-btn-wrap">
+        <button type="button" onclick="openDocModal('assets/Internship Certificate.png', 'Sample Internship Certificate')" class="da-btn-outlined">
+          View All Sample Documents <span class="arrow">→</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Who Can Join Section -->
     <div class="da-join-block" id="who-can-join-sec">
       <h2 class="da-sec-title">Who Can Join?</h2>
@@ -609,5 +653,53 @@
   };
 })();
 </script>
+<!-- Full View Document Lightbox Modal -->
+<div class="da-doc-modal-overlay" id="daDocModal" onclick="closeDocModal(event)">
+  <div class="da-doc-modal-content" onclick="event.stopPropagation()">
+    <button type="button" class="da-doc-modal-close" onclick="closeDocModal(event)" aria-label="Close modal">✕</button>
+    <div id="daDocModalBody" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+      <!-- Dynamic modal image inserted here -->
+    </div>
+    <div class="da-doc-modal-title" id="daDocModalTitle">Sample Internship Certificate</div>
+  </div>
+</div>
+
+<script>
+function openDocModal(src, title) {
+  const modal = document.getElementById('daDocModal');
+  const modalBody = document.getElementById('daDocModalBody');
+  const modalTitle = document.getElementById('daDocModalTitle');
+
+  if (!modal || !modalBody || !modalTitle) return;
+
+  modalTitle.innerText = title;
+  modalBody.innerHTML = `<img src="${src}" alt="${title}" class="da-doc-modal-img">`;
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDocModal(event) {
+  const modal = document.getElementById('daDocModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function scrollDocCards(direction) {
+  const grid = document.getElementById('daDocsGrid');
+  if (grid) {
+    grid.scrollBy({ left: direction * 320, behavior: 'smooth' });
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeDocModal();
+  }
+});
+</script>
+
 </body>
 </html>
