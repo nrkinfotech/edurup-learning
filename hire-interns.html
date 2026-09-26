@@ -263,7 +263,449 @@
       <img src="assets/hireinterns_hero.png" alt="Find Skilled Interns for Your Organization - Edurup Learning" class="hi-main-photo">
     </div>
   </div>
-</section><section class="recognition-strip" id="recognised-programs"><div class="wrap"><img class="recognition-image" src="assets/recognised-by_hq.jpg" alt="Trusted, Recognised, Respected - Edurup Learning recognition logos" loading="lazy"></div></section><section class="section"><div class="wrap"><div class="section-head"><div class="kicker">How It Works</div><h2>A simple way to start.</h2></div><div class="roadmap"><div class="road"><b>01</b><h3>Share your requirement</h3><p>Tell us the role, skills, project scope, location or work mode and expected internship period.</p></div><div class="road"><b>02</b><h3>Review suitable profiles</h3><p>We identify students whose learning track and project exposure align with your requirements.</p></div><div class="road"><b>03</b><h3>Interview & onboard</h3><p>Your team can evaluate candidates and decide whom to onboard based on your process.</p></div></div></div></section><section class="section alt"><div class="wrap"><div class="section-head"><div class="kicker">Talent Tracks</div><h2>Areas where you can hire interns.</h2></div><div class="cards"><a class="card course-card" href="data-analytics-internship.html"><div class="icon">▦</div><h3>Data Analytics</h3><p>Students building practical skills and project experience in this domain.</p></a><a class="card course-card" href="data-science-internship.html"><div class="icon">◈</div><h3>Data Science</h3><p>Students building practical skills and project experience in this domain.</p></a><a class="card course-card" href="artificial-intelligence-internship.html"><div class="icon">✦</div><h3>Artificial Intelligence</h3><p>Students building practical skills and project experience in this domain.</p></a><a class="card course-card" href="digital-marketing-internship.html"><div class="icon">◎</div><h3>Digital Marketing</h3><p>Students building practical skills and project experience in this domain.</p></a><a class="card course-card" href="full-stack-development-internship.html"><div class="icon">⌘</div><h3>Full Stack Development</h3><p>Students building practical skills and project experience in this domain.</p></a><a class="card course-card" href="hr-management-internship.html"><div class="icon">♙</div><h3>HR Management</h3><p>Students building practical skills and project experience in this domain.</p></a><a class="card course-card" href="sales-marketing-internship.html"><div class="icon">↗</div><h3>Sales & Marketing</h3><p>Students building practical skills and project experience in this domain.</p></a><a class="card course-card" href="entrepreneurship-internship.html"><div class="icon">◇</div><h3>Entrepreneurship</h3><p>Students building practical skills and project experience in this domain.</p></a></div></div></section><section class="section"><div class="wrap"><div class="section-head"><div class="kicker">Company Enquiry</div><h2>Tell us what you need.</h2></div><form class="form" action="mailto:hello@eduruplearning.com" method="post" enctype="text/plain"><div class="form-grid"><input class="input" name="Company" placeholder="Company name" required><input class="input" name="Contact" placeholder="Contact person" required></div><div class="form-grid"><input class="input" name="Email" type="email" placeholder="Work email" required><input class="input" name="Role" placeholder="Internship role / domain"></div><textarea class="textarea" name="Requirement" placeholder="Tell us about skills, number of interns, project requirements and timeline"></textarea><button class="btn" type="submit">Submit Enquiry →</button><span class="small">Submitting opens your email application. Replace the email address in the HTML with your official company inbox before launch.</span></form></div></section>
+</section><section class="recognition-strip" id="recognised-programs"><div class="wrap"><img class="recognition-image" src="assets/recognised-by_hq.jpg" alt="Trusted, Recognised, Respected - Edurup Learning recognition logos" loading="lazy"></div></section><section class="section"><div class="wrap"><div class="section-head"><div class="kicker">How It Works</div><h2>A simple way to start.</h2></div><div class="roadmap"><div class="road"><b>01</b><h3>Share your requirement</h3><p>Tell us the role, skills, project scope, location or work mode and expected internship period.</p></div><div class="road"><b>02</b><h3>Review suitable profiles</h3><p>We identify students whose learning track and project exposure align with your requirements.</p></div><div class="road"><b>03</b><h3>Interview & onboard</h3><p>Your team can evaluate candidates and decide whom to onboard based on your process.</p></div></div></div></section><section class="hi-domains-why-section" style="background: #ffffff !important; padding: 60px 0 70px 0 !important; width: 100% !important;">
+  <style>
+    .hi-domains-why-section * { box-sizing: border-box !important; }
+    .hi-dw-container {
+      max-width: 1340px !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 40px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 60px !important;
+    }
+
+    /* TOP BLOCK: INTERNSHIP DOMAINS */
+    .hi-domains-block {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      width: 100% !important;
+    }
+    .hi-domains-block .hi-dom-h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 38px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin: 0 0 10px 0 !important;
+      letter-spacing: -0.03em !important;
+    }
+    .hi-domains-block .hi-dom-desc {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 16.5px !important;
+      color: #4b5e7e !important;
+      max-width: 660px !important;
+      margin: 0 0 40px 0 !important;
+      line-height: 1.6 !important;
+    }
+
+    .hi-domains-block .hi-tracks-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)) !important;
+      gap: 18px !important;
+      width: 100% !important;
+    }
+    .hi-domains-block .hi-track-card {
+      border-radius: 20px !important;
+      padding: 24px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      text-decoration: none !important;
+      transition: all 0.25s ease !important;
+      border: 1px solid transparent !important;
+    }
+    .hi-domains-block .hi-track-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 24px rgba(0, 18, 51, 0.08) !important;
+    }
+    
+    .hi-track-card.da { background: #eaf2ff !important; border-color: #d6e4ff !important; }
+    .hi-track-card.ds { background: #f3ebff !important; border-color: #e4d4ff !important; }
+    .hi-track-card.ai { background: #ffeef2 !important; border-color: #ffd6e0 !important; }
+    .hi-track-card.fsd { background: #fff8e6 !important; border-color: #ffecc2 !important; }
+    .hi-track-card.st { background: #e6f7ff !important; border-color: #bae7ff !important; }
+    .hi-track-card.vlsi { background: #f5f0ff !important; border-color: #e3d3ff !important; }
+    .hi-track-card.dm { background: #e6f9f0 !important; border-color: #c4f3d9 !important; }
+    .hi-track-card.sm { background: #fff0f3 !important; border-color: #ffd4dc !important; }
+    .hi-track-card.fin { background: #fffbeb !important; border-color: #fef08a !important; }
+    .hi-track-card.hr { background: #e0f2fe !important; border-color: #bae6fd !important; }
+    .hi-track-card.ent { background: #ecfdf5 !important; border-color: #a7f3d0 !important; }
+
+    .hi-domains-block .hi-track-badge {
+      width: 60px !important;
+      height: 60px !important;
+      border-radius: 50% !important;
+      background: #ffffff !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 14px !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+    }
+    .hi-domains-block .hi-track-name {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      line-height: 1.35 !important;
+      margin: 0 !important;
+    }
+
+    /* BOTTOM BLOCK: WHY HIRE INTERNS FROM EDURUP LEARNING */
+    .hi-why-card {
+      background: #f3f8ff !important;
+      border: 1px solid #e3eeff !important;
+      border-radius: 28px !important;
+      padding: 48px 56px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 48px !important;
+      box-shadow: 0 12px 32px rgba(0, 18, 51, 0.03) !important;
+    }
+    .hi-why-left {
+      flex: 1 1 420px !important;
+      max-width: 460px !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .hi-why-h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 36px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      line-height: 1.2 !important;
+      margin: 0 0 16px 0 !important;
+      letter-spacing: -0.03em !important;
+    }
+    .hi-why-desc {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 16.5px !important;
+      line-height: 1.65 !important;
+      color: #4b5e7e !important;
+      margin: 0 !important;
+    }
+
+    .hi-why-grid {
+      flex: 1 1 680px !important;
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 28px 16px !important;
+    }
+    .hi-why-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      gap: 10px !important;
+    }
+    .hi-why-badge {
+      width: 64px !important;
+      height: 64px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .hi-why-badge.blue { background: #dbeafe !important; color: #0052ff !important; }
+    .hi-why-badge.green { background: #d1fae5 !important; color: #059669 !important; }
+    .hi-why-badge.purple { background: #f3ebff !important; color: #7c3aed !important; }
+
+    .hi-why-item-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 14.5px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      line-height: 1.3 !important;
+      margin: 0 !important;
+    }
+
+    @media (max-width: 1024px) {
+      .hi-why-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 40px 32px !important;
+      }
+      .hi-why-left {
+        max-width: 100% !important;
+      }
+      .hi-why-grid {
+        width: 100% !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+    }
+    @media (max-width: 640px) {
+      .hi-dw-container {
+        padding: 0 16px !important;
+      }
+      .hi-domains-block .hi-tracks-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .hi-why-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px 12px !important;
+      }
+      .hi-why-card {
+        padding: 32px 24px !important;
+      }
+      .hi-why-h2 {
+        font-size: 28px !important;
+      }
+    }
+  </style>
+
+  <div class="hi-dw-container">
+    <!-- TOP BLOCK: INTERNSHIP DOMAINS -->
+    <div class="hi-domains-block">
+      <h2 class="hi-dom-h2">Internship Domains</h2>
+      <p class="hi-dom-desc">Hire interns across various technology, business and professional domains.</p>
+
+      <div class="hi-tracks-grid">
+        <!-- 1. Data Analytics -->
+        <a href="data-analytics-internship.html" class="hi-track-card da">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0052ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Data<br>Analytics</div>
+        </a>
+
+        <!-- 2. Data Science -->
+        <a href="data-science-internship.html" class="hi-track-card ds">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Data<br>Science</div>
+        </a>
+
+        <!-- 3. Artificial Intelligence -->
+        <a href="artificial-intelligence-internship.html" class="hi-track-card ai">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44L2.04 14.5A2.5 2.5 0 0 1 4.5 12h2"/>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44l4.99-5.44A2.5 2.5 0 0 0 19.5 12h-2"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Artificial<br>Intelligence</div>
+        </a>
+
+        <!-- 4. Digital Marketing -->
+        <a href="digital-marketing-internship.html" class="hi-track-card dm">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+              <path d="M12 22A10 10 0 0 0 22 12H12z"/>
+              <path d="M12 12L2.1 12A10 10 0 0 0 12 22z"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Digital<br>Marketing</div>
+        </a>
+
+        <!-- 5. Full Stack Development -->
+        <a href="full-stack-development-internship.html" class="hi-track-card fsd">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Full Stack<br>Development</div>
+        </a>
+
+        <!-- 6. Software Testing -->
+        <a href="courses.html" class="hi-track-card st">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Software<br>Testing</div>
+        </a>
+
+        <!-- 7. VLSI Design -->
+        <a href="courses.html" class="hi-track-card vlsi">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6d28d9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <rect x="9" y="9" width="6" height="6"/>
+              <line x1="9" y1="1" x2="9" y2="4"/>
+              <line x1="15" y1="1" x2="15" y2="4"/>
+              <line x1="9" y1="20" x2="9" y2="23"/>
+              <line x1="15" y1="20" x2="15" y2="23"/>
+              <line x1="20" y1="9" x2="23" y2="9"/>
+              <line x1="20" y1="15" x2="23" y2="15"/>
+              <line x1="1" y1="9" x2="4" y2="9"/>
+              <line x1="1" y1="15" x2="4" y2="15"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">VLSI<br>Design</div>
+        </a>
+
+        <!-- 8. Sales & Marketing -->
+        <a href="sales-marketing-internship.html" class="hi-track-card sm">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Sales &amp;<br>Marketing</div>
+        </a>
+
+        <!-- 9. Finance -->
+        <a href="courses.html" class="hi-track-card fin">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Finance<br>Track</div>
+        </a>
+
+        <!-- 10. HR Management -->
+        <a href="hr-management-internship.html" class="hi-track-card hr">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">HR<br>Management</div>
+        </a>
+
+        <!-- 11. Entrepreneurship -->
+        <a href="entrepreneurship-internship.html" class="hi-track-card ent">
+          <div class="hi-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/>
+            </svg>
+          </div>
+          <div class="hi-track-name">Entrepreneurship<br>Track</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- BOTTOM BLOCK: WHY HIRE INTERNS FROM EDURUP LEARNING -->
+    <div class="hi-why-card">
+      <div class="hi-why-left">
+        <h2 class="hi-why-h2">
+          Why Hire Interns<br>
+          from Edurup Learning?
+        </h2>
+        <p class="hi-why-desc">Our interns are trained with practical skills, real-world projects and professional exposure, enabling them to contribute effectively to your team.</p>
+      </div>
+
+      <div class="hi-why-grid">
+        <!-- 1. Trained & Skilled Interns -->
+        <div class="hi-why-item">
+          <div class="hi-why-badge blue">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <div class="hi-why-item-title">Trained &amp;<br>Skilled Interns</div>
+        </div>
+
+        <!-- 2. Project Experience -->
+        <div class="hi-why-item">
+          <div class="hi-why-badge blue">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+          <div class="hi-why-item-title">Project<br>Experience</div>
+        </div>
+
+        <!-- 3. Flexible Duration -->
+        <div class="hi-why-item">
+          <div class="hi-why-badge green">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="hi-why-item-title">Flexible<br>Duration</div>
+        </div>
+
+        <!-- 4. Cost Effective -->
+        <div class="hi-why-item">
+          <div class="hi-why-badge purple">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="hi-why-item-title">Cost<br>Effective</div>
+        </div>
+
+        <!-- 5. Dedicated Support -->
+        <div class="hi-why-item">
+          <div class="hi-why-badge purple">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+            </svg>
+          </div>
+          <div class="hi-why-item-title">Dedicated<br>Support</div>
+        </div>
+
+        <!-- 6. Domain Specific Talent -->
+        <div class="hi-why-item">
+          <div class="hi-why-badge green">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="6"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
+          </div>
+          <div class="hi-why-item-title">Domain Specific<br>Talent</div>
+        </div>
+
+        <!-- 7. Quick Onboarding -->
+        <div class="hi-why-item">
+          <div class="hi-why-badge blue">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.26-1.5 1.5-2.5l-3-3c-1 .24-1.79.79-2.5 1.5z"/>
+              <path d="M12 15l-3-3 7.5-7.5a2.12 2.12 0 0 1 3 3L12 15z"/>
+            </svg>
+          </div>
+          <div class="hi-why-item-title">Quick<br>Onboarding</div>
+        </div>
+
+        <!-- 8. Potential for Full-Time Hiring -->
+        <div class="hi-why-item">
+          <div class="hi-why-badge green">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <div class="hi-why-item-title">Potential for<br>Full-Time Hiring</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><section class="section"><div class="wrap"><div class="section-head"><div class="kicker">Company Enquiry</div><h2>Tell us what you need.</h2></div><form class="form" action="mailto:hello@eduruplearning.com" method="post" enctype="text/plain"><div class="form-grid"><input class="input" name="Company" placeholder="Company name" required><input class="input" name="Contact" placeholder="Contact person" required></div><div class="form-grid"><input class="input" name="Email" type="email" placeholder="Work email" required><input class="input" name="Role" placeholder="Internship role / domain"></div><textarea class="textarea" name="Requirement" placeholder="Tell us about skills, number of interns, project requirements and timeline"></textarea><button class="btn" type="submit">Submit Enquiry →</button><span class="small">Submitting opens your email application. Replace the email address in the HTML with your official company inbox before launch.</span></form></div></section>
 <section class="docs-suite" id="internship-documents">
   <div class="wrap">
     <div class="docs-intro">
