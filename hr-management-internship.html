@@ -719,7 +719,843 @@
 </section>
 
 <section class="da-about-journey-exact">
-  <div class="da-aj-container">
+  <style>
+    .da-about-journey-exact {
+      background: #ffffff !important;
+      padding: 68px 0 88px 0 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+    .da-about-journey-exact .da-aj-container {
+      max-width: 1380px !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 40px !important;
+      box-sizing: border-box !important;
+    }
+
+    /* SECTION 1: ABOUT THE INTERNSHIP */
+    .da-about-block {
+      margin-bottom: 76px !important;
+    }
+    .da-about-journey-exact .da-sec-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 50px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin: 0 0 10px 0 !important;
+      letter-spacing: -0.035em !important;
+      line-height: 1.15 !important;
+    }
+    .da-about-journey-exact .da-sec-kicker {
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.1em !important;
+      color: #526685 !important;
+      text-transform: uppercase !important;
+      margin-bottom: 30px !important;
+    }
+    .da-about-journey-exact .da-about-p {
+      font-size: 20px !important;
+      line-height: 1.6 !important;
+      color: #3e506d !important;
+      margin: 0 0 22px 0 !important;
+      max-width: 100% !important;
+      font-weight: 500 !important;
+    }
+    .da-about-journey-exact .da-about-p:last-of-type {
+      margin-bottom: 36px !important;
+    }
+
+    /* Callout Card */
+    .da-about-journey-exact .da-callout-card {
+      background: #ebf3fe !important;
+      border-radius: 20px !important;
+      padding: 28px 36px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 24px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .da-about-journey-exact .da-callout-icon {
+      flex: 0 0 auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .da-about-journey-exact .da-callout-text {
+      font-size: 20px !important;
+      font-weight: 700 !important;
+      color: #001233 !important;
+      line-height: 1.45 !important;
+    }
+
+    /* SECTION 2: YOUR INTERNSHIP JOURNEY */
+    .da-journey-block {
+      margin-top: 10px !important;
+    }
+    .da-about-journey-exact .da-journey-grid {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      margin-top: 48px !important;
+      gap: 0 !important;
+    }
+    .da-about-journey-exact .da-journey-item {
+      flex: 0 0 280px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+    }
+    .da-about-journey-exact .da-step-circle {
+      width: 108px !important;
+      height: 108px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 24px !important;
+    }
+    .da-about-journey-exact .da-step-circle-1 {
+      background: #e0edff !important;
+    }
+    .da-about-journey-exact .da-step-num-1 {
+      font-size: 38px !important;
+      font-weight: 800 !important;
+      color: #0052ff !important;
+    }
+
+    .da-about-journey-exact .da-step-circle-2 {
+      background: #efe9fe !important;
+    }
+    .da-about-journey-exact .da-step-num-2 {
+      font-size: 38px !important;
+      font-weight: 800 !important;
+      color: #7c3aed !important;
+    }
+
+    .da-about-journey-exact .da-step-circle-3 {
+      background: #dcfce7 !important;
+    }
+    .da-about-journey-exact .da-step-num-3 {
+      font-size: 38px !important;
+      font-weight: 800 !important;
+      color: #16a34a !important;
+    }
+
+    .da-about-journey-exact .da-step-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 23px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin-bottom: 10px !important;
+      line-height: 1.25 !important;
+    }
+    .da-about-journey-exact .da-step-desc {
+      font-size: 17px !important;
+      line-height: 1.55 !important;
+      color: #526685 !important;
+      margin: 0 !important;
+      max-width: 280px !important;
+    }
+
+    /* Dashed Connector Line */
+    .da-about-journey-exact .da-journey-connector {
+      flex: 1 1 auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-top: 44px !important;
+      padding: 0 16px !important;
+    }
+    .da-about-journey-exact .da-journey-connector svg {
+      width: 100% !important;
+      max-width: 220px !important;
+      height: 20px !important;
+    }
+
+    /* SECTION 3: INDUSTRY PROJECTS */
+    .da-projects-block {
+      margin-top: 76px !important;
+    }
+    .da-about-journey-exact .da-proj-grid {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 40px !important;
+      margin-top: 36px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-proj-img-col {
+      flex: 0 0 580px !important;
+      max-width: 600px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-proj-img {
+      width: 100% !important;
+      height: 350px !important;
+      object-fit: cover !important;
+      border-radius: 20px !important;
+      display: block !important;
+      box-shadow: 0 8px 30px rgba(0, 30, 84, 0.08) !important;
+    }
+    .da-about-journey-exact .da-proj-list-col {
+      flex: 1 1 auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+    .da-about-journey-exact .da-proj-item {
+      display: flex !important;
+      align-items: center !important;
+      gap: 14px !important;
+    }
+    .da-about-journey-exact .da-check-icon {
+      width: 24px !important;
+      height: 24px !important;
+      border-radius: 50% !important;
+      background: #059669 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+    }
+    .da-about-journey-exact .da-check-icon svg {
+      width: 14px !important;
+      height: 14px !important;
+      stroke: #ffffff !important;
+      stroke-width: 3 !important;
+    }
+    .da-about-journey-exact .da-proj-text {
+      font-size: 19px !important;
+      font-weight: 700 !important;
+      color: #3b4e68 !important;
+      line-height: 1.3 !important;
+    }
+
+    /* Bottom Outlined Button */
+    .da-about-journey-exact .da-proj-btn-wrap {
+      margin-top: 36px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-btn-outlined {
+      width: 100% !important;
+      background: #ffffff !important;
+      color: #0052ff !important;
+      border: 1.5px solid #60a5fa !important;
+      border-radius: 16px !important;
+      padding: 16px !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 18px !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      text-decoration: none !important;
+      box-shadow: 0 4px 14px rgba(0, 82, 255, 0.05) !important;
+      transition: all 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-btn-outlined:hover {
+      border-color: #0052ff !important;
+      background: #f4f8ff !important;
+    }
+
+    /* SECTION 4: CORPORATE EXPERIENCE */
+    .da-corp-block {
+      margin-top: 80px !important;
+    }
+    .da-about-journey-exact .da-corp-grid {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 36px !important;
+      margin-top: 36px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-corp-img-col {
+      flex: 0 0 560px !important;
+      max-width: 580px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-corp-img {
+      width: 100% !important;
+      height: 350px !important;
+      object-fit: cover !important;
+      border-radius: 20px !important;
+      display: block !important;
+      box-shadow: 0 8px 30px rgba(0, 30, 84, 0.08) !important;
+    }
+    .da-about-journey-exact .da-corp-cards-col {
+      flex: 1 1 auto !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 16px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-corp-card {
+      background: #edf4fe !important;
+      border-radius: 16px !important;
+      padding: 24px 20px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 16px !important;
+      box-sizing: border-box !important;
+      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-corp-card:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(0, 82, 255, 0.08) !important;
+    }
+    .da-about-journey-exact .da-corp-card-icon {
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: 50% !important;
+      background: #dbeafe !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+    }
+    .da-about-journey-exact .da-corp-card-icon svg {
+      width: 24px !important;
+      height: 24px !important;
+      fill: #0052ff !important;
+    }
+    .da-about-journey-exact .da-corp-card-text {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 17px !important;
+      font-weight: 700 !important;
+      color: #001233 !important;
+      line-height: 1.35 !important;
+    }
+
+    /* SECTION 5: WHAT YOU GAIN */
+    .da-gain-block {
+      margin-top: 80px !important;
+    }
+    .da-about-journey-exact .da-gain-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 24px !important;
+      margin-top: 36px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-gain-card {
+      border-radius: 20px !important;
+      padding: 38px 24px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      box-sizing: border-box !important;
+      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-gain-card:hover {
+      transform: translateY(-3px) !important;
+    }
+    .da-about-journey-exact .da-gain-card-1 {
+      background: #e6f9f0 !important;
+    }
+    .da-about-journey-exact .da-gain-card-2 {
+      background: #f1eafd !important;
+    }
+    .da-about-journey-exact .da-gain-card-3 {
+      background: #e0edff !important;
+    }
+    .da-about-journey-exact .da-gain-icon {
+      margin-bottom: 20px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      height: 56px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-gain-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 22px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin-bottom: 8px !important;
+      line-height: 1.25 !important;
+    }
+    .da-about-journey-exact .da-gain-sub {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: #526685 !important;
+      line-height: 1.4 !important;
+    }
+
+    /* SECTION: SAMPLE INTERNSHIP DOCUMENTS */
+    .da-docs-block {
+      margin-top: 80px !important;
+      position: relative !important;
+    }
+    .da-about-journey-exact .da-docs-carousel-wrap {
+      position: relative !important;
+      margin-top: 36px !important;
+      width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    .da-about-journey-exact .da-docs-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 24px !important;
+      width: 100% !important;
+      margin-top: 0 !important;
+    }
+    .da-about-journey-exact .da-doc-card-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      cursor: pointer !important;
+      transition: transform 0.25s ease !important;
+    }
+    .da-about-journey-exact .da-doc-card-item:hover {
+      transform: translateY(-5px) !important;
+    }
+    .da-about-journey-exact .da-doc-frame {
+      background: #ffffff !important;
+      border-radius: 16px !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 10px 30px rgba(0, 30, 84, 0.08) !important;
+      padding: 12px !important;
+      width: 100% !important;
+      height: 260px !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-doc-card-item:hover .da-doc-frame {
+      border-color: #60a5fa !important;
+      box-shadow: 0 14px 40px rgba(0, 82, 255, 0.15) !important;
+    }
+    .da-about-journey-exact .da-doc-img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain !important;
+      border-radius: 8px !important;
+    }
+    .da-about-journey-exact .da-doc-caption {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 16.5px !important;
+      font-weight: 700 !important;
+      color: #001233 !important;
+      margin-top: 14px !important;
+      text-align: center !important;
+    }
+
+    /* Carousel Arrow Nav Buttons */
+    .da-about-journey-exact .da-docs-nav-btn {
+      position: absolute !important;
+      top: 50% !important;
+      transform: translateY(-60%) !important;
+      width: 44px !important;
+      height: 44px !important;
+      border-radius: 50% !important;
+      background: #ffffff !important;
+      color: #0052ff !important;
+      border: 1.5px solid #dbeafe !important;
+      box-shadow: 0 6px 18px rgba(0, 30, 84, 0.1) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 18px !important;
+      cursor: pointer !important;
+      z-index: 5 !important;
+      transition: all 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-docs-nav-btn:hover {
+      background: #0052ff !important;
+      color: #ffffff !important;
+      border-color: #0052ff !important;
+    }
+    .da-about-journey-exact .da-docs-nav-prev {
+      left: -22px !important;
+    }
+    .da-about-journey-exact .da-docs-nav-next {
+      right: -22px !important;
+    }
+
+    /* Bottom Outlined Button for Documents */
+    .da-about-journey-exact .da-docs-btn-wrap {
+      margin-top: 36px !important;
+      width: 100% !important;
+    }
+
+    /* Full-Screen Modal Overlay */
+    .da-doc-modal-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(0, 18, 51, 0.85) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      z-index: 999999 !important;
+      display: none;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 24px !important;
+      box-sizing: border-box !important;
+      animation: daModalFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .da-doc-modal-overlay.active {
+      display: flex !important;
+    }
+    @keyframes daModalFade {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .da-doc-modal-content {
+      position: relative !important;
+      max-width: 900px !important;
+      max-height: 90vh !important;
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+    .da-doc-modal-img {
+      max-width: 100% !important;
+      max-height: 80vh !important;
+      object-fit: contain !important;
+      border-radius: 12px !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5) !important;
+      background: #ffffff !important;
+    }
+    .da-doc-modal-title {
+      color: #ffffff !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 20px !important;
+      font-weight: 700 !important;
+      margin-top: 16px !important;
+      text-align: center !important;
+      letter-spacing: 0.02em !important;
+    }
+    .da-doc-modal-close {
+      position: absolute !important;
+      top: -18px !important;
+      right: -18px !important;
+      width: 44px !important;
+      height: 44px !important;
+      border-radius: 50% !important;
+      background: #ffffff !important;
+      color: #001233 !important;
+      border: none !important;
+      font-size: 22px !important;
+      font-weight: bold !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+      transition: transform 0.2s ease, background 0.2s ease !important;
+    }
+    .da-doc-modal-close:hover {
+      background: #0052ff !important;
+      color: #ffffff !important;
+      transform: scale(1.1) !important;
+    }
+
+    /* SECTION 6: WHO CAN JOIN? */
+    .da-join-block {
+      margin-top: 80px !important;
+    }
+    .da-about-journey-exact .da-join-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 20px !important;
+      margin-top: 36px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-join-card {
+      border-radius: 18px !important;
+      padding: 32px 20px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      box-sizing: border-box !important;
+      transition: transform 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-join-card:hover {
+      transform: translateY(-3px) !important;
+    }
+    .da-about-journey-exact .da-join-card-1 {
+      background: #edf4fe !important;
+    }
+    .da-about-journey-exact .da-join-card-2 {
+      background: #e6f9f5 !important;
+    }
+    .da-about-journey-exact .da-join-card-3 {
+      background: #edf4fe !important;
+    }
+    .da-about-journey-exact .da-join-card-4 {
+      background: #f1eafd !important;
+    }
+    .da-about-journey-exact .da-join-icon {
+      width: 54px !important;
+      height: 54px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 16px !important;
+    }
+    .da-about-journey-exact .da-join-card-1 .da-join-icon,
+    .da-about-journey-exact .da-join-card-3 .da-join-icon {
+      background: #dbeafe !important;
+    }
+    .da-about-journey-exact .da-join-card-2 .da-join-icon {
+      background: #ccfbf1 !important;
+    }
+    .da-about-journey-exact .da-join-card-4 .da-join-icon {
+      background: #e9d5ff !important;
+    }
+    .da-about-journey-exact .da-join-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 19px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      line-height: 1.25 !important;
+    }
+
+    /* SECTION 7: WHAT OUR LEARNERS SAY */
+    .da-testimonial-block {
+      margin-top: 80px !important;
+    }
+    .da-about-journey-exact .da-testimonial-card {
+      background: #f4f8ff !important;
+      border-radius: 24px !important;
+      padding: 40px 48px !important;
+      margin-top: 36px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 32px !important;
+    }
+    .da-about-journey-exact .da-test-content-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 36px !important;
+    }
+    .da-about-journey-exact .da-test-avatar-wrap {
+      flex: 0 0 110px !important;
+      width: 110px !important;
+      height: 110px !important;
+      border-radius: 50% !important;
+      overflow: hidden !important;
+      border: 4px solid #dbeafe !important;
+      box-shadow: 0 8px 24px rgba(0, 82, 255, 0.1) !important;
+    }
+    .da-about-journey-exact .da-test-avatar {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+    .da-about-journey-exact .da-test-text-wrap {
+      flex: 1 1 auto !important;
+    }
+    .da-about-journey-exact .da-test-quote {
+      font-size: 19.5px !important;
+      font-weight: 600 !important;
+      color: #1e293b !important;
+      line-height: 1.55 !important;
+      margin-bottom: 14px !important;
+      font-style: normal !important;
+    }
+    .da-about-journey-exact .da-test-author {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 20px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin-bottom: 2px !important;
+    }
+    .da-about-journey-exact .da-test-role {
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      color: #526685 !important;
+    }
+
+    .da-about-journey-exact .da-test-controls-row {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding-top: 10px !important;
+    }
+    .da-about-journey-exact .da-test-dots {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+    }
+    .da-about-journey-exact .da-test-dot {
+      height: 10px !important;
+      border-radius: 5px !important;
+      background: #cbd5e1 !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-test-dot.active {
+      width: 28px !important;
+      background: #0052ff !important;
+    }
+    .da-about-journey-exact .da-test-dot:not(.active) {
+      width: 10px !important;
+    }
+    .da-about-journey-exact .da-test-arrows {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+    .da-about-journey-exact .da-test-arrow-btn {
+      width: 44px !important;
+      height: 44px !important;
+      border-radius: 50% !important;
+      background: #e0edff !important;
+      color: #0052ff !important;
+      border: none !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      font-size: 18px !important;
+      transition: background 0.2s ease, color 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-test-arrow-btn:hover {
+      background: #0052ff !important;
+      color: #ffffff !important;
+    }
+
+    /* SECTION 8: FREQUENTLY ASKED QUESTIONS */
+    .da-faq-block {
+      margin-top: 80px !important;
+    }
+    .da-about-journey-exact .da-faq-list {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      margin-top: 36px !important;
+      width: 100% !important;
+    }
+    .da-about-journey-exact .da-faq-item {
+      background: #f8fafc !important;
+      border-radius: 14px !important;
+      border: 1px solid #e2e8f0 !important;
+      overflow: hidden !important;
+      transition: background 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-faq-item:hover {
+      background: #f1f5f9 !important;
+    }
+    .da-about-journey-exact .da-faq-header {
+      padding: 20px 24px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      cursor: pointer !important;
+      user-select: none !important;
+    }
+    .da-about-journey-exact .da-faq-question {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 18px !important;
+      font-weight: 700 !important;
+      color: #001233 !important;
+      line-height: 1.3 !important;
+    }
+    .da-about-journey-exact .da-faq-toggle-icon {
+      font-size: 22px !important;
+      font-weight: 700 !important;
+      color: #0052ff !important;
+      width: 32px !important;
+      height: 32px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+      transition: transform 0.2s ease !important;
+    }
+    .da-about-journey-exact .da-faq-body {
+      padding: 0 24px 20px 24px !important;
+      font-size: 16.5px !important;
+      line-height: 1.6 !important;
+      color: #475569 !important;
+      display: none;
+    }
+    .da-about-journey-exact .da-faq-item.active .da-faq-body {
+      display: block !important;
+    }
+    .da-about-journey-exact .da-faq-item.active .da-faq-toggle-icon {
+      transform: rotate(45deg) !important;
+    }
+
+    @media (max-width: 868px) {
+      .da-about-journey-exact .da-join-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .da-about-journey-exact .da-test-content-row {
+        flex-direction: column !important;
+        text-align: center !important;
+      }
+      .da-about-journey-exact .da-testimonial-card {
+        padding: 32px 24px !important;
+      }
+    }
+    @media (max-width: 540px) {
+      .da-about-journey-exact .da-join-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (max-width: 868px) {
+      .da-about-journey-exact .da-journey-grid {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 36px !important;
+      }
+      .da-about-journey-exact .da-journey-item {
+        flex: 1 1 100% !important;
+      }
+      .da-about-journey-exact .da-journey-connector {
+        transform: rotate(90deg) !important;
+        margin: 0 !important;
+        flex: 0 0 40px !important;
+      }
+      .da-about-journey-exact .da-proj-grid {
+        flex-direction: column !important;
+      }
+      .da-about-journey-exact .da-proj-img-col {
+        max-width: 100% !important;
+      }
+      .da-about-journey-exact .da-corp-grid {
+        flex-direction: column !important;
+      }
+      .da-about-journey-exact .da-corp-img-col {
+        max-width: 100% !important;
+      }
+      .da-about-journey-exact .da-corp-cards-col {
+        grid-template-columns: 1fr !important;
+      }
+      .da-about-journey-exact .da-gain-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+<div class="da-aj-container">
     <!-- Corporate Experience Section -->
     <div class="da-corp-block" id="corporate-experience-sec">
       <h2 class="da-sec-title">Corporate Experience</h2>
