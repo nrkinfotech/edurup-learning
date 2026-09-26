@@ -807,16 +807,85 @@
 
     /* SECTION 2: INDUSTRY PARTNERSHIP CARD */
     .hi-partner-hero-card {
-      background: #09192f !important;
+      background: linear-gradient(135deg, #071326 0%, #0d2240 50%, #09192f 100%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
       border-radius: 24px !important;
       padding: 48px 56px !important;
       display: flex !important;
       align-items: center !important;
       justify-content: space-between !important;
       gap: 40px !important;
-      box-shadow: 0 20px 50px rgba(9, 25, 47, 0.15) !important;
+      box-shadow: 0 20px 50px rgba(9, 25, 47, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
       position: relative !important;
       overflow: hidden !important;
+    }
+    .hi-partner-hero-card .hi-pt-pattern-glow-1 {
+      position: absolute !important;
+      top: -80px !important;
+      right: -80px !important;
+      width: 380px !important;
+      height: 380px !important;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.28) 0%, rgba(56, 189, 248, 0) 70%) !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+      border-radius: 50% !important;
+      filter: blur(20px) !important;
+    }
+    .hi-partner-hero-card .hi-pt-pattern-glow-2 {
+      position: absolute !important;
+      bottom: -100px !important;
+      left: -60px !important;
+      width: 420px !important;
+      height: 420px !important;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, rgba(124, 58, 237, 0) 70%) !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+      border-radius: 50% !important;
+      filter: blur(25px) !important;
+    }
+    .hi-partner-hero-card .hi-pt-pattern-glow-3 {
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 500px !important;
+      height: 300px !important;
+      background: radial-gradient(ellipse at center, rgba(0, 82, 255, 0.2) 0%, rgba(0, 82, 255, 0) 70%) !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+      filter: blur(30px) !important;
+    }
+    .hi-partner-hero-card .hi-pt-pattern-grid {
+      position: absolute !important;
+      inset: 0 !important;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.2px) !important;
+      background-size: 24px 24px !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+      opacity: 0.65 !important;
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0.15) 85%) !important;
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0.15) 85%) !important;
+    }
+    .hi-partner-hero-card .hi-pt-pattern-waves {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+    }
+    @keyframes hiPtPulse {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.4); opacity: 0.9; }
+    }
+    .hi-partner-hero-card .hi-pt-dot-1 {
+      position: absolute !important; top: 25% !important; right: 42% !important; width: 8px !important; height: 8px !important; background: #38bdf8 !important; border-radius: 50% !important; box-shadow: 0 0 12px #38bdf8 !important; z-index: 1 !important; animation: hiPtPulse 4s infinite ease-in-out !important; pointer-events: none !important;
+    }
+    .hi-partner-hero-card .hi-pt-dot-2 {
+      position: absolute !important; bottom: 30% !important; left: 38% !important; width: 6px !important; height: 6px !important; background: #a855f7 !important; border-radius: 50% !important; box-shadow: 0 0 10px #a855f7 !important; z-index: 1 !important; animation: hiPtPulse 3.5s infinite ease-in-out 1s !important; pointer-events: none !important;
+    }
+    .hi-partner-hero-card .hi-pt-dot-3 {
+      position: absolute !important; top: 70% !important; right: 15% !important; width: 10px !important; height: 10px !important; background: #34d399 !important; border-radius: 50% !important; box-shadow: 0 0 14px #34d399 !important; z-index: 1 !important; animation: hiPtPulse 5s infinite ease-in-out 0.5s !important; pointer-events: none !important;
     }
     .hi-partner-hero-card .hi-pt-left {
       flex: 1 1 520px !important;
@@ -865,6 +934,8 @@
       text-decoration: none !important;
       box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
       transition: all 0.25s ease !important;
+      position: relative !important;
+      z-index: 2 !important;
     }
     .hi-partner-hero-card .hi-pt-btn:hover {
       background: #f8fafc !important;
@@ -885,6 +956,7 @@
       text-align: center !important;
       gap: 10px !important;
       min-width: 100px !important;
+      cursor: pointer !important;
     }
     .hi-partner-hero-card .hi-pt-badge {
       width: 68px !important;
@@ -894,7 +966,13 @@
       align-items: center !important;
       justify-content: center !important;
       color: #ffffff !important;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
+      border: 1px solid rgba(255,255,255,0.2) !important;
+    }
+    .hi-partner-hero-card .hi-pt-item:hover .hi-pt-badge {
+      transform: translateY(-4px) scale(1.08) !important;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.4) !important;
     }
     .hi-partner-hero-card .hi-pt-badge.purple { background: #7c3aed !important; }
     .hi-partner-hero-card .hi-pt-badge.green { background: #16a34a !important; }
@@ -1001,6 +1079,22 @@
 
     <!-- SECTION 2: INDUSTRY PARTNERSHIP CARD -->
     <div class="hi-partner-hero-card">
+      <!-- Background Ambient Glow & Patterns -->
+      <div class="hi-pt-pattern-glow-1"></div>
+      <div class="hi-pt-pattern-glow-2"></div>
+      <div class="hi-pt-pattern-glow-3"></div>
+      <div class="hi-pt-pattern-grid"></div>
+      <div class="hi-pt-dot-1"></div>
+      <div class="hi-pt-dot-2"></div>
+      <div class="hi-pt-dot-3"></div>
+      <svg class="hi-pt-pattern-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M-100,100 C150,300 350,0 600,200 C850,400 1050,100 1200,300" stroke="rgba(56, 189, 248, 0.18)" stroke-width="2" fill="none" />
+        <path d="M-100,180 C200,50 450,350 700,150 C950,50 1100,250 1250,180" stroke="rgba(124, 58, 237, 0.22)" stroke-width="1.5" stroke-dasharray="6 6" fill="none" />
+        <circle cx="150" cy="80" r="140" stroke="rgba(255,255,255,0.05)" stroke-width="1" fill="none" />
+        <circle cx="850" cy="320" r="220" stroke="rgba(56, 189, 248, 0.08)" stroke-width="1.5" fill="none" />
+        <circle cx="850" cy="320" r="140" stroke="rgba(124, 58, 237, 0.1)" stroke-width="1" fill="none" />
+      </svg>
+
       <div class="hi-pt-left">
         <div class="hi-pt-eyebrow">INDUSTRY PARTNERSHIP</div>
         <h2 class="hi-pt-title">Build Your Team With Fresh Talent</h2>
