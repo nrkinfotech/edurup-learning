@@ -5099,8 +5099,6 @@ header .brand img {
     gap: 24px !important;
   }
 
-  }
-
   .foot-bottom {
     font-size: 12px !important;
     text-align: center !important;
@@ -5131,6 +5129,12 @@ header .brand img {
    Home Page Mobile View Mockup Exact Match (@media max-width: 768px)
    ========================================================================== */
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
   /* Hide non-mockup sections on mobile */
   .sec-dark-portfolio,
   .sec-success-stories,
