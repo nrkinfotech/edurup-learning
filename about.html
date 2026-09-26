@@ -530,52 +530,563 @@
   </div>
 </section>
 
-<section class="section ab-approach-section">
-  <div class="ab-bg-mesh"></div>
-  <div class="ab-bg-glow-orb-center"></div>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Our Approach</div>
-      <h2>Practical learning over passive learning.</h2>
-      <p>Students learn a domain, practise the concepts, work through projects and develop professional habits along the way.</p>
-    </div>
-    <div class="ab-feature-grid">
-      <div class="ab-feature-card">
-        <div class="ab-card-num">01</div>
-        <div class="ab-icon-box">📘</div>
-        <h3>Structured Learning</h3>
-        <p>Clear curriculum and progression across each internship track.</p>
-      </div>
-      <div class="ab-feature-card">
-        <div class="ab-card-num">02</div>
-        <div class="ab-icon-box">⚡</div>
-        <h3>Project-Based Practice</h3>
-        <p>10+ practical projects help students demonstrate what they have learned.</p>
-      </div>
-      <div class="ab-feature-card">
-        <div class="ab-card-num">03</div>
-        <div class="ab-icon-box">🚀</div>
-        <h3>Career Preparation</h3>
-        <p>Portfolio-oriented work, documentation and professional exposure support the transition toward entry-level roles.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="ab-three-sections-wrapper" style="background: #ffffff !important; padding: 40px 0 60px 0 !important; width: 100% !important;">
+  <style>
+    .ab-three-sections-wrapper * { box-sizing: border-box !important; }
+    .ab-three-container {
+      max-width: 1340px !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 40px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 60px !important;
+    }
 
-<section class="section alt ab-programs-section">
-  <div class="ab-bg-stats-pattern"></div>
-  <div class="ab-bg-glow-stats"></div>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Our Internship Tracks</div>
-      <h2>Eight career directions.</h2>
-      <p>Technology, analytics, AI, marketing, people, sales and entrepreneurship — with one consistent practical-learning philosophy.</p>
+    /* SECTION 1: OUR APPROACH CARD */
+    .ab-approach-card-hero {
+      background: #09192f !important;
+      border-radius: 24px !important;
+      padding: 44px 52px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 40px !important;
+      box-shadow: 0 20px 50px rgba(9, 25, 47, 0.15) !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    .ab-approach-card-hero .ab-ap-left {
+      flex: 1 1 420px !important;
+      max-width: 500px !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .ab-approach-card-hero .ab-ap-eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      color: #38bdf8 !important;
+      margin-bottom: 12px !important;
+    }
+    .ab-approach-card-hero .ab-ap-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 32px !important;
+      font-weight: 800 !important;
+      color: #ffffff !important;
+      line-height: 1.2 !important;
+      margin: 0 0 14px 0 !important;
+      letter-spacing: -0.02em !important;
+    }
+    .ab-approach-card-hero .ab-ap-desc {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 16px !important;
+      line-height: 1.6 !important;
+      color: #94a3b8 !important;
+      margin: 0 !important;
+    }
+
+    .ab-approach-card-hero .ab-ap-steps-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 16px !important;
+    }
+    .ab-approach-card-hero .ab-ap-step-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      min-width: 105px !important;
+    }
+    .ab-approach-card-hero .ab-ap-icon-badge {
+      width: 64px !important;
+      height: 64px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 10px !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
+    }
+    .ab-approach-card-hero .ab-ap-icon-badge.orange { background: #f97316 !important; color: #ffffff !important; }
+    .ab-approach-card-hero .ab-ap-icon-badge.blue { background: #2563eb !important; color: #ffffff !important; }
+    .ab-approach-card-hero .ab-ap-icon-badge.green { background: #16a34a !important; color: #ffffff !important; }
+    .ab-approach-card-hero .ab-ap-icon-badge.purple { background: #7c3aed !important; color: #ffffff !important; }
+
+    .ab-approach-card-hero .ab-ap-step-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      color: #ffffff !important;
+      margin: 0 0 3px 0 !important;
+    }
+    .ab-approach-card-hero .ab-ap-step-sub {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 12.5px !important;
+      color: #94a3b8 !important;
+      margin: 0 !important;
+      line-height: 1.3 !important;
+    }
+    .ab-approach-card-hero .ab-ap-arrow {
+      color: #475569 !important;
+      font-size: 20px !important;
+      font-weight: 600 !important;
+      margin-top: -24px !important;
+    }
+
+    /* SECTION 2: CAREER-FOCUSED INTERNSHIP TRACKS */
+    .ab-programs-block {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      width: 100% !important;
+    }
+    .ab-programs-block .ab-prog-eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      color: #0052ff !important;
+      margin-bottom: 8px !important;
+    }
+    .ab-programs-block .ab-prog-h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 38px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin: 0 0 12px 0 !important;
+      letter-spacing: -0.03em !important;
+    }
+    .ab-programs-block .ab-prog-desc {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 16.5px !important;
+      color: #4b5e7e !important;
+      max-width: 660px !important;
+      margin: 0 0 40px 0 !important;
+      line-height: 1.6 !important;
+    }
+
+    .ab-programs-block .ab-tracks-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)) !important;
+      gap: 18px !important;
+      width: 100% !important;
+    }
+    .ab-programs-block .ab-track-card {
+      border-radius: 20px !important;
+      padding: 24px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      text-decoration: none !important;
+      transition: all 0.25s ease !important;
+      border: 1px solid transparent !important;
+    }
+    .ab-programs-block .ab-track-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 24px rgba(0, 18, 51, 0.08) !important;
+    }
+    
+    /* Individual soft tint styles */
+    .ab-track-card.da { background: #eaf2ff !important; border-color: #d6e4ff !important; }
+    .ab-track-card.ds { background: #f3ebff !important; border-color: #e4d4ff !important; }
+    .ab-track-card.ai { background: #ffeef2 !important; border-color: #ffd6e0 !important; }
+    .ab-track-card.fsd { background: #fff8e6 !important; border-color: #ffecc2 !important; }
+    .ab-track-card.st { background: #e6f7ff !important; border-color: #bae7ff !important; }
+    .ab-track-card.vlsi { background: #f5f0ff !important; border-color: #e3d3ff !important; }
+    .ab-track-card.dm { background: #e6f9f0 !important; border-color: #c4f3d9 !important; }
+    .ab-track-card.sm { background: #fff0f3 !important; border-color: #ffd4dc !important; }
+    .ab-track-card.fin { background: #fffbeb !important; border-color: #fef08a !important; }
+    .ab-track-card.hr { background: #e0f2fe !important; border-color: #bae6fd !important; }
+    .ab-track-card.ent { background: #ecfdf5 !important; border-color: #a7f3d0 !important; }
+
+    .ab-programs-block .ab-track-badge {
+      width: 60px !important;
+      height: 60px !important;
+      border-radius: 50% !important;
+      background: #ffffff !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 14px !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+    }
+    .ab-programs-block .ab-track-name {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      line-height: 1.35 !important;
+      margin: 0 !important;
+    }
+
+    /* SECTION 3: NUMBERS THAT MATTER */
+    .ab-impact-card {
+      background: #f3f8ff !important;
+      border: 1px solid #e3eeff !important;
+      border-radius: 24px !important;
+      padding: 40px 52px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 40px !important;
+    }
+    .ab-impact-card .ab-imp-left {
+      flex: 1 1 380px !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .ab-impact-card .ab-imp-eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      color: #0052ff !important;
+      margin-bottom: 8px !important;
+    }
+    .ab-impact-card .ab-imp-h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 32px !important;
+      font-weight: 800 !important;
+      color: #001233 !important;
+      margin: 0 0 8px 0 !important;
+      letter-spacing: -0.025em !important;
+    }
+    .ab-impact-card .ab-imp-desc {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 16px !important;
+      color: #4b5e7e !important;
+      margin: 0 !important;
+    }
+
+    .ab-impact-card .ab-imp-right-stats {
+      display: flex !important;
+      align-items: center !important;
+      gap: 36px !important;
+    }
+    .ab-impact-card .ab-imp-stat-item {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+    .ab-impact-card .ab-imp-num {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 42px !important;
+      font-weight: 800 !important;
+      color: #0052ff !important;
+      line-height: 1 !important;
+      letter-spacing: -0.03em !important;
+    }
+    .ab-impact-card .ab-imp-label {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      color: #4b5e7e !important;
+      margin-top: 6px !important;
+    }
+    .ab-impact-card .ab-imp-divider {
+      width: 1px !important;
+      height: 48px !important;
+      background: #cbd5e1 !important;
+      flex-shrink: 0 !important;
+    }
+
+    @media (max-width: 1024px) {
+      .ab-approach-card-hero {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 32px 28px !important;
+      }
+      .ab-approach-card-hero .ab-ap-steps-row {
+        width: 100% !important;
+        justify-content: space-between !important;
+        flex-wrap: wrap !important;
+        gap: 20px !important;
+      }
+      .ab-approach-card-hero .ab-ap-arrow {
+        display: none !important;
+      }
+      .ab-impact-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 32px 28px !important;
+      }
+      .ab-impact-card .ab-imp-right-stats {
+        width: 100% !important;
+        justify-content: space-between !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .ab-three-container {
+        padding: 0 16px !important;
+        gap: 40px !important;
+      }
+      .ab-approach-card-hero .ab-ap-steps-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+      }
+      .ab-programs-block .ab-tracks-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .ab-impact-card .ab-imp-right-stats {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 20px !important;
+      }
+      .ab-impact-card .ab-imp-divider {
+        display: none !important;
+      }
+    }
+  </style>
+
+  <div class="ab-three-container">
+    <!-- SECTION 1: OUR APPROACH HERO CARD -->
+    <div class="ab-approach-card-hero">
+      <div class="ab-ap-left">
+        <div class="ab-ap-eyebrow">OUR APPROACH</div>
+        <h2 class="ab-ap-title">Learn → Apply → Experience → Grow</h2>
+        <p class="ab-ap-desc">A structured journey to help you build practical skills and real professional experience.</p>
+      </div>
+
+      <div class="ab-ap-steps-row">
+        <!-- Step 1: Learn -->
+        <div class="ab-ap-step-item">
+          <div class="ab-ap-icon-badge orange">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <div class="ab-ap-step-title">Learn</div>
+          <div class="ab-ap-step-sub">Build<br>foundations</div>
+        </div>
+
+        <div class="ab-ap-arrow">→</div>
+
+        <!-- Step 2: Apply -->
+        <div class="ab-ap-step-item">
+          <div class="ab-ap-icon-badge blue">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </div>
+          <div class="ab-ap-step-title">Apply</div>
+          <div class="ab-ap-step-sub">Work on<br>real projects</div>
+        </div>
+
+        <div class="ab-ap-arrow">→</div>
+
+        <!-- Step 3: Experience -->
+        <div class="ab-ap-step-item">
+          <div class="ab-ap-icon-badge green">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <div class="ab-ap-step-title">Experience</div>
+          <div class="ab-ap-step-sub">Gain corporate<br>exposure</div>
+        </div>
+
+        <div class="ab-ap-arrow">→</div>
+
+        <!-- Step 4: Grow -->
+        <div class="ab-ap-step-item">
+          <div class="ab-ap-icon-badge purple">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+              <path d="M4 11l4-4 4 4 6-6"/>
+              <polyline points="15 5 19 5 19 9"/>
+            </svg>
+          </div>
+          <div class="ab-ap-step-title">Grow</div>
+          <div class="ab-ap-step-sub">Build your<br>career</div>
+        </div>
+      </div>
     </div>
-    <div class="ab-stats-grid">
-      <div class="ab-stat-card"><div class="ab-stat-icon">🎓</div><strong>8</strong><span>Internship tracks</span></div>
-      <div class="ab-stat-card"><div class="ab-stat-icon">⏱️</div><strong>6 mo</strong><span>Program duration</span></div>
-      <div class="ab-stat-card"><div class="ab-stat-icon">💼</div><strong>10+</strong><span>Practical projects</span></div>
-      <div class="ab-stat-card"><div class="ab-stat-icon">📜</div><strong>2</strong><span>Completion credentials: Certificate + LOR</span></div>
+
+    <!-- SECTION 2: CAREER-FOCUSED INTERNSHIP TRACKS -->
+    <div class="ab-programs-block">
+      <div class="ab-prog-eyebrow">OUR PROGRAMS</div>
+      <h2 class="ab-prog-h2">Career-Focused Internship Tracks</h2>
+      <p class="ab-prog-desc">Practical learning and real-world projects across technology, business and professional domains.</p>
+
+      <div class="ab-tracks-grid">
+        <!-- 1. Data Analytics -->
+        <a href="data-analytics-internship.html" class="ab-track-card da">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0052ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Data<br>Analytics</div>
+        </a>
+
+        <!-- 2. Data Science -->
+        <a href="data-science-internship.html" class="ab-track-card ds">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Data<br>Science</div>
+        </a>
+
+        <!-- 3. Artificial Intelligence -->
+        <a href="artificial-intelligence-internship.html" class="ab-track-card ai">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44L2.04 14.5A2.5 2.5 0 0 1 4.5 12h2"/>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44l4.99-5.44A2.5 2.5 0 0 0 19.5 12h-2"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Artificial<br>Intelligence</div>
+        </a>
+
+        <!-- 4. Digital Marketing -->
+        <a href="digital-marketing-internship.html" class="ab-track-card dm">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+              <path d="M12 22A10 10 0 0 0 22 12H12z"/>
+              <path d="M12 12L2.1 12A10 10 0 0 0 12 22z"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Digital<br>Marketing</div>
+        </a>
+
+        <!-- 5. Full Stack Development -->
+        <a href="full-stack-development-internship.html" class="ab-track-card fsd">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Full Stack<br>Development</div>
+        </a>
+
+        <!-- 6. Software Testing -->
+        <a href="courses.html" class="ab-track-card st">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Software<br>Testing</div>
+        </a>
+
+        <!-- 7. VLSI Design -->
+        <a href="courses.html" class="ab-track-card vlsi">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6d28d9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <rect x="9" y="9" width="6" height="6"/>
+              <line x1="9" y1="1" x2="9" y2="4"/>
+              <line x1="15" y1="1" x2="15" y2="4"/>
+              <line x1="9" y1="20" x2="9" y2="23"/>
+              <line x1="15" y1="20" x2="15" y2="23"/>
+              <line x1="20" y1="9" x2="23" y2="9"/>
+              <line x1="20" y1="15" x2="23" y2="15"/>
+              <line x1="1" y1="9" x2="4" y2="9"/>
+              <line x1="1" y1="15" x2="4" y2="15"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">VLSI<br>Design</div>
+        </a>
+
+        <!-- 8. Sales & Marketing -->
+        <a href="sales-marketing-internship.html" class="ab-track-card sm">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Sales &amp;<br>Marketing</div>
+        </a>
+
+        <!-- 9. Finance -->
+        <a href="courses.html" class="ab-track-card fin">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Finance<br>Track</div>
+        </a>
+
+        <!-- 10. HR Management -->
+        <a href="hr-management-internship.html" class="ab-track-card hr">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">HR<br>Management</div>
+        </a>
+
+        <!-- 11. Entrepreneurship -->
+        <a href="entrepreneurship-internship.html" class="ab-track-card ent">
+          <div class="ab-track-badge">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/>
+            </svg>
+          </div>
+          <div class="ab-track-name">Entrepreneurship<br>Track</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- SECTION 3: NUMBERS THAT MATTER -->
+    <div class="ab-impact-card">
+      <div class="ab-imp-left">
+        <div class="ab-imp-eyebrow">OUR IMPACT</div>
+        <h2 class="ab-imp-h2">Numbers That Matter</h2>
+        <p class="ab-imp-desc">Learners, partners and real opportunities.</p>
+      </div>
+
+      <div class="ab-imp-right-stats">
+        <div class="ab-imp-stat-item">
+          <div class="ab-imp-num">3000+</div>
+          <div class="ab-imp-label">Learners</div>
+        </div>
+
+        <div class="ab-imp-divider"></div>
+
+        <div class="ab-imp-stat-item">
+          <div class="ab-imp-num">250+</div>
+          <div class="ab-imp-label">Hiring Partners</div>
+        </div>
+
+        <div class="ab-imp-divider"></div>
+
+        <div class="ab-imp-stat-item">
+          <div class="ab-imp-num">70%</div>
+          <div class="ab-imp-label">Placement Support</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
