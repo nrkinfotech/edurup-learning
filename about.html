@@ -201,7 +201,7 @@
     }
     @media (max-width: 768px) {
       .ab-hero-exact {
-        padding: 24px 0 0 0 !important;
+        padding: 24px 0 30px 0 !important;
       }
       .ab-hero-exact .ab-container {
         flex-direction: column !important;
@@ -218,7 +218,7 @@
         align-items: center !important;
         text-align: center !important;
         padding: 0 !important;
-        margin: 0 0 20px 0 !important;
+        margin: 0 0 22px 0 !important;
         height: auto !important;
         min-height: 0 !important;
       }
@@ -255,22 +255,26 @@
       .ab-hero-exact .ab-right-col {
         flex: none !important;
         width: 100% !important;
-        justify-content: center !important;
-        max-width: 100% !important;
-        margin: 0 !important;
+        max-width: 340px !important;
+        margin: 0 auto !important;
         display: flex !important;
-        height: auto !important;
-        min-height: 0 !important;
+        justify-content: center !important;
+        align-items: center !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        box-shadow: 0 12px 32px rgba(0, 82, 255, 0.12), 0 4px 12px rgba(0,0,0,0.08) !important;
+        border: 1px solid rgba(0, 82, 255, 0.18) !important;
+        background: #ffffff !important;
       }
       .ab-hero-exact .ab-main-photo {
-        max-width: 340px !important;
+        max-width: 100% !important;
         width: 100% !important;
         height: auto !important;
-        object-fit: contain !important;
-        object-position: center bottom !important;
-        transform: none !important;
-        margin: 0 auto !important;
+        object-fit: cover !important;
         display: block !important;
+        transform: none !important;
+        margin: 0 !important;
+        border-radius: 20px !important;
         -webkit-mask-image: none !important;
         mask-image: none !important;
       }
@@ -1546,8 +1550,8 @@
       .ab-journey-right {
         flex: none !important;
         width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
+        max-width: 340px !important;
+        margin: 0 auto !important;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
@@ -1555,16 +1559,21 @@
         z-index: 2 !important;
         height: auto !important;
         min-height: 0 !important;
+        border-radius: 18px !important;
+        overflow: hidden !important;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        background: #ffffff !important;
       }
       .ab-journey-img {
-        max-width: 330px !important;
+        max-width: 100% !important;
         width: 100% !important;
         height: auto !important;
-        margin: 0 auto !important;
+        margin: 0 !important;
         transform: none !important;
         display: block !important;
-        object-fit: contain !important;
-        border-radius: 16px !important;
+        object-fit: cover !important;
+        border-radius: 18px !important;
       }
     }
   </style>
