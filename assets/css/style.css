@@ -307,6 +307,7 @@ header .brand img {
   position: relative;
   display: flex;
   align-items: center;
+  padding: 6px 0;
 }
 
 .nav-dropdown-toggle {
@@ -327,9 +328,9 @@ header .brand img {
 
 .nav-dropdown-menu {
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 2px);
   left: 50%;
-  transform: translateX(-50%) translateY(8px);
+  transform: translateX(-50%) translateY(4px);
   width: 290px;
   padding: 10px;
   background: rgba(255, 255, 255, 0.98);
@@ -340,8 +341,18 @@ header .brand img {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
   z-index: 100;
+}
+
+.nav-dropdown-menu::after {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: transparent;
 }
 
 .nav-dropdown-menu::before {
@@ -355,6 +366,7 @@ header .brand img {
   border-left: 1px solid var(--border-line);
   border-top: 1px solid var(--border-line);
   transform: translateX(-50%) rotate(45deg);
+  z-index: 1;
 }
 
 .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu {
