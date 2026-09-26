@@ -60,22 +60,22 @@
 </header>
 
 <main>
-<section class="ab-hero-exact" style="background: linear-gradient(180deg, #edf4ff 0%, #f7faff 100%) !important; padding: 50px 0 60px 0 !important; overflow: hidden !important; width: 100% !important;">
+<section class="ab-hero-exact" style="background: linear-gradient(180deg, #edf4ff 0%, #f7faff 100%) !important; padding: 20px 0 40px 0 !important; overflow: hidden !important; width: 100% !important;">
   <style>
     .ab-hero-exact * { box-sizing: border-box !important; }
     .ab-hero-exact .ab-container {
-      max-width: 1380px !important;
+      max-width: 1400px !important;
       width: 100% !important;
       margin: 0 auto !important;
       padding: 0 40px !important;
       display: flex !important;
       align-items: center !important;
       justify-content: space-between !important;
-      gap: 48px !important;
+      gap: 36px !important;
     }
     .ab-hero-exact .ab-left-col {
-      flex: 1 1 560px !important;
-      max-width: 640px !important;
+      flex: 1 1 540px !important;
+      max-width: 620px !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: flex-start !important;
@@ -132,53 +132,26 @@
     }
 
     .ab-hero-exact .ab-right-col {
-      flex: 1 1 540px !important;
-      max-width: 660px !important;
-      position: relative !important;
+      flex: 1 1 680px !important;
+      max-width: 760px !important;
       display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
-    }
-    .ab-hero-exact .ab-image-wrapper {
-      position: relative !important;
-      width: 100% !important;
-      display: flex !important;
-      justify-content: center !important;
+      justify-content: flex-end !important;
       align-items: center !important;
     }
     .ab-hero-exact .ab-main-photo {
       width: 100% !important;
-      max-width: 620px !important;
       height: auto !important;
+      max-height: 560px !important;
       object-fit: contain !important;
       display: block !important;
-      border-radius: 20px !important;
-    }
-    .ab-hero-exact .ab-handwritten-note {
-      position: absolute !important;
-      top: -15px !important;
-      right: 15px !important;
-      font-family: 'Caveat', cursive !important;
-      font-size: 30px !important;
-      font-weight: 700 !important;
-      line-height: 1.15 !important;
-      color: #111b33 !important;
-      text-align: right !important;
-      pointer-events: none !important;
-      z-index: 5 !important;
-      transform: rotate(2deg) !important;
-    }
-    .ab-hero-exact .ab-handwritten-note .swoosh-line {
-      display: block !important;
-      margin-top: -2px !important;
-      margin-left: auto !important;
     }
 
     @media (max-width: 1024px) {
       .ab-hero-exact .ab-container {
         flex-direction: column !important;
         text-align: center !important;
-        gap: 36px !important;
+        padding: 20px 20px 30px 20px !important;
+        gap: 32px !important;
       }
       .ab-hero-exact .ab-left-col {
         align-items: center !important;
@@ -189,27 +162,15 @@
       }
       .ab-hero-exact .ab-right-col {
         max-width: 100% !important;
-      }
-      .ab-hero-exact .ab-handwritten-note {
-        top: -25px !important;
-        right: 20px !important;
-        font-size: 26px !important;
+        justify-content: center !important;
       }
     }
     @media (max-width: 640px) {
-      .ab-hero-exact .ab-container {
-        padding: 0 20px !important;
-      }
       .ab-hero-exact .ab-title {
         font-size: 32px !important;
       }
       .ab-hero-exact .ab-desc {
         font-size: 16px !important;
-      }
-      .ab-hero-exact .ab-handwritten-note {
-        font-size: 22px !important;
-        top: -20px !important;
-        right: 10px !important;
       }
     }
   </style>
@@ -227,18 +188,7 @@
     </div>
 
     <div class="ab-right-col">
-      <div class="ab-image-wrapper">
-        <img src="assets/aboutus.png" alt="Edurup Learning Team - Building Skills, Creating Experience, Shaping Careers" class="ab-main-photo">
-        <div class="ab-handwritten-note">
-          <div>Learn</div>
-          <div>Apply</div>
-          <div>Experience</div>
-          <div>Grow</div>
-          <svg class="swoosh-line" width="65" height="12" viewBox="0 0 65 12" fill="none">
-            <path d="M3 8C22 3 44 3 62 8" stroke="#ff9f1c" stroke-width="3.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-      </div>
+      <img src="assets/aboutus.png" alt="Edurup Learning Team - Building Skills, Creating Experience, Shaping Careers" class="ab-main-photo">
     </div>
   </div>
 </section>
