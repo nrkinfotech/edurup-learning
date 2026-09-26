@@ -81,6 +81,8 @@
       flex-direction: column !important;
       align-items: flex-start !important;
       margin-left: -10px !important;
+      position: relative !important;
+      z-index: 5 !important;
     }
     .ab-hero-exact .ab-eyebrow {
       font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -145,6 +147,7 @@
       align-items: center !important;
       margin-right: 0 !important;
       margin-top: -35px !important;
+      position: relative !important;
     }
     .ab-hero-exact .ab-main-photo {
       width: 100% !important;
@@ -157,6 +160,8 @@
       margin-left: auto !important;
       transform: translateY(-15px) scale(1.04) !important;
       transform-origin: right top !important;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 8%, rgba(0,0,0,0.9) 18%, #000000 30%) !important;
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 8%, rgba(0,0,0,0.9) 18%, #000000 30%) !important;
     }
 
     @media (max-width: 1080px) {
@@ -190,6 +195,8 @@
         max-height: 480px !important;
         object-position: center bottom !important;
         transform: none !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
       }
     }
     @media (max-width: 640px) {
