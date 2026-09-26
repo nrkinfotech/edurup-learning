@@ -64,22 +64,23 @@
   <style>
     .ab-hero-exact * { box-sizing: border-box !important; }
     .ab-hero-exact .ab-container {
-      max-width: 1520px !important;
+      max-width: 1540px !important;
       width: 100% !important;
       margin: 0 0 0 auto !important;
-      padding: 0 0 0 40px !important;
+      padding: 0 0 0 30px !important;
       display: flex !important;
       align-items: center !important;
       justify-content: space-between !important;
       gap: 20px !important;
     }
     .ab-hero-exact .ab-left-col {
-      flex: 1 1 500px !important;
-      max-width: 580px !important;
+      flex: 1 1 580px !important;
+      max-width: 660px !important;
       padding: 35px 0 45px 0 !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: flex-start !important;
+      margin-left: -10px !important;
     }
     .ab-hero-exact .ab-eyebrow {
       font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -92,12 +93,16 @@
     }
     .ab-hero-exact .ab-title {
       font-family: 'Plus Jakarta Sans', sans-serif !important;
-      font-size: clamp(40px, 5vw, 60px) !important;
+      font-size: clamp(38px, 4.6vw, 56px) !important;
       font-weight: 800 !important;
       color: #001233 !important;
-      line-height: 1.1 !important;
+      line-height: 1.12 !important;
       letter-spacing: -0.035em !important;
       margin: 0 0 20px 0 !important;
+    }
+    .ab-hero-exact .ab-title .nowrap {
+      white-space: nowrap !important;
+      display: block !important;
     }
     .ab-hero-exact .ab-title .highlight-blue {
       color: #0052ff !important;
@@ -109,7 +114,7 @@
       line-height: 1.65 !important;
       color: #4b5e7e !important;
       margin: 0 0 32px 0 !important;
-      max-width: 560px !important;
+      max-width: 580px !important;
     }
     .ab-hero-exact .ab-btn {
       display: inline-flex !important;
@@ -166,6 +171,10 @@
         align-items: center !important;
         max-width: 100% !important;
         padding: 0 !important;
+        margin-left: 0 !important;
+      }
+      .ab-hero-exact .ab-title .nowrap {
+        white-space: normal !important;
       }
       .ab-hero-exact .ab-desc {
         max-width: 100% !important;
@@ -198,7 +207,7 @@
       <div class="ab-eyebrow">ABOUT US</div>
       <h1 class="ab-title">
         Building Skills.<br>
-        Creating Experience.<br>
+        <span class="nowrap">Creating Experience.</span>
         <span class="highlight-blue">Shaping Careers.</span>
       </h1>
       <p class="ab-desc">Edurup Learning is a career-focused learning and corporate internship platform helping students and graduates develop practical skills, work on real-world projects and gain professional exposure.</p>
