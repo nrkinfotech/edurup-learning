@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Orders &amp; Enrollments | Edurup Learning</title>
+  <meta name="description" content="View your internship program enrollments, active orders, and payment receipts on Edurup Learning.">
+  <link rel="canonical" href="https://www.eduruplearning.com/my-orders.html">
+  <link rel="stylesheet" href="assets/css/style.css?v=27">
+  <style>
+    /* My Orders Page Styling */
+    * {
+      box-sizing: border-box;
+    }
+    body.orders-body {
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a;
+    }
+    .orders-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Left Sidebar */
+    .orders-sidebar {
+      width: 260px;
+      background-color: #0b1329;
+      color: #94a3b8;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 16px;
+      overflow-y: auto;
+    }
+    .orders-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px 28px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+    .orders-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .orders-brand span {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .orders-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .orders-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .orders-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .orders-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .orders-nav-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Sidebar Support Box */
+    .sidebar-support-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px 16px;
+      margin-top: auto;
+      text-align: center;
+    }
+    .sidebar-support-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.2);
+      color: #3b82f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 20px;
+    }
+    .sidebar-support-box h4 {
+      margin: 0 0 4px 0;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .sidebar-support-box p {
+      margin: 0 0 14px 0;
+      color: #64748b;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    .sidebar-support-btn {
+      display: inline-block;
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    .orders-main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .orders-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+    .orders-topbar-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .orders-content {
+      padding: 36px 40px;
+      max-width: 1180px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Page Header */
+    .orders-header {
+      margin-bottom: 28px;
+    }
+    .orders-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+    }
+    .orders-header p {
+      font-size: 0.98rem;
+      color: #64748b;
+      margin: 0;
+    }
+
+    /* Filter Tabs */
+    .orders-tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 32px;
+    }
+    .orders-tab-btn {
+      padding: 12px 20px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #64748b;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .orders-tab-btn.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* STATE 1: EMPTY ORDERS CARD VIEW (User hasn't purchased any) */
+    .empty-orders-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 48px 32px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    }
+    .empty-orders-icon-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin: 0 auto 20px;
+    }
+    .empty-orders-card h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 8px 0;
+    }
+    .empty-orders-card p {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin: 0 0 28px 0;
+      line-height: 1.5;
+    }
+
+    /* Benefits Box inside Empty Card */
+    .empty-benefits-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+    .empty-benefits-box h4 {
+      margin: 0 0 12px 0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #334155;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #475569;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .benefit-item:last-child {
+      margin-bottom: 0;
+    }
+    .benefit-item span {
+      color: #16a34a;
+      font-weight: bold;
+    }
+
+    .explore-btn-lg {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+      transition: all 0.2s ease;
+    }
+    .explore-btn-lg:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px -4px rgba(37, 99, 235, 0.5);
+    }
+
+    /* STATE 2: ACTIVE ORDER CARD VIEW (When an order exists) */
+    .active-order-card {
+      display: none; /* Hidden by default for empty state */
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+    }
+    .order-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 16px;
+    }
+    .order-id-info h4 {
+      margin: 0 0 2px 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .order-id-info p {
+      margin: 0;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+    .order-status-badge {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .order-body-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .order-item-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .order-item-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+    .order-item-title h3 {
+      margin: 0 0 4px 0;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .order-item-title p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    .order-item-right {
+      text-align: right;
+    }
+    .order-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .access-learning-btn {
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body class="orders-body">
+  <div class="orders-container">
+    <!-- Left Sidebar -->
+    <aside class="orders-sidebar">
+      <a href="index.html" class="orders-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <nav class="orders-nav">
+        <a href="dashboard.html" class="orders-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="explore-internships.html" class="orders-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          <span>Explore Internships</span>
+        </a>
+        <a href="my-orders.html" class="orders-nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span>My Orders</span>
+        </a>
+        <a href="contact.html" class="orders-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Support</span>
+        </a>
+        <a href="profile.html" class="orders-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>My Profile</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support-box">
+        <div class="sidebar-support-icon">🎧</div>
+        <h4>Need Help?</h4>
+        <p>Have questions? Our team is here to help you.</p>
+        <a href="contact.html" class="sidebar-support-btn">Contact Support →</a>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="orders-main-wrapper">
+      <header class="orders-topbar">
+        <span class="orders-topbar-title">My Orders &amp; Program Enrollments</span>
+        <div style="font-size:0.85rem; color:#64748b;">
+          Student ID: <strong style="color:#0f172a;">EDU-2026-8492</strong>
+        </div>
+      </header>
+
+      <main class="orders-content">
+        <!-- Header -->
+        <div class="orders-header">
+          <h1>My Orders</h1>
+          <p>Track your internship program enrollments, receipts, and active learning access.</p>
+        </div>
+
+        <!-- Order Tabs -->
+        <div class="orders-tabs">
+          <button type="button" class="orders-tab-btn active" onclick="switchOrderTab('all', this)">All Orders (0)</button>
+          <button type="button" class="orders-tab-btn" onclick="switchOrderTab('active', this)">Active Enrollments (0)</button>
+          <button type="button" class="orders-tab-btn" onclick="switchOrderTab('completed', this)">Completed Programs (0)</button>
+        </div>
+
+        <!-- STATE 1: EMPTY ORDERS CARD VIEW (User hasn't purchased any) -->
+        <div id="emptyOrdersView" class="empty-orders-card">
+          <div class="empty-orders-icon-wrapper">
+            📦
+          </div>
+          <h2>No Active Orders Found</h2>
+          <p>You haven't enrolled in any internship program or purchased any courses yet. Choose an internship domain to start learning and building real-world projects!</p>
+
+          <div class="empty-benefits-box">
+            <h4>What you get once you enroll:</h4>
+            <div class="benefit-item"><span>✓</span> Access to 10+ Real-World Corporate Projects</div>
+            <div class="benefit-item"><span>✓</span> Live Interactive Mentor Support &amp; Classes</div>
+            <div class="benefit-item"><span>✓</span> Official Verified Internship Certificate + Letter of Recommendation (LOR)</div>
+          </div>
+
+          <a href="explore-internships.html" class="explore-btn-lg">
+            Explore Internship Programs →
+          </a>
+        </div>
+
+        <!-- STATE 2: ACTIVE ENROLLED ORDER CARD VIEW (Simulated preview) -->
+        <div id="activeOrderView" class="active-order-card">
+          <div class="order-card-header">
+            <div class="order-id-info">
+              <h4>Order #EDU-984215</h4>
+              <p>Purchased on: 28 Sep 2026 • Payment via Online UPI</p>
+            </div>
+            <span class="order-status-badge">Active Enrollment</span>
+          </div>
+
+          <div class="order-body-grid">
+            <div class="order-item-left">
+              <div class="order-item-icon">📊</div>
+              <div class="order-item-title">
+                <h3>Data Analytics Internship Program</h3>
+                <p>6-Month Program • 10+ Real-World Projects • Live Classes &amp; Mentor Guidance</p>
+              </div>
+            </div>
+
+            <div class="order-item-right">
+              <div class="order-price">₹9,999</div>
+              <a href="data-analytics-internship.html" class="access-learning-btn">Go to Program →</a>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching logic
+    function switchOrderTab(tabName, element) {
+      const tabs = document.querySelectorAll('.orders-tab-btn');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      element.classList.add('active');
+
+      const emptyView = document.getElementById('emptyOrdersView');
+      const activeView = document.getElementById('activeOrderView');
+
+      if (tabName === 'all' || tabName === 'active') {
+        // Show empty state by default unless order exists in localStorage
+        const hasOrder = localStorage.getItem('edurup_user_order');
+        if (hasOrder) {
+          emptyView.style.display = 'none';
+          activeView.style.display = 'block';
+        } else {
+          emptyView.style.display = 'block';
+          activeView.style.display = 'none';
+        }
+      } else {
+        emptyView.style.display = 'block';
+        activeView.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
