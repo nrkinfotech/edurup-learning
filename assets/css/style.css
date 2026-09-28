@@ -1395,6 +1395,50 @@ header .brand img {
   margin: 0 auto;
 }
 
+.lead-cancel-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 20px;
+  background: #F8FAFC;
+  color: #64748B;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.lead-cancel-btn:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+  border-color: #CBD5E1;
+}
+
+.lead-success-close-btn {
+  display: inline-block;
+  margin-top: 24px;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #0052FF 0%, #2563EB 100%);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 82, 255, 0.35);
+  transition: all 0.25s ease;
+}
+
+.lead-success-close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 82, 255, 0.45);
+}
+
 /* Responsiveness */
 @media (max-width: 900px) {
   .links { display: none !important; }
