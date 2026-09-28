@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Explore Internship Programs | Edurup Learning</title>
+  <meta name="description" content="Explore career-focused internship programs in Data Analytics, Data Science, AI, Full Stack, Digital Marketing, HR, Sales & Entrepreneurship.">
+  <link rel="canonical" href="https://www.eduruplearning.com/explore-internships.html">
+  <link rel="stylesheet" href="assets/css/style.css?v=26">
+  <style>
+    /* Explore Internships Page Styling */
+    * {
+      box-sizing: border-box;
+    }
+    body.explore-body {
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a;
+    }
+    .exp-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Left Sidebar */
+    .exp-sidebar {
+      width: 260px;
+      background-color: #0b1329;
+      color: #94a3b8;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 16px;
+      overflow-y: auto;
+    }
+    .exp-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px 28px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+    .exp-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .exp-brand span {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .exp-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .exp-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .exp-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .exp-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .exp-nav-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Sidebar Support Box */
+    .sidebar-support-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px 16px;
+      margin-top: auto;
+      text-align: center;
+    }
+    .sidebar-support-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.2);
+      color: #3b82f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 20px;
+    }
+    .sidebar-support-box h4 {
+      margin: 0 0 4px 0;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .sidebar-support-box p {
+      margin: 0 0 14px 0;
+      color: #64748b;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    .sidebar-support-btn {
+      display: inline-block;
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    .exp-main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .exp-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+    .exp-search-box {
+      position: relative;
+      width: 420px;
+    }
+    .exp-search-input {
+      width: 100%;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 9px 16px 9px 38px;
+      font-size: 0.88rem;
+      color: #0f172a;
+      outline: none;
+    }
+    .exp-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .exp-content {
+      padding: 36px 40px;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Page Header */
+    .exp-header {
+      margin-bottom: 28px;
+    }
+    .exp-header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 8px 0;
+    }
+    .exp-header p {
+      font-size: 1rem;
+      color: #64748b;
+      margin: 0;
+    }
+
+    /* Filter Category Pills */
+    .exp-filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .exp-filter-chip {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .exp-filter-chip:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .exp-filter-chip.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Grid of All 8 Internships */
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 1100px) {
+      .exp-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 700px) {
+      .exp-grid {
+        grid-template-columns: 1fr;
+      }
+      .exp-sidebar {
+        width: 80px;
+        padding: 16px 8px;
+      }
+      .exp-brand span, .exp-nav-item span, .sidebar-support-box {
+        display: none;
+      }
+      .exp-nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+    }
+
+    /* Internship Card */
+    .exp-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .exp-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+      border-color: #bfdbfe;
+    }
+    .exp-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .exp-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .exp-badge-duration {
+      background: #eff6ff;
+      color: #1e40af;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+    .exp-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 10px 0;
+      line-height: 1.35;
+    }
+    .exp-card p {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin: 0 0 18px 0;
+      line-height: 1.45;
+    }
+
+    .exp-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .exp-features li {
+      font-size: 0.82rem;
+      color: #334155;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .exp-features li span {
+      color: #16a34a;
+      font-weight: bold;
+    }
+
+    .exp-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .exp-price-tag {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .exp-action-btn {
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 10px;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .exp-card:hover .exp-action-btn {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body class="explore-body">
+  <div class="exp-container">
+    <!-- Left Sidebar -->
+    <aside class="exp-sidebar">
+      <a href="index.html" class="exp-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <nav class="exp-nav">
+        <a href="dashboard.html" class="exp-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="explore-internships.html" class="exp-nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          <span>Explore Internships</span>
+        </a>
+        <a href="javascript:void(0);" class="exp-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span>My Orders</span>
+        </a>
+        <a href="contact.html" class="exp-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Support</span>
+        </a>
+        <a href="profile.html" class="exp-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>My Profile</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support-box">
+        <div class="sidebar-support-icon">🎧</div>
+        <h4>Need Help?</h4>
+        <p>Have questions? Our team is here to help you.</p>
+        <a href="contact.html" class="sidebar-support-btn">Contact Support →</a>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="exp-main-wrapper">
+      <header class="exp-topbar">
+        <div class="exp-search-box">
+          <span class="exp-search-icon">🔍</span>
+          <input type="text" id="searchInput" class="exp-search-input" placeholder="Search internships by name or skills..." onkeyup="filterInternships()">
+        </div>
+      </header>
+
+      <main class="exp-content">
+        <!-- Header -->
+        <div class="exp-header">
+          <h1>Explore Internship Programs</h1>
+          <p>Choose a domain to start your practical learning, build 10+ real-world projects and gain industry experience.</p>
+        </div>
+
+        <!-- Filter Chips -->
+        <div class="exp-filters">
+          <button type="button" class="exp-filter-chip active" onclick="filterCategory('all', this)">All Domains (8)</button>
+          <button type="button" class="exp-filter-chip" onclick="filterCategory('data', this)">Data &amp; AI (3)</button>
+          <button type="button" class="exp-filter-chip" onclick="filterCategory('dev', this)">Development (1)</button>
+          <button type="button" class="exp-filter-chip" onclick="filterCategory('business', this)">Business &amp; Marketing (4)</button>
+        </div>
+
+        <!-- Grid of 8 Internships -->
+        <div class="exp-grid" id="internshipsGrid">
+          
+          <!-- 1. Data Analytics -->
+          <a href="data-analytics-internship.html" class="exp-card" data-category="data" data-name="data analytics">
+            <div>
+              <div class="exp-card-header">
+                <div class="exp-icon-box" style="background:#eff6ff; color:#2563eb;">📊</div>
+                <span class="exp-badge-duration">6 Months</span>
+              </div>
+              <h3>Data Analytics Internship</h3>
+              <p>Master Excel, SQL, Tableau, Power BI and Python to transform data into business insights.</p>
+              <ul class="exp-features">
+                <li><span>✓</span> 10+ Real-World Projects</li>
+                <li><span>✓</span> Live Classes &amp; Mentor Support</li>
+                <li><span>✓</span> Verified Internship Certificate + LOR</li>
+              </ul>
+            </div>
+            <div class="exp-footer">
+              <span class="exp-price-tag">₹9,999</span>
+              <span class="exp-action-btn">Explore Program →</span>
+            </div>
+          </a>
+
+          <!-- 2. Data Science -->
+          <a href="data-science-internship.html" class="exp-card" data-category="data" data-name="data science">
+            <div>
+              <div class="exp-card-header">
+                <div class="exp-icon-box" style="background:#f3e8ff; color:#9333ea;">🧬</div>
+                <span class="exp-badge-duration">6 Months</span>
+              </div>
+              <h3>Data Science Internship</h3>
+              <p>Learn Python, Statistics, Machine Learning algorithms, Pandas and Predictive Analytics.</p>
+              <ul class="exp-features">
+                <li><span>✓</span> 10+ Real-World Projects</li>
+                <li><span>✓</span> Live Classes &amp; Mentor Support</li>
+                <li><span>✓</span> Verified Internship Certificate + LOR</li>
+              </ul>
+            </div>
+            <div class="exp-footer">
+              <span class="exp-price-tag">₹9,999</span>
+              <span class="exp-action-btn">Explore Program →</span>
+            </div>
+          </a>
+
+          <!-- 3. Artificial Intelligence -->
+          <a href="artificial-intelligence-internship.html" class="exp-card" data-category="data" data-name="artificial intelligence ai">
+            <div>
+              <div class="exp-card-header">
+                <div class="exp-icon-box" style="background:#dcfce7; color:#15803d;">🤖</div>
+                <span class="exp-badge-duration">6 Months</span>
+              </div>
+              <h3>Artificial Intelligence Internship</h3>
+              <p>Build AI models, Neural Networks, Deep Learning and NLP applications with Python.</p>
+              <ul class="exp-features">
+                <li><span>✓</span> 10+ Real-World Projects</li>
+                <li><span>✓</span> Live Classes &amp; Mentor Support</li>
+                <li><span>✓</span> Verified Internship Certificate + LOR</li>
+              </ul>
+            </div>
+            <div class="exp-footer">
+              <span class="exp-price-tag">₹9,999</span>
+              <span class="exp-action-btn">Explore Program →</span>
+            </div>
+          </a>
+
+          <!-- 4. Digital Marketing -->
+          <a href="digital-marketing-internship.html" class="exp-card" data-category="business" data-name="digital marketing seo sem">
+            <div>
+              <div class="exp-card-header">
+                <div class="exp-icon-box" style="background:#fce7f3; color:#be185d;">📣</div>
+                <span class="exp-badge-duration">6 Months</span>
+              </div>
+              <h3>Digital Marketing Internship</h3>
+              <p>Master SEO, Meta Ads, Google Ads, Social Media strategy, Content and Analytics.</p>
+              <ul class="exp-features">
+                <li><span>✓</span> 10+ Real-World Projects</li>
+                <li><span>✓</span> Live Classes &amp; Mentor Support</li>
+                <li><span>✓</span> Verified Internship Certificate + LOR</li>
+              </ul>
+            </div>
+            <div class="exp-footer">
+              <span class="exp-price-tag">₹9,999</span>
+              <span class="exp-action-btn">Explore Program →</span>
+            </div>
+          </a>
+
+          <!-- 5. Full Stack Development -->
+          <a href="full-stack-development-internship.html" class="exp-card" data-category="dev" data-name="full stack web development react node html css js">
+            <div>
+              <div class="exp-card-header">
+                <div class="exp-icon-box" style="background:#e0f2fe; color:#0369a1;">&lt;/&gt;</div>
+                <span class="exp-badge-duration">6 Months</span>
+              </div>
+              <h3>Full Stack Development Internship</h3>
+              <p>Build modern web apps using HTML5, CSS3, JavaScript, React, Node.js and MongoDB.</p>
+              <ul class="exp-features">
+                <li><span>✓</span> 10+ Real-World Projects</li>
+                <li><span>✓</span> Live Classes &amp; Mentor Support</li>
+                <li><span>✓</span> Verified Internship Certificate + LOR</li>
+              </ul>
+            </div>
+            <div class="exp-footer">
+              <span class="exp-price-tag">₹9,999</span>
+              <span class="exp-action-btn">Explore Program →</span>
+            </div>
+          </a>
+
+          <!-- 6. HR Management -->
+          <a href="hr-management-internship.html" class="exp-card" data-category="business" data-name="hr management human resources recruitment">
+            <div>
+              <div class="exp-card-header">
+                <div class="exp-icon-box" style="background:#ffedd5; color:#c2410c;">👥</div>
+                <span class="exp-badge-duration">6 Months</span>
+              </div>
+              <h3>HR Management Internship</h3>
+              <p>Learn Talent Acquisition, Employee Engagement, Payroll, Compliance and Performance Management.</p>
+              <ul class="exp-features">
+                <li><span>✓</span> 10+ Real-World Projects</li>
+                <li><span>✓</span> Live Classes &amp; Mentor Support</li>
+                <li><span>✓</span> Verified Internship Certificate + LOR</li>
+              </ul>
+            </div>
+            <div class="exp-footer">
+              <span class="exp-price-tag">₹9,999</span>
+              <span class="exp-action-btn">Explore Program →</span>
+            </div>
+          </a>
+
+          <!-- 7. Sales & Marketing -->
+          <a href="sales-marketing-internship.html" class="exp-card" data-category="business" data-name="sales marketing lead generation b2b b2c">
+            <div>
+              <div class="exp-card-header">
+                <div class="exp-icon-box" style="background:#f3e8ff; color:#7e22ce;">🎯</div>
+                <span class="exp-badge-duration">6 Months</span>
+              </div>
+              <h3>Sales &amp; Marketing Internship</h3>
+              <p>Develop B2B/B2C sales strategies, lead generation, client communication and closing techniques.</p>
+              <ul class="exp-features">
+                <li><span>✓</span> 10+ Real-World Projects</li>
+                <li><span>✓</span> Live Classes &amp; Mentor Support</li>
+                <li><span>✓</span> Verified Internship Certificate + LOR</li>
+              </ul>
+            </div>
+            <div class="exp-footer">
+              <span class="exp-price-tag">₹9,999</span>
+              <span class="exp-action-btn">Explore Program →</span>
+            </div>
+          </a>
+
+          <!-- 8. Entrepreneurship -->
+          <a href="entrepreneurship-internship.html" class="exp-card" data-category="business" data-name="entrepreneurship startup business model pitching strategy">
+            <div>
+              <div class="exp-card-header">
+                <div class="exp-icon-box" style="background:#fef3c7; color:#b45309;">💡</div>
+                <span class="exp-badge-duration">6 Months</span>
+              </div>
+              <h3>Entrepreneurship Internship</h3>
+              <p>Learn startup fundamentals, business model canvas, product-market fit, pitching and scaling.</p>
+              <ul class="exp-features">
+                <li><span>✓</span> 10+ Real-World Projects</li>
+                <li><span>✓</span> Live Classes &amp; Mentor Support</li>
+                <li><span>✓</span> Verified Internship Certificate + LOR</li>
+              </ul>
+            </div>
+            <div class="exp-footer">
+              <span class="exp-price-tag">₹9,999</span>
+              <span class="exp-action-btn">Explore Program →</span>
+            </div>
+          </a>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Search Internship Function
+    function filterInternships() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.exp-card');
+      
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name');
+        if (name.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Category Filter Chips Function
+    function filterCategory(category, button) {
+      const chips = document.querySelectorAll('.exp-filter-chip');
+      chips.forEach(chip => chip.classList.remove('active'));
+      button.classList.add('active');
+
+      const cards = document.querySelectorAll('.exp-card');
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (category === 'all' || cardCat === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
