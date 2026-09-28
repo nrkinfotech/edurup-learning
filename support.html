@@ -647,7 +647,7 @@
       });
     }
 
-    // Support Form Handler -> therupeshneelam@gmail.com
+    // Support Form Handler -> MongoDB Compass & Email Backup
     document.getElementById('supportTicketForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = document.getElementById('sfSubmitBtn');
@@ -661,6 +661,18 @@
       data['_subject'] = 'New Student Support Ticket - Edurup Learning';
       data['Source Page'] = 'support.html';
 
+      // Post ticket to Express + MongoDB Compass Backend
+      try {
+        await fetch('http://localhost:5050/api/support/ticket', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch(err) {
+        console.warn('Backend server notice: Running local client mode or offline', err);
+      }
+
+      // Backup Email notification
       try {
         await fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
           method: 'POST',

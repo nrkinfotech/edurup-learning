@@ -1,0 +1,19 @@
+{
+  "name": "edurup-learning-backend",
+  "version": "1.0.0",
+  "description": "Node.js Express & MongoDB Compass Backend for Edurup Learning",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.3.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3"
+  }
+}

@@ -1037,18 +1037,52 @@
       }
     }
 
-    // Save Profile Data to localStorage
-    function saveProfileData() {
-      try {
-        const profile = {
-          name: document.getElementById('valFullName').value,
-          email: document.getElementById('valEmail').value,
-          phone: document.getElementById('valPhone').value,
-          location: document.getElementById('valLocation').value,
-          updatedAt: new Date().toISOString()
-        };
-        localStorage.setItem('edurup_user_profile', JSON.stringify(profile));
-      } catch(e) {}
+    // Load Profile from MongoDB Compass or localStorage
+    document.addEventListener('DOMContentLoaded', loadUserProfile);
+
+    async function loadUserProfile() {
+      const token = localStorage.getItem('edurup_jwt_token');
+      if (token) {
+        try {
+          const res = await fetch('http://localhost:5050/api/auth/me', {
+            headers: { 'Authorization': 'Bearer ' + token }
+          });
+          const data = await res.json();
+          if (data.success && data.user) {
+            const u = data.user;
+            if (u.fullName) document.getElementById('valFullName').value = u.fullName;
+            if (u.email) document.getElementById('valEmail').value = u.email;
+            if (u.phone) document.getElementById('valPhone').value = u.phone;
+            if (u.location) document.getElementById('valLocation').value = u.location;
+          }
+        } catch(e) {}
+      }
+    }
+
+    // Save Profile Data to MongoDB Compass & localStorage
+    async function saveProfileData() {
+      const profile = {
+        fullName: document.getElementById('valFullName').value,
+        email: document.getElementById('valEmail').value,
+        phone: document.getElementById('valPhone').value,
+        location: document.getElementById('valLocation').value,
+        updatedAt: new Date().toISOString()
+      };
+      localStorage.setItem('edurup_user_profile', JSON.stringify(profile));
+
+      const token = localStorage.getItem('edurup_jwt_token');
+      if (token) {
+        try {
+          await fetch('http://localhost:5050/api/auth/profile', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(profile)
+          });
+        } catch(e) {}
+      }
     }
 
     // Toast Notification System
