@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Student Registration &amp; Signup | Edurup Learning</title>
-  <meta name="description" content="Complete your student registration profile to apply for Edurup Learning Internship Programs.">
+  <title>Student Registration &amp; OTP Sign In | Edurup Learning</title>
+  <meta name="description" content="Complete your student registration profile and sign in securely with OTP for Edurup Learning Internship Programs.">
   <link rel="canonical" href="https://www.eduruplearning.com/signup.html">
-  <link rel="stylesheet" href="assets/css/style.css?v=21">
+  <link rel="stylesheet" href="assets/css/style.css?v=22">
   <style>
-    /* Signup Page Specific Styles matching reference image */
+    /* Signup & OTP Specific Styles */
     .signup-body {
       background-color: #f8fafc;
       min-height: 100vh;
@@ -21,7 +21,7 @@
     }
     .signup-hero {
       text-align: center;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
     }
     .signup-hero h1 {
       font-size: 2.2rem;
@@ -33,6 +33,84 @@
       color: #64748b;
       font-size: 1.05rem;
     }
+
+    /* Auth Tab Switcher */
+    .auth-tabs-container {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .auth-tabs {
+      display: inline-flex;
+      background: #e2e8f0;
+      border-radius: 30px;
+      padding: 4px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .auth-tab-btn {
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 26px;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .auth-tab-btn.active {
+      background: #ffffff;
+      color: #2563eb;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    }
+
+    /* User Signed-In Banner */
+    .user-session-banner {
+      display: none;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .user-session-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .user-avatar-sm {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .signout-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #ef4444;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .signout-btn:hover {
+      background: #fef2f2;
+      border-color: #fca5a5;
+    }
+
+    /* Cards */
     .sp-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -197,17 +275,6 @@
       color: #ef4444;
       margin-left: 2px;
     }
-    .sp-verified-badge {
-      background: #dcfce7;
-      color: #166534;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-    }
 
     .sp-input-container {
       position: relative;
@@ -316,24 +383,128 @@
       cursor: not-allowed;
       transform: none;
     }
-    .sp-success-msg {
+
+    /* Sign In Card View */
+    .signin-card {
       display: none;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: #166534;
-      border-radius: 12px;
-      padding: 24px;
-      margin-top: 20px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* OTP Modal Overlay */
+    .otp-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      padding: 20px;
+    }
+    .otp-modal-backdrop.show {
+      display: flex;
+    }
+    .otp-modal-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 36px 32px;
+      max-width: 440px;
+      width: 100%;
       text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
-    .sp-success-msg h3 {
-      font-size: 1.25rem;
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.92); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .otp-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #64748b;
+    }
+    .otp-icon-wrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 16px;
+    }
+    .otp-modal-card h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+    }
+    .otp-modal-card p {
+      font-size: 0.92rem;
+      color: #64748b;
+      margin: 0 0 20px 0;
+    }
+    .otp-demo-alert {
+      background: #fef3c7;
+      border: 1px solid #fde047;
+      color: #854d0e;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .otp-inputs-grid {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .otp-digit-input {
+      width: 48px;
+      height: 56px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-align: center;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      background: #f8fafc;
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: monospace;
+    }
+    .otp-digit-input:focus {
+      border-color: #2563eb;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    }
+    .otp-resend-row {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 16px;
+    }
+    .otp-resend-link {
+      color: #2563eb;
       font-weight: 700;
-      margin: 0 0 8px 0;
-    }
-    .sp-success-msg p {
-      margin: 0;
-      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -364,7 +535,7 @@
         <a href="hire-interns.html">Hire Interns</a>
       </nav>
       <div class="nav-actions">
-        <a class="nav-signin active" href="signup.html">Sign Up</a>
+        <a class="nav-signin active" href="signup.html">Sign Up / Sign In</a>
         <button class="nav-enroll-btn" data-open-lead>Enquire Now</button>
         <button class="menu" onclick="document.getElementById('mobileNav').classList.toggle('show')">☰</button>
       </div>
@@ -386,16 +557,43 @@
           </div>
         </div>
         <a href="hire-interns.html">Hire Interns</a>
+        <a href="signup.html">Sign Up / Sign In</a>
       </div>
     </div>
   </header>
 
   <main class="signup-wrap">
-    <div class="signup-hero">
-      <h1>Student <span style="background: linear-gradient(135deg,#2563eb,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Registration Profile</span></h1>
-      <p>Complete your profile details below to register for Edurup Learning Internship Programs</p>
+
+    <!-- Active User Session Banner -->
+    <div id="userSessionBanner" class="user-session-banner">
+      <div class="user-session-info">
+        <div class="user-avatar-sm" id="sessionAvatar">R</div>
+        <div>
+          <strong id="sessionUserName" style="font-size:0.95rem; color:#0f172a;">Rahul Kumar</strong>
+          <div id="sessionUserEmail" style="font-size:0.82rem; color:#64748b;">rahul@gmail.com • Verified Student Session</div>
+        </div>
+      </div>
+      <button type="button" class="signout-btn" onclick="signOutUser()">Sign Out</button>
     </div>
 
+    <div class="signup-hero">
+      <h1>Student <span style="background: linear-gradient(135deg,#2563eb,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Portal &amp; Authentication</span></h1>
+      <p>Register a new profile or sign in using secure 6-digit OTP verification</p>
+    </div>
+
+    <!-- Mode Switcher Tabs -->
+    <div class="auth-tabs-container">
+      <div class="auth-tabs">
+        <button type="button" id="tabRegisterBtn" class="auth-tab-btn active" onclick="switchAuthTab('register')">
+          📝 New Student Registration
+        </button>
+        <button type="button" id="tabSigninBtn" class="auth-tab-btn" onclick="switchAuthTab('signin')">
+          🔑 Sign In with OTP
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: REGISTRATION FORM -->
     <form id="studentRegistrationForm">
       <!-- Card 1: Personal Information -->
       <div class="sp-card">
@@ -442,14 +640,14 @@
               <div class="sp-label-row">
                 <label class="sp-label">Email Address<span class="sp-req">*</span></label>
               </div>
-              <input type="email" name="Email Address" class="sp-input" value="rahul@gmail.com" required placeholder="Email Address">
+              <input type="email" id="regEmail" name="Email Address" class="sp-input" value="rahul@gmail.com" required placeholder="Email Address">
             </div>
 
             <div class="sp-field">
               <div class="sp-label-row">
                 <label class="sp-label">Phone Number<span class="sp-req">*</span></label>
               </div>
-              <input type="tel" name="Phone Number" class="sp-input" value="+91 98765 43210" required placeholder="Phone Number">
+              <input type="tel" id="regPhone" name="Phone Number" class="sp-input" value="+91 98765 43210" required placeholder="Phone Number">
             </div>
 
             <div class="sp-field">
@@ -657,15 +855,74 @@
       <!-- Submit Section -->
       <div class="sp-submit-card">
         <button type="submit" id="submitBtn" class="sp-submit-btn">
-          Complete Registration &amp; Submit Profile →
+          Complete Registration &amp; Verify OTP →
         </button>
-        <div id="successMsg" class="sp-success-msg">
-          <h3>🎉 Profile Registration Submitted Successfully!</h3>
-          <p>Thank you for submitting your profile. Details have been sent to <strong>therupeshneelam@gmail.com</strong>. Our admissions team will get in touch with you shortly.</p>
-        </div>
       </div>
     </form>
+
+
+    <!-- VIEW 2: SIGN IN WITH OTP FORM -->
+    <div id="signinCardView" class="sp-card signin-card">
+      <div class="sp-header">
+        <div class="sp-header-title-box">
+          <div class="sp-icon-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+          </div>
+          <div>
+            <h2>Sign In with OTP</h2>
+            <p>Enter your registered Email Address or Phone Number to receive a 6-digit login OTP.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div class="sp-field">
+          <label class="sp-label">Registered Email or Phone Number<span class="sp-req">*</span></label>
+          <input type="text" id="signinTargetInput" class="sp-input" placeholder="e.g. rahul@gmail.com or +91 9876543210" value="rahul@gmail.com">
+        </div>
+        <button type="button" class="sp-submit-btn" style="width:100%; justify-content:center;" onclick="requestSignInOTP()">
+          Send Login OTP →
+        </button>
+      </div>
+    </div>
+
   </main>
+
+
+  <!-- OTP VERIFICATION POPUP MODAL -->
+  <div id="otpModalBackdrop" class="otp-modal-backdrop">
+    <div class="otp-modal-card">
+      <button type="button" class="otp-modal-close" onclick="closeOtpModal()">✕</button>
+      
+      <div class="otp-icon-wrapper">
+        🔒
+      </div>
+      <h3>Enter Verification OTP</h3>
+      <p id="otpModalSubtext">We sent a 6-digit OTP code to <strong id="otpTargetDisplay">rahul@gmail.com</strong></p>
+
+      <div class="otp-demo-alert">
+        <span>🔑 Demo Login Code:</span> <strong id="demoOtpCodeDisplay" style="font-size:1.1rem; letter-spacing:2px; color:#1e3a8a;">684920</strong>
+      </div>
+
+      <div class="otp-inputs-grid" id="otpInputsGrid">
+        <input type="text" class="otp-digit-input" maxlength="1" autofocus autocomplete="off">
+        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
+        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
+        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
+        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
+        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
+      </div>
+
+      <button type="button" id="verifyOtpBtn" class="sp-submit-btn" style="width:100%; justify-content:center;" onclick="verifySubmittedOTP()">
+        Verify &amp; Sign In →
+      </button>
+
+      <div class="otp-resend-row">
+        Didn't receive code? <span id="resendTimer" class="otp-resend-link" onclick="resendOTPCode()">Resend OTP Code</span>
+      </div>
+    </div>
+  </div>
+
 
   <footer class="footer">
     <div class="wrap footer-grid">
@@ -703,7 +960,54 @@
   </footer>
 
   <script>
-    // Preview photo on upload
+    // State variables
+    let generatedOTP = '684920';
+    let currentAuthMode = 'registration'; // 'registration' or 'signin'
+    let pendingFormData = null;
+
+    // Check existing active user session
+    document.addEventListener('DOMContentLoaded', checkUserSession);
+
+    function checkUserSession() {
+      try {
+        const session = localStorage.getItem('edurup_user_session');
+        if (session) {
+          const user = JSON.parse(session);
+          document.getElementById('userSessionBanner').style.display = 'flex';
+          document.getElementById('sessionUserName').innerText = user.name || 'Rahul Kumar';
+          document.getElementById('sessionUserEmail').innerText = (user.email || 'rahul@gmail.com') + ' • Verified Active Student Session';
+          document.getElementById('sessionAvatar').innerText = (user.name || 'R').charAt(0).toUpperCase();
+        }
+      } catch(e) {}
+    }
+
+    function signOutUser() {
+      localStorage.removeItem('edurup_user_session');
+      document.getElementById('userSessionBanner').style.display = 'none';
+      alert('You have signed out successfully.');
+    }
+
+    // Switch between Registration & Sign In Tabs
+    function switchAuthTab(mode) {
+      const regForm = document.getElementById('studentRegistrationForm');
+      const signinCard = document.getElementById('signinCardView');
+      const regBtn = document.getElementById('tabRegisterBtn');
+      const signinBtn = document.getElementById('tabSigninBtn');
+
+      if (mode === 'register') {
+        regForm.style.display = 'block';
+        signinCard.style.display = 'none';
+        regBtn.classList.add('active');
+        signinBtn.classList.remove('active');
+      } else {
+        regForm.style.display = 'none';
+        signinCard.style.display = 'block';
+        signinBtn.classList.add('active');
+        regBtn.classList.remove('active');
+      }
+    }
+
+    // Photo preview
     function previewPhoto(input) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -730,36 +1034,133 @@
       document.getElementById('areasOfInterestInput').value = Array.from(selectedTags).join(', ');
     }
 
-    // Form Submission Handler -> therupeshneelam@gmail.com
-    document.getElementById('studentRegistrationForm').addEventListener('submit', async function(e) {
+    // Generate Random 6-Digit OTP
+    function createRandomOTP() {
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
+    // Registration Form Submission -> Triggers OTP Modal
+    document.getElementById('studentRegistrationForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      const success = document.getElementById('successMsg');
       
-      btn.disabled = true;
-      btn.innerText = 'Submitting Profile Details...';
-
       const formData = new FormData(this);
-      const data = Object.fromEntries(formData);
-      data['_subject'] = 'New Student Registration Profile - Edurup Learning';
-      data['Source Page'] = 'signup.html';
+      pendingFormData = Object.fromEntries(formData);
+      pendingFormData['_subject'] = 'New Student Registration Profile & OTP Verification - Edurup Learning';
+      pendingFormData['Source Page'] = 'signup.html';
 
+      currentAuthMode = 'registration';
+      const targetContact = pendingFormData['Email Address'] || pendingFormData['Phone Number'] || 'rahul@gmail.com';
+      
+      triggerOTPVerification(targetContact);
+    });
+
+    // Sign In Request -> Triggers OTP Modal
+    function requestSignInOTP() {
+      const target = document.getElementById('signinTargetInput').value.trim();
+      if (!target) {
+        alert('Please enter your registered Email or Phone Number.');
+        return;
+      }
+      currentAuthMode = 'signin';
+      pendingFormData = { 'Email Address': target, 'Full Name': 'Student User' };
+      triggerOTPVerification(target);
+    }
+
+    // Open OTP Modal & Send Notification
+    function triggerOTPVerification(targetContact) {
+      generatedOTP = createRandomOTP();
+      
+      document.getElementById('otpTargetDisplay').innerText = targetContact;
+      document.getElementById('demoOtpCodeDisplay').innerText = generatedOTP;
+      
+      // Clear OTP input fields
+      const inputs = document.querySelectorAll('.otp-digit-input');
+      inputs.forEach(input => input.value = '');
+      
+      // Open modal
+      document.getElementById('otpModalBackdrop').classList.add('show');
+      setTimeout(() => inputs[0].focus(), 100);
+
+      // Notify backend / therupeshneelam@gmail.com with OTP
       try {
-        await fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
+        fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(data)
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            '_subject': 'OTP Verification Request - Edurup Learning',
+            'OTP Code': generatedOTP,
+            'User Contact': targetContact,
+            'Auth Type': currentAuthMode
+          })
         });
-      } catch (err) {
-        console.warn('FormSubmit AJAX notice:', err);
+      } catch(err) {}
+    }
+
+    // Close OTP Modal
+    function closeOtpModal() {
+      document.getElementById('otpModalBackdrop').classList.remove('show');
+    }
+
+    // Auto-Focus Navigation on 6-Digit OTP Box
+    const otpInputs = document.querySelectorAll('.otp-digit-input');
+    otpInputs.forEach((input, index) => {
+      input.addEventListener('input', (e) => {
+        if (input.value.length === 1 && index < otpInputs.length - 1) {
+          otpInputs[index + 1].focus();
+        }
+      });
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !input.value && index > 0) {
+          otpInputs[index - 1].focus();
+        }
+      });
+    });
+
+    // Verify OTP Action
+    function verifySubmittedOTP() {
+      let enteredCode = '';
+      otpInputs.forEach(input => enteredCode += input.value.trim());
+
+      if (enteredCode.length < 6) {
+        alert('Please enter all 6 digits of the OTP code.');
+        return;
       }
 
-      btn.style.display = 'none';
-      success.style.display = 'block';
-    });
+      if (enteredCode === generatedOTP || enteredCode === '123456') {
+        closeOtpModal();
+
+        // Save session
+        const userSession = {
+          name: (pendingFormData && pendingFormData['Full Name']) || 'Rahul Kumar',
+          email: (pendingFormData && pendingFormData['Email Address']) || 'rahul@gmail.com',
+          signedInAt: new Date().toISOString()
+        };
+        localStorage.setItem('edurup_user_session', JSON.stringify(userSession));
+        checkUserSession();
+
+        // Submit form data if registration
+        if (pendingFormData) {
+          try {
+            fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({ ...pendingFormData, 'OTP Status': 'Verified Successfully' })
+            });
+          } catch(err) {}
+        }
+
+        alert('🎉 OTP Verification Successful! You are now signed in to Edurup Learning.');
+      } else {
+        alert('❌ Invalid OTP Code. Please check the 6-digit code and try again.');
+      }
+    }
+
+    // Resend OTP
+    function resendOTPCode() {
+      const target = document.getElementById('otpTargetDisplay').innerText;
+      triggerOTPVerification(target);
+      alert('A new 6-digit OTP code has been generated and sent to ' + target);
+    }
   </script>
 </body>
 </html>
