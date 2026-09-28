@@ -6,11 +6,14 @@
   <title>My Profile | Edurup Learning Student Portal</title>
   <meta name="description" content="Manage your personal information, academic details, and account settings on Edurup Learning.">
   <link rel="canonical" href="https://www.eduruplearning.com/profile.html">
-  <link rel="stylesheet" href="assets/css/style.css?v=23">
+  <link rel="stylesheet" href="assets/css/style.css?v=24">
   <style>
     /* Student Portal Dashboard Layout */
     * {
       box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
     }
     body.portal-body {
       background-color: #f8fafc;
@@ -198,12 +201,20 @@
     }
 
     /* Horizontal Sub-tabs */
+    .profile-subtabs-sticky {
+      position: sticky;
+      top: 0;
+      background: #f8fafc;
+      z-index: 100;
+      padding-top: 4px;
+      margin-bottom: 28px;
+    }
     .profile-subtabs {
       display: flex;
       gap: 8px;
       border-bottom: 1px solid #e2e8f0;
-      margin-bottom: 32px;
       overflow-x: auto;
+      padding-bottom: 2px;
     }
     .profile-tab-btn {
       padding: 12px 20px;
@@ -229,7 +240,7 @@
       font-weight: 700;
     }
 
-    /* 2-Column Grid Layout (Main Content + Right Widgets) */
+    /* 2-Column Grid Layout */
     .profile-grid-container {
       display: grid;
       grid-template-columns: 1fr 340px;
@@ -263,6 +274,12 @@
       padding: 24px;
       margin-bottom: 28px;
       box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+      scroll-margin-top: 80px;
+      transition: all 0.2s ease;
+    }
+    .sp-card.editing-mode {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
     }
     .sp-header {
       display: flex;
@@ -317,6 +334,11 @@
     .sp-edit-btn:hover {
       background: #f8fafc;
       border-color: #94a3b8;
+    }
+    .sp-edit-btn.saving-state {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
     }
     
     /* Layout for Card 1 (Personal Info) */
@@ -427,7 +449,19 @@
       font-weight: 500;
       outline: none;
       font-family: inherit;
+      transition: all 0.2s ease;
     }
+    .sp-input:disabled, .sp-select:disabled {
+      background: #f1f5f9;
+      color: #334155;
+      cursor: default;
+    }
+    .sp-input:focus, .sp-select:focus {
+      background: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
     .sp-input-container {
       position: relative;
       display: flex;
@@ -467,6 +501,13 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .sp-tag-chip.unselected {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #64748b;
     }
 
     /* Right Column Widgets */
@@ -477,6 +518,7 @@
       padding: 22px;
       margin-bottom: 24px;
       box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+      scroll-margin-top: 80px;
     }
     
     /* Widget 1: Profile Completion */
@@ -506,9 +548,10 @@
     }
     .progress-bar-fill {
       height: 100%;
-      width: 80%;
+      width: 100%;
       background: #2563eb;
       border-radius: 10px;
+      transition: width 0.3s ease;
     }
     .completion-subtext {
       font-size: 0.8rem;
@@ -540,11 +583,6 @@
       justify-content: center;
       font-size: 12px;
       font-weight: bold;
-    }
-    .check-icon.empty {
-      background: #ffffff;
-      border: 2px solid #cbd5e1;
-      color: transparent;
     }
 
     /* Widget 2: No Active Internship */
@@ -612,23 +650,36 @@
     .badge-verified-sm {
       background: #dcfce7;
       color: #166534;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 10px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
-    .badge-disabled-sm {
-      background: #fef2f2;
-      color: #991b1b;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 10px;
-    }
-    .sec-link {
-      color: #2563eb;
+
+    /* Toast Alert */
+    .toast-alert {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 0.92rem;
       font-weight: 600;
-      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
@@ -688,22 +739,25 @@
         </div>
       </div>
 
-      <!-- Horizontal Sub-tabs -->
-      <div class="profile-subtabs">
-        <button type="button" class="profile-tab-btn active">👤 Personal Information</button>
-        <button type="button" class="profile-tab-btn">🎓 Academic Information</button>
-        <button type="button" class="profile-tab-btn">📄 Additional Information</button>
-        <button type="button" class="profile-tab-btn">⚙️ Preferences</button>
-        <button type="button" class="profile-tab-btn">🛡️ Security</button>
-        <button type="button" class="profile-tab-btn">📁 Documents</button>
+      <!-- Horizontal Sub-tabs (Sticky & Clickable Scroller) -->
+      <div class="profile-subtabs-sticky">
+        <div class="profile-subtabs" id="subtabsContainer">
+          <button type="button" class="profile-tab-btn active" onclick="scrollToSection('card-personal', this)">👤 Personal Information</button>
+          <button type="button" class="profile-tab-btn" onclick="scrollToSection('card-academic', this)">🎓 Academic Information</button>
+          <button type="button" class="profile-tab-btn" onclick="scrollToSection('card-additional', this)">📄 Additional Information</button>
+          <button type="button" class="profile-tab-btn" onclick="scrollToSection('card-additional', this)">⚙️ Preferences</button>
+          <button type="button" class="profile-tab-btn" onclick="scrollToSection('widget-security', this)">🛡️ Security</button>
+          <button type="button" class="profile-tab-btn" onclick="scrollToSection('card-additional', this)">📁 Documents</button>
+        </div>
       </div>
 
       <!-- 2-Column Main Layout -->
       <div class="profile-grid-container">
         <!-- Left Column: Forms -->
         <div class="profile-left-forms">
+          
           <!-- Card 1: Personal Information -->
-          <div class="sp-card">
+          <div class="sp-card" id="card-personal">
             <div class="sp-header">
               <div class="sp-header-title-box">
                 <div class="sp-icon-badge">👤</div>
@@ -712,42 +766,43 @@
                   <p>This information will be used for your internship registration and communication.</p>
                 </div>
               </div>
-              <button type="button" class="sp-edit-btn">✏️ Edit</button>
+              <button type="button" class="sp-edit-btn" id="btn-edit-personal" onclick="toggleEditMode('card-personal', 'btn-edit-personal')">✏️ Edit</button>
             </div>
 
             <div class="sp-personal-grid">
               <div class="sp-avatar-box">
                 <div class="sp-avatar-wrapper">
-                  <img class="sp-avatar-img" src="assets/testimonial-rahul.jpg" alt="Rahul Kumar">
-                  <div class="sp-camera-badge" title="Change photo">📷</div>
+                  <img id="profileAvatarImg" class="sp-avatar-img" src="assets/testimonial-rahul.jpg" alt="Rahul Kumar">
+                  <div class="sp-camera-badge" onclick="document.getElementById('profilePhotoInput').click()" title="Change photo">📷</div>
                 </div>
-                <button type="button" class="sp-upload-btn">Upload Photo</button>
+                <button type="button" class="sp-upload-btn" onclick="document.getElementById('profilePhotoInput').click()">Upload Photo</button>
+                <input type="file" id="profilePhotoInput" accept="image/jpeg,image/png" style="display:none" onchange="previewPhoto(this)">
                 <span class="sp-upload-help">JPG, PNG (Max 2MB)</span>
               </div>
 
               <div class="sp-form-grid">
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Full Name<span class="sp-req">*</span></label></div>
-                  <input type="text" class="sp-input" value="Rahul Kumar">
+                  <input type="text" id="valFullName" class="sp-input" value="Rahul Kumar" disabled>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Email Address<span class="sp-req">*</span></label></div>
-                  <input type="email" class="sp-input" value="rahul@gmail.com">
+                  <input type="email" id="valEmail" class="sp-input" value="rahul@gmail.com" disabled>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Phone Number<span class="sp-req">*</span></label></div>
-                  <input type="tel" class="sp-input" value="+91 98765 43210">
+                  <input type="tel" id="valPhone" class="sp-input" value="+91 98765 43210" disabled>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Date of Birth<span class="sp-req">*</span></label></div>
                   <div class="sp-input-container">
-                    <input type="text" class="sp-input" value="20 Oct 1990">
+                    <input type="text" id="valDob" class="sp-input" value="20 Oct 1990" disabled>
                     <span class="sp-input-icon">📅</span>
                   </div>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Gender<span class="sp-req">*</span></label></div>
-                  <select class="sp-select">
+                  <select id="valGender" class="sp-select" disabled>
                     <option selected>Male</option>
                     <option>Female</option>
                     <option>Other</option>
@@ -757,7 +812,7 @@
                   <div class="sp-label-row"><label class="sp-label">Current Location<span class="sp-req">*</span></label></div>
                   <div class="sp-input-container">
                     <span class="sp-social-prefix">📍</span>
-                    <input type="text" class="sp-input sp-input-social" value="Bangalore, Karnataka">
+                    <input type="text" id="valLocation" class="sp-input sp-input-social" value="Bangalore, Karnataka" disabled>
                   </div>
                 </div>
               </div>
@@ -765,7 +820,7 @@
           </div>
 
           <!-- Card 2: Academic Information -->
-          <div class="sp-card">
+          <div class="sp-card" id="card-academic">
             <div class="sp-header">
               <div class="sp-header-title-box">
                 <div class="sp-icon-badge">🎓</div>
@@ -774,39 +829,39 @@
                   <p>Tell us about your educational background.</p>
                 </div>
               </div>
-              <button type="button" class="sp-edit-btn">✏️ Edit</button>
+              <button type="button" class="sp-edit-btn" id="btn-edit-academic" onclick="toggleEditMode('card-academic', 'btn-edit-academic')">✏️ Edit</button>
             </div>
 
             <div class="sp-form-grid">
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">College / University<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="RV College of Engineering">
+                <input type="text" class="sp-input" value="RV College of Engineering" disabled>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Current Year<span class="sp-req">*</span></label></div>
-                <select class="sp-select"><option selected>Final Year</option></select>
+                <select class="sp-select" disabled><option selected>Final Year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option></select>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Qualification<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="B.Tech">
+                <input type="text" class="sp-input" value="B.Tech" disabled>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Graduation Year<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="2026">
+                <input type="text" class="sp-input" value="2026" disabled>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Branch / Stream<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="Computer Science">
+                <input type="text" class="sp-input" value="Computer Science" disabled>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">City<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="Bangalore, Karnataka">
+                <input type="text" class="sp-input" value="Bangalore, Karnataka" disabled>
               </div>
             </div>
           </div>
 
           <!-- Card 3: Additional Information -->
-          <div class="sp-card">
+          <div class="sp-card" id="card-additional">
             <div class="sp-header">
               <div class="sp-header-title-box">
                 <div class="sp-icon-badge">📄</div>
@@ -815,44 +870,45 @@
                   <p>Help us understand your background and interests.</p>
                 </div>
               </div>
-              <button type="button" class="sp-edit-btn">✏️ Edit</button>
+              <button type="button" class="sp-edit-btn" id="btn-edit-additional" onclick="toggleEditMode('card-additional', 'btn-edit-additional')">✏️ Edit</button>
             </div>
 
             <div class="sp-form-grid">
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Are you a Student or Professional?<span class="sp-req">*</span></label></div>
-                <select class="sp-select"><option selected>Student</option></select>
+                <select class="sp-select" disabled><option selected>Student</option><option>Working Professional</option></select>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Work Experience</label></div>
-                <select class="sp-select"><option selected>Fresher</option></select>
+                <select class="sp-select" disabled><option selected>Fresher</option><option>0-1 Year</option><option>1-2 Years</option><option>2+ Years</option></select>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">LinkedIn Profile</label></div>
                 <div class="sp-input-container">
                   <span class="sp-social-prefix">🔗</span>
-                  <input type="url" class="sp-input sp-input-social" value="https://linkedin.com/in/rahulkumar">
+                  <input type="url" class="sp-input sp-input-social" value="https://linkedin.com/in/rahulkumar" disabled>
                 </div>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">GitHub Profile</label></div>
                 <div class="sp-input-container">
                   <span class="sp-social-prefix">🐙</span>
-                  <input type="url" class="sp-input sp-input-social" value="https://github.com/rahulkumar">
+                  <input type="url" class="sp-input sp-input-social" value="https://github.com/rahulkumar" disabled>
                 </div>
               </div>
               <div class="sp-field full-width">
                 <div class="sp-label-row"><label class="sp-label">Areas of Interest</label></div>
                 <div class="sp-tags-box">
-                  <div class="sp-tag-chip">Data Analytics ✕</div>
-                  <div class="sp-tag-chip">Data Science ✕</div>
-                  <div class="sp-tag-chip">AI &amp; ML ✕</div>
-                  <div class="sp-tag-chip">Digital Marketing ✕</div>
+                  <div class="sp-tag-chip" onclick="toggleProfileTag(this)">Data Analytics ✕</div>
+                  <div class="sp-tag-chip" onclick="toggleProfileTag(this)">Data Science ✕</div>
+                  <div class="sp-tag-chip" onclick="toggleProfileTag(this)">AI &amp; ML ✕</div>
+                  <div class="sp-tag-chip" onclick="toggleProfileTag(this)">Digital Marketing ✕</div>
+                  <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">Full Stack Development +</div>
                 </div>
               </div>
               <div class="sp-field full-width">
                 <div class="sp-label-row"><label class="sp-label">How did you hear about us?</label></div>
-                <select class="sp-select"><option selected>Instagram</option></select>
+                <select class="sp-select" disabled><option selected>Instagram</option><option>LinkedIn</option><option>Friend</option></select>
               </div>
             </div>
           </div>
@@ -864,19 +920,19 @@
           <div class="widget-card">
             <div class="profile-completion-header">
               <h3>Profile Completion</h3>
-              <span class="profile-completion-percent">80%</span>
+              <span id="completionPercent" class="profile-completion-percent">100%</span>
             </div>
             <div class="progress-bar-bg">
-              <div class="progress-bar-fill"></div>
+              <div id="completionProgressFill" class="progress-bar-fill" style="width: 100%;"></div>
             </div>
-            <p class="completion-subtext">Complete your profile to get better internship recommendations.</p>
+            <p class="completion-subtext">Your profile is complete! Explore internship recommendations below.</p>
 
             <div class="completion-checklist">
               <div class="checklist-item"><span class="check-icon">✓</span> Personal Information</div>
               <div class="checklist-item"><span class="check-icon">✓</span> Academic Information</div>
               <div class="checklist-item"><span class="check-icon">✓</span> Email Verification</div>
               <div class="checklist-item"><span class="check-icon">✓</span> Phone Verification</div>
-              <div class="checklist-item"><span class="check-icon empty"></span> Add Social Links</div>
+              <div class="checklist-item"><span class="check-icon">✓</span> Add Social Links</div>
               <div class="checklist-item"><span class="check-icon">✓</span> Add Areas of Interest</div>
             </div>
           </div>
@@ -891,20 +947,15 @@
             <a href="index.html" class="explore-programs-btn">Explore Internship Programs →</a>
           </div>
 
-          <!-- Widget 3: Account & Security -->
-          <div class="widget-card">
+          <!-- Widget 3: Account & Security (ONLY Email & Phone Verification) -->
+          <div class="widget-card" id="widget-security">
             <div class="sp-header" style="margin-bottom:12px; padding-bottom:12px;">
               <h3 style="font-size:1.05rem; font-weight:700; margin:0; color:#0f172a;">Account &amp; Security</h3>
-              <button type="button" class="sp-edit-btn" style="padding:4px 10px; font-size:0.78rem;">✏️ Edit</button>
+              <button type="button" class="sp-edit-btn" style="padding:4px 10px; font-size:0.78rem;" onclick="showToast('Verification details are active &amp; verified.')">✓ Verified</button>
             </div>
 
             <div class="sec-row">
-              <div class="sec-left">🔒 Password</div>
-              <div><span style="color:#94a3b8; margin-right:8px;">********</span> <a href="javascript:void(0);" class="sec-link">Change</a></div>
-            </div>
-
-            <div class="sec-row">
-              <div class="sec-left">🛡️ Email Verification</div>
+              <div class="sec-left">✉️ Email Verification</div>
               <div><span class="badge-verified-sm">Verified</span></div>
             </div>
 
@@ -912,15 +963,112 @@
               <div class="sec-left">📞 Phone Verification</div>
               <div><span class="badge-verified-sm">Verified</span></div>
             </div>
-
-            <div class="sec-row">
-              <div class="sec-left">🔐 Two-Factor Authentication</div>
-              <div><span class="badge-disabled-sm">Not Enabled</span> <a href="javascript:void(0);" class="sec-link" style="margin-left:6px;">Enable</a></div>
-            </div>
           </div>
         </div>
       </div>
     </main>
   </div>
+
+  <!-- Toast Notification -->
+  <div id="toastAlert" class="toast-alert">
+    <span>✅</span>
+    <span id="toastMsg">Changes saved successfully!</span>
+  </div>
+
+  <script>
+    // Smooth Scroll to Section when clicking scroller subtabs
+    function scrollToSection(sectionId, element) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // Update Active Tab Style
+      const tabs = document.querySelectorAll('.profile-tab-btn');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      if (element) {
+        element.classList.add('active');
+      }
+    }
+
+    // Toggle Edit Mode & Save Functionality for Cards
+    function toggleEditMode(cardId, buttonId) {
+      const card = document.getElementById(cardId);
+      const button = document.getElementById(buttonId);
+      if (!card || !button) return;
+
+      const inputs = card.querySelectorAll('input, select');
+      const isEditing = card.classList.contains('editing-mode');
+
+      if (!isEditing) {
+        // Enable Edit Mode
+        card.classList.add('editing-mode');
+        inputs.forEach(input => input.disabled = false);
+        button.innerHTML = '💾 Save Changes';
+        button.classList.add('saving-state');
+        if (inputs.length > 0) inputs[0].focus();
+        showToast('Edit mode enabled. Update details and click Save Changes.');
+      } else {
+        // Save Changes & Disable Edit Mode
+        card.classList.remove('editing-mode');
+        inputs.forEach(input => input.disabled = true);
+        button.innerHTML = '✏️ Edit';
+        button.classList.remove('saving-state');
+        
+        // Save to localStorage
+        saveProfileData();
+        showToast('Profile information saved successfully!');
+      }
+    }
+
+    // Photo Preview Upload
+    function previewPhoto(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('profileAvatarImg').src = e.target.result;
+          showToast('Profile photo updated successfully!');
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // Interactive Chip Tag Selection
+    function toggleProfileTag(tagElement) {
+      const isUnselected = tagElement.classList.contains('unselected');
+      if (isUnselected) {
+        tagElement.classList.remove('unselected');
+        tagElement.innerHTML = tagElement.innerText.replace('+', '✕');
+      } else {
+        tagElement.classList.add('unselected');
+        tagElement.innerHTML = tagElement.innerText.replace('✕', '+');
+      }
+    }
+
+    // Save Profile Data to localStorage
+    function saveProfileData() {
+      try {
+        const profile = {
+          name: document.getElementById('valFullName').value,
+          email: document.getElementById('valEmail').value,
+          phone: document.getElementById('valPhone').value,
+          location: document.getElementById('valLocation').value,
+          updatedAt: new Date().toISOString()
+        };
+        localStorage.setItem('edurup_user_profile', JSON.stringify(profile));
+      } catch(e) {}
+    }
+
+    // Toast Notification System
+    function showToast(message) {
+      const toast = document.getElementById('toastAlert');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = message;
+      toast.style.display = 'flex';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
