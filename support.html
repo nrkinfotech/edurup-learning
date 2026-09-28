@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Support &amp; Help Desk | Edurup Learning</title>
+  <meta name="description" content="Edurup Learning Student Support & Help Center — get instant assistance for internship programs, enrollment, projects, and certificates.">
+  <link rel="canonical" href="https://www.eduruplearning.com/support.html">
+  <link rel="stylesheet" href="assets/css/style.css?v=28">
+  <style>
+    /* Support Page Styling */
+    * {
+      box-sizing: border-box;
+    }
+    body.support-body {
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a;
+    }
+    .supp-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Left Sidebar */
+    .supp-sidebar {
+      width: 260px;
+      background-color: #0b1329;
+      color: #94a3b8;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 16px;
+      overflow-y: auto;
+    }
+    .supp-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px 28px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+    .supp-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .supp-brand span {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .supp-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .supp-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .supp-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .supp-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .supp-nav-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Sidebar Support Box */
+    .sidebar-support-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px 16px;
+      margin-top: auto;
+      text-align: center;
+    }
+    .sidebar-support-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.2);
+      color: #3b82f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 20px;
+    }
+    .sidebar-support-box h4 {
+      margin: 0 0 4px 0;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .sidebar-support-box p {
+      margin: 0 0 14px 0;
+      color: #64748b;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    .sidebar-support-btn {
+      display: inline-block;
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+
+    /* Main Content Area */
+    .supp-main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .supp-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+    .supp-topbar-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .supp-content {
+      padding: 36px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Hero Banner Box */
+    .supp-hero-card {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      border-radius: 20px;
+      padding: 36px;
+      color: #ffffff;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+    }
+    .supp-hero-card h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin: 0 0 10px 0;
+    }
+    .supp-hero-card p {
+      font-size: 1rem;
+      color: #bfdbfe;
+      margin: 0 0 24px 0;
+      max-width: 650px;
+      line-height: 1.5;
+    }
+    .supp-search-bar {
+      position: relative;
+      max-width: 540px;
+    }
+    .supp-search-input {
+      width: 100%;
+      background: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 20px 14px 44px;
+      font-size: 0.95rem;
+      color: #0f172a;
+      outline: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+    .supp-search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #64748b;
+    }
+
+    /* 4 Support Channels Grid */
+    .supp-channels-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 1024px) {
+      .supp-channels-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .supp-sidebar {
+        width: 80px;
+        padding: 16px 8px;
+      }
+      .supp-brand span, .supp-nav-item span, .sidebar-support-box {
+        display: none;
+      }
+      .supp-nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+    }
+    @media (max-width: 600px) {
+      .supp-channels-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .channel-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .channel-icon-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+    .channel-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+    }
+    .channel-card p {
+      font-size: 0.82rem;
+      color: #64748b;
+      margin: 0 0 16px 0;
+      line-height: 1.4;
+    }
+    .channel-action-btn {
+      width: 100%;
+      background: #f1f5f9;
+      color: #2563eb;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 9px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .channel-card:hover .channel-action-btn {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    /* 2-Column Grid: Support Form + FAQ Accordion */
+    .supp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 900px) {
+      .supp-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .supp-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+    }
+    .supp-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+    }
+    .supp-card-sub {
+      font-size: 0.88rem;
+      color: #64748b;
+      margin: 0 0 24px 0;
+    }
+
+    /* Form Fields */
+    .sf-field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+    .sf-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+    .sf-input, .sf-select, .sf-textarea {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      color: #0f172a;
+      outline: none;
+      font-family: inherit;
+    }
+    .sf-input:focus, .sf-select:focus, .sf-textarea:focus {
+      background: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .sf-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .sf-submit-btn {
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    .sf-submit-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+    .faq-question {
+      padding: 14px 18px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #0f172a;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+    .faq-answer {
+      padding: 0 18px 16px 18px;
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.5;
+      display: none;
+      border-top: 1px solid #e2e8f0;
+      background: #ffffff;
+      padding-top: 12px;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-chevron {
+      transition: transform 0.2s;
+      color: #2563eb;
+      font-weight: bold;
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body class="support-body">
+  <div class="supp-container">
+    <!-- Left Sidebar -->
+    <aside class="supp-sidebar">
+      <a href="index.html" class="supp-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <nav class="supp-nav">
+        <a href="dashboard.html" class="supp-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="explore-internships.html" class="supp-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          <span>Explore Internships</span>
+        </a>
+        <a href="my-orders.html" class="supp-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span>My Orders</span>
+        </a>
+        <a href="contact.html" class="supp-nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Support</span>
+        </a>
+        <a href="profile.html" class="supp-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>My Profile</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support-box">
+        <div class="sidebar-support-icon">🎧</div>
+        <h4>Need Help?</h4>
+        <p>Have questions? Our team is here to help you.</p>
+        <a href="contact.html" class="sidebar-support-btn">Contact Support →</a>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="supp-main-wrapper">
+      <header class="supp-topbar">
+        <span class="supp-topbar-title">Student Support &amp; Help Desk</span>
+        <div style="font-size:0.85rem; color:#166534; font-weight:700; background:#dcfce7; padding:4px 12px; border-radius:12px;">
+          🟢 Support Status: Active 24/7
+        </div>
+      </header>
+
+      <main class="supp-content">
+        <!-- Hero Box -->
+        <div class="supp-hero-card">
+          <h1>How can we help you today?</h1>
+          <p>Search FAQs, explore support channels below, or submit a support ticket to our admissions &amp; mentor team.</p>
+          <div class="supp-search-bar">
+            <span class="supp-search-icon">🔍</span>
+            <input type="text" class="supp-search-input" placeholder="Search questions (e.g. certificate, projects, fees, schedule)..." onkeyup="filterFaqs(this.value)">
+          </div>
+        </div>
+
+        <!-- 4 Support Channels -->
+        <div class="supp-channels-grid">
+          <div class="channel-card">
+            <div>
+              <div class="channel-icon-badge" style="background:#dcfce7; color:#166534;">💬</div>
+              <h3>WhatsApp Support</h3>
+              <p>Chat 1-on-1 with our admissions team on WhatsApp.</p>
+            </div>
+            <a href="https://wa.me/919876543210?text=Hi%20Edurup%20Learning%20Support" target="_blank" class="channel-action-btn">WhatsApp Chat →</a>
+          </div>
+
+          <div class="channel-card">
+            <div>
+              <div class="channel-icon-badge" style="background:#eff6ff; color:#2563eb;">✉️</div>
+              <h3>Email Support</h3>
+              <p>Email your query directly to our team inbox.</p>
+            </div>
+            <a href="mailto:therupeshneelam@gmail.com?subject=Student Support Enquiry" class="channel-action-btn">Email Us →</a>
+          </div>
+
+          <div class="channel-card">
+            <div>
+              <div class="channel-icon-badge" style="background:#fef3c7; color:#b45309;">📞</div>
+              <h3>Career Counselor</h3>
+              <p>Speak to a career counselor for program guidance.</p>
+            </div>
+            <a href="tel:+919876543210" class="channel-action-btn">Call Counselor →</a>
+          </div>
+
+          <div class="channel-card">
+            <div>
+              <div class="channel-icon-badge" style="background:#f3e8ff; color:#9333ea;">❓</div>
+              <h3>FAQ Answers</h3>
+              <p>Browse instantly answered questions below.</p>
+            </div>
+            <a href="#faqs" class="channel-action-btn">View FAQs ↓</a>
+          </div>
+        </div>
+
+        <!-- 2 Column Grid: Ticket Form + FAQ Accordion -->
+        <div class="supp-grid">
+          <!-- Submit Support Ticket Form -->
+          <div class="supp-card">
+            <h2 class="supp-card-title">Submit a Support Ticket</h2>
+            <p class="supp-card-sub">Fill out your details below and our team will get back to you shortly.</p>
+
+            <form id="supportTicketForm">
+              <div class="sf-field">
+                <label class="sf-label">Full Name *</label>
+                <input type="text" name="Full Name" class="sf-input" value="Rahul Kumar" required placeholder="Full Name">
+              </div>
+
+              <div class="sf-field">
+                <label class="sf-label">Email Address *</label>
+                <input type="email" name="Email Address" class="sf-input" value="rahul@gmail.com" required placeholder="Email Address">
+              </div>
+
+              <div class="sf-field">
+                <label class="sf-label">Phone Number *</label>
+                <input type="tel" name="Phone Number" class="sf-input" value="+91 98765 43210" required placeholder="Phone Number">
+              </div>
+
+              <div class="sf-field">
+                <label class="sf-label">Support Category *</label>
+                <select name="Category" class="sf-select" required>
+                  <option value="Enrollment & Fees">Enrollment &amp; Program Fees (₹9,999)</option>
+                  <option value="Internship Projects">10+ Real-World Projects</option>
+                  <option value="Certificates & LOR">Internship Certificate &amp; LOR</option>
+                  <option value="Batch Schedule">Live Classes &amp; Schedule</option>
+                  <option value="Technical Support">Technical Support</option>
+                </select>
+              </div>
+
+              <div class="sf-field">
+                <label class="sf-label">Your Question / Message *</label>
+                <textarea name="Question Message" class="sf-textarea" required placeholder="Describe your question or issue in detail..."></textarea>
+              </div>
+
+              <button type="submit" id="sfSubmitBtn" class="sf-submit-btn">
+                Submit Ticket →
+              </button>
+
+              <div id="sfSuccessMsg" style="display:none; background:#f0fdf4; border:1px solid #bbf7d0; color:#166534; padding:14px; border-radius:10px; margin-top:14px; text-align:center; font-weight:600;">
+                🎉 Ticket Submitted Successfully! Our support team will contact you shortly at therupeshneelam@gmail.com.
+              </div>
+            </form>
+          </div>
+
+          <!-- FAQ Accordions -->
+          <div class="supp-card" id="faqs">
+            <h2 class="supp-card-title">Frequently Asked Questions</h2>
+            <p class="supp-card-sub">Click any question to view its detailed answer.</p>
+
+            <div class="faq-list">
+              <div class="faq-item open" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                  <span>How do I receive my Internship Certificate and LOR?</span>
+                  <span class="faq-chevron">⌄</span>
+                </div>
+                <div class="faq-answer">
+                  Upon successfully completing your 6-month internship program and submitting your required projects, you will receive an official verifiable Internship Completion Certificate and a Letter of Recommendation (LOR) issued by Edurup Learning.
+                </div>
+              </div>
+
+              <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                  <span>What is the registration fee for the 6-month internship program?</span>
+                  <span class="faq-chevron">⌄</span>
+                </div>
+                <div class="faq-answer">
+                  The complete 6-month career-focused internship program has a single registration fee of ₹9,999, which covers all 10+ real-world projects, live classes, mentor support, certificate, and LOR.
+                </div>
+              </div>
+
+              <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                  <span>Are the projects real-world industry projects?</span>
+                  <span class="faq-chevron">⌄</span>
+                </div>
+                <div class="faq-answer">
+                  Yes! All 10+ projects included in each internship domain (Data Analytics, Data Science, AI, Full Stack, Digital Marketing, HR, Sales, Entrepreneurship) are designed around actual industry use-cases with dedicated mentor guidance.
+                </div>
+              </div>
+
+              <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                  <span>Can I balance this internship with my college classes?</span>
+                  <span class="faq-chevron">⌄</span>
+                </div>
+                <div class="faq-answer">
+                  Absolutely! The internship program features flexible schedules and recorded session access so students can smoothly manage their college coursework alongside internship learning.
+                </div>
+              </div>
+
+              <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                  <span>How are my doubts resolved during the internship?</span>
+                  <span class="faq-chevron">⌄</span>
+                </div>
+                <div class="faq-answer">
+                  You get dedicated mentor support through live Q&amp;A sessions, WhatsApp student channels, and 1-on-1 mentor guidance to resolve any technical or project doubts promptly.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // FAQ Accordion Toggle
+    function toggleFaq(item) {
+      item.classList.toggle('open');
+    }
+
+    // Filter FAQs by search query
+    function filterFaqs(query) {
+      const q = query.toLowerCase();
+      const items = document.querySelectorAll('.faq-item');
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (text.includes(q)) {
+          item.style.display = 'block';
+          if (q.length > 2) item.classList.add('open');
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Support Form Handler -> therupeshneelam@gmail.com
+    document.getElementById('supportTicketForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('sfSubmitBtn');
+      const success = document.getElementById('sfSuccessMsg');
+
+      btn.disabled = true;
+      btn.innerText = 'Submitting Ticket...';
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+      data['_subject'] = 'New Student Support Ticket - Edurup Learning';
+      data['Source Page'] = 'support.html';
+
+      try {
+        await fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch(err) {}
+
+      btn.style.display = 'none';
+      success.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
