@@ -14,6 +14,7 @@
 <body>
 
   <!-- Top Navigation Header -->
+    <!-- Header / Navigation -->
   <header class="topbar">
     <div class="wrap nav">
       <a class="brand" href="index.html">
@@ -38,11 +39,12 @@
         </div>
         <a href="hire-interns.html">Hire Interns</a>
       </nav>
-      <a class="nav-cta" href="mailto:therupeshneelam@gmail.com?subject=Internship Application">Apply Now</a>
-      <button class="menu" onclick="document.getElementById('mobileNav').classList.toggle('show')">☰</button>
+      <div class="nav-actions">
+        <a class="nav-signin" href="#" data-open-lead>Sign In</a>
+        <button class="nav-enroll-btn" data-open-lead>Enquire Now</button>
+        <button class="menu" onclick="document.getElementById('mobileNav').classList.toggle('show')">☰</button>
+      </div>
     </div>
-
-    <!-- Mobile Navigation Drawer -->
     <div id="mobileNav" class="mobile-links">
       <div class="wrap">
         <a href="index.html">Home</a>
@@ -60,7 +62,7 @@
           </div>
         </div>
         <a href="hire-interns.html">Hire Interns</a>
-        <a href="mailto:therupeshneelam@gmail.com?subject=Internship Application">Apply Now</a>
+        <a href="#" data-open-lead>Enroll Now</a>
       </div>
     </div>
   </header>
