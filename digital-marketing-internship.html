@@ -33,7 +33,7 @@
       </div>
       <a href="hire-interns.html">Hire Interns</a>
     </nav>
-    <a class="nav-cta" href="mailto:hello@eduruplearning.com?subject=Internship Application">Apply Now</a>
+    <a class="nav-cta" href="mailto:therupeshneelam@gmail.com?subject=Internship Application">Apply Now</a>
     <button class="menu" onclick="document.getElementById('mobileNav').classList.toggle('show')">☰</button>
   </div>
   <div id="mobileNav" class="mobile-links">
@@ -53,7 +53,7 @@
         </div>
       </div>
       <a href="hire-interns.html">Hire Interns</a>
-      <a href="mailto:hello@eduruplearning.com?subject=Internship Application">Apply Now</a>
+      <a href="mailto:therupeshneelam@gmail.com?subject=Internship Application">Apply Now</a>
     </div>
   </div>
 </header>
@@ -1712,7 +1712,7 @@
         <h2>Start your Digital Marketing journey.</h2>
         <p>Learn the skills, build projects and gain practical experience.</p>
       </div>
-      <a class="btn" href="mailto:hello@eduruplearning.com?subject=Digital Marketing Internship Application">Apply Now →</a>
+      <a class="btn" href="mailto:therupeshneelam@gmail.com?subject=Digital Marketing Internship Application">Apply Now →</a>
     </div>
   </div>
 </section>
@@ -1772,7 +1772,24 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
   document.querySelectorAll('.nav-cta,.actions .btn:first-child,.cta-box .btn').forEach(el=>{el.addEventListener('click',e=>{if(el.tagName==='A'){e.preventDefault();open()}})});
   if(!sessionStorage.getItem('edurupLeadPopupShown')){setTimeout(()=>{open();sessionStorage.setItem('edurupLeadPopupShown','1')},9000)}
-  form?.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));localStorage.setItem('edurupLeadDraft',JSON.stringify({...data,submittedAt:new Date().toISOString(),page:location.pathname}));form.classList.add('hide');success.classList.add('show');});
+  form?.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.innerText = 'Sending...'; }
+      const data = Object.fromEntries(new FormData(form));
+      data['_subject'] = 'New Internship Lead / Enquiry - Edurup Learning';
+      data['Source Page'] = location.pathname;
+      localStorage.setItem('edurupLeadDraft', JSON.stringify({ ...data, submittedAt: new Date().toISOString() }));
+      try {
+        await fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch (err) { console.warn('Form submission notice:', err); }
+      form.style.display = 'none';
+      if (success) success.style.display = 'flex';
+    });const data=Object.fromEntries(new FormData(form));localStorage.setItem('edurupLeadDraft',JSON.stringify({...data,submittedAt:new Date().toISOString(),page:location.pathname}));form.classList.add('hide');success.classList.add('show');});
   const page=location.pathname.toLowerCase(); const select=document.getElementById('leadProgram');
   const map={
    'data-analytics-internship.html':'Data Analytics Internship','data-science-internship.html':'Data Science Internship','artificial-intelligence-internship.html':'Artificial Intelligence Internship','digital-marketing-internship.html':'Digital Marketing Internship','full-stack-development-internship.html':'Full Stack Development Internship','hr-management-internship.html':'HR Management Internship','sales-marketing-internship.html':'Sales & Marketing Internship','entrepreneurship-internship.html':'Entrepreneurship Internship'};

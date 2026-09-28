@@ -595,7 +595,24 @@
     overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
     document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
     if(!sessionStorage.getItem('edurupLeadPopupShown')){setTimeout(()=>{open();sessionStorage.setItem('edurupLeadPopupShown','1')},9000)}
-    form?.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));localStorage.setItem('edurupLeadDraft',JSON.stringify({...data,submittedAt:new Date().toISOString(),page:location.pathname}));form.classList.add('hide');success.classList.add('show');});
+    form?.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.innerText = 'Sending...'; }
+      const data = Object.fromEntries(new FormData(form));
+      data['_subject'] = 'New Internship Lead / Enquiry - Edurup Learning';
+      data['Source Page'] = location.pathname;
+      localStorage.setItem('edurupLeadDraft', JSON.stringify({ ...data, submittedAt: new Date().toISOString() }));
+      try {
+        await fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch (err) { console.warn('Form submission notice:', err); }
+      form.style.display = 'none';
+      if (success) success.style.display = 'flex';
+    });const data=Object.fromEntries(new FormData(form));localStorage.setItem('edurupLeadDraft',JSON.stringify({...data,submittedAt:new Date().toISOString(),page:location.pathname}));form.classList.add('hide');success.classList.add('show');});
     const page=location.pathname.toLowerCase(); const select=document.getElementById('leadProgram');
     const map={
      'data-analytics-internship.html':'Data Analytics Internship','data-science-internship.html':'Data Science Internship','artificial-intelligence-internship.html':'Artificial Intelligence Internship','digital-marketing-internship.html':'Digital Marketing Internship','full-stack-development-internship.html':'Full Stack Development Internship','hr-management-internship.html':'HR Management Internship','sales-marketing-internship.html':'Sales & Marketing Internship','entrepreneurship-internship.html':'Entrepreneurship Internship'};

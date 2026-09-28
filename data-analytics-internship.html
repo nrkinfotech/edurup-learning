@@ -33,7 +33,7 @@
       </div>
       <a href="hire-interns.html">Hire Interns</a>
     </nav>
-    <a class="nav-cta" href="mailto:hello@eduruplearning.com?subject=Internship Application">Apply Now</a>
+    <a class="nav-cta" href="mailto:therupeshneelam@gmail.com?subject=Internship Application">Apply Now</a>
     <button class="menu" onclick="document.getElementById('mobileNav').classList.toggle('show')">☰</button>
   </div>
   <div id="mobileNav" class="mobile-links">
@@ -53,7 +53,7 @@
         </div>
       </div>
       <a href="hire-interns.html">Hire Interns</a>
-      <a href="mailto:hello@eduruplearning.com?subject=Internship Application">Apply Now</a>
+      <a href="mailto:therupeshneelam@gmail.com?subject=Internship Application">Apply Now</a>
     </div>
   </div>
 </header>
@@ -1759,7 +1759,7 @@
   </div>
 </section>
 
-<section class="cta"><div class="wrap"><div class="cta-box"><div><h2>Start your Data Analytics journey.</h2><p>Learn the skills, build projects and gain practical experience.</p></div><a class="btn" href="mailto:hello@eduruplearning.com?subject=Data Analytics Internship Application">Apply Now →</a></div></div></section></main><footer class="footer"><div class="wrap footer-grid"><div><div class="brand"><a href="index.html"><img src="assets/logo.png" alt="Edurup Learning" class="brand-icon-img" width="52" height="52" style="width:52px!important;height:52px!important;"><span class="brand-text-name">Edurup Learning</span></a></div><p>Career-focused learning and internship programs built around practical skills, projects and guided experience.</p></div><div><h4>Explore</h4><p><span>Internships</span><br><a href="about.html">About Us</a><br><a href="hire-interns.html">Hire Interns</a><br><a href="contact.html">Contact</a></p></div><div><h4>Programs</h4><p><a href="data-analytics-internship.html">Data Analytics</a><br><a href="data-science-internship.html">Data Science</a><br><a href="artificial-intelligence-internship.html">Artificial Intelligence</a><br><a href="digital-marketing-internship.html">Digital Marketing</a></p></div></div><div class="wrap foot-bottom">© 2026 Edurup Learning. All rights reserved. · ₹9,999 registration fee for the 6-month internship program.</div></footer>
+<section class="cta"><div class="wrap"><div class="cta-box"><div><h2>Start your Data Analytics journey.</h2><p>Learn the skills, build projects and gain practical experience.</p></div><a class="btn" href="mailto:therupeshneelam@gmail.com?subject=Data Analytics Internship Application">Apply Now →</a></div></div></section></main><footer class="footer"><div class="wrap footer-grid"><div><div class="brand"><a href="index.html"><img src="assets/logo.png" alt="Edurup Learning" class="brand-icon-img" width="52" height="52" style="width:52px!important;height:52px!important;"><span class="brand-text-name">Edurup Learning</span></a></div><p>Career-focused learning and internship programs built around practical skills, projects and guided experience.</p></div><div><h4>Explore</h4><p><span>Internships</span><br><a href="about.html">About Us</a><br><a href="hire-interns.html">Hire Interns</a><br><a href="contact.html">Contact</a></p></div><div><h4>Programs</h4><p><a href="data-analytics-internship.html">Data Analytics</a><br><a href="data-science-internship.html">Data Science</a><br><a href="artificial-intelligence-internship.html">Artificial Intelligence</a><br><a href="digital-marketing-internship.html">Digital Marketing</a></p></div></div><div class="wrap foot-bottom">© 2026 Edurup Learning. All rights reserved. · ₹9,999 registration fee for the 6-month internship program.</div></footer>
 <button class="lead-trigger" type="button" data-open-lead aria-label="Open internship enquiry form"><span>✦</span> Enquire Now</button>
 <div class="lead-overlay" id="leadPopup" aria-hidden="true">
   <div class="lead-modal" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
@@ -1796,7 +1796,24 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
   document.querySelectorAll('.nav-cta,.actions .btn:first-child,.cta-box .btn').forEach(el=>{el.addEventListener('click',e=>{if(el.tagName==='A'){e.preventDefault();open()}})});
   if(!sessionStorage.getItem('edurupLeadPopupShown')){setTimeout(()=>{open();sessionStorage.setItem('edurupLeadPopupShown','1')},9000)}
-  form?.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));localStorage.setItem('edurupLeadDraft',JSON.stringify({...data,submittedAt:new Date().toISOString(),page:location.pathname}));form.classList.add('hide');success.classList.add('show');});
+  form?.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.innerText = 'Sending...'; }
+      const data = Object.fromEntries(new FormData(form));
+      data['_subject'] = 'New Internship Lead / Enquiry - Edurup Learning';
+      data['Source Page'] = location.pathname;
+      localStorage.setItem('edurupLeadDraft', JSON.stringify({ ...data, submittedAt: new Date().toISOString() }));
+      try {
+        await fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch (err) { console.warn('Form submission notice:', err); }
+      form.style.display = 'none';
+      if (success) success.style.display = 'flex';
+    });const data=Object.fromEntries(new FormData(form));localStorage.setItem('edurupLeadDraft',JSON.stringify({...data,submittedAt:new Date().toISOString(),page:location.pathname}));form.classList.add('hide');success.classList.add('show');});
   const page=location.pathname.toLowerCase(); const select=document.getElementById('leadProgram');
   const map={
    'data-analytics-internship.html':'Data Analytics Internship','data-science-internship.html':'Data Science Internship','artificial-intelligence-internship.html':'Artificial Intelligence Internship','digital-marketing-internship.html':'Digital Marketing Internship','full-stack-development-internship.html':'Full Stack Development Internship','hr-management-internship.html':'HR Management Internship','sales-marketing-internship.html':'Sales & Marketing Internship','entrepreneurship-internship.html':'Entrepreneurship Internship'};
