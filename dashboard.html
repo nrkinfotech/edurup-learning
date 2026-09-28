@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Dashboard | Edurup Learning</title>
+  <meta name="description" content="Welcome to your Edurup Learning Student Dashboard — explore internships, track learning journey and access support.">
+  <link rel="canonical" href="https://www.eduruplearning.com/dashboard.html">
+  <link rel="stylesheet" href="assets/css/style.css?v=25">
+  <style>
+    /* Student Dashboard Layout matching uploaded screenshot */
+    * {
+      box-sizing: border-box;
+    }
+    body.dashboard-body {
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a;
+    }
+    .db-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Left Sidebar */
+    .db-sidebar {
+      width: 260px;
+      background-color: #0b1329;
+      color: #94a3b8;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 16px;
+      overflow-y: auto;
+    }
+    .db-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px 28px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+    .db-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .db-brand span {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .db-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .db-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .db-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .db-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .db-nav-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Sidebar Support Box */
+    .sidebar-support-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px 16px;
+      margin-top: auto;
+      text-align: center;
+    }
+    .sidebar-support-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.2);
+      color: #3b82f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 20px;
+    }
+    .sidebar-support-box h4 {
+      margin: 0 0 4px 0;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .sidebar-support-box p {
+      margin: 0 0 14px 0;
+      color: #64748b;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    .sidebar-support-btn {
+      display: inline-block;
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    /* Main Content Wrapper */
+    .db-main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navbar */
+    .db-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+    .db-search-box {
+      position: relative;
+      width: 420px;
+    }
+    .db-search-input {
+      width: 100%;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 9px 16px 9px 38px;
+      font-size: 0.88rem;
+      color: #0f172a;
+      outline: none;
+    }
+    .db-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 14px;
+    }
+    .db-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .db-notif-btn {
+      position: relative;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #475569;
+    }
+    .db-notif-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ef4444;
+    }
+    .db-user-profile-menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+    .db-user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    /* Main Dashboard View Content */
+    .db-content {
+      padding: 32px;
+      max-width: 1360px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* 2-Column Dashboard Grid */
+    .db-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 32px;
+    }
+    @media (max-width: 1024px) {
+      .db-grid {
+        grid-template-columns: 1fr;
+      }
+      .db-sidebar {
+        width: 80px;
+        padding: 16px 8px;
+      }
+      .db-brand span, .db-nav-item span, .sidebar-support-box {
+        display: none;
+      }
+      .db-nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+      .db-search-box {
+        width: 240px;
+      }
+    }
+
+    /* Hero Banner Card */
+    .db-hero-card {
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+      border: 1px solid #c7d2fe;
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .db-hero-text h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 8px 0;
+    }
+    .db-hero-text p {
+      font-size: 0.95rem;
+      color: #475569;
+      margin: 0 0 20px 0;
+    }
+    .db-hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .db-stat-pill {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .db-stat-icon {
+      font-size: 18px;
+    }
+    .db-stat-val {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .db-stat-lbl {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+    .db-hero-btn {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+    .db-hero-img-box {
+      position: relative;
+      flex-shrink: 0;
+      margin-right: 20px;
+    }
+    .db-hero-img-box img {
+      width: 220px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+    .db-hero-tag {
+      position: absolute;
+      top: -12px;
+      right: -10px;
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e40af;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    /* Process Journey Section */
+    .db-section-header {
+      margin-bottom: 20px;
+    }
+    .db-section-header h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 4px 0;
+    }
+    .db-section-header p {
+      font-size: 0.88rem;
+      color: #64748b;
+      margin: 0;
+    }
+
+    .journey-steps-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    @media (max-width: 900px) {
+      .journey-steps-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .journey-step-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px 14px;
+      position: relative;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .journey-step-icon-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .journey-lock-icon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .journey-step-card h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+    }
+    .journey-step-card p {
+      font-size: 0.74rem;
+      color: #64748b;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    /* Internship Programs Grid (8 Tracks Listed!) */
+    .programs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .programs-view-all {
+      color: #2563eb;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 640px) {
+      .programs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .program-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .program-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.06);
+    }
+    .program-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .program-icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .program-duration-badge {
+      background: #eff6ff;
+      color: #1e40af;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+    .program-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 12px 0;
+    }
+    .program-features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .program-features-list li {
+      font-size: 0.78rem;
+      color: #475569;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .program-features-list li span {
+      color: #16a34a;
+      font-weight: bold;
+    }
+    .program-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .program-price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .program-details-btn {
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .program-details-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* Right Column Widgets */
+    .widget-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+    }
+
+    /* Widget 1: Complete Enrollment */
+    .enroll-widget {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1px solid #bfdbfe;
+    }
+    .enroll-widget-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .enroll-widget h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      margin: 0;
+    }
+    .enroll-widget p {
+      font-size: 0.82rem;
+      color: #1e40af;
+      margin: 0 0 16px 0;
+      line-height: 1.4;
+    }
+    .enroll-btn-full {
+      display: block;
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    /* Widget 2: Recent Activity */
+    .activity-empty-box {
+      text-align: center;
+      padding: 20px 10px;
+    }
+    .activity-icon {
+      font-size: 32px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+    .activity-empty-box h4 {
+      margin: 0 0 4px 0;
+      font-size: 0.92rem;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .activity-empty-box p {
+      margin: 0;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+
+    /* Widget 3: Announcements */
+    .announcements-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .announcement-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .announcement-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .announcement-info h5 {
+      margin: 0 0 2px 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .announcement-info p {
+      margin: 0;
+      font-size: 0.72rem;
+      color: #64748b;
+    }
+
+    /* Widget 4: Need Help Choosing */
+    .counselor-widget {
+      background: #fffbebf0;
+      border: 1px solid #fef3c7;
+    }
+    .counselor-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .counselor-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .counselor-text h4 {
+      margin: 0 0 2px 0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #92400e;
+    }
+    .counselor-text p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: #78350f;
+    }
+    .counselor-btn {
+      display: block;
+      width: 100%;
+      border: 1px solid #d97706;
+      color: #b45309;
+      background: #ffffff;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 8px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body class="dashboard-body">
+  <div class="db-container">
+    <!-- Left Sidebar -->
+    <aside class="db-sidebar">
+      <a href="index.html" class="db-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <nav class="db-nav">
+        <a href="dashboard.html" class="db-nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="index.html" class="db-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          <span>Explore Internships</span>
+        </a>
+        <a href="javascript:void(0);" class="db-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span>My Orders</span>
+        </a>
+        <a href="contact.html" class="db-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Support</span>
+        </a>
+        <a href="profile.html" class="db-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>My Profile</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support-box">
+        <div class="sidebar-support-icon">🎧</div>
+        <h4>Need Help?</h4>
+        <p>Have questions? Our team is here to help you.</p>
+        <a href="contact.html" class="sidebar-support-btn">Contact Support →</a>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="db-main-wrapper">
+      <!-- Top Search & Profile Bar -->
+      <header class="db-topbar">
+        <div class="db-search-box">
+          <span class="db-search-icon">🔍</span>
+          <input type="text" class="db-search-input" placeholder="Search for internships, projects, live classes...">
+        </div>
+        <div class="db-topbar-right">
+          <button class="db-notif-btn" title="Notifications">
+            🔔
+            <span class="db-notif-badge"></span>
+          </button>
+          <a href="profile.html" style="text-decoration:none;" class="db-user-profile-menu">
+            <div class="db-user-avatar">R</div>
+            <div style="text-align:left;">
+              <div style="font-size:0.88rem; font-weight:700; color:#0f172a;">Rahul Kumar</div>
+              <div style="font-size:0.72rem; color:#64748b;">Student</div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <!-- Main Dashboard Content -->
+      <main class="db-content">
+        <div class="db-grid">
+          <!-- Left Column -->
+          <div class="db-left-col">
+            
+            <!-- Hero Banner Card -->
+            <div class="db-hero-card">
+              <div class="db-hero-text">
+                <h1>Welcome, Rahul! 👋</h1>
+                <p>Start your journey with real-world skills and corporate internship experience.</p>
+
+                <div class="db-hero-stats">
+                  <div class="db-stat-pill">
+                    <span class="db-stat-icon">🎓</span>
+                    <div>
+                      <div class="db-stat-val">8</div>
+                      <div class="db-stat-lbl">Internship Domains</div>
+                    </div>
+                  </div>
+                  <div class="db-stat-pill">
+                    <span class="db-stat-icon">⏱️</span>
+                    <div>
+                      <div class="db-stat-val">6 Months</div>
+                      <div class="db-stat-lbl">Program Duration</div>
+                    </div>
+                  </div>
+                  <div class="db-stat-pill">
+                    <span class="db-stat-icon">💼</span>
+                    <div>
+                      <div class="db-stat-val">10+</div>
+                      <div class="db-stat-lbl">Real-World Projects</div>
+                    </div>
+                  </div>
+                  <div class="db-stat-pill">
+                    <span class="db-stat-icon">🏢</span>
+                    <div>
+                      <div class="db-stat-val">250+</div>
+                      <div class="db-stat-lbl">Hiring Partners</div>
+                    </div>
+                  </div>
+                </div>
+
+                <a href="#explore-programs" class="db-hero-btn">Explore Internship Programs →</a>
+              </div>
+
+              <div class="db-hero-img-box">
+                <img src="assets/testimonial-rahul.jpg" alt="Student Journey">
+                <div class="db-hero-tag">Learn • Build • Get Hired</div>
+              </div>
+            </div>
+
+            <!-- Your Internship Journey (5-step process) -->
+            <div class="db-section-header">
+              <h2>Your Internship Journey</h2>
+              <p>These features will be available after you enroll in an internship program.</p>
+            </div>
+
+            <div class="journey-steps-row">
+              <div class="journey-step-card">
+                <span class="journey-lock-icon">🔒</span>
+                <div class="journey-step-icon-badge" style="background:#f3e8ff; color:#9333ea;">📖</div>
+                <h4>1. Learn Skills</h4>
+                <p>Access recorded videos, live classes and learning resources.</p>
+              </div>
+
+              <div class="journey-step-card">
+                <span class="journey-lock-icon">🔒</span>
+                <div class="journey-step-icon-badge" style="background:#dcfce7; color:#166534;">💻</div>
+                <h4>2. Build Projects</h4>
+                <p>Work on real-world projects with mentor guidance.</p>
+              </div>
+
+              <div class="journey-step-card">
+                <span class="journey-lock-icon">🔒</span>
+                <div class="journey-step-icon-badge" style="background:#ffedd5; color:#c2410c;">📄</div>
+                <h4>3. Apply for Internship</h4>
+                <p>Apply for corporate internship opportunities.</p>
+              </div>
+
+              <div class="journey-step-card">
+                <span class="journey-lock-icon">🔒</span>
+                <div class="journey-step-icon-badge" style="background:#eff6ff; color:#1d4ed8;">💼</div>
+                <h4>4. Internship Work</h4>
+                <p>Get assigned tasks and work with project lead.</p>
+              </div>
+
+              <div class="journey-step-card">
+                <span class="journey-lock-icon">🔒</span>
+                <div class="journey-step-icon-badge" style="background:#fce7f3; color:#be185d;">🎖️</div>
+                <h4>5. Get Certified</h4>
+                <p>Receive internship certificate and Letter of Recommendation.</p>
+              </div>
+            </div>
+
+            <!-- Explore Internship Programs Grid (ALL 8 INTERNSHIPS LISTED!) -->
+            <div class="programs-header" id="explore-programs">
+              <div class="db-section-header" style="margin-bottom:0;">
+                <h2>Explore Internship Programs</h2>
+                <p>Choose a domain to start your learning and internship journey.</p>
+              </div>
+              <a href="index.html" class="programs-view-all">View All Programs →</a>
+            </div>
+
+            <div class="programs-grid">
+              <!-- Program 1: Data Analytics -->
+              <div class="program-card">
+                <div>
+                  <div class="program-card-top">
+                    <div class="program-icon-badge" style="background:#eff6ff; color:#2563eb;">📊</div>
+                    <span class="program-duration-badge">6 Months</span>
+                  </div>
+                  <h3>Data Analytics Internship</h3>
+                  <ul class="program-features-list">
+                    <li><span>✓</span> 10+ Real-World Projects</li>
+                    <li><span>✓</span> Live Classes</li>
+                    <li><span>✓</span> Mentor Support</li>
+                    <li><span>✓</span> Certificate + LOR</li>
+                  </ul>
+                </div>
+                <div class="program-card-footer">
+                  <div class="program-price">₹9,999</div>
+                  <a href="data-analytics-internship.html" class="program-details-btn">View Details →</a>
+                </div>
+              </div>
+
+              <!-- Program 2: Data Science -->
+              <div class="program-card">
+                <div>
+                  <div class="program-card-top">
+                    <div class="program-icon-badge" style="background:#f3e8ff; color:#9333ea;">🧬</div>
+                    <span class="program-duration-badge">6 Months</span>
+                  </div>
+                  <h3>Data Science Internship</h3>
+                  <ul class="program-features-list">
+                    <li><span>✓</span> 10+ Real-World Projects</li>
+                    <li><span>✓</span> Live Classes</li>
+                    <li><span>✓</span> Mentor Support</li>
+                    <li><span>✓</span> Certificate + LOR</li>
+                  </ul>
+                </div>
+                <div class="program-card-footer">
+                  <div class="program-price">₹9,999</div>
+                  <a href="data-science-internship.html" class="program-details-btn">View Details →</a>
+                </div>
+              </div>
+
+              <!-- Program 3: Artificial Intelligence -->
+              <div class="program-card">
+                <div>
+                  <div class="program-card-top">
+                    <div class="program-icon-badge" style="background:#dcfce7; color:#15803d;">🤖</div>
+                    <span class="program-duration-badge">6 Months</span>
+                  </div>
+                  <h3>Artificial Intelligence Internship</h3>
+                  <ul class="program-features-list">
+                    <li><span>✓</span> 10+ Real-World Projects</li>
+                    <li><span>✓</span> Live Classes</li>
+                    <li><span>✓</span> Mentor Support</li>
+                    <li><span>✓</span> Certificate + LOR</li>
+                  </ul>
+                </div>
+                <div class="program-card-footer">
+                  <div class="program-price">₹9,999</div>
+                  <a href="artificial-intelligence-internship.html" class="program-details-btn">View Details →</a>
+                </div>
+              </div>
+
+              <!-- Program 4: Digital Marketing -->
+              <div class="program-card">
+                <div>
+                  <div class="program-card-top">
+                    <div class="program-icon-badge" style="background:#fce7f3; color:#be185d;">📣</div>
+                    <span class="program-duration-badge">6 Months</span>
+                  </div>
+                  <h3>Digital Marketing Internship</h3>
+                  <ul class="program-features-list">
+                    <li><span>✓</span> 10+ Real-World Projects</li>
+                    <li><span>✓</span> Live Classes</li>
+                    <li><span>✓</span> Mentor Support</li>
+                    <li><span>✓</span> Certificate + LOR</li>
+                  </ul>
+                </div>
+                <div class="program-card-footer">
+                  <div class="program-price">₹9,999</div>
+                  <a href="digital-marketing-internship.html" class="program-details-btn">View Details →</a>
+                </div>
+              </div>
+
+              <!-- Program 5: Full Stack Development -->
+              <div class="program-card">
+                <div>
+                  <div class="program-card-top">
+                    <div class="program-icon-badge" style="background:#e0f2fe; color:#0369a1;">&lt;/&gt;</div>
+                    <span class="program-duration-badge">6 Months</span>
+                  </div>
+                  <h3>Full Stack Development Internship</h3>
+                  <ul class="program-features-list">
+                    <li><span>✓</span> 10+ Real-World Projects</li>
+                    <li><span>✓</span> Live Classes</li>
+                    <li><span>✓</span> Mentor Support</li>
+                    <li><span>✓</span> Certificate + LOR</li>
+                  </ul>
+                </div>
+                <div class="program-card-footer">
+                  <div class="program-price">₹9,999</div>
+                  <a href="full-stack-development-internship.html" class="program-details-btn">View Details →</a>
+                </div>
+              </div>
+
+              <!-- Program 6: HR Management -->
+              <div class="program-card">
+                <div>
+                  <div class="program-card-top">
+                    <div class="program-icon-badge" style="background:#ffedd5; color:#c2410c;">👥</div>
+                    <span class="program-duration-badge">6 Months</span>
+                  </div>
+                  <h3>HR Management Internship</h3>
+                  <ul class="program-features-list">
+                    <li><span>✓</span> 10+ Real-World Projects</li>
+                    <li><span>✓</span> Live Classes</li>
+                    <li><span>✓</span> Mentor Support</li>
+                    <li><span>✓</span> Certificate + LOR</li>
+                  </ul>
+                </div>
+                <div class="program-card-footer">
+                  <div class="program-price">₹9,999</div>
+                  <a href="hr-management-internship.html" class="program-details-btn">View Details →</a>
+                </div>
+              </div>
+
+              <!-- Program 7: Sales & Marketing -->
+              <div class="program-card">
+                <div>
+                  <div class="program-card-top">
+                    <div class="program-icon-badge" style="background:#f3e8ff; color:#7e22ce;">🎯</div>
+                    <span class="program-duration-badge">6 Months</span>
+                  </div>
+                  <h3>Sales &amp; Marketing Internship</h3>
+                  <ul class="program-features-list">
+                    <li><span>✓</span> 10+ Real-World Projects</li>
+                    <li><span>✓</span> Live Classes</li>
+                    <li><span>✓</span> Mentor Support</li>
+                    <li><span>✓</span> Certificate + LOR</li>
+                  </ul>
+                </div>
+                <div class="program-card-footer">
+                  <div class="program-price">₹9,999</div>
+                  <a href="sales-marketing-internship.html" class="program-details-btn">View Details →</a>
+                </div>
+              </div>
+
+              <!-- Program 8: Entrepreneurship -->
+              <div class="program-card">
+                <div>
+                  <div class="program-card-top">
+                    <div class="program-icon-badge" style="background:#fef3c7; color:#b45309;">💡</div>
+                    <span class="program-duration-badge">6 Months</span>
+                  </div>
+                  <h3>Entrepreneurship Internship</h3>
+                  <ul class="program-features-list">
+                    <li><span>✓</span> 10+ Real-World Projects</li>
+                    <li><span>✓</span> Live Classes</li>
+                    <li><span>✓</span> Mentor Support</li>
+                    <li><span>✓</span> Certificate + LOR</li>
+                  </ul>
+                </div>
+                <div class="program-card-footer">
+                  <div class="program-price">₹9,999</div>
+                  <a href="entrepreneurship-internship.html" class="program-details-btn">View Details →</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column Widgets -->
+          <div class="db-right-col">
+            
+            <!-- Widget 1: Complete Your Enrollment -->
+            <div class="widget-card enroll-widget">
+              <div class="enroll-widget-header">
+                <span style="font-size:22px;">🚀</span>
+                <h3>Complete Your Enrollment</h3>
+              </div>
+              <p>Choose your internship domain and get access to learning, projects, mentor support and more.</p>
+              <a href="#explore-programs" class="enroll-btn-full">View Internship Programs →</a>
+            </div>
+
+            <!-- Widget 2: Recent Activity -->
+            <div class="widget-card">
+              <div class="sp-header" style="margin-bottom:12px; padding-bottom:12px;">
+                <h3 style="font-size:1.05rem; font-weight:800; margin:0; color:#0f172a;">Recent Activity</h3>
+              </div>
+              <div class="activity-empty-box">
+                <div class="activity-icon">📄</div>
+                <h4>No recent activity</h4>
+                <p>Once you enroll in an internship program, your activity will appear here.</p>
+              </div>
+            </div>
+
+            <!-- Widget 3: Announcements -->
+            <div class="widget-card">
+              <div class="sp-header" style="margin-bottom:14px; padding-bottom:12px;">
+                <h3 style="font-size:1.05rem; font-weight:800; margin:0; color:#0f172a;">Announcements</h3>
+                <a href="javascript:void(0);" style="font-size:0.8rem; font-weight:700; color:#2563eb; text-decoration:none;">View All →</a>
+              </div>
+
+              <div class="announcements-list">
+                <div class="announcement-item">
+                  <img src="assets/testimonial-sneha.jpg" class="announcement-img" alt="Workshop">
+                  <div class="announcement-info">
+                    <h5>Free Data Analytics Workshop</h5>
+                    <p>📅 12 Dec 2026 | Online</p>
+                  </div>
+                </div>
+
+                <div class="announcement-item">
+                  <img src="assets/testimonial-priya.jpg" class="announcement-img" alt="Batches">
+                  <div class="announcement-info">
+                    <h5>New Internship Batches Starting</h5>
+                    <p>📅 Jan 2027 | Limited Seats</p>
+                  </div>
+                </div>
+
+                <div class="announcement-item">
+                  <img src="assets/testimonial-rahul.jpg" class="announcement-img" alt="Industry Experts">
+                  <div class="announcement-info">
+                    <h5>Get Certified by Industry Experts</h5>
+                    <p>Boost your career with real projects</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Widget 4: Need Help Choosing? -->
+            <div class="widget-card counselor-widget">
+              <div class="counselor-box">
+                <img src="assets/ananya-avatar.jpg" class="counselor-avatar" alt="Career Counselor">
+                <div class="counselor-text">
+                  <h4>Need Help Choosing?</h4>
+                  <p>Talk to our career counselor and get personalized guidance.</p>
+                </div>
+              </div>
+              <a href="contact.html" class="counselor-btn">Talk to Counselor →</a>
+            </div>
+
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
