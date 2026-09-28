@@ -1761,39 +1761,106 @@
   </div>
 </div>
 <script>
-(function(){
-  const overlay=document.getElementById('leadPopup'); if(!overlay)return;
-  const form=document.getElementById('leadForm'), success=document.getElementById('leadSuccess'), trigger=document.querySelector('[data-open-lead]');
-  const open=()=>{overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');setTimeout(()=>document.getElementById('leadName')?.focus(),80)};
-  const close=()=>{overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true')};
-  document.querySelectorAll('[data-open-lead]').forEach(el=>el.addEventListener('click',open));
-  document.querySelectorAll('[data-close-lead]').forEach(el=>el.addEventListener('click',close));
-  overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-  document.querySelectorAll('.nav-cta,.actions .btn:first-child,.cta-box .btn').forEach(el=>{el.addEventListener('click',e=>{if(el.tagName==='A'){e.preventDefault();open()}})});
-  if(!sessionStorage.getItem('edurupLeadPopupShown')){setTimeout(()=>{open();sessionStorage.setItem('edurupLeadPopupShown','1')},9000)}
-  form?.addEventListener('submit', async e => {
+(function() {
+  const overlay = document.getElementById('leadPopup');
+  if (!overlay) return;
+
+  const form = document.getElementById('leadForm');
+  const success = document.getElementById('leadSuccess');
+
+  const open = function() {
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    setTimeout(function() {
+      const input = document.getElementById('leadName');
+      if (input) input.focus();
+    }, 80);
+  };
+
+  const close = function() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+  };
+
+  document.querySelectorAll('[data-open-lead]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      if (el.tagName === 'A') e.preventDefault();
+      open();
+    });
+  });
+
+  document.querySelectorAll('[data-close-lead]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      if (el.tagName === 'A') e.preventDefault();
+      close();
+    });
+  });
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) close();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') close();
+  });
+
+  // Auto-select program based on page URL
+  const select = document.getElementById('leadProgram');
+  if (select) {
+    const pageMap = {
+      'data-analytics-internship.html': 'Data Analytics Internship',
+      'data-science-internship.html': 'Data Science Internship',
+      'artificial-intelligence-internship.html': 'Artificial Intelligence Internship',
+      'digital-marketing-internship.html': 'Digital Marketing Internship',
+      'full-stack-development-internship.html': 'Full Stack Development Internship',
+      'hr-management-internship.html': 'HR Management Internship',
+      'sales-marketing-internship.html': 'Sales & Marketing Internship',
+      'entrepreneurship-internship.html': 'Entrepreneurship Internship'
+    };
+    const currentFile = location.pathname.split('/').pop().toLowerCase();
+    if (pageMap[currentFile]) {
+      select.value = pageMap[currentFile];
+    }
+  }
+
+  // Form Submission Handler -> therupeshneelam@gmail.com
+  if (form) {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = form.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.innerText = 'Sending...'; }
-      const data = Object.fromEntries(new FormData(form));
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Sending...';
+      }
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
       data['_subject'] = 'New Internship Lead / Enquiry - Edurup Learning';
       data['Source Page'] = location.pathname;
-      localStorage.setItem('edurupLeadDraft', JSON.stringify({ ...data, submittedAt: new Date().toISOString() }));
+
+      try {
+        localStorage.setItem('edurupLeadDraft', JSON.stringify({ ...data, submittedAt: new Date().toISOString() }));
+      } catch(err) {}
+
       try {
         await fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
           body: JSON.stringify(data)
         });
-      } catch (err) { console.warn('Form submission notice:', err); }
+      } catch (err) {
+        console.warn('FormSubmit AJAX notice:', err);
+      }
+
       form.style.display = 'none';
-      if (success) success.style.display = 'flex';
-    });const data=Object.fromEntries(new FormData(form));localStorage.setItem('edurupLeadDraft',JSON.stringify({...data,submittedAt:new Date().toISOString(),page:location.pathname}));form.classList.add('hide');success.classList.add('show');});
-  const page=location.pathname.toLowerCase(); const select=document.getElementById('leadProgram');
-  const map={
-   'data-analytics-internship.html':'Data Analytics Internship','data-science-internship.html':'Data Science Internship','artificial-intelligence-internship.html':'Artificial Intelligence Internship','digital-marketing-internship.html':'Digital Marketing Internship','full-stack-development-internship.html':'Full Stack Development Internship','hr-management-internship.html':'HR Management Internship','sales-marketing-internship.html':'Sales & Marketing Internship','entrepreneurship-internship.html':'Entrepreneurship Internship'};
-  const key=page.split('/').pop(); if(select&&map[key])select.value=map[key];
+      if (success) {
+        success.style.display = 'flex';
+      }
+    });
+  }
 })();
 </script>
 
