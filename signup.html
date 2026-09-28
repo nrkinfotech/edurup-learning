@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Registration &amp; Signup | Edurup Learning</title>
+  <meta name="description" content="Complete your student registration profile to apply for Edurup Learning Internship Programs.">
+  <link rel="canonical" href="https://www.eduruplearning.com/signup.html">
+  <link rel="stylesheet" href="assets/css/style.css?v=21">
+  <style>
+    /* Signup Page Specific Styles matching reference image */
+    .signup-body {
+      background-color: #f8fafc;
+      min-height: 100vh;
+      color: #0f172a;
+    }
+    .signup-wrap {
+      max-width: 960px;
+      margin: 40px auto 80px;
+      padding: 0 20px;
+    }
+    .signup-hero {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .signup-hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .signup-hero p {
+      color: #64748b;
+      font-size: 1.05rem;
+    }
+    .sp-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+    }
+    .sp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 24px;
+    }
+    .sp-header-title-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sp-icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .sp-header-title-box h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 2px 0;
+    }
+    .sp-header-title-box p {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin: 0;
+    }
+    .sp-edit-btn {
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .sp-edit-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+    
+    /* Layout for Card 1 (Personal Info) */
+    .sp-personal-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 768px) {
+      .sp-personal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .sp-avatar-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .sp-avatar-wrapper {
+      position: relative;
+      width: 128px;
+      height: 128px;
+      margin-bottom: 16px;
+    }
+    .sp-avatar-img {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #eff6ff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+    }
+    .sp-camera-badge {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #0f172a;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .sp-upload-btn {
+      width: 100%;
+      border: 1px solid #bfdbfe;
+      background: #ffffff;
+      color: #2563eb;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 6px;
+    }
+    .sp-upload-btn:hover {
+      background: #eff6ff;
+    }
+    .sp-upload-help {
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    /* Form Fields Grid */
+    .sp-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 640px) {
+      .sp-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .sp-field {
+      display: flex;
+      flex-direction: column;
+    }
+    .sp-field.full-width {
+      grid-column: 1 / -1;
+    }
+    .sp-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .sp-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+    }
+    .sp-req {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+    .sp-verified-badge {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .sp-input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .sp-input, .sp-select {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      color: #0f172a;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .sp-input:focus, .sp-select:focus {
+      background: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+    .sp-input-icon {
+      position: absolute;
+      right: 14px;
+      color: #64748b;
+      pointer-events: none;
+      font-size: 16px;
+    }
+    .sp-social-prefix {
+      position: absolute;
+      left: 12px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .sp-input-social {
+      padding-left: 40px;
+    }
+
+    /* Tag Selector */
+    .sp-tags-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .sp-tag-chip {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+    .sp-tag-chip.unselected {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #64748b;
+    }
+    .sp-tag-chip:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Submit Section */
+    .sp-submit-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+    }
+    .sp-submit-btn {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 14px 36px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sp-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px -4px rgba(37, 99, 235, 0.5);
+    }
+    .sp-submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .sp-success-msg {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .sp-success-msg h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+    }
+    .sp-success-msg p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body class="signup-body">
+  <!-- Header / Navigation -->
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.png" alt="Edurup Learning" class="brand-icon-img" width="52" height="52" style="width:52px!important;height:52px!important;">
+        <span class="brand-text-name">Edurup Learning</span>
+      </a>
+      <nav class="links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <div class="nav-dropdown">
+          <a class="nav-dropdown-toggle" href="javascript:void(0);">Internships <span class="chevron">⌄</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="data-analytics-internship.html">Data Analytics Internship</a>
+            <a href="data-science-internship.html">Data Science Internship</a>
+            <a href="artificial-intelligence-internship.html">Artificial Intelligence Internship</a>
+            <a href="digital-marketing-internship.html">Digital Marketing Internship</a>
+            <a href="full-stack-development-internship.html">Full Stack Development Internship</a>
+            <a href="hr-management-internship.html">HR Management Internship</a>
+            <a href="sales-marketing-internship.html">Sales &amp; Marketing Internship</a>
+            <a href="entrepreneurship-internship.html">Entrepreneurship Internship</a>
+          </div>
+        </div>
+        <a href="hire-interns.html">Hire Interns</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="nav-signin active" href="signup.html">Sign Up</a>
+        <button class="nav-enroll-btn" data-open-lead>Enquire Now</button>
+        <button class="menu" onclick="document.getElementById('mobileNav').classList.toggle('show')">☰</button>
+      </div>
+    </div>
+    <div id="mobileNav" class="mobile-links">
+      <div class="wrap">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <div class="mobile-course-menu"><a href="javascript:void(0);" onclick="this.nextElementSibling.classList.toggle('show')">Internships ⌄</a>
+          <div class="mobile-course-links">
+            <a href="data-analytics-internship.html">Data Analytics Internship</a>
+            <a href="data-science-internship.html">Data Science Internship</a>
+            <a href="artificial-intelligence-internship.html">Artificial Intelligence Internship</a>
+            <a href="digital-marketing-internship.html">Digital Marketing Internship</a>
+            <a href="full-stack-development-internship.html">Full Stack Development Internship</a>
+            <a href="hr-management-internship.html">HR Management Internship</a>
+            <a href="sales-marketing-internship.html">Sales &amp; Marketing Internship</a>
+            <a href="entrepreneurship-internship.html">Entrepreneurship Internship</a>
+          </div>
+        </div>
+        <a href="hire-interns.html">Hire Interns</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="signup-wrap">
+    <div class="signup-hero">
+      <h1>Student <span style="background: linear-gradient(135deg,#2563eb,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Registration Profile</span></h1>
+      <p>Complete your profile details below to register for Edurup Learning Internship Programs</p>
+    </div>
+
+    <form id="studentRegistrationForm">
+      <!-- Card 1: Personal Information -->
+      <div class="sp-card">
+        <div class="sp-header">
+          <div class="sp-header-title-box">
+            <div class="sp-icon-badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div>
+              <h2>Personal Information</h2>
+              <p>This information will be used for your internship registration and communication.</p>
+            </div>
+          </div>
+          <button type="button" class="sp-edit-btn" onclick="document.getElementById('fullName').focus()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Edit
+          </button>
+        </div>
+
+        <div class="sp-personal-grid">
+          <!-- Photo Upload Box -->
+          <div class="sp-avatar-box">
+            <div class="sp-avatar-wrapper">
+              <img id="avatarPreview" class="sp-avatar-img" src="assets/testimonial-rahul.jpg" alt="Profile Avatar">
+              <div class="sp-camera-badge" onclick="document.getElementById('photoInput').click()" title="Change photo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              </div>
+            </div>
+            <button type="button" class="sp-upload-btn" onclick="document.getElementById('photoInput').click()">Upload Photo</button>
+            <input type="file" id="photoInput" accept="image/jpeg,image/png" style="display:none" onchange="previewPhoto(this)">
+            <span class="sp-upload-help">JPG, PNG (Max 2MB)</span>
+          </div>
+
+          <!-- Fields Grid -->
+          <div class="sp-form-grid">
+            <div class="sp-field">
+              <div class="sp-label-row">
+                <label class="sp-label">Full Name<span class="sp-req">*</span></label>
+              </div>
+              <input type="text" id="fullName" name="Full Name" class="sp-input" value="Rahul Kumar" required placeholder="Full Name">
+            </div>
+
+            <div class="sp-field">
+              <div class="sp-label-row">
+                <label class="sp-label">Email Address<span class="sp-req">*</span></label>
+                <span class="sp-verified-badge">✓ Verified</span>
+              </div>
+              <input type="email" name="Email Address" class="sp-input" value="rahul@gmail.com" required placeholder="Email Address">
+            </div>
+
+            <div class="sp-field">
+              <div class="sp-label-row">
+                <label class="sp-label">Phone Number<span class="sp-req">*</span></label>
+                <span class="sp-verified-badge">✓ Verified</span>
+              </div>
+              <input type="tel" name="Phone Number" class="sp-input" value="+91 98765 43210" required placeholder="Phone Number">
+            </div>
+
+            <div class="sp-field">
+              <div class="sp-label-row">
+                <label class="sp-label">Date of Birth<span class="sp-req">*</span></label>
+              </div>
+              <div class="sp-input-container">
+                <input type="text" name="Date of Birth" class="sp-input" value="20 Oct 1990" required placeholder="e.g. 20 Oct 1990">
+                <span class="sp-input-icon">📅</span>
+              </div>
+            </div>
+
+            <div class="sp-field">
+              <div class="sp-label-row">
+                <label class="sp-label">Gender<span class="sp-req">*</span></label>
+              </div>
+              <select name="Gender" class="sp-select" required>
+                <option value="Male" selected>Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="sp-field">
+              <div class="sp-label-row">
+                <label class="sp-label">Current Location<span class="sp-req">*</span></label>
+              </div>
+              <div class="sp-input-container">
+                <span class="sp-social-prefix" style="left:12px;">📍</span>
+                <input type="text" name="Current Location" class="sp-input sp-input-social" value="Bangalore, Karnataka" required placeholder="City, State">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Academic Information -->
+      <div class="sp-card">
+        <div class="sp-header">
+          <div class="sp-header-title-box">
+            <div class="sp-icon-badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+            </div>
+            <div>
+              <h2>Academic Information</h2>
+              <p>Tell us about your educational background.</p>
+            </div>
+          </div>
+          <button type="button" class="sp-edit-btn" onclick="document.getElementById('collegeName').focus()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Edit
+          </button>
+        </div>
+
+        <div class="sp-form-grid">
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">College / University<span class="sp-req">*</span></label>
+            </div>
+            <input type="text" id="collegeName" name="College / University" class="sp-input" value="RV College of Engineering" required placeholder="College / University Name">
+          </div>
+
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">Current Year<span class="sp-req">*</span></label>
+            </div>
+            <select name="Current Year" class="sp-select" required>
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="Final Year" selected>Final Year</option>
+              <option value="Passed Out / Graduated">Passed Out / Graduated</option>
+            </select>
+          </div>
+
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">Qualification<span class="sp-req">*</span></label>
+            </div>
+            <input type="text" name="Qualification" class="sp-input" value="B.Tech" required placeholder="Degree / Qualification">
+          </div>
+
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">Graduation Year<span class="sp-req">*</span></label>
+            </div>
+            <input type="text" name="Graduation Year" class="sp-input" value="2026" required placeholder="e.g. 2026">
+          </div>
+
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">Branch / Stream<span class="sp-req">*</span></label>
+            </div>
+            <input type="text" name="Branch / Stream" class="sp-input" value="Computer Science" required placeholder="Branch / Stream">
+          </div>
+
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">City<span class="sp-req">*</span></label>
+            </div>
+            <input type="text" name="City" class="sp-input" value="Bangalore, Karnataka" required placeholder="City">
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Additional Information -->
+      <div class="sp-card">
+        <div class="sp-header">
+          <div class="sp-header-title-box">
+            <div class="sp-icon-badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <div>
+              <h2>Additional Information</h2>
+              <p>Help us understand your background and interests.</p>
+            </div>
+          </div>
+          <button type="button" class="sp-edit-btn" onclick="document.getElementById('linkedinInput').focus()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Edit
+          </button>
+        </div>
+
+        <div class="sp-form-grid">
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">Are you a Student or Professional?<span class="sp-req">*</span></label>
+            </div>
+            <select name="Are you a Student or Professional?" class="sp-select" required>
+              <option value="Student" selected>Student</option>
+              <option value="Working Professional">Working Professional</option>
+            </select>
+          </div>
+
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">Work Experience</label>
+            </div>
+            <select name="Work Experience" class="sp-select">
+              <option value="Fresher" selected>Fresher</option>
+              <option value="0-1 Year">0-1 Year</option>
+              <option value="1-2 Years">1-2 Years</option>
+              <option value="2+ Years">2+ Years</option>
+            </select>
+          </div>
+
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">LinkedIn Profile</label>
+            </div>
+            <div class="sp-input-container">
+              <div class="sp-social-prefix">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              </div>
+              <input type="url" id="linkedinInput" name="LinkedIn Profile" class="sp-input sp-input-social" value="https://linkedin.com/in/rahulkumar" placeholder="https://linkedin.com/in/username">
+            </div>
+          </div>
+
+          <div class="sp-field">
+            <div class="sp-label-row">
+              <label class="sp-label">GitHub Profile</label>
+            </div>
+            <div class="sp-input-container">
+              <div class="sp-social-prefix">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#0f172a"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              </div>
+              <input type="url" name="GitHub Profile" class="sp-input sp-input-social" value="https://github.com/rahulkumar" placeholder="https://github.com/username">
+            </div>
+          </div>
+
+          <div class="sp-field full-width">
+            <div class="sp-label-row">
+              <label class="sp-label">Areas of Interest</label>
+            </div>
+            <div class="sp-tags-box" id="tagsBox">
+              <div class="sp-tag-chip" onclick="toggleTag(this, 'Data Analytics')">Data Analytics ✕</div>
+              <div class="sp-tag-chip" onclick="toggleTag(this, 'Data Science')">Data Science ✕</div>
+              <div class="sp-tag-chip" onclick="toggleTag(this, 'AI & ML')">AI &amp; ML ✕</div>
+              <div class="sp-tag-chip" onclick="toggleTag(this, 'Digital Marketing')">Digital Marketing ✕</div>
+              <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Full Stack Development')">Full Stack Development +</div>
+              <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'HR Management')">HR Management +</div>
+              <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Sales & Marketing')">Sales &amp; Marketing +</div>
+              <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Entrepreneurship')">Entrepreneurship +</div>
+            </div>
+            <input type="hidden" id="areasOfInterestInput" name="Areas of Interest" value="Data Analytics, Data Science, AI & ML, Digital Marketing">
+          </div>
+
+          <div class="sp-field full-width">
+            <div class="sp-label-row">
+              <label class="sp-label">How did you hear about us?</label>
+            </div>
+            <select name="How did you hear about us?" class="sp-select">
+              <option value="Instagram" selected>Instagram</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Friend / Referral">Friend / Referral</option>
+              <option value="Google Search">Google Search</option>
+              <option value="YouTube">YouTube</option>
+              <option value="College / Campus">College / Campus</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Section -->
+      <div class="sp-submit-card">
+        <button type="submit" id="submitBtn" class="sp-submit-btn">
+          Complete Registration &amp; Submit Profile →
+        </button>
+        <div id="successMsg" class="sp-success-msg">
+          <h3>🎉 Profile Registration Submitted Successfully!</h3>
+          <p>Thank you for submitting your profile. Details have been sent to <strong>therupeshneelam@gmail.com</strong>. Our admissions team will get in touch with you shortly.</p>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="brand">
+          <a href="index.html">
+            <img src="assets/logo.png" alt="Edurup Learning" class="brand-icon-img" width="52" height="52" style="width:52px!important;height:52px!important;">
+            <span class="brand-text-name">Edurup Learning</span>
+          </a>
+        </div>
+        <p>Career-focused learning and internship programs built around practical skills, projects and guided experience.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <p>
+          <span>Internships</span><br>
+          <a href="about.html">About Us</a><br>
+          <a href="hire-interns.html">Hire Interns</a><br>
+          <a href="contact.html">Contact</a>
+        </p>
+      </div>
+      <div>
+        <h4>Programs</h4>
+        <p>
+          <a href="data-analytics-internship.html">Data Analytics</a><br>
+          <a href="data-science-internship.html">Data Science</a><br>
+          <a href="artificial-intelligence-internship.html">Artificial Intelligence</a><br>
+          <a href="digital-marketing-internship.html">Digital Marketing</a>
+        </p>
+      </div>
+    </div>
+    <div class="wrap foot-bottom">
+      © 2026 Edurup Learning. All rights reserved. · ₹9,999 registration fee for the 6-month internship program.
+    </div>
+  </footer>
+
+  <script>
+    // Preview photo on upload
+    function previewPhoto(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('avatarPreview').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // Toggle Tag Chip Selection
+    const selectedTags = new Set(['Data Analytics', 'Data Science', 'AI & ML', 'Digital Marketing']);
+
+    function toggleTag(element, tag) {
+      if (selectedTags.has(tag)) {
+        selectedTags.delete(tag);
+        element.classList.add('unselected');
+        element.textContent = tag + ' +';
+      } else {
+        selectedTags.add(tag);
+        element.classList.remove('unselected');
+        element.textContent = tag + ' ✕';
+      }
+      document.getElementById('areasOfInterestInput').value = Array.from(selectedTags).join(', ');
+    }
+
+    // Form Submission Handler -> therupeshneelam@gmail.com
+    document.getElementById('studentRegistrationForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const success = document.getElementById('successMsg');
+      
+      btn.disabled = true;
+      btn.innerText = 'Submitting Profile Details...';
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+      data['_subject'] = 'New Student Registration Profile - Edurup Learning';
+      data['Source Page'] = 'signup.html';
+
+      try {
+        await fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+      } catch (err) {
+        console.warn('FormSubmit AJAX notice:', err);
+      }
+
+      btn.style.display = 'none';
+      success.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
