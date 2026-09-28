@@ -725,13 +725,13 @@
 
     <!-- Main Content Area -->
     <main class="portal-main">
-      <!-- Top Banner -->
+      <!-- Top Banner (Displays when profile is NOT completed) -->
       <div class="profile-top-banner">
         <div class="profile-title-area">
           <h1>My Profile</h1>
           <p>Manage your personal information, academic details and account settings.</p>
         </div>
-        <div class="profile-header-banner-box">
+        <div id="incompleteProfileBanner" class="profile-header-banner-box">
           <div class="banner-avatar-icon">🧑‍🎓</div>
           <div class="banner-text-box">
             <p>Complete your profile to get personalized recommendations and a smoother enrollment experience.</p>
@@ -914,23 +914,23 @@
 
         <!-- Right Column: Sidebar Widgets -->
         <div class="profile-right-widgets">
-          <!-- Widget 1: Profile Completion -->
+          <!-- Widget 1: Profile Completion (80% Incomplete State) -->
           <div class="widget-card">
             <div class="profile-completion-header">
               <h3>Profile Completion</h3>
-              <span id="completionPercent" class="profile-completion-percent">100%</span>
+              <span id="completionPercent" class="profile-completion-percent">80%</span>
             </div>
             <div class="progress-bar-bg">
-              <div id="completionProgressFill" class="progress-bar-fill" style="width: 100%;"></div>
+              <div id="completionProgressFill" class="progress-bar-fill" style="width: 80%;"></div>
             </div>
-            <p class="completion-subtext">Your profile is complete! Explore internship recommendations below.</p>
+            <p id="completionSubtext" class="completion-subtext">Complete your profile to get better internship recommendations.</p>
 
-            <div class="completion-checklist">
+            <div class="completion-checklist" id="completionChecklist">
               <div class="checklist-item"><span class="check-icon">✓</span> Personal Information</div>
               <div class="checklist-item"><span class="check-icon">✓</span> Academic Information</div>
               <div class="checklist-item"><span class="check-icon">✓</span> Email Verification</div>
               <div class="checklist-item"><span class="check-icon">✓</span> Phone Verification</div>
-              <div class="checklist-item"><span class="check-icon">✓</span> Add Social Links</div>
+              <div class="checklist-item" id="itemSocialLinks"><span class="check-icon empty">○</span> Add Social Links</div>
               <div class="checklist-item"><span class="check-icon">✓</span> Add Areas of Interest</div>
             </div>
           </div>
