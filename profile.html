@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Profile | Edurup Learning Student Portal</title>
+  <meta name="description" content="Manage your personal information, academic details, and account settings on Edurup Learning.">
+  <link rel="canonical" href="https://www.eduruplearning.com/profile.html">
+  <link rel="stylesheet" href="assets/css/style.css?v=23">
+  <style>
+    /* Student Portal Dashboard Layout */
+    * {
+      box-sizing: border-box;
+    }
+    body.portal-body {
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a;
+    }
+    .portal-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Left Sidebar */
+    .portal-sidebar {
+      width: 260px;
+      background-color: #0b1329;
+      color: #94a3b8;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 16px;
+      overflow-y: auto;
+    }
+    .portal-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px 28px 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+    .portal-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .portal-brand span {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .portal-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .portal-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .portal-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .portal-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .portal-nav-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Sidebar Support Box */
+    .sidebar-support-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px 16px;
+      margin-top: auto;
+      text-align: center;
+    }
+    .sidebar-support-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.2);
+      color: #3b82f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 20px;
+    }
+    .sidebar-support-box h4 {
+      margin: 0 0 4px 0;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .sidebar-support-box p {
+      margin: 0 0 14px 0;
+      color: #64748b;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    .sidebar-support-btn {
+      display: inline-block;
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .sidebar-support-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* Main Content */
+    .portal-main {
+      flex: 1;
+      padding: 32px 40px;
+      overflow-y: auto;
+      max-width: 1300px;
+    }
+
+    /* Top Page Banner */
+    .profile-top-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      gap: 24px;
+    }
+    .profile-title-area h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+    }
+    .profile-title-area p {
+      font-size: 0.98rem;
+      color: #64748b;
+      margin: 0;
+    }
+    .profile-header-banner-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: 480px;
+    }
+    .banner-avatar-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #3b82f6;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .banner-text-box p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: #1e3a8a;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* Horizontal Sub-tabs */
+    .profile-subtabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 32px;
+      overflow-x: auto;
+    }
+    .profile-tab-btn {
+      padding: 12px 20px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #64748b;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .profile-tab-btn:hover {
+      color: #0f172a;
+    }
+    .profile-tab-btn.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* 2-Column Grid Layout (Main Content + Right Widgets) */
+    .profile-grid-container {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 32px;
+    }
+    @media (max-width: 1024px) {
+      .profile-grid-container {
+        grid-template-columns: 1fr;
+      }
+      .portal-sidebar {
+        width: 80px;
+        padding: 16px 8px;
+      }
+      .portal-brand span, .portal-nav-item span, .sidebar-support-box {
+        display: none;
+      }
+      .portal-nav-item {
+        justify-content: center;
+        padding: 12px;
+      }
+      .portal-main {
+        padding: 20px;
+      }
+    }
+
+    /* Cards Styling */
+    .sp-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+    }
+    .sp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 20px;
+    }
+    .sp-header-title-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sp-icon-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .sp-header-title-box h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 2px 0;
+    }
+    .sp-header-title-box p {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin: 0;
+    }
+    .sp-edit-btn {
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .sp-edit-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+    
+    /* Layout for Card 1 (Personal Info) */
+    .sp-personal-grid {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 640px) {
+      .sp-personal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .sp-avatar-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .sp-avatar-wrapper {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin-bottom: 12px;
+    }
+    .sp-avatar-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #eff6ff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+    }
+    .sp-camera-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #0f172a;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .sp-upload-btn {
+      width: 100%;
+      border: 1px solid #bfdbfe;
+      background: #ffffff;
+      color: #2563eb;
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+    .sp-upload-help {
+      font-size: 0.72rem;
+      color: #94a3b8;
+    }
+
+    /* Form Fields Grid */
+    .sp-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .sp-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .sp-field {
+      display: flex;
+      flex-direction: column;
+    }
+    .sp-field.full-width {
+      grid-column: 1 / -1;
+    }
+    .sp-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .sp-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #475569;
+    }
+    .sp-req {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+    .sp-input, .sp-select {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 0.88rem;
+      color: #0f172a;
+      font-weight: 500;
+      outline: none;
+      font-family: inherit;
+    }
+    .sp-input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .sp-input-icon {
+      position: absolute;
+      right: 12px;
+      color: #64748b;
+      pointer-events: none;
+    }
+    .sp-social-prefix {
+      position: absolute;
+      left: 10px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+    }
+    .sp-input-social {
+      padding-left: 36px;
+    }
+    .sp-tags-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .sp-tag-chip {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Right Column Widgets */
+    .widget-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.03);
+    }
+    
+    /* Widget 1: Profile Completion */
+    .profile-completion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .profile-completion-header h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+      color: #0f172a;
+    }
+    .profile-completion-percent {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .progress-bar-bg {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 80%;
+      background: #2563eb;
+      border-radius: 10px;
+    }
+    .completion-subtext {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+
+    .completion-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+    }
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #dcfce7;
+      color: #166534;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .check-icon.empty {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      color: transparent;
+    }
+
+    /* Widget 2: No Active Internship */
+    .no-active-card {
+      background: #fffbebf0;
+      border: 1px solid #fef3c7;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+    .no-active-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .no-active-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #92400e;
+      margin: 0;
+    }
+    .no-active-card p {
+      font-size: 0.84rem;
+      color: #78350f;
+      line-height: 1.45;
+      margin: 0 0 16px 0;
+    }
+    .explore-programs-btn {
+      display: block;
+      width: 100%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .explore-programs-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* Widget 3: Account & Security */
+    .sec-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.85rem;
+    }
+    .sec-row:last-child {
+      border-bottom: none;
+    }
+    .sec-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #334155;
+      font-weight: 600;
+    }
+    .badge-verified-sm {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .badge-disabled-sm {
+      background: #fef2f2;
+      color: #991b1b;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .sec-link {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body class="portal-body">
+  <div class="portal-container">
+    <!-- Sidebar Navigation -->
+    <aside class="portal-sidebar">
+      <a href="index.html" class="portal-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <nav class="portal-nav">
+        <a href="javascript:void(0);" class="portal-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="index.html" class="portal-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          <span>Explore Internships</span>
+        </a>
+        <a href="javascript:void(0);" class="portal-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span>My Orders</span>
+        </a>
+        <a href="contact.html" class="portal-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Support</span>
+        </a>
+        <a href="profile.html" class="portal-nav-item active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>My Profile</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support-box">
+        <div class="sidebar-support-icon">🎧</div>
+        <h4>Need Help?</h4>
+        <p>Have questions? Our team is here to help you.</p>
+        <a href="contact.html" class="sidebar-support-btn">Contact Support →</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="portal-main">
+      <!-- Top Banner -->
+      <div class="profile-top-banner">
+        <div class="profile-title-area">
+          <h1>My Profile</h1>
+          <p>Manage your personal information, academic details and account settings.</p>
+        </div>
+        <div class="profile-header-banner-box">
+          <div class="banner-avatar-icon">🧑‍🎓</div>
+          <div class="banner-text-box">
+            <p>Complete your profile to get personalized recommendations and a smoother enrollment experience.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal Sub-tabs -->
+      <div class="profile-subtabs">
+        <button type="button" class="profile-tab-btn active">👤 Personal Information</button>
+        <button type="button" class="profile-tab-btn">🎓 Academic Information</button>
+        <button type="button" class="profile-tab-btn">📄 Additional Information</button>
+        <button type="button" class="profile-tab-btn">⚙️ Preferences</button>
+        <button type="button" class="profile-tab-btn">🛡️ Security</button>
+        <button type="button" class="profile-tab-btn">📁 Documents</button>
+      </div>
+
+      <!-- 2-Column Main Layout -->
+      <div class="profile-grid-container">
+        <!-- Left Column: Forms -->
+        <div class="profile-left-forms">
+          <!-- Card 1: Personal Information -->
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-header-title-box">
+                <div class="sp-icon-badge">👤</div>
+                <div>
+                  <h2>Personal Information</h2>
+                  <p>This information will be used for your internship registration and communication.</p>
+                </div>
+              </div>
+              <button type="button" class="sp-edit-btn">✏️ Edit</button>
+            </div>
+
+            <div class="sp-personal-grid">
+              <div class="sp-avatar-box">
+                <div class="sp-avatar-wrapper">
+                  <img class="sp-avatar-img" src="assets/testimonial-rahul.jpg" alt="Rahul Kumar">
+                  <div class="sp-camera-badge" title="Change photo">📷</div>
+                </div>
+                <button type="button" class="sp-upload-btn">Upload Photo</button>
+                <span class="sp-upload-help">JPG, PNG (Max 2MB)</span>
+              </div>
+
+              <div class="sp-form-grid">
+                <div class="sp-field">
+                  <div class="sp-label-row"><label class="sp-label">Full Name<span class="sp-req">*</span></label></div>
+                  <input type="text" class="sp-input" value="Rahul Kumar">
+                </div>
+                <div class="sp-field">
+                  <div class="sp-label-row"><label class="sp-label">Email Address<span class="sp-req">*</span></label></div>
+                  <input type="email" class="sp-input" value="rahul@gmail.com">
+                </div>
+                <div class="sp-field">
+                  <div class="sp-label-row"><label class="sp-label">Phone Number<span class="sp-req">*</span></label></div>
+                  <input type="tel" class="sp-input" value="+91 98765 43210">
+                </div>
+                <div class="sp-field">
+                  <div class="sp-label-row"><label class="sp-label">Date of Birth<span class="sp-req">*</span></label></div>
+                  <div class="sp-input-container">
+                    <input type="text" class="sp-input" value="20 Oct 1990">
+                    <span class="sp-input-icon">📅</span>
+                  </div>
+                </div>
+                <div class="sp-field">
+                  <div class="sp-label-row"><label class="sp-label">Gender<span class="sp-req">*</span></label></div>
+                  <select class="sp-select">
+                    <option selected>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="sp-field">
+                  <div class="sp-label-row"><label class="sp-label">Current Location<span class="sp-req">*</span></label></div>
+                  <div class="sp-input-container">
+                    <span class="sp-social-prefix">📍</span>
+                    <input type="text" class="sp-input sp-input-social" value="Bangalore, Karnataka">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Academic Information -->
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-header-title-box">
+                <div class="sp-icon-badge">🎓</div>
+                <div>
+                  <h2>Academic Information</h2>
+                  <p>Tell us about your educational background.</p>
+                </div>
+              </div>
+              <button type="button" class="sp-edit-btn">✏️ Edit</button>
+            </div>
+
+            <div class="sp-form-grid">
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">College / University<span class="sp-req">*</span></label></div>
+                <input type="text" class="sp-input" value="RV College of Engineering">
+              </div>
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">Current Year<span class="sp-req">*</span></label></div>
+                <select class="sp-select"><option selected>Final Year</option></select>
+              </div>
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">Qualification<span class="sp-req">*</span></label></div>
+                <input type="text" class="sp-input" value="B.Tech">
+              </div>
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">Graduation Year<span class="sp-req">*</span></label></div>
+                <input type="text" class="sp-input" value="2026">
+              </div>
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">Branch / Stream<span class="sp-req">*</span></label></div>
+                <input type="text" class="sp-input" value="Computer Science">
+              </div>
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">City<span class="sp-req">*</span></label></div>
+                <input type="text" class="sp-input" value="Bangalore, Karnataka">
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Additional Information -->
+          <div class="sp-card">
+            <div class="sp-header">
+              <div class="sp-header-title-box">
+                <div class="sp-icon-badge">📄</div>
+                <div>
+                  <h2>Additional Information</h2>
+                  <p>Help us understand your background and interests.</p>
+                </div>
+              </div>
+              <button type="button" class="sp-edit-btn">✏️ Edit</button>
+            </div>
+
+            <div class="sp-form-grid">
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">Are you a Student or Professional?<span class="sp-req">*</span></label></div>
+                <select class="sp-select"><option selected>Student</option></select>
+              </div>
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">Work Experience</label></div>
+                <select class="sp-select"><option selected>Fresher</option></select>
+              </div>
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">LinkedIn Profile</label></div>
+                <div class="sp-input-container">
+                  <span class="sp-social-prefix">🔗</span>
+                  <input type="url" class="sp-input sp-input-social" value="https://linkedin.com/in/rahulkumar">
+                </div>
+              </div>
+              <div class="sp-field">
+                <div class="sp-label-row"><label class="sp-label">GitHub Profile</label></div>
+                <div class="sp-input-container">
+                  <span class="sp-social-prefix">🐙</span>
+                  <input type="url" class="sp-input sp-input-social" value="https://github.com/rahulkumar">
+                </div>
+              </div>
+              <div class="sp-field full-width">
+                <div class="sp-label-row"><label class="sp-label">Areas of Interest</label></div>
+                <div class="sp-tags-box">
+                  <div class="sp-tag-chip">Data Analytics ✕</div>
+                  <div class="sp-tag-chip">Data Science ✕</div>
+                  <div class="sp-tag-chip">AI &amp; ML ✕</div>
+                  <div class="sp-tag-chip">Digital Marketing ✕</div>
+                </div>
+              </div>
+              <div class="sp-field full-width">
+                <div class="sp-label-row"><label class="sp-label">How did you hear about us?</label></div>
+                <select class="sp-select"><option selected>Instagram</option></select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Sidebar Widgets -->
+        <div class="profile-right-widgets">
+          <!-- Widget 1: Profile Completion -->
+          <div class="widget-card">
+            <div class="profile-completion-header">
+              <h3>Profile Completion</h3>
+              <span class="profile-completion-percent">80%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill"></div>
+            </div>
+            <p class="completion-subtext">Complete your profile to get better internship recommendations.</p>
+
+            <div class="completion-checklist">
+              <div class="checklist-item"><span class="check-icon">✓</span> Personal Information</div>
+              <div class="checklist-item"><span class="check-icon">✓</span> Academic Information</div>
+              <div class="checklist-item"><span class="check-icon">✓</span> Email Verification</div>
+              <div class="checklist-item"><span class="check-icon">✓</span> Phone Verification</div>
+              <div class="checklist-item"><span class="check-icon empty"></span> Add Social Links</div>
+              <div class="checklist-item"><span class="check-icon">✓</span> Add Areas of Interest</div>
+            </div>
+          </div>
+
+          <!-- Widget 2: No Active Internship Program -->
+          <div class="no-active-card">
+            <div class="no-active-header">
+              <span style="font-size:20px;">🔒</span>
+              <h3>No Active Internship Program</h3>
+            </div>
+            <p>You haven't enrolled in any internship program yet. Complete your profile and explore our internship programs to get started.</p>
+            <a href="index.html" class="explore-programs-btn">Explore Internship Programs →</a>
+          </div>
+
+          <!-- Widget 3: Account & Security -->
+          <div class="widget-card">
+            <div class="sp-header" style="margin-bottom:12px; padding-bottom:12px;">
+              <h3 style="font-size:1.05rem; font-weight:700; margin:0; color:#0f172a;">Account &amp; Security</h3>
+              <button type="button" class="sp-edit-btn" style="padding:4px 10px; font-size:0.78rem;">✏️ Edit</button>
+            </div>
+
+            <div class="sec-row">
+              <div class="sec-left">🔒 Password</div>
+              <div><span style="color:#94a3b8; margin-right:8px;">********</span> <a href="javascript:void(0);" class="sec-link">Change</a></div>
+            </div>
+
+            <div class="sec-row">
+              <div class="sec-left">🛡️ Email Verification</div>
+              <div><span class="badge-verified-sm">Verified</span></div>
+            </div>
+
+            <div class="sec-row">
+              <div class="sec-left">📞 Phone Verification</div>
+              <div><span class="badge-verified-sm">Verified</span></div>
+            </div>
+
+            <div class="sec-row">
+              <div class="sec-left">🔐 Two-Factor Authentication</div>
+              <div><span class="badge-disabled-sm">Not Enabled</span> <a href="javascript:void(0);" class="sec-link" style="margin-left:6px;">Enable</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
