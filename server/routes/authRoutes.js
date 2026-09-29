@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { protect } = require('../middleware/authMiddleware');
+const { sendEmailOTP, sendSmsOTP } = require('../utils/otpService');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'edurup_secret_key_2026';
 
@@ -112,13 +113,18 @@ router.post('/signup', async (req, res) => {
 
     const token = generateToken(user._id);
 
-    console.log(`📱 [MongoDB Compass] Registration saved for ${user.fullName} (${user.phone}). Generated Mobile SMS OTP: ${otpCode}`);
+    // Trigger Real-Time OTP dispatching via Email & SMS
+    sendEmailOTP(user.email, otpCode, user.fullName);
+    sendSmsOTP(user.phone, otpCode);
+
+    console.log(`📱 [MongoDB Compass] Registration saved for ${user.fullName} (${user.phone}). Generated OTP: ${otpCode}`);
 
     return res.status(200).json({
       success: true,
       message: 'Registration profile saved in MongoDB Compass',
       otpCode,
       targetPhone: user.phone,
+      targetEmail: user.email,
       token,
       user
     });
@@ -129,21 +135,21 @@ router.post('/signup', async (req, res) => {
 });
 
 // @route   POST /api/auth/send-otp
-// @desc    Generate & send OTP to mobile phone number
+// @desc    Generate & send real-time OTP to mobile phone number and email
 router.post('/send-otp', async (req, res) => {
   try {
     const { phone, email } = req.body;
-    const targetPhone = phone || email || '+91 98765 43210';
+    const targetPhone = phone || '+91 98765 43210';
 
     const otpCode = createRandomOTP();
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
-    let user = await User.findOne({ $or: [{ phone: targetPhone }, { email: targetPhone.toLowerCase() }] });
+    let user = await User.findOne({ $or: [{ phone: targetPhone }, { email: (email || '').toLowerCase() }] });
 
     if (!user) {
       user = await User.create({
         fullName: 'Student User',
-        email: `${targetPhone.replace(/[^0-9]/g, '')}@student.edurup.com`,
+        email: email ? email.toLowerCase() : `${targetPhone.replace(/[^0-9]/g, '')}@student.edurup.com`,
         phone: targetPhone,
         otp: { code: otpCode, expiresAt }
       });
@@ -152,13 +158,18 @@ router.post('/send-otp', async (req, res) => {
       await user.save();
     }
 
-    console.log(`📱 [MongoDB Compass] Generated SMS OTP ${otpCode} for phone: ${targetPhone}`);
+    // Trigger Real-Time OTP dispatching via Email & SMS
+    if (user.email) sendEmailOTP(user.email, otpCode, user.fullName);
+    if (user.phone) sendSmsOTP(user.phone, otpCode);
+
+    console.log(`📱 [MongoDB Compass] Generated OTP ${otpCode} for phone: ${targetPhone}`);
 
     return res.status(200).json({
       success: true,
-      message: `SMS OTP code generated for ${targetPhone}`,
+      message: `OTP code sent to ${targetPhone} & ${user.email}`,
       otpCode,
-      targetPhone: user.phone
+      targetPhone: user.phone,
+      targetEmail: user.email
     });
   } catch (error) {
     console.error('Send OTP Error:', error);
@@ -186,20 +197,22 @@ router.post('/verify-otp', async (req, res) => {
       });
     }
 
-    // Verify OTP code (or accept 123456 / demo code)
-    if (user.otp && user.otp.code && user.otp.code === otpCode || otpCode === '123456' || otpCode === '684920' || true) {
+    // Verify OTP code against MongoDB record (or demo code '123456')
+    const isValidCode = (user.otp && user.otp.code && user.otp.code === otpCode) || otpCode === '123456';
+
+    if (isValidCode) {
       user.isEmailVerified = true;
       user.isPhoneVerified = true;
-      user.otp = undefined; // clear OTP
+      user.otp = undefined; // Clear OTP once verified
       await user.save();
 
       const token = generateToken(user._id);
 
-      console.log(`✅ [MongoDB Compass] OTP Verified for ${user.fullName} (${user.email})`);
+      console.log(`✅ [MongoDB Compass] OTP Verified for ${user.fullName} (${user.email}). Status: VERIFIED ✓`);
 
       return res.status(200).json({
         success: true,
-        message: 'OTP Verified successfully',
+        message: 'OTP verified successfully for both Email and Phone Number.',
         token,
         user
       });

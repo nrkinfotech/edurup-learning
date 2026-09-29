@@ -897,11 +897,11 @@
       <div class="otp-icon-wrapper">
         📱
       </div>
-      <h3>Mobile SMS OTP Code</h3>
-      <p id="otpModalSubtext">We sent a 6-digit SMS code to your phone number: <br><strong id="otpTargetDisplay" style="color:#2563eb; font-size:1.05rem;">+91 98765 43210</strong></p>
+      <h3>Verify Email & Mobile OTP Code</h3>
+      <p id="otpModalSubtext">We sent a 6-digit verification code to your Email: <strong id="otpEmailDisplay" style="color:#4f46e5; font-size:0.98rem; word-break:break-all;">student@example.com</strong><br>and Mobile Number: <strong id="otpTargetDisplay" style="color:#2563eb; font-size:0.98rem;">+91 98765 43210</strong></p>
 
       <div class="otp-demo-alert">
-        <span>📲 SMS OTP Code:</span> <strong id="demoOtpCodeDisplay" style="font-size:1.15rem; letter-spacing:3px; color:#1e3a8a;">684920</strong>
+        <span>🔑 OTP Code:</span> <strong id="demoOtpCodeDisplay" style="font-size:1.15rem; letter-spacing:3px; color:#1e3a8a;">684920</strong>
       </div>
 
       <div class="otp-inputs-grid" id="otpInputsGrid">
@@ -914,7 +914,7 @@
       </div>
 
       <button type="button" id="verifyOtpBtn" class="sp-submit-btn" style="width:100%; justify-content:center;" onclick="verifySubmittedOTP()">
-        Verify Mobile OTP &amp; Sign In →
+        Verify OTP &amp; Activate Account →
       </button>
 
       <div class="otp-resend-row">
@@ -1069,7 +1069,8 @@
         console.warn('Backend server notice: Running local client mode or offline', err);
       }
 
-      triggerOTPVerification(targetPhone);
+      const targetEmail = pendingFormData['Email Address'] || 'student@example.com';
+      triggerOTPVerification(targetPhone, targetEmail);
     });
 
     // Sign In Request -> Triggers OTP Modal & Queries MongoDB Compass
@@ -1097,11 +1098,16 @@
       triggerOTPVerification(targetPhone);
     }
 
-    // Open OTP Modal & Send SMS Notification
-    function triggerOTPVerification(targetPhone) {
+    // Open OTP Modal & Trigger OTP Verification
+    function triggerOTPVerification(targetPhone, targetEmail) {
       if (!generatedOTP) generatedOTP = createRandomOTP();
       
-      document.getElementById('otpTargetDisplay').innerText = targetPhone;
+      const phoneVal = targetPhone || (pendingFormData && pendingFormData['Phone Number']) || '+91 98765 43210';
+      const emailVal = targetEmail || (pendingFormData && pendingFormData['Email Address']) || 'student@example.com';
+
+      document.getElementById('otpTargetDisplay').innerText = phoneVal;
+      const emailDisp = document.getElementById('otpEmailDisplay');
+      if (emailDisp) emailDisp.innerText = emailVal;
       document.getElementById('demoOtpCodeDisplay').innerText = generatedOTP;
       
       const inputs = document.querySelectorAll('.otp-digit-input');
@@ -1110,7 +1116,7 @@
       document.getElementById('otpModalBackdrop').classList.add('show');
       setTimeout(() => inputs[0].focus(), 100);
 
-      console.log('📱 Dispatching SMS OTP [' + generatedOTP + '] to phone number: ' + targetPhone);
+      console.log('📱📧 Dispatching OTP [' + generatedOTP + '] to Email: ' + emailVal + ' and Phone: ' + phoneVal);
     }
 
     // Close OTP Modal

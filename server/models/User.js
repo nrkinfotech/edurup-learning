@@ -37,8 +37,8 @@ const userSchema = new mongoose.Schema({
     default: ['Data Analytics', 'Data Science', 'AI & ML', 'Digital Marketing']
   },
   howDidYouHear: { type: String, default: 'Instagram' },
-  isEmailVerified: { type: Boolean, default: true },
-  isPhoneVerified: { type: Boolean, default: true },
+  isEmailVerified: { type: Boolean, default: false },
+  isPhoneVerified: { type: Boolean, default: false },
   otp: {
     code: { type: String },
     expiresAt: { type: Date }

@@ -778,11 +778,17 @@
                   <input type="text" id="valFullName" class="sp-input" value="Rahul Kumar" disabled>
                 </div>
                 <div class="sp-field">
-                  <div class="sp-label-row"><label class="sp-label">Email Address<span class="sp-req">*</span></label></div>
+                  <div class="sp-label-row">
+                    <label class="sp-label">Email Address<span class="sp-req">*</span></label>
+                    <span class="badge-verified-sm" id="badgeEmailVerified">Verified ✓</span>
+                  </div>
                   <input type="email" id="valEmail" class="sp-input" value="rahul@gmail.com" disabled>
                 </div>
                 <div class="sp-field">
-                  <div class="sp-label-row"><label class="sp-label">Phone Number<span class="sp-req">*</span></label></div>
+                  <div class="sp-label-row">
+                    <label class="sp-label">Phone Number<span class="sp-req">*</span></label>
+                    <span class="badge-verified-sm" id="badgePhoneVerified">Verified ✓</span>
+                  </div>
                   <input type="tel" id="valPhone" class="sp-input" value="+91 98765 43210" disabled>
                 </div>
                 <div class="sp-field">
@@ -1041,6 +1047,30 @@
     document.addEventListener('DOMContentLoaded', loadUserProfile);
 
     async function loadUserProfile() {
+      const session = localStorage.getItem('edurup_user_session');
+      if (session) {
+        try {
+          const u = JSON.parse(session);
+          if (u.fullName) document.getElementById('valFullName').value = u.fullName;
+          if (u.email) document.getElementById('valEmail').value = u.email;
+          if (u.phone) document.getElementById('valPhone').value = u.phone;
+          if (u.location) document.getElementById('valLocation').value = u.location;
+          
+          const emailBadge = document.getElementById('badgeEmailVerified');
+          const phoneBadge = document.getElementById('badgePhoneVerified');
+          if (emailBadge) {
+            emailBadge.innerHTML = u.isEmailVerified !== false ? 'Verified ✓' : 'Unverified ⚠️';
+            emailBadge.style.background = u.isEmailVerified !== false ? '#dcfce7' : '#fef3c7';
+            emailBadge.style.color = u.isEmailVerified !== false ? '#166534' : '#b45309';
+          }
+          if (phoneBadge) {
+            phoneBadge.innerHTML = u.isPhoneVerified !== false ? 'Verified ✓' : 'Unverified ⚠️';
+            phoneBadge.style.background = u.isPhoneVerified !== false ? '#dcfce7' : '#fef3c7';
+            phoneBadge.style.color = u.isPhoneVerified !== false ? '#166534' : '#b45309';
+          }
+        } catch(e) {}
+      }
+
       const token = localStorage.getItem('edurup_jwt_token');
       if (token) {
         try {
@@ -1054,6 +1084,19 @@
             if (u.email) document.getElementById('valEmail').value = u.email;
             if (u.phone) document.getElementById('valPhone').value = u.phone;
             if (u.location) document.getElementById('valLocation').value = u.location;
+
+            const emailBadge = document.getElementById('badgeEmailVerified');
+            const phoneBadge = document.getElementById('badgePhoneVerified');
+            if (emailBadge) {
+              emailBadge.innerHTML = u.isEmailVerified ? 'Verified ✓' : 'Unverified ⚠️';
+              emailBadge.style.background = u.isEmailVerified ? '#dcfce7' : '#fef3c7';
+              emailBadge.style.color = u.isEmailVerified ? '#166534' : '#b45309';
+            }
+            if (phoneBadge) {
+              phoneBadge.innerHTML = u.isPhoneVerified ? 'Verified ✓' : 'Unverified ⚠️';
+              phoneBadge.style.background = u.isPhoneVerified ? '#dcfce7' : '#fef3c7';
+              phoneBadge.style.color = u.isPhoneVerified ? '#166534' : '#b45309';
+            }
           }
         } catch(e) {}
       }
