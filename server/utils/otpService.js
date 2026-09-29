@@ -82,19 +82,23 @@ const sendSmsOTP = async (phone, otpCode) => {
   if (fast2smsApiKey) {
     try {
       const axios = require('axios');
-      // Format number to 10 digits for Fast2SMS if needed
       const cleanPhone = phone.replace(/\D/g, '').slice(-10);
-      await axios.post('https://www.fast2sms.com/dev/bulkV2', {
-        variables_values: otpCode,
-        route: 'otp',
-        numbers: cleanPhone
-      }, {
-        headers: { 'authorization': fast2smsApiKey }
-      });
-      console.log(`🟢 [REAL SMS SENT via Fast2SMS] OTP ${otpCode} delivered to ${phone}`);
-      return { success: true, mode: 'fast2sms' };
+
+      if (cleanPhone.length === 10) {
+        try {
+          // Attempt 1: Fast2SMS OTP Route
+          await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=${fast2smsApiKey}&route=otp&variables_values=${otpCode}&flash=0&numbers=${cleanPhone}`);
+          console.log(`🟢 [REAL SMS SENT via Fast2SMS OTP Route] OTP ${otpCode} delivered to +91 ${cleanPhone}`);
+          return { success: true, mode: 'fast2sms' };
+        } catch (err1) {
+          // Attempt 2: Fast2SMS Quick Route (No DLT required)
+          await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=${fast2smsApiKey}&route=q&message=${encodeURIComponent('Your Edurup Learning verification code is: ' + otpCode)}&language=english&flash=0&numbers=${cleanPhone}`);
+          console.log(`🟢 [REAL SMS SENT via Fast2SMS Quick Route] OTP ${otpCode} delivered to +91 ${cleanPhone}`);
+          return { success: true, mode: 'fast2sms' };
+        }
+      }
     } catch(error) {
-      console.error('❌ Fast2SMS Error:', error.message);
+      console.error('❌ Fast2SMS Error:', error.response ? JSON.stringify(error.response.data) : error.message);
       return { success: false, error: error.message };
     }
   }
