@@ -1050,7 +1050,7 @@
       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
         return 'http://localhost:5050';
       }
-      return window.API_BASE_URL || '';
+      return window.API_BASE_URL || 'https://api.eduruplearning.com';
     }
 
     async function loadUserProfile() {
