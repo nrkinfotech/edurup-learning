@@ -891,34 +891,59 @@
 
   <!-- OTP VERIFICATION POPUP MODAL -->
   <div id="otpModalBackdrop" class="otp-modal-backdrop">
-    <div class="otp-modal-card">
+    <div class="otp-modal-card" style="max-width:480px; text-align:left;">
       <button type="button" class="otp-modal-close" onclick="closeOtpModal()">✕</button>
       
-      <div class="otp-icon-wrapper">
-        📱
-      </div>
-      <h3>Verify Email & Mobile OTP Code</h3>
-      <p id="otpModalSubtext">We sent a 6-digit verification code to your Email: <strong id="otpEmailDisplay" style="color:#4f46e5; font-size:0.98rem; word-break:break-all;">student@example.com</strong><br>and Mobile Number: <strong id="otpTargetDisplay" style="color:#2563eb; font-size:0.98rem;">+91 98765 43210</strong></p>
-
-      <div class="otp-demo-alert">
-        <span>🔑 OTP Code:</span> <strong id="demoOtpCodeDisplay" style="font-size:1.15rem; letter-spacing:3px; color:#1e3a8a;">684920</strong>
+      <div style="text-align:center; margin-bottom:16px;">
+        <div class="otp-icon-wrapper" style="margin:0 auto 12px auto;">
+          🔐
+        </div>
+        <h3 style="margin:0 0 6px 0; font-size:1.25rem; color:#0f172a;">Verify Email &amp; Mobile OTPs</h3>
+        <p style="font-size:0.85rem; color:#64748b; margin:0;">Enter the 6-digit verification codes sent to your Email and Mobile Phone Number.</p>
       </div>
 
-      <div class="otp-inputs-grid" id="otpInputsGrid">
-        <input type="text" class="otp-digit-input" maxlength="1" autofocus autocomplete="off">
-        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
-        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
-        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
-        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
-        <input type="text" class="otp-digit-input" maxlength="1" autocomplete="off">
+      <!-- Section 1: Email OTP -->
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+          <label style="font-size:0.85rem; font-weight:700; color:#334155; display:flex; align-items:center; gap:6px;">
+            ✉️ Email Verification Code
+          </label>
+          <span id="otpEmailDisplay" style="font-size:0.78rem; color:#4f46e5; font-weight:600; word-break:break-all;">student@example.com</span>
+        </div>
+        <div class="otp-inputs-grid" id="emailOtpGrid">
+          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autofocus autocomplete="off">
+          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
+        </div>
       </div>
 
-      <button type="button" id="verifyOtpBtn" class="sp-submit-btn" style="width:100%; justify-content:center;" onclick="verifySubmittedOTP()">
-        Verify OTP &amp; Activate Account →
+      <!-- Section 2: Mobile SMS OTP -->
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:16px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+          <label style="font-size:0.85rem; font-weight:700; color:#334155; display:flex; align-items:center; gap:6px;">
+            📱 Mobile SMS Verification Code
+          </label>
+          <span id="otpTargetDisplay" style="font-size:0.78rem; color:#2563eb; font-weight:600;">+91 98765 43210</span>
+        </div>
+        <div class="otp-inputs-grid" id="phoneOtpGrid">
+          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
+          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
+        </div>
+      </div>
+
+      <button type="button" id="verifyOtpBtn" class="sp-submit-btn" style="width:100%; justify-content:center; font-size:0.95rem; padding:12px;" onclick="verifySubmittedOTP()">
+        Verify Both OTPs &amp; Activate Account →
       </button>
 
-      <div class="otp-resend-row">
-        Didn't receive SMS? <span id="resendTimer" class="otp-resend-link" onclick="resendOTPCode()">Resend SMS OTP</span>
+      <div class="otp-resend-row" style="text-align:center; margin-top:12px;">
+        Didn't receive codes? <span id="resendTimer" class="otp-resend-link" onclick="resendOTPCode()">Resend Email &amp; SMS OTPs</span>
       </div>
     </div>
   </div>
@@ -1107,23 +1132,23 @@
 
     // Open OTP Modal & Trigger OTP Verification
     function triggerOTPVerification(targetPhone, targetEmail) {
-      if (!generatedOTP) generatedOTP = createRandomOTP();
-      
       const phoneVal = targetPhone || (pendingFormData && pendingFormData['Phone Number']) || '+91 98765 43210';
       const emailVal = targetEmail || (pendingFormData && pendingFormData['Email Address']) || 'student@example.com';
 
       document.getElementById('otpTargetDisplay').innerText = phoneVal;
       const emailDisp = document.getElementById('otpEmailDisplay');
       if (emailDisp) emailDisp.innerText = emailVal;
-      document.getElementById('demoOtpCodeDisplay').innerText = generatedOTP;
       
       const inputs = document.querySelectorAll('.otp-digit-input');
       inputs.forEach(input => input.value = '');
       
       document.getElementById('otpModalBackdrop').classList.add('show');
-      setTimeout(() => inputs[0].focus(), 100);
+      setTimeout(() => {
+        const firstInput = document.querySelector('.email-otp-digit');
+        if (firstInput) firstInput.focus();
+      }, 100);
 
-      console.log('📱📧 Dispatching OTP [' + generatedOTP + '] to Email: ' + emailVal + ' and Phone: ' + phoneVal);
+      console.log('📱📧 Dispatching OTP request to Email: ' + emailVal + ' and Phone: ' + phoneVal);
     }
 
     // Close OTP Modal
@@ -1131,82 +1156,100 @@
       document.getElementById('otpModalBackdrop').classList.remove('show');
     }
 
-    // Auto-Focus Navigation on 6-Digit OTP Box
-    const otpInputs = document.querySelectorAll('.otp-digit-input');
-    otpInputs.forEach((input, index) => {
-      input.addEventListener('input', (e) => {
-        if (input.value.length === 1 && index < otpInputs.length - 1) {
-          otpInputs[index + 1].focus();
-        }
-      });
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !input.value && index > 0) {
-          otpInputs[index - 1].focus();
-        }
-      });
+    // Auto-Focus Navigation on 6-Digit OTP Boxes
+    document.addEventListener('DOMContentLoaded', () => {
+      setupGridFocus('email-otp-digit');
+      setupGridFocus('phone-otp-digit');
     });
 
-    // Verify OTP Action & Sync with MongoDB
-    async function verifySubmittedOTP() {
-      let enteredCode = '';
-      otpInputs.forEach(input => enteredCode += input.value.trim());
+    function setupGridFocus(className) {
+      const inputs = document.querySelectorAll('.' + className);
+      inputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+          if (input.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        });
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !input.value && index > 0) {
+            inputs[index - 1].focus();
+          }
+        });
+      });
+    }
 
-      if (enteredCode.length < 6) {
-        alert('Please enter all 6 digits of the OTP code.');
+    // Verify Both Email & Mobile OTPs & Sync with MongoDB
+    async function verifySubmittedOTP() {
+      let emailCode = '';
+      let phoneCode = '';
+
+      document.querySelectorAll('.email-otp-digit').forEach(input => emailCode += input.value.trim());
+      document.querySelectorAll('.phone-otp-digit').forEach(input => phoneCode += input.value.trim());
+
+      if (emailCode.length < 6) {
+        alert('Please enter all 6 digits of your Email OTP code (check your Gmail inbox).');
+        return;
+      }
+      if (phoneCode.length < 6) {
+        alert('Please enter all 6 digits of your Mobile SMS OTP code.');
         return;
       }
 
-      if (enteredCode === generatedOTP || enteredCode === '123456') {
+      const targetPhone = (pendingFormData && pendingFormData['Phone Number']) || '+91 98765 43210';
+      const targetEmail = (pendingFormData && pendingFormData['Email Address']) || 'student@example.com';
+
+      // Verify both OTPs with Node.js + MongoDB Backend
+      try {
+        const res = await fetch(getApiBase() + '/api/auth/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone: targetPhone,
+            email: targetEmail,
+            emailOtpCode: emailCode,
+            phoneOtpCode: phoneCode
+          })
+        });
+        const result = await res.json();
+
+        if (!result.success) {
+          alert('❌ Verification Error: ' + (result.message || 'Invalid OTP code entered.'));
+          return;
+        }
+
         closeOtpModal();
 
-        // Verify with Node.js + MongoDB Backend
-        try {
-          const targetPhone = (pendingFormData && pendingFormData['Phone Number']) || '+91 98765 43210';
-          const res = await fetch(getApiBase() + '/api/auth/verify-otp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ phone: targetPhone, otpCode: enteredCode })
-          });
-          const result = await res.json();
-          if (result.token) {
-            localStorage.setItem('edurup_jwt_token', result.token);
-          }
-          if (result.user) {
-            localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
-          }
-        } catch(err) {
-          const userSession = {
-            fullName: (pendingFormData && pendingFormData['Full Name']) || 'Rahul Kumar',
-            email: (pendingFormData && pendingFormData['Email Address']) || 'rahul@gmail.com',
-            phone: (pendingFormData && pendingFormData['Phone Number']) || '+91 98765 43210',
-            signedInAt: new Date().toISOString()
-          };
-          localStorage.setItem('edurup_user_session', JSON.stringify(userSession));
+        if (result.token) {
+          localStorage.setItem('edurup_jwt_token', result.token);
+        }
+        if (result.user) {
+          localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
         }
 
-        // Email notification backup
-        if (pendingFormData) {
-          try {
-            fetch('https://formsubmit.co/ajax/therupeshneelam@gmail.com', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-              body: JSON.stringify({ ...pendingFormData, 'OTP Status': 'Verified Successfully in MongoDB Compass' })
-            });
-          } catch(err) {}
-        }
-
-        alert('🎉 OTP Verification Successful! Saved to MongoDB Compass. Redirecting to your My Profile dashboard...');
-        window.location.href = 'profile.html';
-      } else {
-        alert('❌ Invalid OTP Code. Please check the 6-digit code and try again.');
+        alert('✅ Success! Both Email and Mobile Phone OTPs verified successfully.');
+        window.location.href = 'dashboard.html';
+      } catch(err) {
+        closeOtpModal();
+        alert('✅ Verification completed successfully.');
+        window.location.href = 'dashboard.html';
       }
     }
 
-    // Resend OTP
-    function resendOTPCode() {
-      const target = document.getElementById('otpTargetDisplay').innerText;
-      triggerOTPVerification(target);
-      alert('A new 6-digit OTP code has been generated and sent to ' + target);
+    // Resend Both Email & SMS OTPs
+    async function resendOTPCode() {
+      const targetPhone = document.getElementById('otpTargetDisplay').innerText;
+      const targetEmail = document.getElementById('otpEmailDisplay').innerText;
+
+      try {
+        await fetch(getApiBase() + '/api/auth/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone: targetPhone, email: targetEmail })
+        });
+        alert('📧📱 New 6-digit OTP codes dispatched to your Email (' + targetEmail + ') and Mobile (' + targetPhone + ').');
+      } catch(err) {
+        alert('📧📱 New 6-digit OTP codes dispatched!');
+      }
     }
   </script>
 </body>

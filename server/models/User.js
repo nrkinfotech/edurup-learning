@@ -39,7 +39,11 @@ const userSchema = new mongoose.Schema({
   howDidYouHear: { type: String, default: 'Instagram' },
   isEmailVerified: { type: Boolean, default: false },
   isPhoneVerified: { type: Boolean, default: false },
-  otp: {
+  emailOtp: {
+    code: { type: String },
+    expiresAt: { type: Date }
+  },
+  phoneOtp: {
     code: { type: String },
     expiresAt: { type: Date }
   }
