@@ -15,8 +15,11 @@ const sendEmailOTP = async (email, otpCode, userName = 'Student') => {
 
   try {
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user, pass }
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // use SSL
+      auth: { user, pass },
+      tls: { rejectUnauthorized: false }
     });
 
     const mailOptions = {
