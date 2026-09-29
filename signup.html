@@ -1039,7 +1039,14 @@
       return Math.floor(100000 + Math.random() * 900000).toString();
     }
 
-    // Registration Form Submission -> Triggers OTP Modal & Saves to MongoDB Compass
+    function getApiBase() {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return 'http://localhost:5050';
+      }
+      return window.API_BASE_URL || '';
+    }
+
+    // Registration Form Submission -> Triggers OTP Modal & Saves to MongoDB
     document.getElementById('studentRegistrationForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -1051,9 +1058,9 @@
       currentAuthMode = 'registration';
       const targetPhone = pendingFormData['Phone Number'] || '+91 98765 43210';
       
-      // Save registration to Node.js + MongoDB Compass Backend if available
+      // Save registration to Node.js + MongoDB Backend
       try {
-        const res = await fetch('http://localhost:5050/api/auth/signup', {
+        const res = await fetch(getApiBase() + '/api/auth/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(pendingFormData)
@@ -1084,7 +1091,7 @@
       pendingFormData = { 'Phone Number': targetPhone, 'Full Name': 'Student User' };
 
       try {
-        const res = await fetch('http://localhost:5050/api/auth/send-otp', {
+        const res = await fetch(getApiBase() + '/api/auth/send-otp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ phone: targetPhone })
@@ -1139,7 +1146,7 @@
       });
     });
 
-    // Verify OTP Action & Sync with MongoDB Compass
+    // Verify OTP Action & Sync with MongoDB
     async function verifySubmittedOTP() {
       let enteredCode = '';
       otpInputs.forEach(input => enteredCode += input.value.trim());
@@ -1152,10 +1159,10 @@
       if (enteredCode === generatedOTP || enteredCode === '123456') {
         closeOtpModal();
 
-        // Verify with Node.js + MongoDB Compass Backend
+        // Verify with Node.js + MongoDB Backend
         try {
           const targetPhone = (pendingFormData && pendingFormData['Phone Number']) || '+91 98765 43210';
-          const res = await fetch('http://localhost:5050/api/auth/verify-otp', {
+          const res = await fetch(getApiBase() + '/api/auth/verify-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ phone: targetPhone, otpCode: enteredCode })

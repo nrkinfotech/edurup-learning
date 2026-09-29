@@ -661,9 +661,11 @@
       data['_subject'] = 'New Student Support Ticket - Edurup Learning';
       data['Source Page'] = 'support.html';
 
-      // Post ticket to Express + MongoDB Compass Backend
+      const getApiBase = () => (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:5050' : (window.API_BASE_URL || '');
+      
+      // Post ticket to Express + MongoDB Backend
       try {
-        await fetch('http://localhost:5050/api/support/ticket', {
+        await fetch(getApiBase() + '/api/support/ticket', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)

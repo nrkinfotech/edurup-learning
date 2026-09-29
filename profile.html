@@ -1046,6 +1046,13 @@
     // Load Profile from MongoDB Compass or localStorage
     document.addEventListener('DOMContentLoaded', loadUserProfile);
 
+    function getApiBase() {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return 'http://localhost:5050';
+      }
+      return window.API_BASE_URL || '';
+    }
+
     async function loadUserProfile() {
       const session = localStorage.getItem('edurup_user_session');
       if (session) {
@@ -1074,7 +1081,7 @@
       const token = localStorage.getItem('edurup_jwt_token');
       if (token) {
         try {
-          const res = await fetch('http://localhost:5050/api/auth/me', {
+          const res = await fetch(getApiBase() + '/api/auth/me', {
             headers: { 'Authorization': 'Bearer ' + token }
           });
           const data = await res.json();
@@ -1102,7 +1109,7 @@
       }
     }
 
-    // Save Profile Data to MongoDB Compass & localStorage
+    // Save Profile Data to MongoDB & localStorage
     async function saveProfileData() {
       const profile = {
         fullName: document.getElementById('valFullName').value,
@@ -1116,7 +1123,7 @@
       const token = localStorage.getItem('edurup_jwt_token');
       if (token) {
         try {
-          await fetch('http://localhost:5050/api/auth/profile', {
+          await fetch(getApiBase() + '/api/auth/profile', {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
