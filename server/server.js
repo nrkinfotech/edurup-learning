@@ -3,11 +3,24 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
+// Global safety handlers to prevent process exits on cloud servers
+process.on('uncaughtException', (err) => {
+  console.error('⚠️ Uncaught Exception:', err ? err.message : err);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('⚠️ Unhandled Promise Rejection:', reason ? (reason.message || reason) : reason);
+});
+
 // Load environment variables
 dotenv.config();
 
-// Connect to MongoDB Compass
-connectDB();
+// Connect to MongoDB
+try {
+  connectDB();
+} catch(err) {
+  console.error('MongoDB connection init notice:', err.message);
+}
 
 const app = express();
 
