@@ -970,7 +970,10 @@
 
     function signOutUser() {
       localStorage.removeItem('edurup_user_session');
-      document.getElementById('userSessionBanner').style.display = 'none';
+      localStorage.removeItem('edurup_jwt_token');
+      const banner = document.getElementById('userSessionBanner');
+      if (banner) banner.style.display = 'none';
+      if (typeof updateNavAuthStatus === 'function') updateNavAuthStatus();
       alert('You have signed out successfully.');
     }
 
@@ -1136,5 +1139,6 @@
       }
     }
   </script>
+  <script src="assets/js/nav-auth.js?v=1"></script>
 </body>
 </html>

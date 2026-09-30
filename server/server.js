@@ -22,6 +22,8 @@ try {
   console.error('MongoDB connection init notice:', err.message);
 }
 
+const path = require('path');
+
 const app = express();
 
 // Middleware
@@ -29,18 +31,17 @@ app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static frontend web pages (signup.html, dashboard.html, profile.html, etc.)
+app.use(express.static(path.join(__dirname, '../')));
+
+// Serve index.html on root route /
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
+});
+
 // API Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/support', require('./routes/supportRoutes'));
-
-// Health check endpoints
-app.get('/', (req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    message: 'Edurup Learning Express Backend Server Active',
-    timestamp: new Date().toISOString()
-  });
-});
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({
