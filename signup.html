@@ -1085,20 +1085,23 @@
       
       // Save registration to Node.js + MongoDB Backend
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+
         const res = await fetch(getApiBase() + '/api/auth/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(pendingFormData)
+          body: JSON.stringify(pendingFormData),
+          signal: controller.signal
         });
+        clearTimeout(timeoutId);
+
         const result = await res.json();
         if (result.token) {
           localStorage.setItem('edurup_jwt_token', result.token);
         }
-        if (result.otpCode) {
-          generatedOTP = result.otpCode;
-        }
       } catch(err) {
-        console.warn('Backend server notice: Running local client mode or offline', err);
+        console.warn('Backend server notice: Running fast client fallback mode', err);
       }
 
       const targetEmail = pendingFormData['Email Address'] || 'student@example.com';
