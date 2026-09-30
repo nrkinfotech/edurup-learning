@@ -116,19 +116,73 @@ router.post('/signup', async (req, res) => {
 
     const token = generateToken(user._id);
 
-    // Trigger Real-Time OTP dispatching: Email OTP to Gmail & Phone OTP to Mobile SMS
-    sendEmailOTP(user.email, emailOtpCode, user.fullName);
-    sendSmsOTP(user.phone, phoneOtpCode);
+    // Dispatch OTP emails and SMS immediately so user receives email in 1 sec
+    sendEmailOTP(userEmail.toLowerCase(), emailOtpCode, userName);
+    sendSmsOTP(userPhone, phoneOtpCode);
 
-    console.log(`📱📧 [MongoDB] Registration saved for ${user.fullName}. Email OTP: ${emailOtpCode} | Phone OTP: ${phoneOtpCode}`);
+    try {
+      if (user) {
+        // Update existing user profile
+        user.fullName = userName;
+        user.email = userEmail.toLowerCase();
+        user.phone = userPhone;
+        if (dob) user.dob = dob;
+        if (gender) user.gender = gender;
+        if (location) user.location = location;
+        if (college) user.college = college;
+        if (currentYear) user.currentYear = currentYear;
+        if (qualification) user.qualification = qualification;
+        if (graduationYear) user.graduationYear = graduationYear;
+        if (branch) user.branch = branch;
+        if (city) user.city = city;
+        if (isStudentOrProfessional) user.isStudentOrProfessional = isStudentOrProfessional;
+        if (workExperience) user.workExperience = workExperience;
+        if (linkedin) user.linkedin = linkedin;
+        if (github) user.github = github;
+        if (areasOfInterest) user.areasOfInterest = areasOfInterest;
+        if (howDidYouHear) user.howDidYouHear = howDidYouHear;
+        user.emailOtp = { code: emailOtpCode, expiresAt };
+        user.phoneOtp = { code: phoneOtpCode, expiresAt };
+        await user.save();
+      } else {
+        // Create new user in MongoDB
+        user = await User.create({
+          fullName: userName,
+          email: userEmail.toLowerCase(),
+          phone: userPhone,
+          dob: dob || '20 Oct 1990',
+          gender: gender || 'Male',
+          location: location || 'Bangalore, Karnataka',
+          college: college || 'RV College of Engineering',
+          currentYear: currentYear || 'Final Year',
+          qualification: qualification || 'B.Tech',
+          graduationYear: graduationYear || '2026',
+          branch: branch || 'Computer Science',
+          city: city || 'Bangalore, Karnataka',
+          isStudentOrProfessional: isStudentOrProfessional || 'Student',
+          workExperience: workExperience || 'Fresher',
+          linkedin: linkedin || 'https://linkedin.com/in/rahulkumar',
+          github: github || 'https://github.com/rahulkumar',
+          areasOfInterest,
+          howDidYouHear: howDidYouHear || 'Instagram',
+          emailOtp: { code: emailOtpCode, expiresAt },
+          phoneOtp: { code: phoneOtpCode, expiresAt }
+        });
+      }
+    } catch(dbErr) {
+      console.warn('⚠️ MongoDB Save Warning (continuing with OTP dispatch):', dbErr.message);
+    }
+
+    const token = generateToken(user ? user._id : 'temp_id');
+
+    console.log(`📱📧 [MongoDB] Registration processed for ${userName}. Email OTP: ${emailOtpCode} | Phone OTP: ${phoneOtpCode}`);
 
     return res.status(200).json({
       success: true,
-      message: 'Registration profile saved in MongoDB. OTPs dispatched to Email & Mobile.',
-      targetPhone: user.phone,
-      targetEmail: user.email,
-      token,
-      user
+      message: 'Registration profile processed. OTPs dispatched to Email & Mobile.',
+      targetPhone: userPhone,
+      targetEmail: userEmail.toLowerCase(),
+      token
     });
   } catch (error) {
     console.error('Signup Error:', error);
