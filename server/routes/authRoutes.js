@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const { protect } = require('../middleware/authMiddleware');
 const { sendEmailOTP, sendSmsOTP } = require('../utils/otpService');
@@ -17,12 +18,25 @@ const createRandomOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
+const connectDB = require('../config/db');
+
+// Helper to ensure MongoDB connection is active
+const ensureDBConnection = async () => {
+  if (mongoose.connection.readyState !== 1) {
+    await connectDB();
+  }
+  if (mongoose.connection.readyState !== 1) {
+    throw new Error('Database Connection Error: Cloud server cannot connect to MongoDB. Please check MONGO_URI in environment variables.');
+  }
+};
 
 // @route   POST /api/auth/signup
 // @desc    Register a new student profile with password in MongoDB
 router.post('/signup', async (req, res) => {
   try {
+    await ensureDBConnection();
+
     const {
       'Full Name': fullName,
       'Email Address': email,
@@ -137,6 +151,8 @@ router.post('/signup', async (req, res) => {
 // @desc    Authenticate user with Phone Number & Password
 router.post('/signin', async (req, res) => {
   try {
+    await ensureDBConnection();
+
     const { phone, email, password } = req.body;
     const targetPhone = phone || req.body['Phone Number'] || req.body['Mobile Phone Number'];
     const targetEmail = email ? email.toLowerCase() : '';
@@ -196,6 +212,7 @@ router.post('/signin', async (req, res) => {
 // @desc    Get current logged in user profile from MongoDB Compass
 router.get('/me', protect, async (req, res) => {
   try {
+    await ensureDBConnection();
     const user = await User.findById(req.user._id).select('-otp');
     return res.status(200).json({ success: true, user });
   } catch (error) {
@@ -207,6 +224,7 @@ router.get('/me', protect, async (req, res) => {
 // @desc    Update user profile in MongoDB Compass
 router.put('/profile', protect, async (req, res) => {
   try {
+    await ensureDBConnection();
     const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
