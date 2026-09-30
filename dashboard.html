@@ -723,9 +723,9 @@
             <span class="db-notif-badge"></span>
           </button>
           <a href="profile.html" style="text-decoration:none;" class="db-user-profile-menu">
-            <div class="db-user-avatar">R</div>
+            <div class="db-user-avatar" id="dbAvatar">R</div>
             <div style="text-align:left;">
-              <div style="font-size:0.88rem; font-weight:700; color:#0f172a;">Rahul Kumar</div>
+              <div id="dbUserName" style="font-size:0.88rem; font-weight:700; color:#0f172a;">Rahul Kumar</div>
               <div style="font-size:0.72rem; color:#64748b;">Student</div>
             </div>
           </a>
@@ -741,7 +741,7 @@
             <!-- Hero Banner Card -->
             <div class="db-hero-card">
               <div class="db-hero-text">
-                <h1>Welcome, Rahul! 👋</h1>
+                <h1 id="dbWelcomeHeading">Welcome, Rahul! 👋</h1>
                 <p>Start your journey with real-world skills and corporate internship experience.</p>
 
                 <div class="db-hero-stats">
@@ -1035,5 +1035,55 @@
       </main>
     </div>
   </div>
+
+  <script>
+    function getApiBase() {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return 'http://localhost:5050';
+      }
+      return window.API_BASE_URL || 'https://api.eduruplearning.com';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const sessionStr = localStorage.getItem('edurup_user_session');
+      const token = localStorage.getItem('edurup_jwt_token');
+
+      if (!sessionStr && !token) {
+        alert('Access Denied: Please sign up or sign in to access your profile dashboard.');
+        window.location.href = 'signup.html';
+        return;
+      }
+
+      if (sessionStr) {
+        try {
+          const user = JSON.parse(sessionStr);
+          const name = user.fullName || user.name || 'Student';
+          const firstName = name.split(' ')[0];
+          document.getElementById('dbWelcomeHeading').innerText = 'Welcome, ' + firstName + '! 👋';
+          document.getElementById('dbUserName').innerText = name;
+          document.getElementById('dbAvatar').innerText = firstName.charAt(0).toUpperCase();
+        } catch(e) {}
+      }
+
+      if (token) {
+        fetch(getApiBase() + '/api/auth/me', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.user) {
+            const u = data.user;
+            const name = u.fullName || 'Student';
+            const firstName = name.split(' ')[0];
+            document.getElementById('dbWelcomeHeading').innerText = 'Welcome, ' + firstName + '! 👋';
+            document.getElementById('dbUserName').innerText = name;
+            document.getElementById('dbAvatar').innerText = firstName.charAt(0).toUpperCase();
+            localStorage.setItem('edurup_user_session', JSON.stringify(u));
+          }
+        })
+        .catch(err => console.warn('Sync profile notice:', err));
+      }
+    });
+  </script>
 </body>
 </html>

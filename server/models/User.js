@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true
   },
+  password: {
+    type: String
+  },
   dob: { type: String, default: '20 Oct 1990' },
   gender: { type: String, default: 'Male' },
   location: { type: String, default: 'Bangalore, Karnataka' },

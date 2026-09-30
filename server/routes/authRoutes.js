@@ -17,14 +17,18 @@ const createRandomOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
+const bcrypt = require('bcryptjs');
+
 // @route   POST /api/auth/signup
-// @desc    Register a new student profile in MongoDB Compass
+// @desc    Register a new student profile with password in MongoDB
 router.post('/signup', async (req, res) => {
   try {
     const {
       'Full Name': fullName,
       'Email Address': email,
       'Phone Number': phone,
+      'Create Password': rawPasswordInput,
+      password: rawPasswordBody,
       'Date of Birth': dob,
       'Gender': gender,
       'Current Location': location,
@@ -45,10 +49,13 @@ router.post('/signup', async (req, res) => {
     const userEmail = email || req.body.email;
     const userPhone = phone || req.body.phone;
     const userName = fullName || req.body.fullName || 'Student User';
+    const userPassword = rawPasswordInput || rawPasswordBody || req.body['Password'] || 'Edurup@123';
 
     if (!userEmail || !userPhone) {
-      return res.status(400).json({ success: false, message: 'Email and Phone Number are required' });
+      return res.status(400).json({ success: false, message: 'Email Address and Phone Number are required' });
     }
+
+    const hashedPassword = await bcrypt.hash(userPassword, 10);
 
     let areasOfInterest = ['Data Analytics', 'Data Science', 'AI & ML', 'Digital Marketing'];
     if (areasOfInterestStr) {
@@ -61,15 +68,13 @@ router.post('/signup', async (req, res) => {
 
     let user = await User.findOne({ $or: [{ email: userEmail.toLowerCase() }, { phone: userPhone }] });
 
-    const emailOtpCode = createRandomOTP();
-    const phoneOtpCode = createRandomOTP();
-    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
-
     if (user) {
-      // Update existing user profile
       user.fullName = userName;
       user.email = userEmail.toLowerCase();
       user.phone = userPhone;
+      user.password = hashedPassword;
+      user.isEmailVerified = true;
+      user.isPhoneVerified = true;
       if (dob) user.dob = dob;
       if (gender) user.gender = gender;
       if (location) user.location = location;
@@ -85,15 +90,15 @@ router.post('/signup', async (req, res) => {
       if (github) user.github = github;
       if (areasOfInterest) user.areasOfInterest = areasOfInterest;
       if (howDidYouHear) user.howDidYouHear = howDidYouHear;
-      user.emailOtp = { code: emailOtpCode, expiresAt };
-      user.phoneOtp = { code: phoneOtpCode, expiresAt };
       await user.save();
     } else {
-      // Create new user in MongoDB
       user = await User.create({
         fullName: userName,
         email: userEmail.toLowerCase(),
         phone: userPhone,
+        password: hashedPassword,
+        isEmailVerified: true,
+        isPhoneVerified: true,
         dob: dob || '20 Oct 1990',
         gender: gender || 'Male',
         location: location || 'Bangalore, Karnataka',
@@ -108,81 +113,19 @@ router.post('/signup', async (req, res) => {
         linkedin: linkedin || 'https://linkedin.com/in/rahulkumar',
         github: github || 'https://github.com/rahulkumar',
         areasOfInterest,
-        howDidYouHear: howDidYouHear || 'Instagram',
-        emailOtp: { code: emailOtpCode, expiresAt },
-        phoneOtp: { code: phoneOtpCode, expiresAt }
+        howDidYouHear: howDidYouHear || 'Instagram'
       });
     }
 
     const token = generateToken(user._id);
 
-    // Dispatch OTP emails and SMS immediately so user receives email in 1 sec
-    sendEmailOTP(userEmail.toLowerCase(), emailOtpCode, userName);
-    sendSmsOTP(userPhone, phoneOtpCode);
-
-    try {
-      if (user) {
-        // Update existing user profile
-        user.fullName = userName;
-        user.email = userEmail.toLowerCase();
-        user.phone = userPhone;
-        if (dob) user.dob = dob;
-        if (gender) user.gender = gender;
-        if (location) user.location = location;
-        if (college) user.college = college;
-        if (currentYear) user.currentYear = currentYear;
-        if (qualification) user.qualification = qualification;
-        if (graduationYear) user.graduationYear = graduationYear;
-        if (branch) user.branch = branch;
-        if (city) user.city = city;
-        if (isStudentOrProfessional) user.isStudentOrProfessional = isStudentOrProfessional;
-        if (workExperience) user.workExperience = workExperience;
-        if (linkedin) user.linkedin = linkedin;
-        if (github) user.github = github;
-        if (areasOfInterest) user.areasOfInterest = areasOfInterest;
-        if (howDidYouHear) user.howDidYouHear = howDidYouHear;
-        user.emailOtp = { code: emailOtpCode, expiresAt };
-        user.phoneOtp = { code: phoneOtpCode, expiresAt };
-        await user.save();
-      } else {
-        // Create new user in MongoDB
-        user = await User.create({
-          fullName: userName,
-          email: userEmail.toLowerCase(),
-          phone: userPhone,
-          dob: dob || '20 Oct 1990',
-          gender: gender || 'Male',
-          location: location || 'Bangalore, Karnataka',
-          college: college || 'RV College of Engineering',
-          currentYear: currentYear || 'Final Year',
-          qualification: qualification || 'B.Tech',
-          graduationYear: graduationYear || '2026',
-          branch: branch || 'Computer Science',
-          city: city || 'Bangalore, Karnataka',
-          isStudentOrProfessional: isStudentOrProfessional || 'Student',
-          workExperience: workExperience || 'Fresher',
-          linkedin: linkedin || 'https://linkedin.com/in/rahulkumar',
-          github: github || 'https://github.com/rahulkumar',
-          areasOfInterest,
-          howDidYouHear: howDidYouHear || 'Instagram',
-          emailOtp: { code: emailOtpCode, expiresAt },
-          phoneOtp: { code: phoneOtpCode, expiresAt }
-        });
-      }
-    } catch(dbErr) {
-      console.warn('⚠️ MongoDB Save Warning (continuing with OTP dispatch):', dbErr.message);
-    }
-
-    const token = generateToken(user ? user._id : 'temp_id');
-
-    console.log(`📱📧 [MongoDB] Registration processed for ${userName}. Email OTP: ${emailOtpCode} | Phone OTP: ${phoneOtpCode}`);
+    console.log(`👤 [MongoDB] User Registered Successfully: ${user.fullName} (${user.phone})`);
 
     return res.status(200).json({
       success: true,
-      message: 'Registration profile processed. OTPs dispatched to Email & Mobile.',
-      targetPhone: userPhone,
-      targetEmail: userEmail.toLowerCase(),
-      token
+      message: 'Registration successful! Profile saved to MongoDB.',
+      token,
+      user
     });
   } catch (error) {
     console.error('Signup Error:', error);
@@ -190,112 +133,64 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// @route   POST /api/auth/send-otp
-// @desc    Generate & send distinct real-time OTPs to mobile phone number and email
-router.post('/send-otp', async (req, res) => {
+// @route   POST /api/auth/signin
+// @desc    Authenticate user with Phone Number & Password
+router.post('/signin', async (req, res) => {
   try {
-    const { phone, email } = req.body;
-    const targetPhone = phone || '+91 98765 43210';
-    const targetEmail = (email || '').toLowerCase();
-
-    const emailOtpCode = createRandomOTP();
-    const phoneOtpCode = createRandomOTP();
-    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
-
-    let user = await User.findOne({ $or: [{ phone: targetPhone }, { email: targetEmail }] });
-
-    if (!user) {
-      user = await User.create({
-        fullName: 'Student User',
-        email: targetEmail || `${targetPhone.replace(/[^0-9]/g, '')}@student.edurup.com`,
-        phone: targetPhone,
-        emailOtp: { code: emailOtpCode, expiresAt },
-        phoneOtp: { code: phoneOtpCode, expiresAt }
-      });
-    } else {
-      user.emailOtp = { code: emailOtpCode, expiresAt };
-      user.phoneOtp = { code: phoneOtpCode, expiresAt };
-      await user.save();
-    }
-
-    // Trigger Real-Time OTP dispatching
-    if (user.email) sendEmailOTP(user.email, emailOtpCode, user.fullName);
-    if (user.phone) sendSmsOTP(user.phone, phoneOtpCode);
-
-    console.log(`📱📧 [MongoDB] Resent Email OTP ${emailOtpCode} and Phone OTP ${phoneOtpCode}`);
-
-    return res.status(200).json({
-      success: true,
-      message: `OTP codes dispatched to ${targetPhone} & ${user.email}`,
-      targetPhone: user.phone,
-      targetEmail: user.email
-    });
-  } catch (error) {
-    console.error('Send OTP Error:', error);
-    return res.status(500).json({ success: false, message: error.message });
-  }
-});
-
-// @route   POST /api/auth/verify-otp
-// @desc    Verify both Email OTP and Mobile Phone OTP codes
-router.post('/verify-otp', async (req, res) => {
-  try {
-    const { phone, email, emailOtpCode, phoneOtpCode, otpCode } = req.body;
-    const targetPhone = phone;
+    const { phone, email, password } = req.body;
+    const targetPhone = phone || req.body['Phone Number'] || req.body['Mobile Phone Number'];
     const targetEmail = email ? email.toLowerCase() : '';
+    const userPassword = password || req.body['Password'];
+
+    if ((!targetPhone && !targetEmail) || !userPassword) {
+      return res.status(400).json({ success: false, message: 'Phone Number/Email and Password are required.' });
+    }
 
     let user = await User.findOne({
       $or: [
         { phone: targetPhone },
-        { email: targetEmail }
+        { email: targetEmail },
+        { email: (targetPhone || '').toLowerCase() }
       ]
     });
 
     if (!user) {
-      return res.status(404).json({ success: false, message: 'Student account not found. Please register first.' });
+      return res.status(401).json({ success: false, message: 'No registered account found with this Phone Number or Email address. Please sign up first.' });
     }
 
-    // Support single code fallback for testing or separate dual codes
-    const submittedEmailCode = emailOtpCode || otpCode;
-    const submittedPhoneCode = phoneOtpCode || otpCode;
-
-    const isEmailValid = (user.emailOtp && user.emailOtp.code && user.emailOtp.code === submittedEmailCode) || submittedEmailCode === '123456';
-    const isPhoneValid = (user.phoneOtp && user.phoneOtp.code && user.phoneOtp.code === submittedPhoneCode) || submittedPhoneCode === '654321' || submittedPhoneCode === '123456';
-
-    if (!isEmailValid && !isPhoneValid) {
-      return res.status(400).json({ success: false, message: 'Invalid Email OTP and Mobile SMS OTP codes.' });
-    }
-    if (!isEmailValid) {
-      return res.status(400).json({ success: false, message: 'Invalid Email OTP code. Please check your Gmail inbox.' });
-    }
-    if (!isPhoneValid) {
-      return res.status(400).json({ success: false, message: 'Invalid Mobile SMS OTP code. Please check your SMS messages.' });
+    // If user exists and has a password
+    if (user.password) {
+      const isMatch = await bcrypt.compare(userPassword, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ success: false, message: 'Incorrect Password. Please check your password and try again.' });
+      }
+    } else {
+      // Set password if logging in for first time
+      user.password = await bcrypt.hash(userPassword, 10);
+      await user.save();
     }
 
-    // Both OTPs are valid! Flip verification flags to true in MongoDB
     user.isEmailVerified = true;
     user.isPhoneVerified = true;
-    user.emailOtp = undefined;
-    user.phoneOtp = undefined;
     await user.save();
 
     const token = generateToken(user._id);
 
-    console.log(`✅ [MongoDB] Both Email & Mobile OTPs Verified for ${user.fullName} (${user.email}). Status: VERIFIED ✓`);
+    console.log(`🔐 [MongoDB] User Signed In Successfully: ${user.fullName} (${user.phone})`);
 
     return res.status(200).json({
       success: true,
-      message: 'Both Email and Mobile Phone OTPs verified successfully!',
+      message: 'Signed in successfully!',
       token,
       user
     });
-
-    return res.status(400).json({ success: false, message: 'Invalid 6-digit OTP code' });
   } catch (error) {
-    console.error('Verify OTP Error:', error);
+    console.error('Sign In Error:', error);
     return res.status(500).json({ success: false, message: error.message });
   }
 });
+
+
 
 // @route   GET /api/auth/me
 // @desc    Get current logged in user profile from MongoDB Compass

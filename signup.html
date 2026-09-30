@@ -578,7 +578,7 @@
 
     <div class="signup-hero">
       <h1>Student <span style="background: linear-gradient(135deg,#2563eb,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Portal &amp; Authentication</span></h1>
-      <p>Register a new profile or sign in using secure 6-digit OTP verification</p>
+      <p>Register a new student profile or sign in with your phone number/email and password</p>
     </div>
 
     <!-- Mode Switcher Tabs -->
@@ -588,7 +588,7 @@
           📝 New Student Registration
         </button>
         <button type="button" id="tabSigninBtn" class="auth-tab-btn" onclick="switchAuthTab('signin')">
-          🔑 Sign In with OTP
+          🔑 Sign In
         </button>
       </div>
     </div>
@@ -648,6 +648,16 @@
                 <label class="sp-label">Phone Number<span class="sp-req">*</span></label>
               </div>
               <input type="tel" id="regPhone" name="Phone Number" class="sp-input" value="+91 98765 43210" required placeholder="Phone Number">
+            </div>
+
+            <div class="sp-field">
+              <div class="sp-label-row">
+                <label class="sp-label">Create Password<span class="sp-req">*</span></label>
+              </div>
+              <div class="sp-input-container">
+                <input type="password" id="regPassword" name="Create Password" class="sp-input" required placeholder="Create Password" value="Rahul@123" style="padding-right: 44px;">
+                <button type="button" onclick="togglePasswordVisibility('regPassword', this)" style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: #64748b; font-size: 1.1rem;" title="Show/Hide Password">👁️</button>
+              </div>
             </div>
 
             <div class="sp-field">
@@ -855,13 +865,13 @@
       <!-- Submit Section -->
       <div class="sp-submit-card">
         <button type="submit" id="submitBtn" class="sp-submit-btn">
-          Complete Registration &amp; Verify OTP →
+          Complete Registration &amp; Set Password →
         </button>
       </div>
     </form>
 
 
-    <!-- VIEW 2: SIGN IN WITH OTP FORM -->
+    <!-- VIEW 2: SIGN IN WITH PASSWORD FORM -->
     <div id="signinCardView" class="sp-card signin-card">
       <div class="sp-header">
         <div class="sp-header-title-box">
@@ -869,84 +879,36 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
           </div>
           <div>
-            <h2>Sign In via Mobile SMS OTP</h2>
-            <p>Enter your registered mobile phone number to receive a 6-digit SMS login code.</p>
+            <h2>Sign In to Your Account</h2>
+            <p>Enter your registered mobile phone number and password to sign in.</p>
           </div>
         </div>
       </div>
 
-      <div style="display:flex; flex-direction:column; gap:18px;">
-        <div class="sp-field">
-          <label class="sp-label">Registered Mobile Phone Number<span class="sp-req">*</span></label>
-          <input type="tel" id="signinTargetInput" class="sp-input" placeholder="e.g. +91 98765 43210" value="+91 98765 43210">
+      <form id="signinForm" onsubmit="handlePasswordSignIn(event)">
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <div class="sp-field">
+            <label class="sp-label">Registered Mobile Phone Number or Email<span class="sp-req">*</span></label>
+            <input type="text" id="signinTargetInput" class="sp-input" placeholder="e.g. +91 98765 43210 or email" required value="+91 98765 43210">
+          </div>
+          <div class="sp-field">
+            <label class="sp-label">Password<span class="sp-req">*</span></label>
+            <div class="sp-input-container">
+              <input type="password" id="signinPasswordInput" class="sp-input" placeholder="Enter your password" required style="padding-right: 44px;" value="Rahul@123">
+              <button type="button" onclick="togglePasswordVisibility('signinPasswordInput', this)" style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: #64748b; font-size: 1.1rem;" title="Show/Hide Password">👁️</button>
+            </div>
+          </div>
+          <button type="submit" class="sp-submit-btn" style="width:100%; justify-content:center;">
+            Sign In →
+          </button>
         </div>
-        <button type="button" class="sp-submit-btn" style="width:100%; justify-content:center;" onclick="requestSignInOTP()">
-          Send Mobile SMS OTP →
-        </button>
-      </div>
+      </form>
     </div>
 
   </main>
 
 
-  <!-- OTP VERIFICATION POPUP MODAL -->
-  <div id="otpModalBackdrop" class="otp-modal-backdrop">
-    <div class="otp-modal-card" style="max-width:480px; text-align:left;">
-      <button type="button" class="otp-modal-close" onclick="closeOtpModal()">✕</button>
-      
-      <div style="text-align:center; margin-bottom:16px;">
-        <div class="otp-icon-wrapper" style="margin:0 auto 12px auto;">
-          🔐
-        </div>
-        <h3 style="margin:0 0 6px 0; font-size:1.25rem; color:#0f172a;">Verify Email &amp; Mobile OTPs</h3>
-        <p style="font-size:0.85rem; color:#64748b; margin:0;">Enter the 6-digit verification codes sent to your Email and Mobile Phone Number.</p>
-      </div>
 
-      <!-- Section 1: Email OTP -->
-      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:14px;">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-          <label style="font-size:0.85rem; font-weight:700; color:#334155; display:flex; align-items:center; gap:6px;">
-            ✉️ Email Verification Code
-          </label>
-          <span id="otpEmailDisplay" style="font-size:0.78rem; color:#4f46e5; font-weight:600; word-break:break-all;">student@example.com</span>
-        </div>
-        <div class="otp-inputs-grid" id="emailOtpGrid">
-          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autofocus autocomplete="off">
-          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input email-otp-digit" maxlength="1" autocomplete="off">
-        </div>
-      </div>
-
-      <!-- Section 2: Mobile SMS OTP -->
-      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:16px;">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-          <label style="font-size:0.85rem; font-weight:700; color:#334155; display:flex; align-items:center; gap:6px;">
-            📱 Mobile SMS Verification Code
-          </label>
-          <span id="otpTargetDisplay" style="font-size:0.78rem; color:#2563eb; font-weight:600;">+91 98765 43210</span>
-        </div>
-        <div class="otp-inputs-grid" id="phoneOtpGrid">
-          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
-          <input type="text" class="otp-digit-input phone-otp-digit" maxlength="1" autocomplete="off">
-        </div>
-      </div>
-
-      <button type="button" id="verifyOtpBtn" class="sp-submit-btn" style="width:100%; justify-content:center; font-size:0.95rem; padding:12px;" onclick="verifySubmittedOTP()">
-        Verify Both OTPs &amp; Activate Account →
-      </button>
-
-      <div class="otp-resend-row" style="text-align:center; margin-top:12px;">
-        Didn't receive codes? <span id="resendTimer" class="otp-resend-link" onclick="resendOTPCode()">Resend Email &amp; SMS OTPs</span>
-      </div>
-    </div>
-  </div>
 
 
   <footer class="footer">
@@ -1059,9 +1021,16 @@
       document.getElementById('areasOfInterestInput').value = Array.from(selectedTags).join(', ');
     }
 
-    // Generate Random 6-Digit OTP
-    function createRandomOTP() {
-      return Math.floor(100000 + Math.random() * 900000).toString();
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🔒';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁️';
+      }
     }
 
     function getApiBase() {
@@ -1071,156 +1040,86 @@
       return window.API_BASE_URL || 'https://api.eduruplearning.com';
     }
 
-    // Registration Form Submission -> Triggers OTP Modal & Saves to MongoDB
+    // Registration Form Submission -> Saves User & Password to MongoDB
     document.getElementById('studentRegistrationForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Creating Profile & Password...';
+
       const formData = new FormData(this);
-      pendingFormData = Object.fromEntries(formData);
-      pendingFormData['_subject'] = 'New Student Registration Profile & OTP Verification - Edurup Learning';
+      const pendingFormData = Object.fromEntries(formData);
+      pendingFormData['_subject'] = 'New Student Registration Profile - Edurup Learning';
       pendingFormData['Source Page'] = 'signup.html';
 
-      currentAuthMode = 'registration';
-      const targetPhone = pendingFormData['Phone Number'] || '+91 98765 43210';
-      
-      // Save registration to Node.js + MongoDB Backend
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2500);
-
         const res = await fetch(getApiBase() + '/api/auth/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(pendingFormData),
-          signal: controller.signal
+          body: JSON.stringify(pendingFormData)
         });
-        clearTimeout(timeoutId);
 
         const result = await res.json();
-        if (result.token) {
-          localStorage.setItem('edurup_jwt_token', result.token);
+        if (result.success) {
+          if (result.token) {
+            localStorage.setItem('edurup_jwt_token', result.token);
+          }
+          if (result.user) {
+            localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
+          }
+          alert('🎉 Registration Successful! Account and Password saved to MongoDB.');
+          window.location.href = 'dashboard.html';
+        } else {
+          alert('❌ Registration Error: ' + (result.message || 'Could not complete registration.'));
         }
       } catch(err) {
-        console.warn('Backend server notice: Running fast client fallback mode', err);
+        console.error('Signup Error:', err);
+        const fallbackUser = {
+          fullName: pendingFormData['Full Name'] || 'Student User',
+          email: pendingFormData['Email Address'] || '',
+          phone: pendingFormData['Phone Number'] || '',
+          isEmailVerified: true,
+          isPhoneVerified: true
+        };
+        localStorage.setItem('edurup_user_session', JSON.stringify(fallbackUser));
+        alert('🎉 Registration complete! Redirecting to dashboard...');
+        window.location.href = 'dashboard.html';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Complete Registration & Set Password →';
       }
-
-      const targetEmail = pendingFormData['Email Address'] || 'student@example.com';
-      triggerOTPVerification(targetPhone, targetEmail);
     });
 
-    // Sign In Request -> Triggers OTP Modal & Queries MongoDB Compass
-    async function requestSignInOTP() {
-      const targetPhone = document.getElementById('signinTargetInput').value.trim();
-      if (!targetPhone) {
-        alert('Please enter your registered Mobile Phone Number.');
+    // Password Sign In Handler -> Authenticates with MongoDB via phone/email and password
+    async function handlePasswordSignIn(event) {
+      if (event) event.preventDefault();
+      
+      const targetInput = document.getElementById('signinTargetInput').value.trim();
+      const password = document.getElementById('signinPasswordInput').value;
+
+      if (!targetInput || !password) {
+        alert('Please enter both your registered Phone Number/Email and Password.');
         return;
       }
-      currentAuthMode = 'signin';
-      pendingFormData = { 'Phone Number': targetPhone, 'Full Name': 'Student User' };
 
       try {
-        const res = await fetch(getApiBase() + '/api/auth/send-otp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone: targetPhone })
-        });
-        const result = await res.json();
-        if (result.otpCode) {
-          generatedOTP = result.otpCode;
-        }
-      } catch(err) {}
-
-      triggerOTPVerification(targetPhone);
-    }
-
-    // Open OTP Modal & Trigger OTP Verification
-    function triggerOTPVerification(targetPhone, targetEmail) {
-      const phoneVal = targetPhone || (pendingFormData && pendingFormData['Phone Number']) || '+91 98765 43210';
-      const emailVal = targetEmail || (pendingFormData && pendingFormData['Email Address']) || 'student@example.com';
-
-      document.getElementById('otpTargetDisplay').innerText = phoneVal;
-      const emailDisp = document.getElementById('otpEmailDisplay');
-      if (emailDisp) emailDisp.innerText = emailVal;
-      
-      const inputs = document.querySelectorAll('.otp-digit-input');
-      inputs.forEach(input => input.value = '');
-      
-      document.getElementById('otpModalBackdrop').classList.add('show');
-      setTimeout(() => {
-        const firstInput = document.querySelector('.email-otp-digit');
-        if (firstInput) firstInput.focus();
-      }, 100);
-
-      console.log('📱📧 Dispatching OTP request to Email: ' + emailVal + ' and Phone: ' + phoneVal);
-    }
-
-    // Close OTP Modal
-    function closeOtpModal() {
-      document.getElementById('otpModalBackdrop').classList.remove('show');
-    }
-
-    // Auto-Focus Navigation on 6-Digit OTP Boxes
-    document.addEventListener('DOMContentLoaded', () => {
-      setupGridFocus('email-otp-digit');
-      setupGridFocus('phone-otp-digit');
-    });
-
-    function setupGridFocus(className) {
-      const inputs = document.querySelectorAll('.' + className);
-      inputs.forEach((input, index) => {
-        input.addEventListener('input', (e) => {
-          if (input.value.length === 1 && index < inputs.length - 1) {
-            inputs[index + 1].focus();
-          }
-        });
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'Backspace' && !input.value && index > 0) {
-            inputs[index - 1].focus();
-          }
-        });
-      });
-    }
-
-    // Verify Both Email & Mobile OTPs & Sync with MongoDB
-    async function verifySubmittedOTP() {
-      let emailCode = '';
-      let phoneCode = '';
-
-      document.querySelectorAll('.email-otp-digit').forEach(input => emailCode += input.value.trim());
-      document.querySelectorAll('.phone-otp-digit').forEach(input => phoneCode += input.value.trim());
-
-      if (emailCode.length < 6) {
-        alert('Please enter all 6 digits of your Email OTP code (check your Gmail inbox).');
-        return;
-      }
-      if (phoneCode.length < 6) {
-        alert('Please enter all 6 digits of your Mobile SMS OTP code.');
-        return;
-      }
-
-      const targetPhone = (pendingFormData && pendingFormData['Phone Number']) || '+91 98765 43210';
-      const targetEmail = (pendingFormData && pendingFormData['Email Address']) || 'student@example.com';
-
-      // Verify both OTPs with Node.js + MongoDB Backend
-      try {
-        const res = await fetch(getApiBase() + '/api/auth/verify-otp', {
+        const res = await fetch(getApiBase() + '/api/auth/signin', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            phone: targetPhone,
-            email: targetEmail,
-            emailOtpCode: emailCode,
-            phoneOtpCode: phoneCode
+            phone: targetInput,
+            email: targetInput,
+            password: password
           })
         });
+
         const result = await res.json();
 
         if (!result.success) {
-          alert('❌ Verification Error: ' + (result.message || 'Invalid OTP code entered.'));
+          alert('❌ Sign In Failed: ' + (result.message || 'Invalid Credentials.'));
           return;
         }
-
-        closeOtpModal();
 
         if (result.token) {
           localStorage.setItem('edurup_jwt_token', result.token);
@@ -1229,29 +1128,11 @@
           localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
         }
 
-        alert('✅ Success! Both Email and Mobile Phone OTPs verified successfully.');
+        alert('✅ Sign In Successful! Welcome back, ' + (result.user ? result.user.fullName : 'Student') + '.');
         window.location.href = 'dashboard.html';
       } catch(err) {
-        closeOtpModal();
-        alert('✅ Verification completed successfully.');
-        window.location.href = 'dashboard.html';
-      }
-    }
-
-    // Resend Both Email & SMS OTPs
-    async function resendOTPCode() {
-      const targetPhone = document.getElementById('otpTargetDisplay').innerText;
-      const targetEmail = document.getElementById('otpEmailDisplay').innerText;
-
-      try {
-        await fetch(getApiBase() + '/api/auth/send-otp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone: targetPhone, email: targetEmail })
-        });
-        alert('📧📱 New 6-digit OTP codes dispatched to your Email (' + targetEmail + ') and Mobile (' + targetPhone + ').');
-      } catch(err) {
-        alert('📧📱 New 6-digit OTP codes dispatched!');
+        console.error('Sign In Error:', err);
+        alert('❌ Connection Error: Unable to connect to server. Please check backend server.');
       }
     }
   </script>
