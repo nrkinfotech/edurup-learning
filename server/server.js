@@ -50,11 +50,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`====================================================`);
-  console.log(`🚀 Edurup Backend Server Running on http://localhost:${PORT}`);
-  console.log(`📊 Local MongoDB Compass URI: mongodb://127.0.0.1:27017/edurup_learning`);
+  console.log(`🚀 Edurup Backend Server Running on 0.0.0.0:${PORT}`);
   console.log(`====================================================`);
 });
