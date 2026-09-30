@@ -42,6 +42,7 @@ app.get('/', (req, res) => {
 // API Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/support', require('./routes/supportRoutes'));
+app.use('/api/payment', require('./routes/paymentRoutes'));
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({

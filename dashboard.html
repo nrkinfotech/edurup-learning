@@ -7,6 +7,7 @@
   <meta name="description" content="Welcome to your Edurup Learning Student Dashboard — explore internships, track learning journey and access support.">
   <link rel="canonical" href="https://www.eduruplearning.com/dashboard.html">
   <link rel="stylesheet" href="assets/css/style.css?v=25">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     /* Student Dashboard Layout matching uploaded screenshot */
     * {
@@ -853,7 +854,9 @@
                 </div>
                 <div class="program-card-footer">
                   <div class="program-price">₹9,999</div>
-                  <a href="data-analytics-internship.html" class="program-details-btn">View Details →</a>
+                  <button type="button" class="program-details-btn" onclick="initiateRazorpayPayment('Data Analytics Internship', 9999)" style="border:none; cursor:pointer;">
+                    Pay &amp; Enroll ₹9,999 →
+                  </button>
                 </div>
               </div>
 
@@ -874,7 +877,9 @@
                 </div>
                 <div class="program-card-footer">
                   <div class="program-price">₹9,999</div>
-                  <a href="data-science-internship.html" class="program-details-btn">View Details →</a>
+                  <button type="button" class="program-details-btn" onclick="initiateRazorpayPayment('Data Science Internship', 9999)" style="border:none; cursor:pointer;">
+                    Pay &amp; Enroll ₹9,999 →
+                  </button>
                 </div>
               </div>
 
@@ -895,7 +900,9 @@
                 </div>
                 <div class="program-card-footer">
                   <div class="program-price">₹9,999</div>
-                  <a href="artificial-intelligence-internship.html" class="program-details-btn">View Details →</a>
+                  <button type="button" class="program-details-btn" onclick="initiateRazorpayPayment('Artificial Intelligence Internship', 9999)" style="border:none; cursor:pointer;">
+                    Pay &amp; Enroll ₹9,999 →
+                  </button>
                 </div>
               </div>
 
@@ -916,7 +923,9 @@
                 </div>
                 <div class="program-card-footer">
                   <div class="program-price">₹9,999</div>
-                  <a href="digital-marketing-internship.html" class="program-details-btn">View Details →</a>
+                  <button type="button" class="program-details-btn" onclick="initiateRazorpayPayment('Digital Marketing Internship', 9999)" style="border:none; cursor:pointer;">
+                    Pay &amp; Enroll ₹9,999 →
+                  </button>
                 </div>
               </div>
 
@@ -937,7 +946,9 @@
                 </div>
                 <div class="program-card-footer">
                   <div class="program-price">₹9,999</div>
-                  <a href="full-stack-development-internship.html" class="program-details-btn">View Details →</a>
+                  <button type="button" class="program-details-btn" onclick="initiateRazorpayPayment('Full Stack Development Internship', 9999)" style="border:none; cursor:pointer;">
+                    Pay &amp; Enroll ₹9,999 →
+                  </button>
                 </div>
               </div>
 
@@ -958,7 +969,9 @@
                 </div>
                 <div class="program-card-footer">
                   <div class="program-price">₹9,999</div>
-                  <a href="hr-management-internship.html" class="program-details-btn">View Details →</a>
+                  <button type="button" class="program-details-btn" onclick="initiateRazorpayPayment('HR Management Internship', 9999)" style="border:none; cursor:pointer;">
+                    Pay &amp; Enroll ₹9,999 →
+                  </button>
                 </div>
               </div>
 
@@ -979,7 +992,9 @@
                 </div>
                 <div class="program-card-footer">
                   <div class="program-price">₹9,999</div>
-                  <a href="sales-marketing-internship.html" class="program-details-btn">View Details →</a>
+                  <button type="button" class="program-details-btn" onclick="initiateRazorpayPayment('Sales & Marketing Internship', 9999)" style="border:none; cursor:pointer;">
+                    Pay &amp; Enroll ₹9,999 →
+                  </button>
                 </div>
               </div>
 
@@ -1000,7 +1015,9 @@
                 </div>
                 <div class="program-card-footer">
                   <div class="program-price">₹9,999</div>
-                  <a href="entrepreneurship-internship.html" class="program-details-btn">View Details →</a>
+                  <button type="button" class="program-details-btn" onclick="initiateRazorpayPayment('Entrepreneurship Internship', 9999)" style="border:none; cursor:pointer;">
+                    Pay &amp; Enroll ₹9,999 →
+                  </button>
                 </div>
               </div>
             </div>
@@ -1041,6 +1058,79 @@
   </div>
 
   <script>
+    async function initiateRazorpayPayment(programName, price) {
+      const sessionStr = localStorage.getItem('edurup_user_session');
+      let user = {};
+      if (sessionStr) {
+        try { user = JSON.parse(sessionStr); } catch(e) {}
+      }
+
+      let razorpayKey = localStorage.getItem('edurup_razorpay_key_id');
+
+      try {
+        const res = await fetch(getApiBase() + '/api/payment/key');
+        const data = await res.json();
+        if (data.keyId) razorpayKey = data.keyId;
+      } catch(e) {}
+
+      if (!razorpayKey) {
+        const userKey = prompt(
+          `💳 Razorpay Account Integration:\n\nPlease enter your Razorpay Key ID (e.g. rzp_test_XXXX or rzp_live_XXXX):\n\n(This will be saved to your browser so you don't need to re-enter it)`,
+          "rzp_test_"
+        );
+        if (userKey && userKey.trim()) {
+          razorpayKey = userKey.trim();
+          localStorage.setItem('edurup_razorpay_key_id', razorpayKey);
+        } else {
+          alert('Razorpay Checkout cancelled.');
+          return;
+        }
+      }
+
+      if (typeof Razorpay === 'undefined') {
+        alert('Razorpay Checkout SDK is loading. Please check internet connection.');
+        return;
+      }
+
+      const options = {
+        key: razorpayKey,
+        amount: (price || 9999) * 100, // Amount in paise
+        currency: "INR",
+        name: "Edurup Learning",
+        description: "6-Month Internship Program - " + programName,
+        image: "assets/logo.png",
+        prefill: {
+          name: user.fullName || user.name || "",
+          email: user.email || "",
+          contact: user.phone || ""
+        },
+        theme: {
+          color: "#2563eb"
+        },
+        handler: function (response) {
+          alert("🎉 Payment Successful!\n\nTransaction ID: " + response.razorpay_payment_id + "\nProgram: " + programName);
+          
+          const activeEnrollment = {
+            programName,
+            price,
+            paymentId: response.razorpay_payment_id,
+            status: 'Active',
+            date: new Date().toLocaleDateString()
+          };
+          localStorage.setItem('edurup_active_enrollment', JSON.stringify(activeEnrollment));
+          window.location.href = 'my-orders.html';
+        },
+        modal: {
+          ondismiss: function() {
+            console.log("Razorpay Checkout dismissed.");
+          }
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    }
+
     function signOutUser() {
       localStorage.removeItem('edurup_user_session');
       localStorage.removeItem('edurup_jwt_token');
