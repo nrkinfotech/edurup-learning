@@ -617,8 +617,8 @@
           <!-- Photo Upload Box -->
           <div class="sp-avatar-box">
             <div class="sp-avatar-wrapper">
-              <img id="avatarPreview" class="sp-avatar-img" src="assets/testimonial-rahul.jpg" alt="Profile Avatar">
-              <div class="sp-camera-badge" onclick="document.getElementById('photoInput').click()" title="Change photo">
+              <img id="avatarPreview" class="sp-avatar-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 24 24' fill='%23cbd5e1'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-3.8-1.03-4.83-2.58.03-1.6 3.22-2.47 4.83-2.47 1.61 0 4.8 1.02 4.83 2.47C15.8 18.97 14.03 20 12 20z'/></svg>" alt="Profile Avatar">
+              <div class="sp-camera-badge" onclick="document.getElementById('photoInput').click()" title="Upload Photo">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
               </div>
             </div>
@@ -633,21 +633,21 @@
               <div class="sp-label-row">
                 <label class="sp-label">Full Name<span class="sp-req">*</span></label>
               </div>
-              <input type="text" id="fullName" name="Full Name" class="sp-input" value="Rahul Kumar" required placeholder="Full Name">
+              <input type="text" id="fullName" name="Full Name" class="sp-input" required placeholder="Enter your full name">
             </div>
 
             <div class="sp-field">
               <div class="sp-label-row">
                 <label class="sp-label">Email Address<span class="sp-req">*</span></label>
               </div>
-              <input type="email" id="regEmail" name="Email Address" class="sp-input" value="rahul@gmail.com" required placeholder="Email Address">
+              <input type="email" id="regEmail" name="Email Address" class="sp-input" required placeholder="name@example.com">
             </div>
 
             <div class="sp-field">
               <div class="sp-label-row">
                 <label class="sp-label">Phone Number<span class="sp-req">*</span></label>
               </div>
-              <input type="tel" id="regPhone" name="Phone Number" class="sp-input" value="+91 98765 43210" required placeholder="Phone Number">
+              <input type="tel" id="regPhone" name="Phone Number" class="sp-input" required placeholder="+91 Mobile Phone Number">
             </div>
 
             <div class="sp-field">
@@ -655,7 +655,7 @@
                 <label class="sp-label">Create Password<span class="sp-req">*</span></label>
               </div>
               <div class="sp-input-container">
-                <input type="password" id="regPassword" name="Create Password" class="sp-input" required placeholder="Create Password" value="Rahul@123" style="padding-right: 44px;">
+                <input type="password" id="regPassword" name="Create Password" class="sp-input" required placeholder="Create a strong password" style="padding-right: 44px;">
                 <button type="button" onclick="togglePasswordVisibility('regPassword', this)" style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: #64748b; font-size: 1.1rem;" title="Show/Hide Password">👁️</button>
               </div>
             </div>
@@ -665,7 +665,7 @@
                 <label class="sp-label">Date of Birth<span class="sp-req">*</span></label>
               </div>
               <div class="sp-input-container">
-                <input type="text" name="Date of Birth" class="sp-input" value="20 Oct 1990" required placeholder="e.g. 20 Oct 1990">
+                <input type="text" name="Date of Birth" class="sp-input" required placeholder="e.g. 20 Oct 2002">
                 <span class="sp-input-icon">📅</span>
               </div>
             </div>
@@ -675,7 +675,8 @@
                 <label class="sp-label">Gender<span class="sp-req">*</span></label>
               </div>
               <select name="Gender" class="sp-select" required>
-                <option value="Male" selected>Male</option>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
               </select>
@@ -687,7 +688,7 @@
               </div>
               <div class="sp-input-container">
                 <span class="sp-social-prefix" style="left:12px;">📍</span>
-                <input type="text" name="Current Location" class="sp-input sp-input-social" value="Bangalore, Karnataka" required placeholder="City, State">
+                <input type="text" name="Current Location" class="sp-input sp-input-social" required placeholder="City, State">
               </div>
             </div>
           </div>
@@ -717,7 +718,7 @@
             <div class="sp-label-row">
               <label class="sp-label">College / University<span class="sp-req">*</span></label>
             </div>
-            <input type="text" id="collegeName" name="College / University" class="sp-input" value="RV College of Engineering" required placeholder="College / University Name">
+            <input type="text" id="collegeName" name="College / University" class="sp-input" required placeholder="College / University Name">
           </div>
 
           <div class="sp-field">
@@ -725,10 +726,11 @@
               <label class="sp-label">Current Year<span class="sp-req">*</span></label>
             </div>
             <select name="Current Year" class="sp-select" required>
+              <option value="" disabled selected>Select Current Year</option>
               <option value="1st Year">1st Year</option>
               <option value="2nd Year">2nd Year</option>
               <option value="3rd Year">3rd Year</option>
-              <option value="Final Year" selected>Final Year</option>
+              <option value="Final Year">Final Year</option>
               <option value="Passed Out / Graduated">Passed Out / Graduated</option>
             </select>
           </div>
@@ -737,28 +739,28 @@
             <div class="sp-label-row">
               <label class="sp-label">Qualification<span class="sp-req">*</span></label>
             </div>
-            <input type="text" name="Qualification" class="sp-input" value="B.Tech" required placeholder="Degree / Qualification">
+            <input type="text" name="Qualification" class="sp-input" required placeholder="Degree / Qualification (e.g. B.Tech)">
           </div>
 
           <div class="sp-field">
             <div class="sp-label-row">
               <label class="sp-label">Graduation Year<span class="sp-req">*</span></label>
             </div>
-            <input type="text" name="Graduation Year" class="sp-input" value="2026" required placeholder="e.g. 2026">
+            <input type="text" name="Graduation Year" class="sp-input" required placeholder="e.g. 2026">
           </div>
 
           <div class="sp-field">
             <div class="sp-label-row">
               <label class="sp-label">Branch / Stream<span class="sp-req">*</span></label>
             </div>
-            <input type="text" name="Branch / Stream" class="sp-input" value="Computer Science" required placeholder="Branch / Stream">
+            <input type="text" name="Branch / Stream" class="sp-input" required placeholder="Branch / Stream (e.g. Computer Science)">
           </div>
 
           <div class="sp-field">
             <div class="sp-label-row">
               <label class="sp-label">City<span class="sp-req">*</span></label>
             </div>
-            <input type="text" name="City" class="sp-input" value="Bangalore, Karnataka" required placeholder="City">
+            <input type="text" name="City" class="sp-input" required placeholder="City">
           </div>
         </div>
       </div>
@@ -787,7 +789,8 @@
               <label class="sp-label">Are you a Student or Professional?<span class="sp-req">*</span></label>
             </div>
             <select name="Are you a Student or Professional?" class="sp-select" required>
-              <option value="Student" selected>Student</option>
+              <option value="" disabled selected>Select Option</option>
+              <option value="Student">Student</option>
               <option value="Working Professional">Working Professional</option>
             </select>
           </div>
@@ -797,7 +800,8 @@
               <label class="sp-label">Work Experience</label>
             </div>
             <select name="Work Experience" class="sp-select">
-              <option value="Fresher" selected>Fresher</option>
+              <option value="" disabled selected>Select Work Experience</option>
+              <option value="Fresher">Fresher</option>
               <option value="0-1 Year">0-1 Year</option>
               <option value="1-2 Years">1-2 Years</option>
               <option value="2+ Years">2+ Years</option>
@@ -812,7 +816,7 @@
               <div class="sp-social-prefix">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
               </div>
-              <input type="url" id="linkedinInput" name="LinkedIn Profile" class="sp-input sp-input-social" value="https://linkedin.com/in/rahulkumar" placeholder="https://linkedin.com/in/username">
+              <input type="url" id="linkedinInput" name="LinkedIn Profile" class="sp-input sp-input-social" placeholder="https://linkedin.com/in/username">
             </div>
           </div>
 
@@ -824,7 +828,7 @@
               <div class="sp-social-prefix">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="#0f172a"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
               </div>
-              <input type="url" name="GitHub Profile" class="sp-input sp-input-social" value="https://github.com/rahulkumar" placeholder="https://github.com/username">
+              <input type="url" name="GitHub Profile" class="sp-input sp-input-social" placeholder="https://github.com/username">
             </div>
           </div>
 
@@ -833,16 +837,16 @@
               <label class="sp-label">Areas of Interest</label>
             </div>
             <div class="sp-tags-box" id="tagsBox">
-              <div class="sp-tag-chip" onclick="toggleTag(this, 'Data Analytics')">Data Analytics ✕</div>
-              <div class="sp-tag-chip" onclick="toggleTag(this, 'Data Science')">Data Science ✕</div>
-              <div class="sp-tag-chip" onclick="toggleTag(this, 'AI & ML')">AI &amp; ML ✕</div>
-              <div class="sp-tag-chip" onclick="toggleTag(this, 'Digital Marketing')">Digital Marketing ✕</div>
+              <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Data Analytics')">Data Analytics +</div>
+              <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Data Science')">Data Science +</div>
+              <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'AI & ML')">AI &amp; ML +</div>
+              <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Digital Marketing')">Digital Marketing +</div>
               <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Full Stack Development')">Full Stack Development +</div>
               <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'HR Management')">HR Management +</div>
               <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Sales & Marketing')">Sales &amp; Marketing +</div>
               <div class="sp-tag-chip unselected" onclick="toggleTag(this, 'Entrepreneurship')">Entrepreneurship +</div>
             </div>
-            <input type="hidden" id="areasOfInterestInput" name="Areas of Interest" value="Data Analytics, Data Science, AI & ML, Digital Marketing">
+            <input type="hidden" id="areasOfInterestInput" name="Areas of Interest" value="">
           </div>
 
           <div class="sp-field full-width">
@@ -850,7 +854,8 @@
               <label class="sp-label">How did you hear about us?</label>
             </div>
             <select name="How did you hear about us?" class="sp-select">
-              <option value="Instagram" selected>Instagram</option>
+              <option value="" disabled selected>Select Option</option>
+              <option value="Instagram">Instagram</option>
               <option value="LinkedIn">LinkedIn</option>
               <option value="Friend / Referral">Friend / Referral</option>
               <option value="Google Search">Google Search</option>
@@ -889,12 +894,12 @@
         <div style="display:flex; flex-direction:column; gap:18px;">
           <div class="sp-field">
             <label class="sp-label">Registered Mobile Phone Number or Email<span class="sp-req">*</span></label>
-            <input type="text" id="signinTargetInput" class="sp-input" placeholder="e.g. +91 98765 43210 or email" required value="+91 98765 43210">
+            <input type="text" id="signinTargetInput" class="sp-input" placeholder="e.g. +91 98765 43210 or email" required>
           </div>
           <div class="sp-field">
             <label class="sp-label">Password<span class="sp-req">*</span></label>
             <div class="sp-input-container">
-              <input type="password" id="signinPasswordInput" class="sp-input" placeholder="Enter your password" required style="padding-right: 44px;" value="Rahul@123">
+              <input type="password" id="signinPasswordInput" class="sp-input" placeholder="Enter your password" required style="padding-right: 44px;">
               <button type="button" onclick="togglePasswordVisibility('signinPasswordInput', this)" style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: #64748b; font-size: 1.1rem;" title="Show/Hide Password">👁️</button>
             </div>
           </div>
