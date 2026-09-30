@@ -20,12 +20,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/support', require('./routes/supportRoutes'));
 
-// Health check endpoint
+// Health check endpoints
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    message: 'Edurup Learning Express Backend Server Active',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'OK',
     message: 'Edurup Learning Express Backend Server Running',
-    database: 'MongoDB Compass (localhost:27017/edurup_learning)'
+    database: 'MongoDB Connected'
   });
 });
 
