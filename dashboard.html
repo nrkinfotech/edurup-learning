@@ -1066,6 +1066,10 @@
       }
 
       let razorpayKey = localStorage.getItem('edurup_razorpay_key_id');
+      if (razorpayKey && (razorpayKey.trim() === 'rzp_test_' || razorpayKey.trim().length < 12)) {
+        localStorage.removeItem('edurup_razorpay_key_id');
+        razorpayKey = null;
+      }
       let orderId = null;
 
       // 1. Try to create Order via Backend API
@@ -1076,7 +1080,9 @@
           body: JSON.stringify({ amount: price || 9999, programName })
         });
         const data = await res.json();
-        if (data.keyId) razorpayKey = data.keyId;
+        if (data.keyId && data.keyId.trim().length >= 12) {
+          razorpayKey = data.keyId.trim();
+        }
         if (data.success && data.order && data.order.id) {
           orderId = data.order.id;
         }
@@ -1084,16 +1090,16 @@
         console.warn('Backend order creation notice:', e);
       }
 
-      if (!razorpayKey) {
+      if (!razorpayKey || razorpayKey === 'rzp_test_' || razorpayKey.length < 12) {
         const userKey = prompt(
-          `💳 Razorpay Integration Setup:\n\nEnter your Razorpay Key ID (Use a Test Key starting with rzp_test_ for localhost testing):`,
-          "rzp_test_"
+          `💳 Razorpay Key Setup Required:\n\nPlease enter your full Razorpay Key ID (e.g., rzp_test_1a2b3c4d5e6f7g or rzp_live_... from Dashboard -> API Keys):`,
+          ""
         );
-        if (userKey && userKey.trim()) {
+        if (userKey && userKey.trim() && userKey.trim().length >= 12) {
           razorpayKey = userKey.trim();
           localStorage.setItem('edurup_razorpay_key_id', razorpayKey);
         } else {
-          alert('Razorpay Checkout cancelled.');
+          alert('❌ Valid Razorpay Key ID is required to open payment checkout.');
           return;
         }
       }
