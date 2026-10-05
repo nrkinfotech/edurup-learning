@@ -12,8 +12,10 @@ process.on('unhandledRejection', (reason) => {
   console.error('⚠️ Unhandled Promise Rejection:', reason ? (reason.message || reason) : reason);
 });
 
+const path = require('path');
+
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 // Connect to MongoDB
 try {
@@ -21,8 +23,6 @@ try {
 } catch(err) {
   console.error('MongoDB connection init notice:', err.message);
 }
-
-const path = require('path');
 
 const app = express();
 
