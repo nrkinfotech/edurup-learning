@@ -1065,10 +1065,9 @@
         try { user = JSON.parse(sessionStr); } catch(e) {}
       }
 
-      let razorpayKey = localStorage.getItem('edurup_razorpay_key_id');
+      let razorpayKey = localStorage.getItem('edurup_razorpay_key_id') || 'rzp_live_TK6VuE6snfPEwa';
       if (razorpayKey && (razorpayKey.trim() === 'rzp_test_' || razorpayKey.trim().length < 12)) {
-        localStorage.removeItem('edurup_razorpay_key_id');
-        razorpayKey = null;
+        razorpayKey = 'rzp_live_TK6VuE6snfPEwa';
       }
       let orderId = null;
 
