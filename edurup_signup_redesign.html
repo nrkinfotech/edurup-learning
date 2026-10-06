@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edurup Learning | Create Account</title>
+<style>
+:root{
+  --primary:#315cff;
+  --primary-dark:#263dcc;
+  --purple:#4328d8;
+  --text:#10152f;
+  --muted:#59627a;
+  --border:#dfe4f0;
+  --bg:#f4f7ff;
+  --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  min-height:100vh;
+}
+button,input,select{font:inherit}
+.header{
+  height:78px;background:#fff;border-bottom:1px solid #edf0f7;
+  display:flex;align-items:center;justify-content:space-between;padding:0 5.5%;
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#1c39db}
+.logo-mark{
+  width:46px;height:46px;border-radius:50% 50% 45% 45%;
+  background:linear-gradient(135deg,#315cff,#4328d8);
+  position:relative;display:grid;place-items:center;color:white;font-size:28px;font-weight:900;
+}
+.logo-mark:after{content:"";position:absolute;bottom:-2px;left:13px;width:21px;height:5px;background:#315cff;border-radius:10px}
+.logo-text{font-size:21px;line-height:18px;font-weight:800;letter-spacing:.8px}
+.logo-text span{display:block;font-size:12px;letter-spacing:3px;color:#15245e;margin-top:3px}
+.nav{display:flex;gap:38px;margin-left:50px}
+.nav a{color:#111a3b;text-decoration:none;font-weight:600;font-size:15px}
+.header-right{display:flex;align-items:center;gap:18px;color:#454d66;font-size:14px}
+.signin{
+  border:1.5px solid var(--primary);background:#fff;color:#1740dc;
+  padding:12px 20px;border-radius:12px;font-weight:700;cursor:pointer;
+}
+.page{
+  min-height:calc(100vh - 78px);
+  padding:32px 5.5% 45px;
+  background:
+    radial-gradient(circle at 8% 5%,#dfe8ff 0 20%,transparent 38%),
+    radial-gradient(circle at 45% 80%,#e7edff 0 18%,transparent 35%),
+    linear-gradient(120deg,#f5f8ff,#eef3ff);
+}
+.grid{max-width:1400px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
+.hero{padding:25px 10px 10px 0;position:relative}
+.badge{
+  display:inline-flex;padding:9px 15px;border-radius:999px;
+  background:#e2e9ff;color:#143ce1;font-size:14px;font-weight:700;margin-bottom:20px;
+}
+.hero h1{font-size:58px;line-height:1.02;letter-spacing:-2.5px;max-width:650px;margin-bottom:20px}
+.hero h1 span{color:#304ee9}
+.hero-copy{font-size:19px;line-height:1.5;color:#242c46;max-width:610px;margin-bottom:28px}
+.benefits{display:grid;gap:15px;max-width:550px}
+.benefit{display:flex;align-items:center;gap:14px}
+.icon{
+  width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+  font-size:21px;flex:none;background:#e6ebff;color:#274be8;
+}
+.benefit:nth-child(2) .icon{background:#dcf8ef;color:#16a47e}
+.benefit:nth-child(3) .icon{background:#fff0d7;color:#e99014}
+.benefit:nth-child(4) .icon{background:#ffe3ef;color:#db3984}
+.benefit strong{display:block;font-size:16px;margin-bottom:3px}
+.benefit small{font-size:14px;color:#59627a}
+.stats{
+  margin-top:30px;background:rgba(255,255,255,.85);border:1px solid #e3e8f4;
+  border-radius:20px;padding:20px 18px;box-shadow:0 14px 35px rgba(46,67,125,.08);
+}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.stat{border-right:1px solid #e2e6ef}
+.stat:last-child{border:0}
+.stat b{display:block;color:#263fe0;font-size:28px}
+.stat span{font-size:13px;color:#59627a}
+.tracks{border-top:1px solid #e6e9f1;margin-top:18px;padding-top:15px}
+.tracks-title{font-weight:800;font-size:14px;margin-bottom:12px}
+.track-list{display:grid;grid-template-columns:repeat(8,1fr);gap:7px}
+.track{text-align:center;font-size:10px;color:#333c58}
+.track .track-icon{
+  width:38px;height:38px;border-radius:10px;margin:0 auto 5px;
+  display:grid;place-items:center;color:#fff;font-size:17px;font-weight:700;
+}
+.track:nth-child(1) .track-icon{background:#2998ef}.track:nth-child(2) .track-icon{background:#7862e9}
+.track:nth-child(3) .track-icon{background:#f25c62}.track:nth-child(4) .track-icon{background:#2eb86d}
+.track:nth-child(5) .track-icon{background:#ed65aa}.track:nth-child(6) .track-icon{background:#e9a12d}
+.track:nth-child(7) .track-icon{background:#8b5ee8}.track:nth-child(8) .track-icon{background:#2db7ad}
+.form-card{
+  background:rgba(255,255,255,.96);border:1px solid #e6eaf3;border-radius:20px;
+  padding:32px 38px;box-shadow:0 20px 55px rgba(40,58,110,.12);
+}
+.form-card h2{font-size:31px;letter-spacing:-.8px;margin-bottom:6px}
+.subtitle{color:#59627a;font-size:15px;margin-bottom:25px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:30px;position:relative}
+.steps:before{
+  content:"";position:absolute;top:17px;left:10%;right:10%;height:2px;background:#dfe4ef;z-index:0
+}
+.step{position:relative;text-align:center;z-index:1;color:#687188;font-size:13px}
+.step .num{
+  width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid #d9dfeb;
+  display:grid;place-items:center;margin:0 auto 7px;font-weight:700;color:#586177;
+}
+.step.active{color:#315cff;font-weight:700}
+.step.active .num{background:#315cff;border-color:#315cff;color:#fff}
+.step.done .num{background:#315cff;border-color:#315cff;color:#fff}
+.step-title{font-size:14px}
+.form-step h3{font-size:21px;margin-bottom:5px}
+.form-step p{color:#687188;font-size:14px;margin-bottom:20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-weight:700;font-size:14px;margin-bottom:8px}
+.required{color:#ef3b4d}
+.input-wrap{position:relative}
+.input-wrap .field-icon{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#65708a;font-size:17px
+}
+.input,.select{
+  width:100%;height:53px;border:1.5px solid #dce2ed;border-radius:12px;
+  outline:none;padding:0 14px 0 43px;background:#fff;color:#20283e;transition:.2s;
+}
+.select{padding-left:14px;appearance:auto}
+.input:focus,.select:focus{border-color:#315cff;box-shadow:0 0 0 4px rgba(49,92,255,.08)}
+.next{
+  width:100%;height:55px;border:0;border-radius:12px;background:linear-gradient(90deg,#315cff,#3869ff);
+  color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-top:24px;box-shadow:0 8px 18px rgba(49,92,255,.22)
+}
+.next:hover{background:linear-gradient(90deg,#294fe0,#315cff)}
+.or{display:flex;align-items:center;gap:12px;color:#7a8296;font-size:13px;margin:22px 0}
+.or:before,.or:after{content:"";height:1px;background:#e1e5ed;flex:1}
+.google{
+  width:100%;height:53px;border:1.5px solid #315cff;background:#fff;color:#1d2740;
+  border-radius:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px
+}
+.google-mark{font-size:20px;font-weight:900}
+.bottom{text-align:center;margin-top:22px;color:#687188;font-size:14px}
+.bottom a{color:#244de0;font-weight:800;text-decoration:none}
+.hidden{display:none!important}
+.back{margin-top:15px;background:none;border:0;color:#315cff;font-weight:700;cursor:pointer}
+.otp{text-align:center}
+.otp-boxes{display:flex;justify-content:center;gap:9px;margin:25px 0}
+.otp-box{width:48px;height:55px;border:1.5px solid #dce2ed;border-radius:10px;text-align:center;font-size:21px;font-weight:700;outline:none}
+.otp-box:focus{border-color:#315cff;box-shadow:0 0 0 4px rgba(49,92,255,.08)}
+@media(max-width:1050px){
+  .nav{gap:18px;margin-left:20px}
+  .hero h1{font-size:48px}
+  .grid{gap:25px}
+  .form-card{padding:28px}
+}
+@media(max-width:850px){
+  .header{padding:0 20px}.nav,.header-right>span{display:none}
+  .page{padding:22px 16px 35px}
+  .grid{grid-template-columns:1fr}
+  .hero{padding:8px 4px}
+  .hero h1{font-size:43px}
+  .hero-copy{font-size:17px}
+  .stats{margin-top:24px}
+  .track-list{grid-template-columns:repeat(4,1fr);row-gap:13px}
+}
+@media(max-width:560px){
+  .logo-text{font-size:17px}.logo-mark{width:40px;height:40px}
+  .logo-text span{font-size:9px}
+  .signin{padding:9px 13px}
+  .hero h1{font-size:38px}
+  .form-card{padding:22px 18px;border-radius:17px}
+  .form-card h2{font-size:27px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .stat b{font-size:23px}
+  .stat span{font-size:11px}
+  .steps .step-title{font-size:11px}
+  .steps:before{left:9%;right:9%}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a class="logo" href="#">
+    <div class="logo-mark">e</div>
+    <div class="logo-text">EDURUP<span>LEARNING</span></div>
+  </a>
+  <nav class="nav">
+    <a href="#">Courses</a><a href="#">Internships</a><a href="#">Placement</a><a href="#">About Us</a>
+  </nav>
+  <div class="header-right">
+    <span>Already have an account?</span>
+    <button class="signin" onclick="showLogin()">Sign In&nbsp; →</button>
+  </div>
+</header>
+
+<main class="page">
+<div class="grid">
+
+<section class="hero">
+  <div class="badge">6-Month Corporate Internship Program</div>
+  <h1>Start Your <span>Career Journey</span></h1>
+  <p class="hero-copy">Create your student profile and explore internships built around practical learning, real projects and career growth.</p>
+
+  <div class="benefits">
+    <div class="benefit"><div class="icon">🎓</div><div><strong>Choose Your Domain</strong><small>Explore 8+ internship tracks</small></div></div>
+    <div class="benefit"><div class="icon">💼</div><div><strong>Work on Real Projects</strong><small>Gain hands-on experience</small></div></div>
+    <div class="benefit"><div class="icon">📜</div><div><strong>Get Certified</strong><small>Internship certificate & LOR</small></div></div>
+    <div class="benefit"><div class="icon">📈</div><div><strong>Build Your Career</strong><small>Resume, portfolio & placement support</small></div></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-row">
+      <div class="stat"><b>3000+</b><span>Learners</span></div>
+      <div class="stat"><b>250+</b><span>Hiring Partners</span></div>
+      <div class="stat"><b>70%</b><span>Placement Support</span></div>
+    </div>
+    <div class="tracks">
+      <div class="tracks-title">Popular Internship Tracks</div>
+      <div class="track-list">
+        <div class="track"><div class="track-icon">▥</div>Data<br>Analytics</div>
+        <div class="track"><div class="track-icon">◉</div>Data<br>Science</div>
+        <div class="track"><div class="track-icon">✦</div>AI & ML</div>
+        <div class="track"><div class="track-icon">&lt;/&gt;</div>Full Stack<br>Development</div>
+        <div class="track"><div class="track-icon">◈</div>Digital<br>Marketing</div>
+        <div class="track"><div class="track-icon">♙</div>HR<br>Management</div>
+        <div class="track"><div class="track-icon">↗</div>Sales &<br>Marketing</div>
+        <div class="track"><div class="track-icon">🚀</div>Entrepreneurship</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-card">
+  <h2>Create Your Account</h2>
+  <div class="subtitle">Join Edurup Learning and unlock internship opportunities</div>
+
+  <div class="steps">
+    <div class="step active" id="step1"><div class="num">1</div><div class="step-title">Personal</div></div>
+    <div class="step" id="step2"><div class="num">2</div><div class="step-title">Education</div></div>
+    <div class="step" id="step3"><div class="num">3</div><div class="step-title">Interests</div></div>
+    <div class="step" id="step4"><div class="num">4</div><div class="step-title">Verify</div></div>
+  </div>
+
+  <form id="signupForm" onsubmit="return false">
+    <div class="form-step" id="personalStep">
+      <h3>Step 1: Personal Details</h3>
+      <p>Let's start with your basic information</p>
+      <div class="form-grid">
+        <div class="field full">
+          <label>Full Name <span class="required">*</span></label>
+          <div class="input-wrap"><span class="field-icon">♙</span><input class="input" id="name" required placeholder="Enter your full name"></div>
+        </div>
+        <div class="field">
+          <label>Mobile Number <span class="required">*</span></label>
+          <div class="input-wrap"><span class="field-icon">☎</span><input class="input" id="mobile" required maxlength="10" inputmode="numeric" placeholder="Enter 10 digit mobile number"></div>
+        </div>
+        <div class="field">
+          <label>Email Address <span class="required">*</span></label>
+          <div class="input-wrap"><span class="field-icon">✉</span><input class="input" id="email" type="email" required placeholder="Enter your email address"></div>
+        </div>
+        <div class="field">
+          <label>Date of Birth <span class="required">*</span></label>
+          <div class="input-wrap"><span class="field-icon">▣</span><input class="input" id="dob" type="date" required></div>
+        </div>
+        <div class="field">
+          <label>Gender <span class="required">*</span></label>
+          <select class="select" id="gender" required><option value="">Select gender</option><option>Male</option><option>Female</option><option>Other</option></select>
+        </div>
+      </div>
+      <button class="next" type="button" onclick="goEducation()">Continue&nbsp; →</button>
+      <div class="or">OR</div>
+      <button class="google" type="button"><span class="google-mark">G</span> Sign up with Google</button>
+      <div class="bottom">Already have an account? <a href="#" onclick="showLogin();return false">Sign In</a></div>
+    </div>
+
+    <div class="form-step hidden" id="educationStep">
+      <h3>Step 2: Education</h3>
+      <p>Tell us about your academic background</p>
+      <div class="form-grid">
+        <div class="field full"><label>Highest Qualification <span class="required">*</span></label><select class="select" required><option value="">Select qualification</option><option>10th</option><option>12th / Intermediate</option><option>Diploma</option><option>Graduation</option><option>Post Graduation</option></select></div>
+        <div class="field"><label>College / University <span class="required">*</span></label><input class="input" required placeholder="Enter college name"></div>
+        <div class="field"><label>Specialization</label><input class="input" placeholder="e.g. Computer Science"></div>
+        <div class="field"><label>Graduation Year</label><select class="select"><option value="">Select year</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option></select></div>
+        <div class="field"><label>City</label><input class="input" placeholder="Enter your city"></div>
+      </div>
+      <button class="next" type="button" onclick="goInterests()">Continue&nbsp; →</button>
+      <button class="back" type="button" onclick="showStep(1)">← Back</button>
+    </div>
+
+    <div class="form-step hidden" id="interestStep">
+      <h3>Step 3: Choose Your Interests</h3>
+      <p>Select the internship domains you are interested in</p>
+      <div class="form-grid">
+        <div class="field full"><label>Preferred Internship Domain <span class="required">*</span></label><select class="select" required><option value="">Choose a domain</option><option>Data Analytics</option><option>Data Science</option><option>Artificial Intelligence</option><option>Digital Marketing</option><option>Full Stack Development</option><option>HR Management</option><option>Sales & Marketing</option><option>Entrepreneurship</option></select></div>
+        <div class="field"><label>Experience Level</label><select class="select"><option>Fresher</option><option>Beginner</option><option>Intermediate</option></select></div>
+        <div class="field"><label>How did you hear about us?</label><select class="select"><option>Instagram</option><option>Google</option><option>College</option><option>Friend / Referral</option><option>Other</option></select></div>
+      </div>
+      <button class="next" type="button" onclick="goVerify()">Continue to Verification&nbsp; →</button>
+      <button class="back" type="button" onclick="showStep(2)">← Back</button>
+    </div>
+
+    <div class="form-step hidden otp" id="verifyStep">
+      <h3>Verify Your Mobile Number</h3>
+      <p>We sent a 6-digit OTP to your registered mobile number.</p>
+      <div class="otp-boxes">
+        <input class="otp-box" maxlength="1" inputmode="numeric"><input class="otp-box" maxlength="1" inputmode="numeric">
+        <input class="otp-box" maxlength="1" inputmode="numeric"><input class="otp-box" maxlength="1" inputmode="numeric">
+        <input class="otp-box" maxlength="1" inputmode="numeric"><input class="otp-box" maxlength="1" inputmode="numeric">
+      </div>
+      <div style="color:#687188;font-size:14px">Didn't receive the OTP? <a href="#" style="color:#315cff;font-weight:700">Resend OTP</a></div>
+      <button class="next" type="button" onclick="completeSignup()">Verify & Create Account&nbsp; ✓</button>
+      <button class="back" type="button" onclick="showStep(3)">← Back</button>
+    </div>
+  </form>
+</section>
+</div>
+</main>
+
+<script>
+function showStep(n){
+  const ids=["personalStep","educationStep","interestStep","verifyStep"];
+  ids.forEach((id,i)=>document.getElementById(id).classList.toggle("hidden",i!==n-1));
+  for(let i=1;i<=4;i++){
+    const el=document.getElementById("step"+i);
+    el.classList.toggle("active",i===n);
+    el.classList.toggle("done",i<n);
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function goEducation(){
+  const fields=[document.getElementById("name"),document.getElementById("mobile"),document.getElementById("email"),document.getElementById("dob"),document.getElementById("gender")];
+  if(!fields.every(f=>f.checkValidity())){fields.find(f=>!f.checkValidity()).reportValidity();return;}
+  if(!/^\d{10}$/.test(document.getElementById("mobile").value)){alert("Please enter a valid 10 digit mobile number.");return;}
+  showStep(2);
+}
+function goInterests(){
+  const step=document.getElementById("educationStep");
+  const required=step.querySelectorAll("[required]");
+  for(const f of required){if(!f.checkValidity()){f.reportValidity();return;}}
+  showStep(3);
+}
+function goVerify(){showStep(4);}
+function completeSignup(){alert("Demo: OTP verified. Your Edurup Learning account can now be created.");}
+function showLogin(){alert("Connect this button to your existing Edurup Learning login page.");}
+document.querySelectorAll(".otp-box").forEach((box,i)=>{
+  box.addEventListener("input",e=>{
+    e.target.value=e.target.value.replace(/\D/g,"").slice(0,1);
+    if(e.target.value && i<5) document.querySelectorAll(".otp-box")[i+1].focus();
+  });
+  box.addEventListener("keydown",e=>{
+    if(e.key==="Backspace"&&!e.target.value&&i>0) document.querySelectorAll(".otp-box")[i-1].focus();
+  });
+});
+document.getElementById("mobile").addEventListener("input",e=>e.target.value=e.target.value.replace(/\D/g,"").slice(0,10));
+</script>
+</body>
+</html>

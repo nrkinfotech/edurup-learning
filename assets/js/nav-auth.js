@@ -1,6 +1,5 @@
 /**
- * Edurup Learning - Dynamic Navigation Auth Status Manager
- * Shows "Sign Up / Sign In" when logged out, and a sleek Profile Icon next to "Enquire Now" when logged in.
+ * Edurup Learning - Dynamic Navigation Auth Status & Sign Out Manager
  */
 document.addEventListener('DOMContentLoaded', updateNavAuthStatus);
 
@@ -65,5 +64,26 @@ function updateNavAuthStatus() {
         link.innerHTML = `🔑 Sign Up / Sign In`;
       }
     });
+
+    // Add Sign Out link to mobile nav drawer if logged in
+    let mobileSignout = document.getElementById('mobileSignoutBtn');
+    if (isLoggedIn && !mobileSignout) {
+      const signoutLink = document.createElement('a');
+      signoutLink.id = 'mobileSignoutBtn';
+      signoutLink.href = 'javascript:void(0);';
+      signoutLink.style.color = '#ef4444';
+      signoutLink.style.fontWeight = '700';
+      signoutLink.innerHTML = '🚪 Sign Out';
+      signoutLink.onclick = signOutUser;
+      mobileNav.querySelector('.wrap').appendChild(signoutLink);
+    }
   }
+}
+
+// Global Sign Out Helper Function
+function signOutUser() {
+  localStorage.removeItem('edurup_user_session');
+  localStorage.removeItem('edurup_jwt_token');
+  alert('You have signed out successfully.');
+  window.location.href = 'signup.html';
 }

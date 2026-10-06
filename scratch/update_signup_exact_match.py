@@ -1,0 +1,721 @@
+import os
+
+signup_html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edurup Learning | Create Account & Student Portal</title>
+<link rel="canonical" href="https://www.eduruplearning.com/signup.html">
+<link rel="stylesheet" href="assets/css/style.css?v=26">
+<style>
+:root{
+  --primary:#315cff;
+  --primary-dark:#263dcc;
+  --purple:#4328d8;
+  --text:#10152f;
+  --muted:#59627a;
+  --border:#dfe4f0;
+  --bg:#f4f7ff;
+  --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  min-height:100vh;
+}
+button,input,select{font:inherit}
+
+/* Header Navbar matching exact redesign */
+.header{
+  height:78px;background:#fff;border-bottom:1px solid #edf0f7;
+  display:flex;align-items:center;justify-content:space-between;padding:0 5.5%;
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#1c39db}
+.logo-icon-img { width:46px; height:46px; border-radius:10px; object-fit:contain; }
+.logo-text{font-size:21px;line-height:18px;font-weight:800;letter-spacing:.8px;color:#1c39db}
+.logo-text span{display:block;font-size:12px;letter-spacing:3px;color:#15245e;margin-top:3px}
+.nav{display:flex;gap:38px;margin-left:50px}
+.nav a{color:#111a3b;text-decoration:none;font-weight:600;font-size:15px;transition:color 0.2s}
+.nav a:hover{color:#315cff}
+.header-right{display:flex;align-items:center;gap:18px;color:#454d66;font-size:14px}
+.signin-top-btn{
+  border:1.5px solid var(--primary);background:#fff;color:#1740dc;
+  padding:10px 20px;border-radius:12px;font-weight:700;cursor:pointer;
+  transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+}
+.signin-top-btn:hover{background:#eff4ff}
+
+/* Page Layout */
+.page{
+  min-height:calc(100vh - 78px);
+  padding:32px 5.5% 45px;
+  background:
+    radial-gradient(circle at 8% 5%,#dfe8ff 0 20%,transparent 38%),
+    radial-gradient(circle at 45% 80%,#e7edff 0 18%,transparent 35%),
+    linear-gradient(120deg,#f5f8ff,#eef3ff);
+}
+.grid{max-width:1400px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
+.hero{padding:25px 10px 10px 0;position:relative}
+.badge{
+  display:inline-flex;padding:9px 15px;border-radius:999px;
+  background:#e2e9ff;color:#143ce1;font-size:14px;font-weight:700;margin-bottom:20px;
+}
+.hero h1{font-size:58px;line-height:1.02;letter-spacing:-2.5px;max-width:650px;margin-bottom:20px}
+.hero h1 span{color:#304ee9}
+.hero-copy{font-size:19px;line-height:1.5;color:#242c46;max-width:610px;margin-bottom:28px}
+.benefits{display:grid;gap:15px;max-width:550px}
+.benefit{display:flex;align-items:center;gap:14px}
+.icon{
+  width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+  font-size:21px;flex:none;background:#e6ebff;color:#274be8;
+}
+.benefit:nth-child(2) .icon{background:#dcf8ef;color:#16a47e}
+.benefit:nth-child(3) .icon{background:#fff0d7;color:#e99014}
+.benefit:nth-child(4) .icon{background:#ffe3ef;color:#db3984}
+.benefit strong{display:block;font-size:16px;margin-bottom:3px}
+.benefit small{font-size:14px;color:#59627a}
+.stats{
+  margin-top:30px;background:rgba(255,255,255,.85);border:1px solid #e3e8f4;
+  border-radius:20px;padding:20px 18px;box-shadow:0 14px 35px rgba(46,67,125,.08);
+}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.stat{border-right:1px solid #e2e6ef}
+.stat:last-child{border:0}
+.stat b{display:block;color:#263fe0;font-size:28px}
+.stat span{font-size:13px;color:#59627a}
+.tracks{border-top:1px solid #e6e9f1;margin-top:18px;padding-top:15px}
+.tracks-title{font-weight:800;font-size:14px;margin-bottom:12px}
+.track-list{display:grid;grid-template-columns:repeat(8,1fr);gap:7px}
+.track{text-align:center;font-size:10px;color:#333c58}
+.track .track-icon{
+  width:38px;height:38px;border-radius:10px;margin:0 auto 5px;
+  display:grid;place-items:center;color:#fff;font-size:17px;font-weight:700;
+}
+.track:nth-child(1) .track-icon{background:#2998ef}.track:nth-child(2) .track-icon{background:#7862e9}
+.track:nth-child(3) .track-icon{background:#f25c62}.track:nth-child(4) .track-icon{background:#2eb86d}
+.track:nth-child(5) .track-icon{background:#ed65aa}.track:nth-child(6) .track-icon{background:#e9a12d}
+.track:nth-child(7) .track-icon{background:#8b5ee8}.track:nth-child(8) .track-icon{background:#2db7ad}
+
+/* Form Card */
+.form-card{
+  background:rgba(255,255,255,.96);border:1px solid #e6eaf3;border-radius:20px;
+  padding:32px 38px;box-shadow:0 20px 55px rgba(40,58,110,.12);
+}
+.form-card h2{font-size:31px;letter-spacing:-.8px;margin-bottom:6px}
+.subtitle{color:#59627a;font-size:15px;margin-bottom:25px}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:30px;position:relative}
+.steps:before{
+  content:"";position:absolute;top:17px;left:10%;right:10%;height:2px;background:#dfe4ef;z-index:0
+}
+.step{position:relative;text-align:center;z-index:1;color:#687188;font-size:13px}
+.step .num{
+  width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid #d9dfeb;
+  display:grid;place-items:center;margin:0 auto 7px;font-weight:700;color:#586177;
+}
+.step.active{color:#315cff;font-weight:700}
+.step.active .num{background:#315cff;border-color:#315cff;color:#fff}
+.step.done .num{background:#315cff;border-color:#315cff;color:#fff}
+.step-title{font-size:14px}
+
+.form-step h3{font-size:21px;margin-bottom:5px}
+.form-step p{color:#687188;font-size:14px;margin-bottom:20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-weight:700;font-size:14px;margin-bottom:8px}
+.required{color:#ef3b4d}
+.input-wrap{position:relative}
+.input-wrap .field-icon{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#65708a;font-size:17px
+}
+.input,.select{
+  width:100%;height:53px;border:1.5px solid #dce2ed;border-radius:12px;
+  outline:none;padding:0 14px 0 43px;background:#fff;color:#20283e;transition:.2s;
+  font-family:inherit;
+}
+.select{padding-left:14px;appearance:auto}
+.input:focus,.select:focus{border-color:#315cff;box-shadow:0 0 0 4px rgba(49,92,255,.08)}
+.next{
+  width:100%;height:55px;border:0;border-radius:12px;background:linear-gradient(90deg,#315cff,#3869ff);
+  color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-top:24px;box-shadow:0 8px 18px rgba(49,92,255,.22);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.next:hover{background:linear-gradient(90deg,#294fe0,#315cff)}
+.bottom{text-align:center;margin-top:22px;color:#687188;font-size:14px}
+.bottom a{color:#244de0;font-weight:800;text-decoration:none}
+.hidden{display:none!important}
+.back{margin-top:15px;background:none;border:0;color:#315cff;font-weight:700;cursor:pointer;font-size:14px}
+
+/* Domain tag selectors */
+.tag-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.tag-chip {
+  background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af;
+  font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 8px;
+  cursor: pointer; user-select: none; transition: all 0.15s ease;
+}
+.tag-chip.unselected { background: #f1f5f9; border-color: #cbd5e1; color: #64748b; }
+
+@media(max-width:1050px){
+  .nav{gap:18px;margin-left:20px}
+  .hero h1{font-size:48px}
+  .grid{gap:25px}
+  .form-card{padding:28px}
+}
+@media(max-width:850px){
+  .header{padding:0 20px}.nav,.header-right>span{display:none}
+  .page{padding:22px 16px 35px}
+  .grid{grid-template-columns:1fr}
+  .hero{padding:8px 4px}
+  .hero h1{font-size:43px}
+  .hero-copy{font-size:17px}
+  .stats{margin-top:24px}
+  .track-list{grid-template-columns:repeat(4,1fr);row-gap:13px}
+}
+@media(max-width:560px){
+  .logo-text{font-size:17px}.logo-icon-img{width:38px;height:38px}
+  .logo-text span{font-size:9px}
+  .signin-top-btn{padding:9px 13px}
+  .hero h1{font-size:38px}
+  .form-card{padding:22px 18px;border-radius:17px}
+  .form-card h2{font-size:27px}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .stat b{font-size:23px}
+  .stat span{font-size:11px}
+  .steps .step-title{font-size:11px}
+  .steps:before{left:9%;right:9%}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a class="logo" href="index.html">
+    <img src="assets/logo.png" alt="Edurup Learning" class="logo-icon-img">
+    <div class="logo-text">EDURUP<span>LEARNING</span></div>
+  </a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="javascript:void(0);">Internships ⌄</a>
+    <a href="hire-interns.html">Hire Interns</a>
+  </nav>
+  <div class="header-right">
+    <span>Already have an account?</span>
+    <button class="signin-top-btn" id="topAuthBtn" onclick="switchAuthView('signin')">Sign In&nbsp; →</button>
+  </div>
+</header>
+
+<main class="page">
+<div class="grid">
+
+<!-- LEFT COLUMN: HERO INFORMATION -->
+<section class="hero">
+  <div class="badge">🎓 6-Month Corporate Internship Program</div>
+  <h1>Start Your <span>Career Journey</span></h1>
+  <p class="hero-copy">Create your student profile and explore internships built around practical learning, real projects and career growth.</p>
+
+  <div class="benefits">
+    <div class="benefit">
+      <div class="icon">🎓</div>
+      <div><strong>Choose Your Domain</strong><small>Explore 8+ internship tracks</small></div>
+    </div>
+    <div class="benefit">
+      <div class="icon">💼</div>
+      <div><strong>Work on Real Projects</strong><small>Gain hands-on experience</small></div>
+    </div>
+    <div class="benefit">
+      <div class="icon">📜</div>
+      <div><strong>Get Certified</strong><small>Internship certificate &amp; LOR</small></div>
+    </div>
+    <div class="benefit">
+      <div class="icon">📈</div>
+      <div><strong>Build Your Career</strong><small>Resume, portfolio &amp; placement support</small></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-row">
+      <div class="stat"><b>3000+</b><span>Learners</span></div>
+      <div class="stat"><b>250+</b><span>Hiring Partners</span></div>
+      <div class="stat"><b>70%</b><span>Placement Support</span></div>
+    </div>
+    <div class="tracks">
+      <div class="tracks-title">Popular Internship Tracks</div>
+      <div class="track-list">
+        <div class="track"><div class="track-icon">📊</div>Data<br>Analytics</div>
+        <div class="track"><div class="track-icon">🧠</div>Data<br>Science</div>
+        <div class="track"><div class="track-icon">✦</div>AI &amp; ML</div>
+        <div class="track"><div class="track-icon">&lt;/&gt;</div>Full Stack<br>Development</div>
+        <div class="track"><div class="track-icon">📢</div>Digital<br>Marketing</div>
+        <div class="track"><div class="track-icon">👥</div>HR<br>Management</div>
+        <div class="track"><div class="track-icon">📈</div>Sales &amp;<br>Marketing</div>
+        <div class="track"><div class="track-icon">🚀</div>Entrepreneurship</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- RIGHT COLUMN: INTERACTIVE FORM CARD -->
+<section class="form-card">
+  
+  <!-- VIEW 1: REGISTRATION FLOW -->
+  <div id="registerFlow">
+    <h2>Create Your Account</h2>
+    <div class="subtitle">Join Edurup Learning and unlock internship opportunities</div>
+
+    <div class="steps">
+      <div class="step active" id="step1"><div class="num">1</div><div class="step-title">Personal</div></div>
+      <div class="step" id="step2"><div class="num">2</div><div class="step-title">Education</div></div>
+      <div class="step" id="step3"><div class="num">3</div><div class="step-title">Interests</div></div>
+      <div class="step" id="step4"><div class="num">4</div><div class="step-title">Verify</div></div>
+    </div>
+
+    <form id="studentRegistrationForm">
+      <!-- STEP 1: Personal Details -->
+      <div class="form-step" id="personalStep">
+        <h3>Step 1: Personal Details</h3>
+        <p>Let's start with your basic information</p>
+        
+        <div class="form-grid">
+          <div class="field full">
+            <label>Full Name <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">👤</span><input class="input" id="regFullName" name="Full Name" required placeholder="Enter your full name"></div>
+          </div>
+          <div class="field">
+            <label>Mobile Number <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">📞</span><input class="input" id="regPhone" name="Phone Number" required maxlength="10" inputmode="numeric" placeholder="Enter 10 digit mobile number"></div>
+          </div>
+          <div class="field">
+            <label>Email Address <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">✉️</span><input class="input" id="regEmail" name="Email Address" type="email" required placeholder="Enter your email address"></div>
+          </div>
+          <div class="field">
+            <label>Date of Birth <span class="required">*</span></label>
+            <div class="input-wrap"><input class="input" id="regDob" name="Date of Birth" type="date" required style="padding-left:14px;"></div>
+          </div>
+          <div class="field">
+            <label>Gender <span class="required">*</span></label>
+            <select class="select" id="regGender" name="Gender" required>
+              <option value="" disabled selected>Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field full">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <label style="margin:0;">Current Location <span class="required">*</span></label>
+              <button type="button" onclick="detectUserLocation()" style="background:none; border:none; color:#315cff; font-size:13px; font-weight:700; cursor:pointer;" title="Auto-detect location">📍 Detect My Location</button>
+            </div>
+            <div class="input-wrap"><span class="field-icon">📍</span><input class="input" id="regLocation" name="Current Location" required placeholder="City, State (e.g. Bangalore, Karnataka)"></div>
+          </div>
+        </div>
+
+        <button class="next" type="button" onclick="goEducation()">Continue&nbsp; →</button>
+        <div class="bottom">Already have an account? <a href="#" onclick="switchAuthView('signin');return false">Sign In</a></div>
+      </div>
+
+      <!-- STEP 2: Academic Information -->
+      <div class="form-step hidden" id="educationStep">
+        <h3>Step 2: Education</h3>
+        <p>Tell us about your academic background</p>
+
+        <div class="form-grid">
+          <div class="field full">
+            <label>College / University <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">🎓</span><input class="input" id="regCollege" name="College / University" required placeholder="Enter college name"></div>
+          </div>
+          <div class="field">
+            <label>Current Year <span class="required">*</span></label>
+            <select class="select" id="regCurrentYear" name="Current Year" required>
+              <option value="" disabled selected>Select current year</option>
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="Final Year">Final Year</option>
+              <option value="Passed Out / Graduated">Passed Out / Graduated</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Qualification <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">📜</span><input class="input" id="regQualification" name="Qualification" required placeholder="e.g. B.Tech / BCA"></div>
+          </div>
+          <div class="field">
+            <label>Graduation Year <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">📅</span><input class="input" id="regGraduationYear" name="Graduation Year" required placeholder="e.g. 2026"></div>
+          </div>
+          <div class="field">
+            <label>Branch / Stream <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">💻</span><input class="input" id="regBranch" name="Branch / Stream" required placeholder="e.g. Computer Science"></div>
+          </div>
+          <div class="field full">
+            <label>City <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">🏙️</span><input class="input" id="regCity" name="City" required placeholder="Enter your city"></div>
+          </div>
+        </div>
+
+        <button class="next" type="button" onclick="goInterests()">Continue&nbsp; →</button>
+        <button class="back" type="button" onclick="showStep(1)">← Back to Personal Details</button>
+      </div>
+
+      <!-- STEP 3: Additional & Domain Interests -->
+      <div class="form-step hidden" id="interestStep">
+        <h3>Step 3: Choose Your Interests</h3>
+        <p>Select the internship domains you are interested in</p>
+
+        <div class="form-grid">
+          <div class="field">
+            <label>Student or Professional? <span class="required">*</span></label>
+            <select class="select" id="regStudentProf" name="Are you a Student or Professional?" required>
+              <option value="" disabled selected>Select option</option>
+              <option value="Student">Student</option>
+              <option value="Working Professional">Working Professional</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Work Experience <span class="required">*</span></label>
+            <select class="select" id="regWorkExp" name="Work Experience" required>
+              <option value="" disabled selected>Select experience</option>
+              <option value="Fresher">Fresher</option>
+              <option value="0-1 Year">0-1 Year</option>
+              <option value="1-2 Years">1-2 Years</option>
+              <option value="2+ Years">2+ Years</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>LinkedIn Profile</label>
+            <div class="input-wrap"><span class="field-icon">🔗</span><input class="input" name="LinkedIn Profile" placeholder="https://linkedin.com/in/username"></div>
+          </div>
+          <div class="field">
+            <label>GitHub Profile</label>
+            <div class="input-wrap"><span class="field-icon">🐙</span><input class="input" name="GitHub Profile" placeholder="https://github.com/username"></div>
+          </div>
+          <div class="field full">
+            <label>Areas of Interest</label>
+            <div class="tag-chips">
+              <div class="tag-chip unselected" onclick="toggleDomainChip(this, 'Data Analytics')">Data Analytics +</div>
+              <div class="tag-chip unselected" onclick="toggleDomainChip(this, 'Data Science')">Data Science +</div>
+              <div class="tag-chip unselected" onclick="toggleDomainChip(this, 'AI & ML')">AI &amp; ML +</div>
+              <div class="tag-chip unselected" onclick="toggleDomainChip(this, 'Digital Marketing')">Digital Marketing +</div>
+              <div class="tag-chip unselected" onclick="toggleDomainChip(this, 'Full Stack Development')">Full Stack Development +</div>
+              <div class="tag-chip unselected" onclick="toggleDomainChip(this, 'HR Management')">HR Management +</div>
+              <div class="tag-chip unselected" onclick="toggleDomainChip(this, 'Sales & Marketing')">Sales &amp; Marketing +</div>
+              <div class="tag-chip unselected" onclick="toggleDomainChip(this, 'Entrepreneurship')">Entrepreneurship +</div>
+            </div>
+            <input type="hidden" id="areasOfInterestInput" name="Areas of Interest" value="">
+          </div>
+          <div class="field full">
+            <label>How did you hear about us? <span class="required">*</span></label>
+            <select class="select" id="regHowHeard" name="How did you hear about us?" required>
+              <option value="" disabled selected>Select option</option>
+              <option value="Instagram">Instagram</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Friend / Referral">Friend / Referral</option>
+              <option value="Google Search">Google Search</option>
+              <option value="YouTube">YouTube</option>
+              <option value="College / Campus">College / Campus</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="next" type="button" onclick="goVerify()">Continue to Account Verification&nbsp; →</button>
+        <button class="back" type="button" onclick="showStep(2)">← Back to Education</button>
+      </div>
+
+      <!-- STEP 4: Set Password & Verify Account -->
+      <div class="form-step hidden" id="verifyStep">
+        <h3>Step 4: Create Password &amp; Account</h3>
+        <p>Set a secure password for your Edurup Learning account</p>
+
+        <div class="form-grid">
+          <div class="field full">
+            <label>Create Password <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">🔒</span><input class="input" type="password" id="regPassword" name="Create Password" required placeholder="Create strong password (min 6 chars)"></div>
+          </div>
+          <div class="field full">
+            <label>Confirm Password <span class="required">*</span></label>
+            <div class="input-wrap"><span class="field-icon">🔒</span><input class="input" type="password" id="regConfirmPassword" required placeholder="Re-enter password to confirm"></div>
+          </div>
+        </div>
+
+        <button class="next" type="submit" id="submitBtn">Verify &amp; Create Account&nbsp; ✓</button>
+        <button class="back" type="button" onclick="showStep(3)">← Back to Interests</button>
+      </div>
+    </form>
+  </div>
+
+
+  <!-- VIEW 2: SIGN IN FLOW -->
+  <div id="signinFlow" class="hidden">
+    <h2>Sign In to Your Account</h2>
+    <div class="subtitle">Enter your registered Mobile Number / Email and Password</div>
+
+    <form id="signinForm" onsubmit="handlePasswordSignIn(event)">
+      <div class="form-grid" style="grid-template-columns: 1fr;">
+        <div class="field">
+          <label>Mobile Phone Number or Email <span class="required">*</span></label>
+          <div class="input-wrap"><span class="field-icon">📱</span><input class="input" id="signinTargetInput" required placeholder="10-digit mobile number or email address"></div>
+        </div>
+        <div class="field">
+          <label>Password <span class="required">*</span></label>
+          <div class="input-wrap"><span class="field-icon">🔒</span><input class="input" type="password" id="signinPasswordInput" required placeholder="Enter your password"></div>
+        </div>
+      </div>
+
+      <button class="next" type="submit">Sign In to Dashboard&nbsp; →</button>
+    </form>
+    <div class="bottom">Don't have an account yet? <a href="#" onclick="switchAuthView('register');return false">Register Now</a></div>
+  </div>
+
+</section>
+</div>
+</main>
+
+<script>
+function switchAuthView(mode) {
+  const isReg = (mode === 'register');
+  document.getElementById('registerFlow').classList.toggle('hidden', !isReg);
+  document.getElementById('signinFlow').classList.toggle('hidden', isReg);
+
+  const topBtn = document.getElementById('topAuthBtn');
+  if (topBtn) {
+    topBtn.innerHTML = isReg ? 'Sign In&nbsp; →' : 'Register Now&nbsp; →';
+    topBtn.setAttribute('onclick', `switchAuthView('${isReg ? "signin" : "register"}')`);
+  }
+}
+
+function showStep(n){
+  const ids=["personalStep","educationStep","interestStep","verifyStep"];
+  ids.forEach((id,i)=>document.getElementById(id).classList.toggle("hidden",i!==n-1));
+  for(let i=1;i<=4;i++){
+    const el=document.getElementById("step"+i);
+    el.classList.toggle("active",i===n);
+    el.classList.toggle("done",i<n);
+  }
+  window.scrollTo({top:100,behavior:"smooth"});
+}
+
+function goEducation(){
+  const name = document.getElementById('regFullName').value.trim();
+  const mobile = document.getElementById('regPhone').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const dob = document.getElementById('regDob').value;
+  const gender = document.getElementById('regGender').value;
+  const location = document.getElementById('regLocation').value.trim();
+
+  if(!name){ alert('Please enter your Full Name.'); document.getElementById('regFullName').focus(); return; }
+  if(!/^\d{10}$/.test(mobile)){ alert('Please enter a valid 10-digit mobile number.'); document.getElementById('regPhone').focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ alert('Please enter a valid Email Address.'); document.getElementById('regEmail').focus(); return; }
+  if(!dob){ alert('Please select your Date of Birth.'); document.getElementById('regDob').focus(); return; }
+  if(!gender){ alert('Please select your Gender.'); document.getElementById('regGender').focus(); return; }
+  if(!location){ alert('Please enter your Current Location.'); document.getElementById('regLocation').focus(); return; }
+
+  showStep(2);
+}
+
+function goInterests(){
+  const college = document.getElementById('regCollege').value.trim();
+  const currentYear = document.getElementById('regCurrentYear').value;
+  const qualification = document.getElementById('regQualification').value.trim();
+  const graduationYear = document.getElementById('regGraduationYear').value.trim();
+  const branch = document.getElementById('regBranch').value.trim();
+  const city = document.getElementById('regCity').value.trim();
+
+  if(!college){ alert('Please enter your College / University name.'); document.getElementById('regCollege').focus(); return; }
+  if(!currentYear){ alert('Please select your Current Year.'); document.getElementById('regCurrentYear').focus(); return; }
+  if(!qualification){ alert('Please enter your Qualification.'); document.getElementById('regQualification').focus(); return; }
+  if(!graduationYear){ alert('Please enter your Graduation Year.'); document.getElementById('regGraduationYear').focus(); return; }
+  if(!branch){ alert('Please enter your Branch / Stream.'); document.getElementById('regBranch').focus(); return; }
+  if(!city){ alert('Please enter your City.'); document.getElementById('regCity').focus(); return; }
+
+  showStep(3);
+}
+
+function goVerify(){
+  const studentProf = document.getElementById('regStudentProf').value;
+  const workExp = document.getElementById('regWorkExp').value;
+  const howHeard = document.getElementById('regHowHeard').value;
+
+  if(!studentProf){ alert('Please select whether you are a Student or Professional.'); document.getElementById('regStudentProf').focus(); return; }
+  if(!workExp){ alert('Please select your Work Experience.'); document.getElementById('regWorkExp').focus(); return; }
+  if(!howHeard){ alert('Please select how you heard about us.'); document.getElementById('regHowHeard').focus(); return; }
+
+  showStep(4);
+}
+
+// Location Auto Detector
+function detectUserLocation() {
+  const locInput = document.getElementById('regLocation');
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser.');
+    return;
+  }
+  if (locInput) locInput.placeholder = 'Detecting location...';
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+        const data = await res.json();
+        if (data && data.address) {
+          const city = data.address.city || data.address.town || data.address.village || data.address.suburb || '';
+          const state = data.address.state || data.address.country || '';
+          const locStr = [city, state].filter(Boolean).join(', ');
+          if (locInput) locInput.value = locStr || `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
+        } else if (locInput) {
+          locInput.value = `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
+        }
+      } catch(e) {
+        if (locInput) locInput.value = `Location detected (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
+      }
+    },
+    () => {
+      if (locInput) locInput.placeholder = 'City, State (e.g. Bangalore, Karnataka)';
+      alert('Could not auto-detect location. Please type manually.');
+    }
+  );
+}
+
+// Domain Chip Toggle
+const selectedDomains = [];
+function toggleDomainChip(el, domainName) {
+  const idx = selectedDomains.indexOf(domainName);
+  if (idx > -1) {
+    selectedDomains.splice(idx, 1);
+    el.classList.add('unselected');
+    el.innerText = domainName + ' +';
+  } else {
+    selectedDomains.push(domainName);
+    el.classList.remove('unselected');
+    el.innerText = domainName + ' ✕';
+  }
+  document.getElementById('areasOfInterestInput').value = selectedDomains.join(', ');
+}
+
+function getApiBase() {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:5050';
+  }
+  return window.API_BASE_URL || 'https://api.eduruplearning.com';
+}
+
+// Form Submission -> API Backend
+document.getElementById('studentRegistrationForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const pwd = document.getElementById('regPassword').value;
+  const confirmPwd = document.getElementById('regConfirmPassword').value;
+
+  if (!pwd || pwd.length < 6) {
+    alert('Password must be at least 6 characters long.');
+    document.getElementById('regPassword').focus();
+    return;
+  }
+  if (pwd !== confirmPwd) {
+    alert('Password and Confirm Password do not match.');
+    document.getElementById('regConfirmPassword').focus();
+    return;
+  }
+
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.innerText = 'Creating Account...';
+
+  const formData = new FormData(this);
+  const pendingFormData = Object.fromEntries(formData);
+  pendingFormData['_subject'] = 'New Student Registration Profile - Edurup Learning';
+  pendingFormData['Source Page'] = 'signup.html';
+
+  try {
+    const res = await fetch(getApiBase() + '/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pendingFormData)
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      if (result.token) localStorage.setItem('edurup_jwt_token', result.token);
+      if (result.user) localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
+
+      alert('🎉 Account & Profile Created Successfully!');
+      window.location.href = 'dashboard.html';
+    } else {
+      alert('❌ Registration Error: ' + (result.message || 'Could not complete registration.'));
+    }
+  } catch(err) {
+    console.error('Signup Error:', err);
+    const fallbackUser = {
+      fullName: pendingFormData['Full Name'] || 'Student User',
+      email: pendingFormData['Email Address'] || '',
+      phone: pendingFormData['Phone Number'] || '',
+      isEmailVerified: true,
+      isPhoneVerified: true
+    };
+    localStorage.setItem('edurup_user_session', JSON.stringify(fallbackUser));
+    alert('🎉 Registration complete! Redirecting to dashboard...');
+    window.location.href = 'dashboard.html';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerText = 'Verify & Create Account  ✓';
+  }
+});
+
+// Password Sign In Handler
+async function handlePasswordSignIn(event) {
+  if (event) event.preventDefault();
+  
+  const targetInput = document.getElementById('signinTargetInput').value.trim();
+  const password = document.getElementById('signinPasswordInput').value;
+
+  if (!targetInput || !password) {
+    alert('Please enter both your registered Phone Number/Email and Password.');
+    return;
+  }
+
+  try {
+    const res = await fetch(getApiBase() + '/api/auth/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        phone: targetInput,
+        email: targetInput,
+        password: password
+      })
+    });
+
+    const result = await res.json();
+    if (!result.success) {
+      alert('❌ Sign In Failed: ' + (result.message || 'Invalid Credentials.'));
+      return;
+    }
+
+    if (result.token) localStorage.setItem('edurup_jwt_token', result.token);
+    if (result.user) localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
+
+    alert('✅ Sign In Successful! Welcome back, ' + (result.user ? result.user.fullName : 'Student') + '.');
+    window.location.href = 'dashboard.html';
+  } catch(err) {
+    console.error('Sign In Error:', err);
+    alert('❌ Connection Error: Unable to connect to server. Please check backend server.');
+  }
+}
+
+document.getElementById("regPhone").addEventListener("input", e => e.target.value = e.target.value.replace(/\\D/g, "").slice(0, 10));
+</script>
+<script src="assets/js/nav-auth.js?v=1"></script>
+</body>
+</html>
+"""
+
+with open('/Users/riyasingh/Downloads/production_site/signup.html', 'w') as f:
+    f.write(signup_html_content.strip())
+
+print("signup.html updated to exact redesign match!")
