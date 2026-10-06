@@ -22,24 +22,24 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String
   },
-  dob: { type: String, default: '20 Oct 1990' },
-  gender: { type: String, default: 'Male' },
-  location: { type: String, default: 'Bangalore, Karnataka' },
-  college: { type: String, default: 'RV College of Engineering' },
-  currentYear: { type: String, default: 'Final Year' },
-  qualification: { type: String, default: 'B.Tech' },
-  graduationYear: { type: String, default: '2026' },
-  branch: { type: String, default: 'Computer Science' },
-  city: { type: String, default: 'Bangalore, Karnataka' },
+  dob: { type: String, default: '' },
+  gender: { type: String, default: '' },
+  location: { type: String, default: '' },
+  college: { type: String, default: '' },
+  currentYear: { type: String, default: '' },
+  qualification: { type: String, default: '' },
+  graduationYear: { type: String, default: '' },
+  branch: { type: String, default: '' },
+  city: { type: String, default: '' },
   isStudentOrProfessional: { type: String, default: 'Student' },
   workExperience: { type: String, default: 'Fresher' },
-  linkedin: { type: String, default: 'https://linkedin.com/in/rahulkumar' },
-  github: { type: String, default: 'https://github.com/rahulkumar' },
+  linkedin: { type: String, default: '' },
+  github: { type: String, default: '' },
   areasOfInterest: {
     type: [String],
-    default: ['Data Analytics', 'Data Science', 'AI & ML', 'Digital Marketing']
+    default: []
   },
-  howDidYouHear: { type: String, default: 'Instagram' },
+  howDidYouHear: { type: String, default: '' },
   isEmailVerified: { type: Boolean, default: false },
   isPhoneVerified: { type: Boolean, default: false },
   emailOtp: {

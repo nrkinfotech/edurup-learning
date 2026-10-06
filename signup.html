@@ -665,8 +665,7 @@
                 <label class="sp-label">Date of Birth<span class="sp-req">*</span></label>
               </div>
               <div class="sp-input-container">
-                <input type="text" name="Date of Birth" class="sp-input" required placeholder="e.g. 20 Oct 2002">
-                <span class="sp-input-icon">📅</span>
+                <input type="date" id="regDob" name="Date of Birth" class="sp-input" required style="font-family:inherit;">
               </div>
             </div>
 
@@ -674,7 +673,7 @@
               <div class="sp-label-row">
                 <label class="sp-label">Gender<span class="sp-req">*</span></label>
               </div>
-              <select name="Gender" class="sp-select" required>
+              <select name="Gender" id="regGender" class="sp-select" required>
                 <option value="" disabled selected>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -685,10 +684,11 @@
             <div class="sp-field">
               <div class="sp-label-row">
                 <label class="sp-label">Current Location<span class="sp-req">*</span></label>
+                <button type="button" onclick="detectUserLocation()" style="background:none; border:none; color:#2563eb; font-size:0.78rem; font-weight:700; cursor:pointer;" title="Auto-detect location">📍 Detect My Location</button>
               </div>
               <div class="sp-input-container">
                 <span class="sp-social-prefix" style="left:12px;">📍</span>
-                <input type="text" name="Current Location" class="sp-input sp-input-social" required placeholder="City, State">
+                <input type="text" id="regLocation" name="Current Location" class="sp-input sp-input-social" required placeholder="City, State (e.g. Bangalore, Karnataka)">
               </div>
             </div>
           </div>
@@ -1041,23 +1041,83 @@
       }
     }
 
-    function getApiBase() {
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return 'http://localhost:5050';
+    function detectUserLocation() {
+      const locInput = document.getElementById('regLocation');
+      if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser. Please type your City, State manually.');
+        return;
       }
-      return window.API_BASE_URL || 'https://api.eduruplearning.com';
+      if (locInput) locInput.placeholder = 'Detecting location...';
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+            const data = await res.json();
+            if (data && data.address) {
+              const city = data.address.city || data.address.town || data.address.village || data.address.suburb || '';
+              const state = data.address.state || data.address.country || '';
+              const locStr = [city, state].filter(Boolean).join(', ');
+              if (locInput) locInput.value = locStr || `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
+            } else if (locInput) {
+              locInput.value = `Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
+            }
+          } catch(e) {
+            if (locInput) locInput.value = `Location detected (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
+          }
+        },
+        (error) => {
+          if (locInput) locInput.placeholder = 'City, State (e.g. Bangalore, Karnataka)';
+          alert('Could not auto-detect location. Please type your City, State manually.');
+        }
+      );
     }
 
     // Registration Form Submission -> Saves User & Password to MongoDB
     document.getElementById('studentRegistrationForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      
+
+      const form = this;
+      const formData = new FormData(form);
+      const pendingFormData = Object.fromEntries(formData);
+
+      // 1. Validate Email Format
+      const email = (pendingFormData['Email Address'] || '').trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        alert('⚠️ Invalid Email Address format. Please enter a valid email address (e.g. name@example.com).');
+        const emailEl = document.getElementById('regEmail');
+        if (emailEl) emailEl.focus();
+        return;
+      }
+
+      // 2. Validate Phone Number (10 digits)
+      const rawPhone = (pendingFormData['Phone Number'] || '').replace(/\D/g, '');
+      const phoneDigits = rawPhone.slice(-10);
+      if (phoneDigits.length !== 10 || !/^[6-9]\d{9}$/.test(phoneDigits)) {
+        alert('⚠️ Invalid Phone Number. Please enter a valid 10-digit Indian mobile number (e.g. 9876543210).');
+        const phoneEl = document.getElementById('regPhone');
+        if (phoneEl) phoneEl.focus();
+        return;
+      }
+      pendingFormData['Phone Number'] = phoneDigits;
+
+      // 3. Strict Check for Mandatory Fields
+      const requiredInputs = form.querySelectorAll('input[required], select[required]');
+      for (const input of requiredInputs) {
+        if (!input.value || !input.value.trim()) {
+          const label = input.name || input.id || 'required field';
+          alert(`⚠️ Mandatory Field Missing: Please fill out "${label}". All fields are required.`);
+          input.focus();
+          return;
+        }
+      }
+
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
       submitBtn.innerText = 'Creating Profile & Password...';
 
-      const formData = new FormData(this);
-      const pendingFormData = Object.fromEntries(formData);
       pendingFormData['_subject'] = 'New Student Registration Profile - Edurup Learning';
       pendingFormData['Source Page'] = 'signup.html';
 
@@ -1076,7 +1136,7 @@
           if (result.user) {
             localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
           }
-          alert('🎉 Registration Successful! Account and Password saved to MongoDB.');
+          alert('🎉 Registration Successful! Account and Profile saved to MongoDB.');
           window.location.href = 'dashboard.html';
         } else {
           alert('❌ Registration Error: ' + (result.message || 'Could not complete registration.'));
@@ -1085,8 +1145,21 @@
         console.error('Signup Error:', err);
         const fallbackUser = {
           fullName: pendingFormData['Full Name'] || 'Student User',
-          email: pendingFormData['Email Address'] || '',
-          phone: pendingFormData['Phone Number'] || '',
+          email: email,
+          phone: phoneDigits,
+          dob: pendingFormData['Date of Birth'] || '',
+          gender: pendingFormData['Gender'] || '',
+          location: pendingFormData['Current Location'] || '',
+          college: pendingFormData['College / University'] || '',
+          currentYear: pendingFormData['Current Year'] || '',
+          qualification: pendingFormData['Qualification'] || '',
+          graduationYear: pendingFormData['Graduation Year'] || '',
+          branch: pendingFormData['Branch / Stream'] || '',
+          city: pendingFormData['City'] || '',
+          isStudentOrProfessional: pendingFormData['Are you a Student or Professional?'] || 'Student',
+          workExperience: pendingFormData['Work Experience'] || 'Fresher',
+          linkedin: pendingFormData['LinkedIn Profile'] || '',
+          github: pendingFormData['GitHub Profile'] || '',
           isEmailVerified: true,
           isPhoneVerified: true
         };

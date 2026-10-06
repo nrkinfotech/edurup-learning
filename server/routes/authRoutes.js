@@ -113,21 +113,21 @@ router.post('/signup', async (req, res) => {
         password: hashedPassword,
         isEmailVerified: true,
         isPhoneVerified: true,
-        dob: dob || '20 Oct 1990',
-        gender: gender || 'Male',
-        location: location || 'Bangalore, Karnataka',
-        college: college || 'RV College of Engineering',
-        currentYear: currentYear || 'Final Year',
-        qualification: qualification || 'B.Tech',
-        graduationYear: graduationYear || '2026',
-        branch: branch || 'Computer Science',
-        city: city || 'Bangalore, Karnataka',
+        dob: dob || '',
+        gender: gender || '',
+        location: location || '',
+        college: college || '',
+        currentYear: currentYear || '',
+        qualification: qualification || '',
+        graduationYear: graduationYear || '',
+        branch: branch || '',
+        city: city || '',
         isStudentOrProfessional: isStudentOrProfessional || 'Student',
         workExperience: workExperience || 'Fresher',
-        linkedin: linkedin || 'https://linkedin.com/in/rahulkumar',
-        github: github || 'https://github.com/rahulkumar',
+        linkedin: linkedin || '',
+        github: github || '',
         areasOfInterest,
-        howDidYouHear: howDidYouHear || 'Instagram'
+        howDidYouHear: howDidYouHear || ''
       });
     }
 

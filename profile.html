@@ -764,7 +764,7 @@
             <div class="sp-personal-grid">
               <div class="sp-avatar-box">
                 <div class="sp-avatar-wrapper">
-                  <img id="profileAvatarImg" class="sp-avatar-img" src="assets/testimonial-rahul.jpg" alt="Rahul Kumar">
+                  <img id="profileAvatarImg" class="sp-avatar-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-3.8-1.03-4.83-2.58.03-1.6 3.22-2.47 4.83-2.47 1.61 0 4.8 1.02 4.83 2.47C15.8 18.97 14.03 20 12 20z'/></svg>" alt="User Profile Avatar">
                   <div class="sp-camera-badge" onclick="document.getElementById('profilePhotoInput').click()" title="Change photo">📷</div>
                 </div>
                 <button type="button" class="sp-upload-btn" onclick="document.getElementById('profilePhotoInput').click()">Upload Photo</button>
@@ -775,42 +775,42 @@
               <div class="sp-form-grid">
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Full Name<span class="sp-req">*</span></label></div>
-                  <input type="text" id="valFullName" class="sp-input" value="Rahul Kumar" disabled>
+                  <input type="text" id="valFullName" class="sp-input" value="" placeholder="Full Name" disabled>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row">
                     <label class="sp-label">Email Address<span class="sp-req">*</span></label>
                     <span class="badge-verified-sm" id="badgeEmailVerified">Verified ✓</span>
                   </div>
-                  <input type="email" id="valEmail" class="sp-input" value="rahul@gmail.com" disabled>
+                  <input type="email" id="valEmail" class="sp-input" value="" placeholder="Email Address" disabled>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row">
                     <label class="sp-label">Phone Number<span class="sp-req">*</span></label>
                     <span class="badge-verified-sm" id="badgePhoneVerified">Verified ✓</span>
                   </div>
-                  <input type="tel" id="valPhone" class="sp-input" value="+91 98765 43210" disabled>
+                  <input type="tel" id="valPhone" class="sp-input" value="" placeholder="Phone Number" disabled>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Date of Birth<span class="sp-req">*</span></label></div>
                   <div class="sp-input-container">
-                    <input type="text" id="valDob" class="sp-input" value="20 Oct 1990" disabled>
-                    <span class="sp-input-icon">📅</span>
+                    <input type="date" id="valDob" class="sp-input" value="" disabled style="font-family:inherit;">
                   </div>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Gender<span class="sp-req">*</span></label></div>
                   <select id="valGender" class="sp-select" disabled>
-                    <option selected>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
                 <div class="sp-field">
                   <div class="sp-label-row"><label class="sp-label">Current Location<span class="sp-req">*</span></label></div>
                   <div class="sp-input-container">
                     <span class="sp-social-prefix">📍</span>
-                    <input type="text" id="valLocation" class="sp-input sp-input-social" value="Bangalore, Karnataka" disabled>
+                    <input type="text" id="valLocation" class="sp-input sp-input-social" value="" placeholder="City, State" disabled>
                   </div>
                 </div>
               </div>
@@ -833,27 +833,34 @@
             <div class="sp-form-grid">
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">College / University<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="RV College of Engineering" disabled>
+                <input type="text" id="valCollege" class="sp-input" value="" placeholder="College Name" disabled>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Current Year<span class="sp-req">*</span></label></div>
-                <select class="sp-select" disabled><option selected>Final Year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option></select>
+                <select id="valCurrentYear" class="sp-select" disabled>
+                  <option value="" disabled selected>Select Current Year</option>
+                  <option value="1st Year">1st Year</option>
+                  <option value="2nd Year">2nd Year</option>
+                  <option value="3rd Year">3rd Year</option>
+                  <option value="Final Year">Final Year</option>
+                  <option value="Passed Out / Graduated">Passed Out / Graduated</option>
+                </select>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Qualification<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="B.Tech" disabled>
+                <input type="text" id="valQualification" class="sp-input" value="" placeholder="Degree (e.g. B.Tech)" disabled>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Graduation Year<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="2026" disabled>
+                <input type="text" id="valGraduationYear" class="sp-input" value="" placeholder="e.g. 2026" disabled>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Branch / Stream<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="Computer Science" disabled>
+                <input type="text" id="valBranch" class="sp-input" value="" placeholder="Stream (e.g. Computer Science)" disabled>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">City<span class="sp-req">*</span></label></div>
-                <input type="text" class="sp-input" value="Bangalore, Karnataka" disabled>
+                <input type="text" id="valCity" class="sp-input" value="" placeholder="City" disabled>
               </div>
             </div>
           </div>
@@ -874,39 +881,61 @@
             <div class="sp-form-grid">
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Are you a Student or Professional?<span class="sp-req">*</span></label></div>
-                <select class="sp-select" disabled><option selected>Student</option><option>Working Professional</option></select>
+                <select id="valIsStudentOrProfessional" class="sp-select" disabled>
+                  <option value="" disabled selected>Select Option</option>
+                  <option value="Student">Student</option>
+                  <option value="Working Professional">Working Professional</option>
+                </select>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">Work Experience</label></div>
-                <select class="sp-select" disabled><option selected>Fresher</option><option>0-1 Year</option><option>1-2 Years</option><option>2+ Years</option></select>
+                <select id="valWorkExperience" class="sp-select" disabled>
+                  <option value="" disabled selected>Select Work Experience</option>
+                  <option value="Fresher">Fresher</option>
+                  <option value="0-1 Year">0-1 Year</option>
+                  <option value="1-2 Years">1-2 Years</option>
+                  <option value="2+ Years">2+ Years</option>
+                </select>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">LinkedIn Profile</label></div>
                 <div class="sp-input-container">
                   <span class="sp-social-prefix">🔗</span>
-                  <input type="url" class="sp-input sp-input-social" value="https://linkedin.com/in/rahulkumar" disabled>
+                  <input type="url" id="valLinkedin" class="sp-input sp-input-social" value="" placeholder="https://linkedin.com/in/username" disabled>
                 </div>
               </div>
               <div class="sp-field">
                 <div class="sp-label-row"><label class="sp-label">GitHub Profile</label></div>
                 <div class="sp-input-container">
                   <span class="sp-social-prefix">🐙</span>
-                  <input type="url" class="sp-input sp-input-social" value="https://github.com/rahulkumar" disabled>
+                  <input type="url" id="valGithub" class="sp-input sp-input-social" value="" placeholder="https://github.com/username" disabled>
                 </div>
               </div>
               <div class="sp-field full-width">
                 <div class="sp-label-row"><label class="sp-label">Areas of Interest</label></div>
-                <div class="sp-tags-box">
-                  <div class="sp-tag-chip" onclick="toggleProfileTag(this)">Data Analytics ✕</div>
-                  <div class="sp-tag-chip" onclick="toggleProfileTag(this)">Data Science ✕</div>
-                  <div class="sp-tag-chip" onclick="toggleProfileTag(this)">AI &amp; ML ✕</div>
-                  <div class="sp-tag-chip" onclick="toggleProfileTag(this)">Digital Marketing ✕</div>
+                <div class="sp-tags-box" id="profileTagsBox">
+                  <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">Data Analytics +</div>
+                  <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">Data Science +</div>
+                  <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">AI &amp; ML +</div>
+                  <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">Digital Marketing +</div>
                   <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">Full Stack Development +</div>
+                  <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">HR Management +</div>
+                  <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">Sales &amp; Marketing +</div>
+                  <div class="sp-tag-chip unselected" onclick="toggleProfileTag(this)">Entrepreneurship +</div>
                 </div>
               </div>
               <div class="sp-field full-width">
                 <div class="sp-label-row"><label class="sp-label">How did you hear about us?</label></div>
-                <select class="sp-select" disabled><option selected>Instagram</option><option>LinkedIn</option><option>Friend</option></select>
+                <select id="valHowDidYouHear" class="sp-select" disabled>
+                  <option value="" disabled selected>Select Option</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Friend / Referral">Friend / Referral</option>
+                  <option value="Google Search">Google Search</option>
+                  <option value="YouTube">YouTube</option>
+                  <option value="College / Campus">College / Campus</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
             </div>
           </div>
@@ -1053,6 +1082,73 @@
       return window.API_BASE_URL || 'https://api.eduruplearning.com';
     }
 
+    function applyUserToUI(u) {
+      if (!u) return;
+
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined && val !== null) el.value = val;
+      };
+
+      setVal('valFullName', u.fullName || u.name || '');
+      setVal('valEmail', u.email || '');
+      setVal('valPhone', u.phone || '');
+      setVal('valDob', u.dob || '');
+      setVal('valGender', u.gender || '');
+      setVal('valLocation', u.location || '');
+      setVal('valCollege', u.college || '');
+      setVal('valCurrentYear', u.currentYear || '');
+      setVal('valQualification', u.qualification || '');
+      setVal('valGraduationYear', u.graduationYear || '');
+      setVal('valBranch', u.branch || '');
+      setVal('valCity', u.city || '');
+      setVal('valIsStudentOrProfessional', u.isStudentOrProfessional || '');
+      setVal('valWorkExperience', u.workExperience || '');
+      setVal('valLinkedin', u.linkedin || '');
+      setVal('valGithub', u.github || '');
+      setVal('valHowDidYouHear', u.howDidYouHear || '');
+
+      // Avatar
+      const avatarImg = document.getElementById('profileAvatarImg');
+      if (avatarImg) {
+        if (u.photo) {
+          avatarImg.src = u.photo;
+        } else {
+          const userName = u.fullName || u.name || 'Student';
+          avatarImg.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=2563eb&color=ffffff&size=128`;
+        }
+      }
+
+      // Badges
+      const emailBadge = document.getElementById('badgeEmailVerified');
+      const phoneBadge = document.getElementById('badgePhoneVerified');
+      if (emailBadge) {
+        emailBadge.innerHTML = u.isEmailVerified !== false ? 'Verified ✓' : 'Unverified ⚠️';
+        emailBadge.style.background = u.isEmailVerified !== false ? '#dcfce7' : '#fef3c7';
+        emailBadge.style.color = u.isEmailVerified !== false ? '#166534' : '#b45309';
+      }
+      if (phoneBadge) {
+        phoneBadge.innerHTML = u.isPhoneVerified !== false ? 'Verified ✓' : 'Unverified ⚠️';
+        phoneBadge.style.background = u.isPhoneVerified !== false ? '#dcfce7' : '#fef3c7';
+        phoneBadge.style.color = u.isPhoneVerified !== false ? '#166534' : '#b45309';
+      }
+
+      // Areas of Interest Tags
+      if (u.areasOfInterest && Array.isArray(u.areasOfInterest)) {
+        const tagChips = document.querySelectorAll('#profileTagsBox .sp-tag-chip');
+        tagChips.forEach(chip => {
+          const tagName = chip.innerText.replace(/[+✕]/g, '').trim();
+          if (u.areasOfInterest.includes(tagName)) {
+            chip.classList.remove('unselected');
+            chip.innerHTML = `${tagName} ✕`;
+          } else {
+            chip.classList.add('unselected');
+            chip.innerHTML = `${tagName} +`;
+          }
+        });
+      }
+    }
+
     async function loadUserProfile() {
       const session = localStorage.getItem('edurup_user_session');
       const token = localStorage.getItem('edurup_jwt_token');
@@ -1066,27 +1162,10 @@
       if (session) {
         try {
           const u = JSON.parse(session);
-          if (u.fullName) document.getElementById('valFullName').value = u.fullName;
-          if (u.email) document.getElementById('valEmail').value = u.email;
-          if (u.phone) document.getElementById('valPhone').value = u.phone;
-          if (u.location) document.getElementById('valLocation').value = u.location;
-          
-          const emailBadge = document.getElementById('badgeEmailVerified');
-          const phoneBadge = document.getElementById('badgePhoneVerified');
-          if (emailBadge) {
-            emailBadge.innerHTML = u.isEmailVerified !== false ? 'Verified ✓' : 'Unverified ⚠️';
-            emailBadge.style.background = u.isEmailVerified !== false ? '#dcfce7' : '#fef3c7';
-            emailBadge.style.color = u.isEmailVerified !== false ? '#166534' : '#b45309';
-          }
-          if (phoneBadge) {
-            phoneBadge.innerHTML = u.isPhoneVerified !== false ? 'Verified ✓' : 'Unverified ⚠️';
-            phoneBadge.style.background = u.isPhoneVerified !== false ? '#dcfce7' : '#fef3c7';
-            phoneBadge.style.color = u.isPhoneVerified !== false ? '#166534' : '#b45309';
-          }
+          applyUserToUI(u);
         } catch(e) {}
       }
 
-      const token = localStorage.getItem('edurup_jwt_token');
       if (token) {
         try {
           const res = await fetch(getApiBase() + '/api/auth/me', {
@@ -1094,24 +1173,8 @@
           });
           const data = await res.json();
           if (data.success && data.user) {
-            const u = data.user;
-            if (u.fullName) document.getElementById('valFullName').value = u.fullName;
-            if (u.email) document.getElementById('valEmail').value = u.email;
-            if (u.phone) document.getElementById('valPhone').value = u.phone;
-            if (u.location) document.getElementById('valLocation').value = u.location;
-
-            const emailBadge = document.getElementById('badgeEmailVerified');
-            const phoneBadge = document.getElementById('badgePhoneVerified');
-            if (emailBadge) {
-              emailBadge.innerHTML = u.isEmailVerified ? 'Verified ✓' : 'Unverified ⚠️';
-              emailBadge.style.background = u.isEmailVerified ? '#dcfce7' : '#fef3c7';
-              emailBadge.style.color = u.isEmailVerified ? '#166534' : '#b45309';
-            }
-            if (phoneBadge) {
-              phoneBadge.innerHTML = u.isPhoneVerified ? 'Verified ✓' : 'Unverified ⚠️';
-              phoneBadge.style.background = u.isPhoneVerified ? '#dcfce7' : '#fef3c7';
-              phoneBadge.style.color = u.isPhoneVerified ? '#166534' : '#b45309';
-            }
+            applyUserToUI(data.user);
+            localStorage.setItem('edurup_user_session', JSON.stringify(data.user));
           }
         } catch(e) {}
       }
@@ -1119,14 +1182,46 @@
 
     // Save Profile Data to MongoDB & localStorage
     async function saveProfileData() {
+      const getVal = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value : '';
+      };
+
+      const selectedTags = [];
+      const tagChips = document.querySelectorAll('#profileTagsBox .sp-tag-chip:not(.unselected)');
+      tagChips.forEach(chip => {
+        selectedTags.push(chip.innerText.replace(/[+✕]/g, '').trim());
+      });
+
       const profile = {
-        fullName: document.getElementById('valFullName').value,
-        email: document.getElementById('valEmail').value,
-        phone: document.getElementById('valPhone').value,
-        location: document.getElementById('valLocation').value,
+        fullName: getVal('valFullName'),
+        email: getVal('valEmail'),
+        phone: getVal('valPhone'),
+        dob: getVal('valDob'),
+        gender: getVal('valGender'),
+        location: getVal('valLocation'),
+        college: getVal('valCollege'),
+        currentYear: getVal('valCurrentYear'),
+        qualification: getVal('valQualification'),
+        graduationYear: getVal('valGraduationYear'),
+        branch: getVal('valBranch'),
+        city: getVal('valCity'),
+        isStudentOrProfessional: getVal('valIsStudentOrProfessional'),
+        workExperience: getVal('valWorkExperience'),
+        linkedin: getVal('valLinkedin'),
+        github: getVal('valGithub'),
+        areasOfInterest: selectedTags,
+        howDidYouHear: getVal('valHowDidYouHear'),
         updatedAt: new Date().toISOString()
       };
-      localStorage.setItem('edurup_user_profile', JSON.stringify(profile));
+
+      const existingSession = localStorage.getItem('edurup_user_session');
+      if (existingSession) {
+        try {
+          const oldU = JSON.parse(existingSession);
+          localStorage.setItem('edurup_user_session', JSON.stringify({ ...oldU, ...profile }));
+        } catch(e) {}
+      }
 
       const token = localStorage.getItem('edurup_jwt_token');
       if (token) {
