@@ -49,23 +49,23 @@ button,input,select{font:inherit}
 /* Page Layout */
 .page{
   min-height:calc(100vh - 78px);
-  padding:32px 5.5% 45px;
+  padding:40px 5.5% 55px;
   background:
-    radial-gradient(circle at 8% 5%,#dfe8ff 0 20%,transparent 38%),
-    radial-gradient(circle at 45% 80%,#e7edff 0 18%,transparent 35%),
+    radial-gradient(circle at 8% 5%,#dfe8ff 0 22%,transparent 40%),
+    radial-gradient(circle at 45% 80%,#e7edff 0 20%,transparent 38%),
     linear-gradient(120deg,#f5f8ff,#eef3ff);
 }
-.grid{max-width:1400px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
-.hero{padding:25px 10px 10px 0;position:relative}
+.grid{max-width:1400px;margin:auto;display:grid;grid-template-columns:1.15fr 0.85fr;gap:45px;align-items:flex-start}
+.hero{padding:10px 0;position:relative;width:100%}
 .badge{
-  display:inline-flex;padding:9px 15px;border-radius:999px;
-  background:#e2e9ff;color:#143ce1;font-size:14px;font-weight:700;margin-bottom:20px;
+  display:inline-flex;padding:9px 18px;border-radius:999px;
+  background:#e2e9ff;color:#143ce1;font-size:14px;font-weight:700;margin-bottom:22px;
 }
-.hero h1{font-size:50px;line-height:1.05;letter-spacing:-2px;max-width:600px;margin-bottom:16px}
+.hero h1{font-size:52px;line-height:1.06;letter-spacing:-2px;max-width:640px;margin-bottom:18px}
 .hero h1 span{color:#304ee9}
-.hero-copy{font-size:19px;line-height:1.5;color:#242c46;max-width:610px;margin-bottom:28px}
-.benefits{display:grid;gap:15px;max-width:550px}
-.benefit{display:flex;align-items:center;gap:14px}
+.hero-copy{font-size:19px;line-height:1.5;color:#242c46;max-width:620px;margin-bottom:30px}
+.benefits{display:grid;gap:16px;max-width:580px;margin-bottom:32px}
+.benefit{display:flex;align-items:center;gap:15px}
 .icon{
   width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
   font-size:21px;flex:none;background:#e6ebff;color:#274be8;
@@ -76,31 +76,33 @@ button,input,select{font:inherit}
 .benefit strong{display:block;font-size:16px;margin-bottom:3px}
 .benefit small{font-size:14px;color:#59627a}
 .stats{
-  margin-top:28px;max-width:580px;background:rgba(255,255,255,.9);border:1px solid #e3e8f4;
-  border-radius:18px;padding:18px 16px;box-shadow:0 12px 32px rgba(46,67,125,.07);
+  margin-top:10px;width:100%;background:#ffffff;border-radius:24px;
+  padding:24px 24px;box-shadow:0 18px 45px rgba(28,45,95,.07);
 }
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;align-items:center}
-.stat{border-right:1px solid #e2e6ef;padding:0 4px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;align-items:center;padding-bottom:18px;border-bottom:1px solid #f0f3fa}
+.stat{border-right:1px solid #e2e7f3;padding:0 6px}
 .stat:last-child{border:0}
-.stat b{display:block;color:#263fe0;font-size:26px;font-weight:800;line-height:1.1;margin-bottom:2px}
-.stat span{font-size:12.5px;color:#59627a;font-weight:600}
-.tracks{border-top:1px solid #e6e9f1;margin-top:16px;padding-top:14px}
-.tracks-title{font-weight:800;font-size:13px;color:#1e2742;margin-bottom:12px;letter-spacing:-.1px}
+.stat b{display:block;color:#254ee9;font-size:30px;font-weight:800;line-height:1.1;margin-bottom:4px}
+.stat span{font-size:13.5px;color:#616c88;font-weight:500}
+.tracks{margin-top:18px}
+.tracks-title{font-weight:700;font-size:15px;color:#10172e;margin-bottom:16px;text-align:left}
 .track-list{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;align-items:start}
-.track{text-align:center;font-size:9.5px;line-height:1.15;color:#333c58;font-weight:600;word-break:normal}
+.track{display:flex;flex-direction:column;align-items:center;text-align:center}
 .track .track-icon{
-  width:36px;height:36px;border-radius:10px;margin:0 auto 5px;
-  display:grid;place-items:center;color:#fff;font-size:16px;font-weight:700;
-  box-shadow:0 3px 8px rgba(0,0,0,.08);
+  width:44px;height:44px;border-radius:13px;margin:0 auto 7px;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);transition:transform .2s ease;
 }
-.track:nth-child(1) .track-icon{background:linear-gradient(135deg,#2998ef,#1d7fd1)}
-.track:nth-child(2) .track-icon{background:linear-gradient(135deg,#7862e9,#5d46d4)}
-.track:nth-child(3) .track-icon{background:linear-gradient(135deg,#f25c62,#d83d43)}
-.track:nth-child(4) .track-icon{background:linear-gradient(135deg,#2eb86d,#1e9854)}
-.track:nth-child(5) .track-icon{background:linear-gradient(135deg,#ed65aa,#cb4387)}
-.track:nth-child(6) .track-icon{background:linear-gradient(135deg,#e9a12d,#c98212)}
-.track:nth-child(7) .track-icon{background:linear-gradient(135deg,#8b5ee8,#6e3fd0)}
-.track:nth-child(8) .track-icon{background:linear-gradient(135deg,#2db7ad,#19968d)}
+.track .track-icon:hover{transform:translateY(-2px)}
+.track-icon.icon-da{background:#1d8cf8}
+.track-icon.icon-ds{background:#7c3aed}
+.track-icon.icon-aiml{background:#f43f5e}
+.track-icon.icon-fsd{background:#10b981}
+.track-icon.icon-dm{background:#ec4899}
+.track-icon.icon-hr{background:#eab308}
+.track-icon.icon-sm{background:#6366f1}
+.track-icon.icon-ent{background:#06b6d4}
+.track-label{font-size:10.5px;line-height:1.2;color:#334155;font-weight:600;text-align:center;word-break:normal}
 
 /* Form Card */
 .form-card{
@@ -249,14 +251,54 @@ button,input,select{font:inherit}
     <div class="tracks">
       <div class="tracks-title">Popular Internship Tracks</div>
       <div class="track-list">
-        <div class="track"><div class="track-icon">📊</div>Data<br>Analytics</div>
-        <div class="track"><div class="track-icon">🧠</div>Data<br>Science</div>
-        <div class="track"><div class="track-icon">✦</div>AI &amp; ML</div>
-        <div class="track"><div class="track-icon">&lt;/&gt;</div>Full Stack<br>Development</div>
-        <div class="track"><div class="track-icon">📢</div>Digital<br>Marketing</div>
-        <div class="track"><div class="track-icon">👥</div>HR<br>Management</div>
-        <div class="track"><div class="track-icon">📈</div>Sales &amp;<br>Marketing</div>
-        <div class="track"><div class="track-icon">🚀</div>Entrepreneurship</div>
+        <div class="track">
+          <div class="track-icon icon-da">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          </div>
+          <div class="track-label">Data<br>Analytics</div>
+        </div>
+        <div class="track">
+          <div class="track-icon icon-ds">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+          </div>
+          <div class="track-label">Data<br>Science</div>
+        </div>
+        <div class="track">
+          <div class="track-icon icon-aiml">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+          </div>
+          <div class="track-label">AI &amp; ML</div>
+        </div>
+        <div class="track">
+          <div class="track-icon icon-fsd">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="track-label">Full Stack<br>Development</div>
+        </div>
+        <div class="track">
+          <div class="track-icon icon-dm">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2" transform="rotate(45 12 12)"/></svg>
+          </div>
+          <div class="track-label">Digital<br>Marketing</div>
+        </div>
+        <div class="track">
+          <div class="track-icon icon-hr">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="track-label">HR<br>Management</div>
+        </div>
+        <div class="track">
+          <div class="track-icon icon-sm">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+          <div class="track-label">Sales &amp;<br>Marketing</div>
+        </div>
+        <div class="track">
+          <div class="track-icon icon-ent">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.26-1.5 1.5-2.5l-3-3c-1 0-1.79.79-1.5 2.5z"/><path d="M15 9l-3 3"/><path d="M9 15l3-3"/><path d="M12 12l5-5c1.5-1.5 4.5-2 4.5-2s-.5 3-2 4.5l-5 5"/></svg>
+          </div>
+          <div class="track-label">Entrepreneurship</div>
+        </div>
       </div>
     </div>
   </div>
