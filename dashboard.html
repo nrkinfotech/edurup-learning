@@ -1065,9 +1065,9 @@
         try { user = JSON.parse(sessionStr); } catch(e) {}
       }
 
-      let razorpayKey = localStorage.getItem('edurup_razorpay_key_id') || 'rzp_live_TK6VuE6snfPEwa';
-      if (razorpayKey && (razorpayKey.trim() === 'rzp_test_' || razorpayKey.trim().length < 12)) {
-        razorpayKey = 'rzp_live_TK6VuE6snfPEwa';
+      let razorpayKey = localStorage.getItem('edurup_razorpay_key_id') || 'rzp_live_TkeiDdCJIZzmpX';
+      if (razorpayKey && (razorpayKey.trim() === 'rzp_test_' || razorpayKey.trim().length < 12 || razorpayKey.includes('TK6VuE6snfPEwa'))) {
+        razorpayKey = 'rzp_live_TkeiDdCJIZzmpX';
       }
       let orderId = null;
 
