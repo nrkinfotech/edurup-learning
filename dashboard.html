@@ -1089,18 +1089,8 @@
         console.warn('Backend order creation notice:', e);
       }
 
-      if (!razorpayKey || razorpayKey === 'rzp_test_' || razorpayKey.length < 12) {
-        const userKey = prompt(
-          `💳 Razorpay Key Setup Required:\n\nPlease enter your full Razorpay Key ID (e.g., rzp_test_1a2b3c4d5e6f7g or rzp_live_... from Dashboard -> API Keys):`,
-          ""
-        );
-        if (userKey && userKey.trim() && userKey.trim().length >= 12) {
-          razorpayKey = userKey.trim();
-          localStorage.setItem('edurup_razorpay_key_id', razorpayKey);
-        } else {
-          alert('❌ Valid Razorpay Key ID is required to open payment checkout.');
-          return;
-        }
+      if (!razorpayKey || razorpayKey.trim().length < 12) {
+        razorpayKey = 'rzp_live_TkeiDdCJIZzmpX';
       }
 
       if (typeof Razorpay === 'undefined') {
