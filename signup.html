@@ -84,21 +84,29 @@ button,input,select{font:inherit}
 .hero .stats{
   display:block !important;
   grid-template-columns:none !important;
-  margin-top:24px;width:100%;background:#ffffff;border-radius:32px;
-  padding:32px 36px 28px;box-shadow:0 20px 55px rgba(25,45,100,.06);
-  border:none;
+  margin-top:20px;width:100%;max-width:580px;background:#ffffff !important;border-radius:20px !important;
+  padding:18px 20px 16px !important;box-shadow:0 10px 30px rgba(25,45,100,.06) !important;
+  border:none !important;
 }
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;align-items:center;padding-bottom:24px;border-bottom:1px solid #f1f5f9}
-.stat{border-right:1px solid #e2e8f0;padding:0 8px;background:transparent!important;box-shadow:none!important;border-radius:0!important}
-.stat:last-child{border:0}
-.stat b{display:block;color:#2563eb;font-size:38px;font-weight:800;line-height:1.1;margin-bottom:6px}
-.stat span{font-size:15px;color:#64748b;font-weight:600}
-.tracks{margin-top:24px;width:100%}
-.tracks-title{font-weight:800;font-size:17px;color:#0f172a;margin-bottom:22px;text-align:left;letter-spacing:-.2px}
-.track-list{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;align-items:start;width:100%}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;align-items:center;padding-bottom:14px;border-bottom:1px solid #f1f5f9}
+.hero .stats .stat{
+  border:none !important;
+  border-right:1px solid #e2e8f0 !important;
+  outline:none !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
+  padding:0 4px !important;
+}
+.hero .stats .stat:last-child{border-right:none !important}
+.stat b{display:block;color:#2563eb;font-size:26px;font-weight:800;line-height:1.1;margin-bottom:2px}
+.stat span{font-size:12.5px;color:#64748b;font-weight:600}
+.tracks{margin-top:14px;width:100%}
+.tracks-title{font-weight:800;font-size:13.5px;color:#0f172a;margin-bottom:12px;text-align:left;letter-spacing:-.1px}
+.track-list{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;align-items:start;width:100%}
 .track{display:flex;flex-direction:column;align-items:center;text-align:center}
 .track .track-icon{
-  width:54px;height:54px;border-radius:18px;margin:0 auto 10px;
+  width:38px;height:38px;border-radius:11px;margin:0 auto 5px;
   display:flex;align-items:center;justify-content:center;color:#fff;
   transition:transform .2s ease;
 }
@@ -111,7 +119,7 @@ button,input,select{font:inherit}
 .track-icon.icon-hr{background:#eab308}
 .track-icon.icon-sm{background:#8b5cf6}
 .track-icon.icon-ent{background:#14b8a6}
-.track-label{font-size:12.5px;line-height:1.25;color:#475569;font-weight:600;text-align:center;word-break:normal}
+.track-label{font-size:10px;line-height:1.18;color:#475569;font-weight:600;text-align:center;word-break:normal}
 
 /* Form Card */
 .form-card{
