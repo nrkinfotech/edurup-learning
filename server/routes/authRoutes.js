@@ -82,13 +82,16 @@ router.post('/signup', async (req, res) => {
 
     let user = await User.findOne({ $or: [{ email: userEmail.toLowerCase() }, { phone: userPhone }] });
 
+    const otpCode = createRandomOTP();
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
     if (user) {
       user.fullName = userName;
       user.email = userEmail.toLowerCase();
       user.phone = userPhone;
       user.password = hashedPassword;
-      user.isEmailVerified = true;
-      user.isPhoneVerified = true;
+      user.isEmailVerified = false;
+      user.emailOtp = { code: otpCode, expiresAt: otpExpiry };
       if (dob) user.dob = dob;
       if (gender) user.gender = gender;
       if (location) user.location = location;
@@ -111,8 +114,8 @@ router.post('/signup', async (req, res) => {
         email: userEmail.toLowerCase(),
         phone: userPhone,
         password: hashedPassword,
-        isEmailVerified: true,
-        isPhoneVerified: true,
+        isEmailVerified: false,
+        emailOtp: { code: otpCode, expiresAt: otpExpiry },
         dob: dob || '',
         gender: gender || '',
         location: location || '',
@@ -131,15 +134,16 @@ router.post('/signup', async (req, res) => {
       });
     }
 
-    const token = generateToken(user._id);
+    // Send Email OTP using Nodemailer
+    await sendEmailOTP(user.email, otpCode, user.fullName);
 
-    console.log(`👤 [MongoDB] User Registered Successfully: ${user.fullName} (${user.phone})`);
+    console.log(`📧 [Nodemailer] OTP ${otpCode} generated and sent to ${user.email} for ${user.fullName}`);
 
     return res.status(200).json({
       success: true,
-      message: 'Registration successful! Profile saved to MongoDB.',
-      token,
-      user
+      requireOtp: true,
+      email: user.email,
+      message: 'Profile saved! A 6-digit verification code has been sent to your email.'
     });
   } catch (error) {
     console.error('Signup Error:', error);
@@ -147,8 +151,93 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+// @route   POST /api/auth/verify-otp
+// @desc    Verify 6-digit email OTP and activate student account
+router.post('/verify-otp', async (req, res) => {
+  try {
+    await ensureDBConnection();
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      return res.status(400).json({ success: false, message: 'Email and 6-digit OTP code are required.' });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User profile not found. Please sign up first.' });
+    }
+
+    if (!user.emailOtp || !user.emailOtp.code) {
+      return res.status(400).json({ success: false, message: 'No active OTP found. Please click Resend OTP.' });
+    }
+
+    if (new Date() > new Date(user.emailOtp.expiresAt)) {
+      return res.status(400).json({ success: false, message: 'OTP code has expired. Please click Resend OTP.' });
+    }
+
+    if (user.emailOtp.code.trim() !== otp.toString().trim()) {
+      return res.status(400).json({ success: false, message: 'Incorrect OTP code. Please check your email and try again.' });
+    }
+
+    user.isEmailVerified = true;
+    user.emailOtp = undefined;
+    await user.save();
+
+    const token = generateToken(user._id);
+
+    console.log(`✅ [MongoDB] Email verified & account activated for: ${user.fullName} (${user.email})`);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Email verified successfully! Welcome to Edurup Learning.',
+      token,
+      user
+    });
+  } catch (error) {
+    console.error('Verify OTP Error:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// @route   POST /api/auth/resend-otp
+// @desc    Resend 6-digit OTP to user's email
+router.post('/resend-otp', async (req, res) => {
+  try {
+    await ensureDBConnection();
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Email address is required.' });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User profile not found with this email.' });
+    }
+
+    const otpCode = createRandomOTP();
+    user.emailOtp = {
+      code: otpCode,
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000)
+    };
+    await user.save();
+
+    await sendEmailOTP(user.email, otpCode, user.fullName);
+
+    console.log(`📧 [Nodemailer] Resent OTP ${otpCode} to ${user.email}`);
+
+    return res.status(200).json({
+      success: true,
+      message: `A new 6-digit OTP has been sent to ${user.email}.`
+    });
+  } catch (error) {
+    console.error('Resend OTP Error:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // @route   POST /api/auth/signin
-// @desc    Authenticate user with Phone Number & Password
+// @desc    Authenticate user with Phone Number / Email & Password
 router.post('/signin', async (req, res) => {
   try {
     await ensureDBConnection();
@@ -174,21 +263,35 @@ router.post('/signin', async (req, res) => {
       return res.status(401).json({ success: false, message: 'No registered account found with this Phone Number or Email address. Please sign up first.' });
     }
 
-    // If user exists and has a password
+    // Check Password
     if (user.password) {
       const isMatch = await bcrypt.compare(userPassword, user.password);
       if (!isMatch) {
         return res.status(401).json({ success: false, message: 'Incorrect Password. Please check your password and try again.' });
       }
     } else {
-      // Set password if logging in for first time
       user.password = await bcrypt.hash(userPassword, 10);
       await user.save();
     }
 
-    user.isEmailVerified = true;
-    user.isPhoneVerified = true;
-    await user.save();
+    // Check if Email OTP is verified
+    if (!user.isEmailVerified) {
+      const otpCode = createRandomOTP();
+      user.emailOtp = {
+        code: otpCode,
+        expiresAt: new Date(Date.now() + 10 * 60 * 1000)
+      };
+      await user.save();
+
+      await sendEmailOTP(user.email, otpCode, user.fullName);
+
+      return res.status(400).json({
+        success: false,
+        requireOtp: true,
+        email: user.email,
+        message: 'Your email is not verified yet. We have sent a 6-digit OTP code to your email address.'
+      });
+    }
 
     const token = generateToken(user._id);
 

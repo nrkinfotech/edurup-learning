@@ -158,6 +158,16 @@ button,input,select{font:inherit}
 }
 .tag-chip.unselected { background: #f1f5f9; border-color: #cbd5e1; color: #64748b; }
 
+/* OTP Box Styles */
+.otp-box {
+  transition: all 0.2s ease;
+}
+.otp-box:focus {
+  border-color: #315cff !important;
+  box-shadow: 0 0 0 4px rgba(49, 92, 255, 0.15) !important;
+  background: #f8faformat !important;
+}
+
 @media(max-width:1050px){
   .nav{gap:18px;margin-left:20px}
   .hero h1{font-size:48px}
@@ -473,20 +483,62 @@ button,input,select{font:inherit}
     <div class="bottom">Don't have an account yet? <a href="#" onclick="switchAuthView('register');return false">Register Now</a></div>
   </div>
 
+  <!-- VIEW 3: OTP VERIFICATION FLOW -->
+  <div id="otpFlow" class="hidden">
+    <h2>Verify Email Address 📩</h2>
+    <div class="subtitle" style="margin-bottom: 20px;">
+      Enter the 6-digit verification code sent to <br>
+      <strong id="otpTargetEmail" style="color: #315cff; font-weight: 700; word-break: break-all;">student@example.com</strong>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 8px; margin: 25px 0;" id="otpInputContainer">
+      <input type="text" maxlength="1" class="otp-box" data-index="0" inputmode="numeric" style="width: 44px; height: 52px; text-align: center; font-size: 22px; font-weight: 700; border: 1.5px solid #dce2ed; border-radius: 10px; outline: none; background: #fff;">
+      <input type="text" maxlength="1" class="otp-box" data-index="1" inputmode="numeric" style="width: 44px; height: 52px; text-align: center; font-size: 22px; font-weight: 700; border: 1.5px solid #dce2ed; border-radius: 10px; outline: none; background: #fff;">
+      <input type="text" maxlength="1" class="otp-box" data-index="2" inputmode="numeric" style="width: 44px; height: 52px; text-align: center; font-size: 22px; font-weight: 700; border: 1.5px solid #dce2ed; border-radius: 10px; outline: none; background: #fff;">
+      <input type="text" maxlength="1" class="otp-box" data-index="3" inputmode="numeric" style="width: 44px; height: 52px; text-align: center; font-size: 22px; font-weight: 700; border: 1.5px solid #dce2ed; border-radius: 10px; outline: none; background: #fff;">
+      <input type="text" maxlength="1" class="otp-box" data-index="4" inputmode="numeric" style="width: 44px; height: 52px; text-align: center; font-size: 22px; font-weight: 700; border: 1.5px solid #dce2ed; border-radius: 10px; outline: none; background: #fff;">
+      <input type="text" maxlength="1" class="otp-box" data-index="5" inputmode="numeric" style="width: 44px; height: 52px; text-align: center; font-size: 22px; font-weight: 700; border: 1.5px solid #dce2ed; border-radius: 10px; outline: none; background: #fff;">
+    </div>
+
+    <button class="next" type="button" id="verifyOtpBtn" onclick="submitEmailOtp()">Verify OTP &amp; Complete Sign Up&nbsp; ✓</button>
+
+    <div style="margin-top: 20px; text-align: center; font-size: 14px; color: #59627a;">
+      Didn't receive the email? 
+      <button type="button" id="resendOtpBtn" onclick="resendEmailOtp()" style="background: none; border: none; color: #315cff; font-weight: 700; cursor: pointer;">Resend OTP</button>
+      <span id="resendTimerSpan" style="color: #64748b; font-size: 13px; margin-left: 4px;"></span>
+    </div>
+
+    <div class="bottom" style="margin-top: 15px;">
+      <a href="#" onclick="switchAuthView('register'); return false;" style="color: #64748b; font-weight: 600;">← Back to Registration Details</a>
+    </div>
+  </div>
+
 </section>
 </div>
 </main>
 
 <script>
+let currentOtpEmail = '';
+let resendTimerInterval = null;
+
 function switchAuthView(mode) {
   const isReg = (mode === 'register');
+  const isSignin = (mode === 'signin');
+  const isOtp = (mode === 'otp');
+
   document.getElementById('registerFlow').classList.toggle('hidden', !isReg);
-  document.getElementById('signinFlow').classList.toggle('hidden', isReg);
+  document.getElementById('signinFlow').classList.toggle('hidden', !isSignin);
+  document.getElementById('otpFlow').classList.toggle('hidden', !isOtp);
 
   const topBtn = document.getElementById('topAuthBtn');
   if (topBtn) {
-    topBtn.innerHTML = isReg ? 'Sign In&nbsp; →' : 'Register Now&nbsp; →';
-    topBtn.setAttribute('onclick', `switchAuthView('${isReg ? "signin" : "register"}')`);
+    if (isOtp) {
+      topBtn.style.display = 'none';
+    } else {
+      topBtn.style.display = 'inline-flex';
+      topBtn.innerHTML = isReg ? 'Sign In&nbsp; →' : 'Register Now&nbsp; →';
+      topBtn.setAttribute('onclick', `switchAuthView('${isReg ? "signin" : "register"}')`);
+    }
   }
 }
 
@@ -606,7 +658,121 @@ function getApiBase() {
   return window.API_BASE_URL || 'https://api.eduruplearning.com';
 }
 
-// Form Submission -> API Backend
+// --- OTP VERIFICATION HELPERS ---
+function showOtpVerificationView(email, message) {
+  currentOtpEmail = email;
+  document.getElementById('otpTargetEmail').innerText = email;
+  switchAuthView('otp');
+
+  // Reset OTP boxes
+  const boxes = document.querySelectorAll('.otp-box');
+  boxes.forEach(b => b.value = '');
+  if (boxes[0]) boxes[0].focus();
+
+  startResendTimer(30);
+
+  if (message) {
+    alert('📩 ' + message);
+  }
+}
+
+function startResendTimer(seconds) {
+  const resendBtn = document.getElementById('resendOtpBtn');
+  const timerSpan = document.getElementById('resendTimerSpan');
+  if (!resendBtn || !timerSpan) return;
+
+  resendBtn.disabled = true;
+  resendBtn.style.opacity = '0.5';
+  resendBtn.style.cursor = 'not-allowed';
+
+  let countdown = seconds;
+  timerSpan.innerText = `(${countdown}s)`;
+
+  if (resendTimerInterval) clearInterval(resendTimerInterval);
+
+  resendTimerInterval = setInterval(() => {
+    countdown--;
+    if (countdown > 0) {
+      timerSpan.innerText = `(${countdown}s)`;
+    } else {
+      clearInterval(resendTimerInterval);
+      timerSpan.innerText = '';
+      resendBtn.disabled = false;
+      resendBtn.style.opacity = '1';
+      resendBtn.style.cursor = 'pointer';
+    }
+  }, 1000);
+}
+
+async function submitEmailOtp() {
+  const boxes = document.querySelectorAll('.otp-box');
+  let otpCode = '';
+  boxes.forEach(b => otpCode += b.value.trim());
+
+  if (otpCode.length < 6) {
+    alert('Please enter all 6 digits of the OTP sent to your email.');
+    return;
+  }
+
+  const verifyBtn = document.getElementById('verifyOtpBtn');
+  verifyBtn.disabled = true;
+  verifyBtn.innerText = 'Verifying OTP...';
+
+  try {
+    const res = await fetch(getApiBase() + '/api/auth/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: currentOtpEmail,
+        otp: otpCode
+      })
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      if (result.token) localStorage.setItem('edurup_jwt_token', result.token);
+      if (result.user) localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
+
+      alert('🎉 Verification Successful! Account activated.');
+      window.location.href = 'dashboard.html';
+    } else {
+      alert('❌ OTP Error: ' + (result.message || 'Invalid OTP code. Please check your email.'));
+    }
+  } catch(err) {
+    console.error('Verify OTP Error:', err);
+    alert('❌ Connection Error: Unable to verify OTP with server.');
+  } finally {
+    verifyBtn.disabled = false;
+    verifyBtn.innerText = 'Verify OTP & Complete Sign Up  ✓';
+  }
+}
+
+async function resendEmailOtp() {
+  if (!currentOtpEmail) {
+    alert('No email address found for OTP resend.');
+    return;
+  }
+
+  const resendBtn = document.getElementById('resendOtpBtn');
+  resendBtn.disabled = true;
+
+  try {
+    const res = await fetch(getApiBase() + '/api/auth/resend-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: currentOtpEmail })
+    });
+
+    const result = await res.json();
+    alert(result.message || 'A new 6-digit OTP code has been sent to your email.');
+    startResendTimer(30);
+  } catch(err) {
+    console.error('Resend OTP Error:', err);
+    alert('❌ Could not resend OTP. Please check backend connection.');
+  }
+}
+
+// Form Submission -> API Backend (Signup)
 document.getElementById('studentRegistrationForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
@@ -626,7 +792,7 @@ document.getElementById('studentRegistrationForm').addEventListener('submit', as
 
   const submitBtn = document.getElementById('submitBtn');
   submitBtn.disabled = true;
-  submitBtn.innerText = 'Creating Account...';
+  submitBtn.innerText = 'Sending OTP...';
 
   const formData = new FormData(this);
   const pendingFormData = Object.fromEntries(formData);
@@ -642,11 +808,14 @@ document.getElementById('studentRegistrationForm').addEventListener('submit', as
 
     const result = await res.json();
     if (result.success) {
-      if (result.token) localStorage.setItem('edurup_jwt_token', result.token);
-      if (result.user) localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
-
-      alert('🎉 Account & Profile Created Successfully!');
-      window.location.href = 'dashboard.html';
+      if (result.requireOtp) {
+        showOtpVerificationView(result.email || pendingFormData['Email Address'], result.message);
+      } else {
+        if (result.token) localStorage.setItem('edurup_jwt_token', result.token);
+        if (result.user) localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
+        alert('🎉 Account Created Successfully!');
+        window.location.href = 'dashboard.html';
+      }
     } else {
       alert('❌ Registration Error: ' + (result.message || 'Could not complete registration.'));
     }
@@ -692,6 +861,11 @@ async function handlePasswordSignIn(event) {
     });
 
     const result = await res.json();
+    if (result.requireOtp) {
+      showOtpVerificationView(result.email, result.message);
+      return;
+    }
+
     if (!result.success) {
       alert('❌ Sign In Failed: ' + (result.message || 'Invalid Credentials.'));
       return;
@@ -709,6 +883,42 @@ async function handlePasswordSignIn(event) {
 }
 
 document.getElementById("regPhone").addEventListener("input", e => e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10));
+
+// --- SETUP OTP INPUT BOX NAVIGATION ---
+document.addEventListener('DOMContentLoaded', () => {
+  const boxes = document.querySelectorAll('.otp-box');
+  boxes.forEach((box, index) => {
+    box.addEventListener('input', (e) => {
+      const val = e.target.value.replace(/\D/g, '');
+      e.target.value = val;
+      if (val && index < boxes.length - 1) {
+        boxes[index + 1].focus();
+      }
+    });
+
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !box.value && index > 0) {
+        boxes[index - 1].focus();
+      }
+    });
+
+    box.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/\D/g, '');
+      if (pasteData) {
+        const digits = pasteData.slice(0, 6).split('');
+        digits.forEach((d, i) => {
+          if (boxes[i]) boxes[i].value = d;
+        });
+        if (digits.length === 6) {
+          document.getElementById('verifyOtpBtn').focus();
+        } else if (boxes[digits.length]) {
+          boxes[digits.length].focus();
+        }
+      }
+    });
+  });
+});
 </script>
 <script src="assets/js/nav-auth.js?v=1"></script>
 </body>
