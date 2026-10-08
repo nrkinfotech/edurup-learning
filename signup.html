@@ -168,6 +168,31 @@ button,input,select{font:inherit}
   background: #f8faformat !important;
 }
 
+/* Eye Icon Password Toggle Styles */
+.input.has-eye {
+  padding-right: 48px !important;
+}
+.toggle-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.toggle-eye:hover {
+  background: #eef2ff;
+  color: #315cff;
+}
+
 @media(max-width:1050px){
   .nav{gap:18px;margin-left:20px}
   .hero h1{font-size:48px}
@@ -446,11 +471,23 @@ button,input,select{font:inherit}
         <div class="form-grid">
           <div class="field full">
             <label>Create Password <span class="required">*</span></label>
-            <div class="input-wrap"><span class="field-icon">🔒</span><input class="input" type="password" id="regPassword" name="Create Password" required placeholder="Create strong password (min 6 chars)"></div>
+            <div class="input-wrap">
+              <span class="field-icon">🔒</span>
+              <input class="input has-eye" type="password" id="regPassword" name="Create Password" required placeholder="Create strong password (min 6 chars)">
+              <span class="toggle-eye" onclick="togglePasswordVisibility('regPassword', this)" title="Show Password">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </span>
+            </div>
           </div>
           <div class="field full">
             <label>Confirm Password <span class="required">*</span></label>
-            <div class="input-wrap"><span class="field-icon">🔒</span><input class="input" type="password" id="regConfirmPassword" required placeholder="Re-enter password to confirm"></div>
+            <div class="input-wrap">
+              <span class="field-icon">🔒</span>
+              <input class="input has-eye" type="password" id="regConfirmPassword" required placeholder="Re-enter password to confirm">
+              <span class="toggle-eye" onclick="togglePasswordVisibility('regConfirmPassword', this)" title="Show Password">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -474,7 +511,13 @@ button,input,select{font:inherit}
         </div>
         <div class="field">
           <label>Password <span class="required">*</span></label>
-          <div class="input-wrap"><span class="field-icon">🔒</span><input class="input" type="password" id="signinPasswordInput" required placeholder="Enter your password"></div>
+          <div class="input-wrap">
+            <span class="field-icon">🔒</span>
+            <input class="input has-eye" type="password" id="signinPasswordInput" required placeholder="Enter your password">
+            <span class="toggle-eye" onclick="togglePasswordVisibility('signinPasswordInput', this)" title="Show Password">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
+          </div>
         </div>
       </div>
 
@@ -518,6 +561,23 @@ button,input,select{font:inherit}
 </main>
 
 <script>
+const eyeOpenSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+const eyeOffSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+
+function togglePasswordVisibility(inputId, iconEl) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    iconEl.innerHTML = eyeOffSvg;
+    iconEl.setAttribute('title', 'Hide Password');
+  } else {
+    input.type = 'password';
+    iconEl.innerHTML = eyeOpenSvg;
+    iconEl.setAttribute('title', 'Show Password');
+  }
+}
+
 let currentOtpEmail = '';
 let resendTimerInterval = null;
 
