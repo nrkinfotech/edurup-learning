@@ -1506,35 +1506,6 @@
       }
     }
   
-    /* View Switcher Toggle Button in Topbar */
-    .view-switch-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      color: #1d4ed8;
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .view-switch-btn:hover {
-      background: #dbeafe;
-      border-color: #93c5fd;
-      transform: translateY(-1px);
-    }
-    .toggle-pill-tag {
-      background: #2563eb;
-      color: #ffffff;
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 10px;
-      font-weight: 600;
-    }
-
     /* Pre-Payment Unenrolled Catalog Styles */
     .db-grid {
       display: grid;
@@ -1973,13 +1944,6 @@
         </div>
 
         <div class="db-topbar-right">
-          <!-- View State Switcher Button (Demo & Toggle) -->
-          <button type="button" class="view-switch-btn" onclick="toggleDashboardState()" title="Click to switch between Pre-Payment & Post-Payment views">
-            <span id="toggleBtnIcon">🎓</span>
-            <span id="toggleBtnText">Enrolled View</span>
-            <span class="toggle-pill-tag">Switch View ⇄</span>
-          </button>
-
           <button class="db-notif-btn" title="Notifications" onclick="alert('Notifications:\n• New corporate project added: E-commerce Dashboard\n• Live Class on Power BI scheduled for Oct 05')">
             🔔
             <span class="db-notif-badge"></span>
@@ -3388,35 +3352,33 @@
 
     // Sync User Profile Details
     
-    // --- DASHBOARD STATE SWITCHER (PRE-PAYMENT VS ENROLLED) ---
+    // --- DASHBOARD VIEW CONTROLLER ---
     function switchDashboardState(state) {
       const enrolledEl = document.getElementById('enrolledDashboardView');
       const unenrolledEl = document.getElementById('unenrolledDashboardView');
-      const toggleBtnText = document.getElementById('toggleBtnText');
-      const toggleBtnIcon = document.getElementById('toggleBtnIcon');
 
       if (state === 'enrolled') {
         if (enrolledEl) enrolledEl.style.display = 'block';
         if (unenrolledEl) unenrolledEl.style.display = 'none';
-        if (toggleBtnText) toggleBtnText.innerText = 'Enrolled View (Post-Payment)';
-        if (toggleBtnIcon) toggleBtnIcon.innerText = '🎓';
         renderActiveModuleLessons();
       } else {
         if (enrolledEl) enrolledEl.style.display = 'none';
         if (unenrolledEl) unenrolledEl.style.display = 'block';
-        if (toggleBtnText) toggleBtnText.innerText = 'Pre-Payment Catalog View';
-        if (toggleBtnIcon) toggleBtnIcon.innerText = '🛒';
       }
     }
 
-    function toggleDashboardState() {
-      const enrolledEl = document.getElementById('enrolledDashboardView');
-      const isEnrolledVisible = (enrolledEl && enrolledEl.style.display !== 'none');
-      switchDashboardState(isEnrolledVisible ? 'prepayment' : 'enrolled');
-    }
-
-    // Razorpay Payment Handler for Pre-Payment Catalog
+    // Razorpay Payment Handler: Enrolls user and takes them to course dashboard
     async function initiateRazorpayPayment(programName, price) {
+      // If user selected any course other than Data Analytics, inform them Data Analytics is live
+      if (programName && !programName.toLowerCase().includes('data analytics')) {
+        const proceedWithDA = confirm(
+          `ℹ️ Notice: The "${programName}" curriculum is currently being finalized.\n\n` +
+          `Would you like to enroll in our active "Data Analytics Internship" program instead?`
+        );
+        if (!proceedWithDA) return;
+        programName = 'Data Analytics Internship';
+      }
+
       const sessionStr = localStorage.getItem('edurup_user_session');
       let user = {};
       if (sessionStr) {
@@ -3440,7 +3402,7 @@
       }
 
       if (typeof Razorpay === 'undefined') {
-        alert('Razorpay Checkout SDK is loading. Please check internet connection.');
+        alert('Payment gateway is loading. Please check your connection.');
         return;
       }
 
@@ -3458,16 +3420,19 @@
         },
         theme: { color: "#2563eb" },
         handler: function (response) {
-          alert("🎉 Payment Successful!\\n\\nTransaction ID: " + response.razorpay_payment_id + "\\nProgram: " + programName);
+          alert("🎉 Payment Successful!\n\nTransaction ID: " + response.razorpay_payment_id + "\nProgram: " + programName + "\n\nWelcome to your course dashboard!");
           const activeEnrollment = {
-            programName,
-            price,
+            programName: 'Data Analytics Internship',
+            courseId: 'data-analytics',
+            price: price || 9999,
             paymentId: response.razorpay_payment_id,
             status: 'Active',
             date: new Date().toLocaleDateString()
           };
           localStorage.setItem('edurup_active_enrollment', JSON.stringify(activeEnrollment));
+          // Take user straight to that course dashboard
           switchDashboardState('enrolled');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       };
 
@@ -3479,34 +3444,48 @@
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const viewParam = urlParams.get('view');
-      const hasActiveEnrollment = localStorage.getItem('edurup_active_enrollment');
+      const courseParam = urlParams.get('course');
+      const resetParam = urlParams.get('reset');
 
-      // Check URL query param first: ?view=prepayment vs ?view=enrolled
-      if (viewParam === 'prepayment' || viewParam === 'catalog') {
-        switchDashboardState('prepayment');
-      } else if (viewParam === 'enrolled') {
-        switchDashboardState('enrolled');
-      } else if (hasActiveEnrollment) {
-        switchDashboardState('enrolled');
-      } else {
-        // By default for quick preview if not set, check if user requested enrolled or prepayment
-        // If neither is stored, default to enrolled view so user previewing current work sees their curriculum
-        switchDashboardState('enrolled');
+      // Allow url reset for testing: ?reset=true clears active enrollment
+      if (resetParam === 'true') {
+        localStorage.removeItem('edurup_active_enrollment');
       }
 
-      // 2. Render initial lessons
-      renderActiveModuleLessons();
+      const hasActiveEnrollment = localStorage.getItem('edurup_active_enrollment');
 
-      // 3. User name / session sync
+      // Core Logic:
+      // 1. By default, all users get to see the pre-payment dashboard.
+      // 2. Whichever course user takes (active enrollment in Data Analytics) takes them to that course dashboard.
+      // 3. Direct URL access: ?course=data-analytics or ?view=enrolled
+      if (viewParam === 'enrolled' || courseParam === 'data-analytics') {
+        switchDashboardState('enrolled');
+      } else if (viewParam === 'prepayment' || viewParam === 'catalog') {
+        switchDashboardState('prepayment');
+      } else if (hasActiveEnrollment) {
+        // User has already enrolled in the course -> take them to that course dashboard
+        switchDashboardState('enrolled');
+      } else {
+        // All unenrolled users see the pre-payment dashboard
+        switchDashboardState('prepayment');
+      }
+
+      // Sync user profile & greeting
       const sessionStr = localStorage.getItem('edurup_user_session');
       if (sessionStr) {
         try {
           const user = JSON.parse(sessionStr);
-          const name = user.fullName || user.name || 'Rahul Kumar';
+          const name = user.fullName || user.name || 'Student';
           const parts = name.split(' ');
+          const firstName = parts[0] || 'Student';
           const initials = parts.length > 1 ? (parts[0][0] + parts[1][0]).toUpperCase() : parts[0].slice(0, 2).toUpperCase();
-          document.getElementById('dbUserName').innerHTML = `${name} <span style="font-size:11px; font-weight:normal; color:#64748b;">⌄</span>`;
-          document.getElementById('dbAvatar').innerText = initials || 'RK';
+          const dbUserName = document.getElementById('dbUserName');
+          const dbAvatar = document.getElementById('dbAvatar');
+          const dbPreWelcomeHeading = document.getElementById('dbPreWelcomeHeading');
+
+          if (dbUserName) dbUserName.innerHTML = `${name} <span style="font-size:11px; font-weight:normal; color:#64748b;">⌄</span>`;
+          if (dbAvatar) dbAvatar.innerText = initials || 'ST';
+          if (dbPreWelcomeHeading) dbPreWelcomeHeading.innerText = `Welcome, ${firstName}! 👋`;
         } catch(e) {}
       }
     });
