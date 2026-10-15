@@ -1,0 +1,2645 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resources | Data Analytics Internship | Edurup Learning</title>
+  <meta name="description" content="Access all learning materials, datasets, templates, code files and reference documents for your course.">
+  <link rel="canonical" href="https://www.eduruplearning.com/resources.html">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <style>
+    /* -------------------------------------------------------------
+       BASE & RESET
+    -------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --bg-dark: #0b1329;
+      --bg-body: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --success: #10b981;
+      --success-light: #dcfce7;
+      --success-text: #166534;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --warning-text: #92400e;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+      --danger-text: #b91c1c;
+      --purple: #8b5cf6;
+      --purple-light: #f3e8ff;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------------------------------------------
+       LAYOUT STRUCTURE (SIDEBAR + MAIN)
+    -------------------------------------------------------------- */
+    .res-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* SIDEBAR */
+    .res-sidebar {
+      width: 250px;
+      background-color: var(--bg-dark);
+      color: #94a3b8;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 20px 14px;
+      z-index: 100;
+    }
+
+    .res-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .res-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .res-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 20px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+    .res-brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .res-brand span {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .res-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .res-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .res-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .res-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-icon {
+      font-size: 16px;
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Submenu groups */
+    .res-nav-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .res-nav-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .res-nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+    .res-nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .res-nav-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 28px;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+    .res-nav-group.open .res-nav-submenu {
+      display: flex;
+    }
+
+    .res-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .res-sub-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .res-sub-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* MAIN CONTAINER */
+    .res-main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-width: calc(100% - 250px);
+    }
+
+    /* TOP SEARCH BAR */
+    .res-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .res-search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 14px;
+      width: 440px;
+      max-width: 100%;
+    }
+    .res-search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+    .res-search-box svg {
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .res-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .res-bell-btn {
+      position: relative;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      color: var(--text-muted);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .res-bell-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+    .res-bell-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 8px;
+      height: 8px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .res-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .res-user-pill:hover {
+      background: #f1f5f9;
+    }
+    .res-user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #d946ef;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .res-user-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .res-user-name {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+    .res-user-role {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       CONTENT WRAPPER
+    -------------------------------------------------------------- */
+    .res-content-wrapper {
+      padding: 24px 32px 60px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Breadcrumbs */
+    .res-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .res-breadcrumbs a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .res-breadcrumbs a:hover {
+      color: var(--primary);
+    }
+    .res-breadcrumbs span.separator {
+      color: #cbd5e1;
+    }
+    .res-breadcrumbs span.current {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Title Section */
+    .res-header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .res-header-title h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+    }
+    .res-header-title p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       TABS NAVIGATION
+    -------------------------------------------------------------- */
+    .res-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border-bottom: 1px solid var(--border-color);
+      margin-top: 4px;
+      overflow-x: auto;
+    }
+    .res-tab-item {
+      padding: 10px 4px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      background: none;
+      border: none;
+    }
+    .res-tab-item:hover {
+      color: var(--text-main);
+    }
+    .res-tab-item.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .res-tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary);
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* -------------------------------------------------------------
+       SEARCH & FILTER CONTROLS BAR
+    -------------------------------------------------------------- */
+    .res-filters-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .res-filter-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 7px 12px;
+      width: 250px;
+      max-width: 100%;
+    }
+    .res-filter-search input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 0.84rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+    .res-filter-search svg {
+      color: var(--text-light);
+      flex-shrink: 0;
+    }
+
+    .res-filter-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 6px 28px 6px 10px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .filter-select:hover, .filter-select:focus {
+      border-color: var(--primary);
+    }
+    .filter-icon-btn {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-icon-btn:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+
+    /* -------------------------------------------------------------
+       TWO COLUMN MAIN GRID
+    -------------------------------------------------------------- */
+    .res-main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* LEFT COLUMN: MODULE ACCORDIONS */
+    .res-modules-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* MODULE ACCORDION CARD */
+    .module-accordion-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: border-color 0.15s;
+    }
+    .module-accordion-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .module-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: #ffffff;
+      transition: background 0.15s;
+    }
+    .module-header:hover {
+      background: #fbfcfe;
+    }
+
+    .module-header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .module-badge-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: #ffffff;
+    }
+    .badge-excel { background: #107c41; }
+    .badge-analytics { background: #2563eb; }
+    .badge-powerbi { background: #7c3aed; }
+    .badge-viz { background: #6366f1; }
+    .badge-adv { background: #ef4444; }
+    .badge-capstone { background: #0284c7; }
+
+    .module-title-box h3 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .module-title-box p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .module-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .module-progress-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .module-progress-bar {
+      width: 90px;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .module-progress-fill {
+      height: 100%;
+      border-radius: 10px;
+    }
+    .fill-green { background: #10b981; }
+    .fill-blue { background: #2563eb; }
+    .fill-grey { background: #cbd5e1; }
+
+    .module-progress-percent {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      min-width: 38px;
+      text-align: right;
+    }
+    .module-chevron {
+      color: var(--text-muted);
+      font-size: 14px;
+      transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .module-accordion-card.open .module-chevron {
+      transform: rotate(180deg);
+    }
+
+    .module-locked-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    /* MODULE BODY WITH RESOURCE CARDS GRID */
+    .module-body {
+      padding: 0 20px 20px 20px;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+    .module-accordion-card.open .module-body {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .resource-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    /* RESOURCE CARD */
+    .res-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .res-card:hover {
+      border-color: var(--primary-border);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .res-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .res-file-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: #ffffff;
+    }
+    .icon-pdf { background: #ef4444; }
+    .icon-xlsx { background: #10b981; }
+    .icon-ppt { background: #f97316; }
+    .icon-docx { background: #2563eb; }
+    .icon-pbix { background: #eab308; color: #78350f; }
+    .icon-json { background: #0284c7; }
+    .icon-zip { background: #6366f1; }
+    .icon-mp4 { background: #1e293b; }
+
+    .res-file-meta {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex: 1;
+    }
+    .res-file-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 3px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .res-file-sub {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .res-bookmark-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+      padding: 2px;
+      transition: color 0.15s;
+    }
+    .res-bookmark-btn:hover {
+      color: var(--warning);
+    }
+    .res-bookmark-btn.bookmarked {
+      color: var(--warning);
+    }
+
+    .res-card-bottom {
+      margin-top: 12px;
+    }
+    .res-download-btn {
+      width: 100%;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .res-download-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+    .res-download-btn.downloaded {
+      background: #dcfce7;
+      border-color: #86efac;
+      color: #166534;
+    }
+
+    /* -------------------------------------------------------------
+       RIGHT COLUMN WIDGETS
+    -------------------------------------------------------------- */
+    .res-sidebar-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* COURSE SELECTOR CARD */
+    .course-selector-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .course-selector-card:hover {
+      border-color: var(--primary-border);
+    }
+    .course-selector-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .course-icon-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #7c3aed;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .course-text-box h4 {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+    .course-text-box p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .course-chevron {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* COURSE PROGRESS CARD */
+    .course-progress-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .widget-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+    .widget-header svg {
+      color: var(--primary);
+    }
+
+    .progress-donut-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .donut-chart-box {
+      position: relative;
+      width: 66px;
+      height: 66px;
+      flex-shrink: 0;
+    }
+    .donut-chart-box svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .donut-circle-bg {
+      fill: none;
+      stroke: #e2e8f0;
+      stroke-width: 3.5;
+    }
+    .donut-circle-fill {
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-dasharray: 100, 100;
+      stroke-dashoffset: 40; /* 60% filled */
+      transition: stroke-dashoffset 0.8s ease;
+    }
+    .donut-text-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .donut-info-text {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .module-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+    .checklist-item-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    .check-icon-circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+    .icon-completed {
+      background: #10b981;
+      color: #ffffff;
+    }
+    .icon-inprogress {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .icon-pending {
+      background: #e2e8f0;
+      color: #94a3b8;
+    }
+
+    .status-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .status-completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .status-inprogress {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .status-pending {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* RESOURCE CATEGORIES CARD */
+    .resource-categories-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .category-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+    .category-row:hover {
+      background: #f8fafc;
+    }
+    .category-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .cat-icon {
+      font-size: 15px;
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .category-count {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* QUICK ACTIONS CARD */
+    .quick-actions-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .action-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .action-row:hover {
+      background: #f8fafc;
+      border-color: var(--border-light);
+    }
+    .action-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .action-icon-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #eff6ff;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .action-text h5 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+    .action-text p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .action-chevron {
+      color: var(--text-light);
+      font-size: 12px;
+    }
+
+    /* -------------------------------------------------------------
+       MODALS & TOAST NOTIFICATION
+    -------------------------------------------------------------- */
+    .res-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .res-modal-overlay.open {
+      display: flex;
+    }
+    .res-modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 500px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      position: relative;
+      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .res-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: #f1f5f9;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+    .res-modal-close:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .toast-notification {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .toast-icon {
+      width: 22px;
+      height: 22px;
+      background: #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* -------------------------------------------------------------
+       RESPONSIVE BREAKPOINTS
+    -------------------------------------------------------------- */
+    @media (max-width: 1200px) {
+      .resource-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 992px) {
+      .res-main-grid {
+        grid-template-columns: 1fr;
+      }
+      .resource-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .res-sidebar {
+        display: none;
+      }
+      .res-main-container {
+        max-width: 100%;
+      }
+      .res-content-wrapper {
+        padding: 16px;
+      }
+      .resource-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .res-filters-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .res-filter-search {
+        width: 100%;
+      }
+      .res-filter-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-select {
+        width: 100%;
+      }
+    }
+    @media (max-width: 480px) {
+      .resource-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="res-layout">
+
+    <!-- -----------------------------------------------------------
+         SIDEBAR NAVIGATION
+    ------------------------------------------------------------ -->
+    <aside class="res-sidebar">
+      <!-- Brand Logo -->
+      <a href="dashboard.html" class="res-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="res-nav">
+        <!-- 1. Dashboard -->
+        <a href="dashboard.html" class="res-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">🏠</span>
+            <span>Dashboard</span>
+          </div>
+        </a>
+
+        <!-- 2. Learning Dropdown (Expanded) -->
+        <div class="res-nav-group open">
+          <div class="res-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📖</span>
+              <span>Learning</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="res-nav-submenu">
+            <a href="recorded-classes.html" class="res-sub-item">
+              <span>📹</span> Recorded Classes
+            </a>
+            <a href="live-classes.html" class="res-sub-item">
+              <span>🔴</span> Live Classes
+            </a>
+            <a href="quizzes.html" class="res-sub-item">
+              <span>📝</span> Quizzes
+            </a>
+            <a href="resources.html" class="res-sub-item active">
+              <span>📁</span> Resources
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Projects Dropdown -->
+        <div class="res-nav-group">
+          <div class="res-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">💼</span>
+              <span>Projects</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="res-nav-submenu">
+            <a href="dashboard.html#my-projects-section" class="res-sub-item"><span>📁</span> My Projects</a>
+            <a href="dashboard.html#my-projects-section" class="res-sub-item"><span>📤</span> Project Submissions</a>
+            <a href="javascript:void(0);" onclick="alert('Mentor Feedback: Great progress on Excel data modeling!')" class="res-sub-item"><span>💬</span> Feedback</a>
+          </div>
+        </div>
+
+        <!-- 4. Internship Dropdown -->
+        <div class="res-nav-group">
+          <div class="res-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📄</span>
+              <span>Internship</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="res-nav-submenu">
+            <a href="javascript:void(0);" onclick="alert('Application Status: Active.')" class="res-sub-item"><span>📄</span> Application</a>
+            <a href="javascript:void(0);" onclick="alert('Internship track: 6 Months with Certificate & LOR.')" class="res-sub-item"><span>📋</span> Internship Details</a>
+            <a href="dashboard.html#my-tasks-section" class="res-sub-item"><span>📌</span> My Tasks</a>
+            <a href="javascript:void(0);" onclick="alert('Weekly Reports unlock after module 2 completion.')" class="res-sub-item"><span>📊</span> Weekly Reports</a>
+            <a href="javascript:void(0);" onclick="alert('Live Class Attendance: 92% active.')" class="res-sub-item"><span>📅</span> Attendance</a>
+          </div>
+        </div>
+
+        <!-- 5. Certificates Dropdown -->
+        <div class="res-nav-group">
+          <div class="res-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">🎖️</span>
+              <span>Certificates</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="res-nav-submenu">
+            <a href="dashboard.html#certificates-progress-section" class="res-sub-item"><span>🎖️</span> My Certificates</a>
+            <a href="javascript:void(0);" onclick="alert('Offer Letter available in your student portal.')" class="res-sub-item"><span>📄</span> Offer Letter</a>
+            <a href="javascript:void(0);" onclick="alert('Letter of Recommendation (LOR) issued after capstone.')" class="res-sub-item"><span>📜</span> Letter of Recommendation</a>
+          </div>
+        </div>
+
+        <!-- 6. Messages -->
+        <a href="javascript:void(0);" onclick="alert('Mentor Chat is online! Feel free to ask queries.')" class="res-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">💬</span>
+            <span>Messages</span>
+          </div>
+        </a>
+
+        <!-- 7. Support -->
+        <a href="support.html" class="res-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">❓</span>
+            <span>Support</span>
+          </div>
+        </a>
+
+        <!-- 8. My Profile -->
+        <a href="profile.html" class="res-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">👤</span>
+            <span>My Profile</span>
+          </div>
+        </a>
+
+        <!-- 9. Sign Out -->
+        <a href="javascript:void(0);" onclick="signOutUser()" class="res-nav-item" style="color:#ef4444; font-weight:700; margin-top:8px;">
+          <div class="nav-left">
+            <span class="nav-icon">🚪</span>
+            <span>Sign Out</span>
+          </div>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- -----------------------------------------------------------
+         MAIN CONTAINER
+    ------------------------------------------------------------ -->
+    <main class="res-main-container">
+
+      <!-- TOP SEARCH BAR -->
+      <header class="res-topbar">
+        <div class="res-search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="globalSearchInput" placeholder="Search for videos, projects, tasks, resources..." oninput="handleGlobalSearch(this.value)">
+        </div>
+
+        <div class="res-topbar-actions">
+          <button class="res-bell-btn" title="Notifications" onclick="alert('You have 3 new resource updates available for Module 2 & 3!')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span class="res-bell-badge"></span>
+          </button>
+
+          <div class="res-user-pill" onclick="window.location.href='profile.html'">
+            <div class="res-user-avatar">RK</div>
+            <div class="res-user-info">
+              <span class="res-user-name">Rahul Kumar</span>
+              <span class="res-user-role">Student</span>
+            </div>
+            <span style="font-size: 11px; color: #94a3b8; margin-left: 2px;">⌄</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT WRAPPER -->
+      <div class="res-content-wrapper">
+
+        <!-- BREADCRUMBS -->
+        <div class="res-breadcrumbs">
+          <a href="dashboard.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Dashboard
+          </a>
+          <span class="separator">›</span>
+          <a href="dashboard.html">Learning</a>
+          <span class="separator">›</span>
+          <span class="current">Resources</span>
+        </div>
+
+        <!-- HEADER TITLE -->
+        <div class="res-header-title">
+          <h1>Resources</h1>
+          <p>Access all learning materials, datasets, templates, code files and reference documents for your course.</p>
+        </div>
+
+        <!-- TABS BAR -->
+        <div class="res-tabs-bar">
+          <button class="res-tab-item active" onclick="switchResourceTab('all', this)">All Resources</button>
+          <button class="res-tab-item" onclick="switchResourceTab('module-wise', this)">Module Wise</button>
+          <button class="res-tab-item" onclick="switchResourceTab('class-wise', this)">Class Wise</button>
+          <button class="res-tab-item" onclick="switchResourceTab('project', this)">Project Resources</button>
+          <button class="res-tab-item" onclick="switchResourceTab('bookmarks', this)">Bookmarks</button>
+          <button class="res-tab-item" onclick="switchResourceTab('downloads', this)">My Downloads</button>
+        </div>
+
+        <!-- SEARCH & FILTER BAR -->
+        <div class="res-filters-card">
+          <div class="res-filter-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="resourceFilterInput" placeholder="Search resources..." oninput="filterResources()">
+          </div>
+
+          <div class="res-filter-group">
+            <div class="filter-item">
+              <span class="filter-label">Resource Type</span>
+              <select class="filter-select" id="filterType" onchange="filterResources()">
+                <option value="all">All Types</option>
+                <option value="pdf">Notes & PDFs</option>
+                <option value="xlsx">Practice Datasets</option>
+                <option value="ppt">Class Slides</option>
+                <option value="docx">Assignment Questions</option>
+                <option value="pbix">Power BI / Dashboards</option>
+                <option value="zip">Code & Models</option>
+                <option value="mp4">Video Demos</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <span class="filter-label">Module</span>
+              <select class="filter-select" id="filterModule" onchange="filterResources()">
+                <option value="all">All Modules</option>
+                <option value="m1">Module 1: Excel Basics</option>
+                <option value="m2">Module 2: Data Analysis with Excel</option>
+                <option value="m3">Module 3: Power BI Basics</option>
+                <option value="m4">Module 4: Data Visualization</option>
+                <option value="m5">Module 5: Advanced Analytics</option>
+                <option value="m6">Module 6: Project & Case Study</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <span class="filter-label">Class</span>
+              <select class="filter-select" id="filterClass" onchange="filterResources()">
+                <option value="all">All Classes</option>
+                <option value="c1">Classes 1 - 5</option>
+                <option value="c2">Classes 6 - 10</option>
+                <option value="c3">Classes 11 - 15</option>
+                <option value="c4">Classes 16 - 20</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <span class="filter-label">Sort By</span>
+              <select class="filter-select" id="filterSort" onchange="filterResources()">
+                <option value="latest">Latest</option>
+                <option value="name">Name (A-Z)</option>
+                <option value="size-desc">Size (Large to Small)</option>
+                <option value="size-asc">Size (Small to Large)</option>
+              </select>
+            </div>
+
+            <button class="filter-icon-btn" title="Reset Filters" onclick="resetFilters()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- -----------------------------------------------------------
+             TWO COLUMN MAIN GRID
+        ------------------------------------------------------------ -->
+        <div class="res-main-grid">
+
+          <!-- LEFT COLUMN: MODULE ACCORDIONS -->
+          <div class="res-modules-column" id="modulesContainer">
+
+            <!-- MODULE 1: EXCEL BASICS (EXPANDED) -->
+            <div class="module-accordion-card open" id="mod-card-1" data-module="m1">
+              <div class="module-header" onclick="toggleModuleAccordion('mod-card-1')">
+                <div class="module-header-left">
+                  <div class="module-badge-icon badge-excel">X</div>
+                  <div class="module-title-box">
+                    <h3>Module 1: Excel Basics</h3>
+                    <p>8 Resources</p>
+                  </div>
+                </div>
+                <div class="module-header-right">
+                  <div class="module-progress-wrapper">
+                    <div class="module-progress-bar">
+                      <div class="module-progress-fill fill-green" style="width: 100%;"></div>
+                    </div>
+                    <span class="module-progress-percent">100%</span>
+                  </div>
+                  <span class="module-chevron">▲</span>
+                </div>
+              </div>
+
+              <div class="module-body">
+                <div class="resource-cards-grid">
+                  <!-- Card 1 -->
+                  <div class="res-card" data-title="Excel Shortcuts Guide" data-type="pdf" data-size="2.4" data-id="res-1-1">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-1-1', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-pdf">PDF</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Excel Shortcuts Guide">Excel Shortcuts Guide</span>
+                        <span class="res-file-sub">PDF • 2.4 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Excel_Shortcuts_Guide.pdf', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 2 -->
+                  <div class="res-card" data-title="Practice Dataset (Sales Data)" data-type="xlsx" data-size="0.32" data-id="res-1-2">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-1-2', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-xlsx">XLS</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Practice Dataset (Sales Data)">Practice Dataset (Sales Data)</span>
+                        <span class="res-file-sub">XLSX • 320 KB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Practice_Dataset_Sales.xlsx', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 3 -->
+                  <div class="res-card" data-title="Excel Formulas Cheat Sheet" data-type="pdf" data-size="1.1" data-id="res-1-3">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-1-3', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-pdf">PDF</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Excel Formulas Cheat Sheet">Excel Formulas Cheat Sheet</span>
+                        <span class="res-file-sub">PDF • 1.1 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Excel_Formulas_Cheat_Sheet.pdf', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 4 -->
+                  <div class="res-card" data-title="Class Slides (Excel Basics)" data-type="ppt" data-size="5.2" data-id="res-1-4">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-1-4', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-ppt">PPT</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Class Slides (Excel Basics)">Class Slides (Excel Basics)</span>
+                        <span class="res-file-sub">PPT • 5.2 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Class_Slides_Excel_Basics.pptx', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 5 -->
+                  <div class="res-card" data-title="Assignment Questions" data-type="docx" data-size="0.48" data-id="res-1-5">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-1-5', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-docx">DOC</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Assignment Questions">Assignment Questions</span>
+                        <span class="res-file-sub">DOCX • 480 KB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Assignment_Questions_Module1.docx', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 6 -->
+                  <div class="res-card" data-title="Excel Basics Demo File" data-type="mp4" data-size="45" data-id="res-1-6">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-1-6', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-mp4">▶</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Excel Basics Demo File">Excel Basics Demo File</span>
+                        <span class="res-file-sub">MP4 • 45 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Excel_Basics_Demo_Walkthrough.mp4', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 2: DATA ANALYSIS WITH EXCEL (EXPANDED) -->
+            <div class="module-accordion-card open" id="mod-card-2" data-module="m2">
+              <div class="module-header" onclick="toggleModuleAccordion('mod-card-2')">
+                <div class="module-header-left">
+                  <div class="module-badge-icon badge-analytics">📊</div>
+                  <div class="module-title-box">
+                    <h3>Module 2: Data Analysis with Excel</h3>
+                    <p>6 Resources</p>
+                  </div>
+                </div>
+                <div class="module-header-right">
+                  <div class="module-progress-wrapper">
+                    <div class="module-progress-bar">
+                      <div class="module-progress-fill fill-blue" style="width: 70%;"></div>
+                    </div>
+                    <span class="module-progress-percent">70%</span>
+                  </div>
+                  <span class="module-chevron">▲</span>
+                </div>
+              </div>
+
+              <div class="module-body">
+                <div class="resource-cards-grid">
+                  <!-- Card 1 -->
+                  <div class="res-card" data-title="Data Analysis Practice File" data-type="xlsx" data-size="0.42" data-id="res-2-1">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-2-1', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-xlsx">XLS</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Data Analysis Practice File">Data Analysis Practice File</span>
+                        <span class="res-file-sub">XLSX • 420 KB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Data_Analysis_Practice_File.xlsx', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 2 -->
+                  <div class="res-card" data-title="Pivot Tables Guide" data-type="pdf" data-size="1.8" data-id="res-2-2">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-2-2', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-pdf">PDF</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Pivot Tables Guide">Pivot Tables Guide</span>
+                        <span class="res-file-sub">PDF • 1.8 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Pivot_Tables_Comprehensive_Guide.pdf', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 3 -->
+                  <div class="res-card" data-title="Class Slides (Data Analysis)" data-type="ppt" data-size="4.1" data-id="res-2-3">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-2-3', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-ppt">PPT</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Class Slides (Data Analysis)">Class Slides (Data Analysis)</span>
+                        <span class="res-file-sub">PPT • 4.1 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Class_Slides_Data_Analysis.pptx', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 4 -->
+                  <div class="res-card" data-title="Case Study Questions" data-type="docx" data-size="0.62" data-id="res-2-4">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-2-4', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-docx">DOC</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Case Study Questions">Case Study Questions</span>
+                        <span class="res-file-sub">DOCX • 620 KB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Case_Study_Questions_Retail.docx', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 5 -->
+                  <div class="res-card" data-title="Sample Solutions (Excel)" data-type="zip" data-size="1.2" data-id="res-2-5">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-2-5', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-zip">&lt;/&gt;</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Sample Solutions (Excel)">Sample Solutions (Excel)</span>
+                        <span class="res-file-sub">ZIP • 1.2 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Sample_Solutions_Excel.zip', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 6 -->
+                  <div class="res-card" data-title="Data Analysis Walkthrough" data-type="mp4" data-size="52" data-id="res-2-6">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-2-6', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-mp4">▶</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Data Analysis Walkthrough">Data Analysis Walkthrough</span>
+                        <span class="res-file-sub">MP4 • 52 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Data_Analysis_Walkthrough.mp4', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 3: POWER BI BASICS (EXPANDED) -->
+            <div class="module-accordion-card open" id="mod-card-3" data-module="m3">
+              <div class="module-header" onclick="toggleModuleAccordion('mod-card-3')">
+                <div class="module-header-left">
+                  <div class="module-badge-icon badge-powerbi">📈</div>
+                  <div class="module-title-box">
+                    <h3>Module 3: Power BI Basics</h3>
+                    <p>6 Resources</p>
+                  </div>
+                </div>
+                <div class="module-header-right">
+                  <div class="module-progress-wrapper">
+                    <div class="module-progress-bar">
+                      <div class="module-progress-fill fill-blue" style="width: 40%;"></div>
+                    </div>
+                    <span class="module-progress-percent">40%</span>
+                  </div>
+                  <span class="module-chevron">▲</span>
+                </div>
+              </div>
+
+              <div class="module-body">
+                <div class="resource-cards-grid">
+                  <!-- Card 1 -->
+                  <div class="res-card" data-title="Power BI Installation Guide" data-type="pdf" data-size="1.3" data-id="res-3-1">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-3-1', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-pdf">PDF</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Power BI Installation Guide">Power BI Installation Guide</span>
+                        <span class="res-file-sub">PDF • 1.3 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Power_BI_Desktop_Setup_Guide.pdf', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 2 -->
+                  <div class="res-card" data-title="Sample PBIX File (Sales Dashboard)" data-type="pbix" data-size="5.4" data-id="res-3-2">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-3-2', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-pbix">PBIX</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Sample PBIX File (Sales Dashboard)">Sample PBIX File (Sales Dashboard)</span>
+                        <span class="res-file-sub">PBIX • 5.4 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Sales_Executive_Dashboard.pbix', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 3 -->
+                  <div class="res-card" data-title="DAX Functions Guide" data-type="ppt" data-size="2.1" data-id="res-3-3">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-3-3', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-ppt">PPT</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="DAX Functions Guide">DAX Functions Guide</span>
+                        <span class="res-file-sub">PPT • 2.1 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('DAX_Functions_Complete_Handbook.pptx', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 4 -->
+                  <div class="res-card" data-title="Data Model (Practice Data)" data-type="json" data-size="0.98" data-id="res-3-4">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-3-4', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-json">JSON</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Data Model (Practice Data)">Data Model (Practice Data)</span>
+                        <span class="res-file-sub">JSON • 980 KB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Data_Model_Star_Schema.json', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 5 -->
+                  <div class="res-card" data-title="Project Template (Report Layout)" data-type="docx" data-size="1.2" data-id="res-3-5">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-3-5', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-docx">DOC</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Project Template (Report Layout)">Project Template (Report Layout)</span>
+                        <span class="res-file-sub">DOCX • 1.2 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('BI_Project_Report_Template.docx', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Card 6 -->
+                  <div class="res-card" data-title="Power BI Dashboard Demo" data-type="mp4" data-size="68" data-id="res-3-6">
+                    <button class="res-bookmark-btn" title="Bookmark" onclick="toggleBookmark('res-3-6', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-mp4">▶</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title" title="Power BI Dashboard Demo">Power BI Dashboard Demo</span>
+                        <span class="res-file-sub">MP4 • 68 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Power_BI_Dashboard_Demo.mp4', this)">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 4: DATA VISUALIZATION (COLLAPSED) -->
+            <div class="module-accordion-card" id="mod-card-4" data-module="m4">
+              <div class="module-header" onclick="toggleModuleAccordion('mod-card-4')">
+                <div class="module-header-left">
+                  <div class="module-badge-icon badge-viz">📉</div>
+                  <div class="module-title-box">
+                    <h3>Module 4: Data Visualization</h3>
+                    <p>5 Resources</p>
+                  </div>
+                </div>
+                <div class="module-header-right">
+                  <div class="module-progress-wrapper">
+                    <div class="module-progress-bar">
+                      <div class="module-progress-fill fill-grey" style="width: 0%;"></div>
+                    </div>
+                    <span class="module-progress-percent" style="color: #94a3b8;">0%</span>
+                  </div>
+                  <span class="module-chevron">▼</span>
+                </div>
+              </div>
+
+              <div class="module-body">
+                <div class="resource-cards-grid">
+                  <div class="res-card" data-title="Tableau Fundamentals Guide" data-type="pdf" data-size="3.2" data-id="res-4-1">
+                    <button class="res-bookmark-btn" onclick="toggleBookmark('res-4-1', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-pdf">PDF</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title">Tableau Fundamentals Guide</span>
+                        <span class="res-file-sub">PDF • 3.2 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Tableau_Fundamentals_Guide.pdf', this)">Download</button>
+                    </div>
+                  </div>
+                  <div class="res-card" data-title="Storytelling with Data Worksheets" data-type="docx" data-size="1.4" data-id="res-4-2">
+                    <button class="res-bookmark-btn" onclick="toggleBookmark('res-4-2', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-docx">DOC</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title">Storytelling Worksheets</span>
+                        <span class="res-file-sub">DOCX • 1.4 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Storytelling_Worksheets.docx', this)">Download</button>
+                    </div>
+                  </div>
+                  <div class="res-card" data-title="Global Superstore Dataset" data-type="xlsx" data-size="4.8" data-id="res-4-3">
+                    <button class="res-bookmark-btn" onclick="toggleBookmark('res-4-3', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-xlsx">XLS</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title">Global Superstore Dataset</span>
+                        <span class="res-file-sub">XLSX • 4.8 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Global_Superstore_2024.xlsx', this)">Download</button>
+                    </div>
+                  </div>
+                  <div class="res-card" data-title="Color Palette Guide for BI" data-type="pdf" data-size="0.9" data-id="res-4-4">
+                    <button class="res-bookmark-btn" onclick="toggleBookmark('res-4-4', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-pdf">PDF</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title">Color Palette Guide for BI</span>
+                        <span class="res-file-sub">PDF • 900 KB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('BI_Color_Palette_Guide.pdf', this)">Download</button>
+                    </div>
+                  </div>
+                  <div class="res-card" data-title="Interactive Charts Walkthrough" data-type="mp4" data-size="58" data-id="res-4-5">
+                    <button class="res-bookmark-btn" onclick="toggleBookmark('res-4-5', this)">★</button>
+                    <div class="res-card-top">
+                      <div class="res-file-icon icon-mp4">▶</div>
+                      <div class="res-file-meta">
+                        <span class="res-file-title">Charts Walkthrough</span>
+                        <span class="res-file-sub">MP4 • 58 MB</span>
+                      </div>
+                    </div>
+                    <div class="res-card-bottom">
+                      <button class="res-download-btn" onclick="downloadResource('Interactive_Charts_Walkthrough.mp4', this)">Download</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 5: ADVANCED ANALYTICS (LOCKED) -->
+            <div class="module-accordion-card" id="mod-card-5" data-module="m5">
+              <div class="module-header" onclick="showLockedAlert('Module 5: Advanced Analytics')">
+                <div class="module-header-left">
+                  <div class="module-badge-icon badge-adv">⚡</div>
+                  <div class="module-title-box">
+                    <h3>Module 5: Advanced Analytics</h3>
+                    <p>4 Resources</p>
+                  </div>
+                </div>
+                <div class="module-header-right">
+                  <div class="module-locked-pill">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    Locked
+                  </div>
+                  <span class="module-chevron" style="color: #94a3b8;">›</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 6: PROJECT & CASE STUDY (LOCKED) -->
+            <div class="module-accordion-card" id="mod-card-6" data-module="m6">
+              <div class="module-header" onclick="showLockedAlert('Module 6: Project & Case Study')">
+                <div class="module-header-left">
+                  <div class="module-badge-icon badge-capstone">💼</div>
+                  <div class="module-title-box">
+                    <h3>Module 6: Project & Case Study</h3>
+                    <p>5 Resources</p>
+                  </div>
+                </div>
+                <div class="module-header-right">
+                  <div class="module-locked-pill">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    Locked
+                  </div>
+                  <span class="module-chevron" style="color: #94a3b8;">›</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- END res-modules-column -->
+
+          <!-- RIGHT COLUMN WIDGETS -->
+          <div class="res-sidebar-column">
+
+            <!-- COURSE SELECTOR CARD -->
+            <div class="course-selector-card" onclick="alert('Enrolled Track: Data Analytics with Excel & Power BI (6 Months Cohort)')">
+              <div class="course-selector-left">
+                <div class="course-icon-badge">🎓</div>
+                <div class="course-text-box">
+                  <h4>Data Analytics with Excel & Power BI</h4>
+                  <p>6 Months • Beginner</p>
+                </div>
+              </div>
+              <span class="course-chevron">⌄</span>
+            </div>
+
+            <!-- COURSE PROGRESS CARD -->
+            <div class="course-progress-card">
+              <div class="widget-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>
+                Course Progress
+              </div>
+
+              <!-- Radial Donut Row -->
+              <div class="progress-donut-row">
+                <div class="donut-chart-box">
+                  <svg viewBox="0 0 36 36">
+                    <path class="donut-circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="donut-circle-fill" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  </svg>
+                  <div class="donut-text-center">60%</div>
+                </div>
+                <div class="donut-info-text">
+                  4 of 6 Modules Completed
+                </div>
+              </div>
+
+              <!-- Module Checklist -->
+              <div class="module-checklist">
+                <div class="checklist-item">
+                  <div class="checklist-item-left">
+                    <div class="check-icon-circle icon-completed">✓</div>
+                    <span>Module 1: Excel Basics</span>
+                  </div>
+                  <span class="status-pill status-completed">Completed</span>
+                </div>
+
+                <div class="checklist-item">
+                  <div class="checklist-item-left">
+                    <div class="check-icon-circle icon-inprogress">▶</div>
+                    <span>Module 2: Data Analysis with Excel</span>
+                  </div>
+                  <span class="status-pill status-inprogress">In Progress</span>
+                </div>
+
+                <div class="checklist-item">
+                  <div class="checklist-item-left">
+                    <div class="check-icon-circle icon-pending">•</div>
+                    <span style="color: #64748b;">Module 3: Power BI Basics</span>
+                  </div>
+                  <span class="status-pill status-pending">Pending</span>
+                </div>
+
+                <div class="checklist-item">
+                  <div class="checklist-item-left">
+                    <div class="check-icon-circle icon-pending">•</div>
+                    <span style="color: #64748b;">Module 4: Data Visualization</span>
+                  </div>
+                  <span class="status-pill status-pending">Pending</span>
+                </div>
+
+                <div class="checklist-item">
+                  <div class="checklist-item-left">
+                    <div class="check-icon-circle icon-pending">•</div>
+                    <span style="color: #64748b;">Module 5: Advanced Analytics</span>
+                  </div>
+                  <span class="status-pill status-pending">Pending</span>
+                </div>
+
+                <div class="checklist-item">
+                  <div class="checklist-item-left">
+                    <div class="check-icon-circle icon-pending">•</div>
+                    <span style="color: #64748b;">Module 6: Project & Case Study</span>
+                  </div>
+                  <span class="status-pill status-pending">Pending</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RESOURCE CATEGORIES CARD -->
+            <div class="resource-categories-card">
+              <div class="widget-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                Resource Categories
+              </div>
+
+              <div class="category-list">
+                <div class="category-row" onclick="filterByCategory('ppt')">
+                  <div class="category-left">
+                    <span class="cat-icon" style="color: #f97316;">📊</span>
+                    <span>Class Slides</span>
+                  </div>
+                  <span class="category-count">24</span>
+                </div>
+
+                <div class="category-row" onclick="filterByCategory('xlsx')">
+                  <div class="category-left">
+                    <span class="cat-icon" style="color: #10b981;">📑</span>
+                    <span>Practice Datasets</span>
+                  </div>
+                  <span class="category-count">18</span>
+                </div>
+
+                <div class="category-row" onclick="filterByCategory('pdf')">
+                  <div class="category-left">
+                    <span class="cat-icon" style="color: #ef4444;">📕</span>
+                    <span>Notes & PDFs</span>
+                  </div>
+                  <span class="category-count">32</span>
+                </div>
+
+                <div class="category-row" onclick="filterByCategory('zip')">
+                  <div class="category-left">
+                    <span class="cat-icon" style="color: #2563eb;">&lt;/&gt;</span>
+                    <span>Code Files</span>
+                  </div>
+                  <span class="category-count">12</span>
+                </div>
+
+                <div class="category-row" onclick="filterByCategory('docx')">
+                  <div class="category-left">
+                    <span class="cat-icon" style="color: #8b5cf6;">📋</span>
+                    <span>Templates</span>
+                  </div>
+                  <span class="category-count">10</span>
+                </div>
+
+                <div class="category-row" onclick="filterByCategory('mp4')">
+                  <div class="category-left">
+                    <span class="cat-icon" style="color: #1e293b;">🎥</span>
+                    <span>Video Demo Files</span>
+                  </div>
+                  <span class="category-count">16</span>
+                </div>
+
+                <div class="category-row" onclick="filterByCategory('docx')">
+                  <div class="category-left">
+                    <span class="cat-icon" style="color: #0284c7;">❓</span>
+                    <span>Assignment Questions</span>
+                  </div>
+                  <span class="category-count">14</span>
+                </div>
+
+                <div class="category-row" onclick="filterByCategory('pbix')">
+                  <div class="category-left">
+                    <span class="cat-icon" style="color: #7c3aed;">💼</span>
+                    <span>Project Resources</span>
+                  </div>
+                  <span class="category-count">8</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- QUICK ACTIONS CARD -->
+            <div class="quick-actions-card">
+              <div class="widget-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Quick Actions
+              </div>
+
+              <div class="action-list">
+                <div class="action-row" onclick="switchResourceTab('bookmarks')">
+                  <div class="action-left">
+                    <div class="action-icon-circle">🔖</div>
+                    <div class="action-text">
+                      <h5>View Bookmarked Resources</h5>
+                      <p id="bookmarksCountSubtext">12 items</p>
+                    </div>
+                  </div>
+                  <span class="action-chevron">›</span>
+                </div>
+
+                <div class="action-row" onclick="switchResourceTab('downloads')">
+                  <div class="action-left">
+                    <div class="action-icon-circle">📥</div>
+                    <div class="action-text">
+                      <h5>My Downloads</h5>
+                      <p id="downloadsCountSubtext">28 files (1.2 GB)</p>
+                    </div>
+                  </div>
+                  <span class="action-chevron">›</span>
+                </div>
+
+                <div class="action-row" onclick="openRequestResourceModal()">
+                  <div class="action-left">
+                    <div class="action-icon-circle">☁️</div>
+                    <div class="action-text">
+                      <h5>Request a Resource</h5>
+                      <p>Don't find what you need?</p>
+                    </div>
+                  </div>
+                  <span class="action-chevron">›</span>
+                </div>
+
+                <div class="action-row" onclick="openExternalLinksModal()">
+                  <div class="action-left">
+                    <div class="action-icon-circle">🔗</div>
+                    <div class="action-text">
+                      <h5>External Learning Resources</h5>
+                      <p>Additional helpful links</p>
+                    </div>
+                  </div>
+                  <span class="action-chevron">›</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- END res-sidebar-column -->
+
+        </div><!-- END res-main-grid -->
+
+      </div><!-- END res-content-wrapper -->
+
+    </main>
+
+  </div><!-- END res-layout -->
+
+  <!-- -------------------------------------------------------------
+       REQUEST A RESOURCE MODAL
+  -------------------------------------------------------------- -->
+  <div class="res-modal-overlay" id="requestResourceModal">
+    <div class="res-modal-box">
+      <button class="res-modal-close" onclick="closeModal('requestResourceModal')">✕</button>
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">Request a Course Resource</h3>
+      <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">Can't find a specific dataset, practice template, or cheat sheet? Let our mentors know!</p>
+      
+      <form onsubmit="handleResourceRequestSubmit(event)">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Topic / Resource Title</label>
+          <input type="text" id="reqTitle" placeholder="e.g. Advanced DAX Formula Cheat Sheet" required style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Resource Format Needed</label>
+          <select id="reqFormat" style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none; background: #fff;">
+            <option>Practice Dataset (CSV / XLSX)</option>
+            <option>Power BI Model (.PBIX)</option>
+            <option>Reference PDF / Cheat Sheet</option>
+            <option>Sample Code or Solution File</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Additional Details (Optional)</label>
+          <textarea id="reqNotes" rows="3" placeholder="Tell us how you'll use this or what specific fields you need..." style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none; resize: none;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" onclick="closeModal('requestResourceModal')" style="padding: 10px 18px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #64748b;">Cancel</button>
+          <button type="submit" style="padding: 10px 20px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;">Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       EXTERNAL LEARNING LINKS MODAL
+  -------------------------------------------------------------- -->
+  <div class="res-modal-overlay" id="externalLinksModal">
+    <div class="res-modal-box">
+      <button class="res-modal-close" onclick="closeModal('externalLinksModal')">✕</button>
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">External Learning Links</h3>
+      <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 16px;">Curated official documentation and industry data repositories for deep learning.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="https://learn.microsoft.com/en-us/office/troubleshoot/excel/welcome-excel" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; color: #0f172a; transition: background 0.15s;">
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem;">Microsoft Excel Official Documentation</div>
+            <div style="font-size: 0.74rem; color: #64748b;">Formulas, Power Query & Pivot Table specs</div>
+          </div>
+          <span style="color: #2563eb; font-weight: 700;">↗</span>
+        </a>
+
+        <a href="https://learn.microsoft.com/en-us/power-bi/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; color: #0f172a; transition: background 0.15s;">
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem;">Microsoft Power BI Guidance</div>
+            <div style="font-size: 0.74rem; color: #64748b;">DAX functions, star-schema & report design</div>
+          </div>
+          <span style="color: #2563eb; font-weight: 700;">↗</span>
+        </a>
+
+        <a href="https://dax.guide/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; color: #0f172a; transition: background 0.15s;">
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem;">DAX.guide by SQLBI</div>
+            <div style="font-size: 0.74rem; color: #64748b;">Complete reference for DAX expressions</div>
+          </div>
+          <span style="color: #2563eb; font-weight: 700;">↗</span>
+        </a>
+
+        <a href="https://www.kaggle.com/datasets" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; color: #0f172a; transition: background 0.15s;">
+          <div>
+            <div style="font-weight: 700; font-size: 0.88rem;">Kaggle Public Datasets</div>
+            <div style="font-size: 0.74rem; color: #64748b;">Over 100,000+ real-world analytics datasets</div>
+          </div>
+          <span style="color: #2563eb; font-weight: 700;">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notification" id="resToast">
+    <div class="toast-icon">✓</div>
+    <span id="toastMessage">Downloading resource...</span>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       INTERACTIVE JAVASCRIPT LOGIC
+  -------------------------------------------------------------- -->
+  <script>
+    // State management
+    let downloadedFilesCount = 28;
+    let bookmarkedIds = new Set(['res-1-1', 'res-1-3', 'res-2-2', 'res-3-2']);
+
+    // Initialize bookmarks UI
+    function initBookmarks() {
+      bookmarkedIds.forEach(id => {
+        const btn = document.querySelector(`.res-card[data-id="${id}"] .res-bookmark-btn`);
+        if (btn) btn.classList.add('bookmarked');
+      });
+      updateBookmarksCount();
+    }
+
+    // Toggle Nav Group
+    function toggleNavGroup(el) {
+      const group = el.closest('.res-nav-group');
+      if (group) {
+        group.classList.toggle('open');
+      }
+    }
+
+    // Toggle Module Accordion
+    function toggleModuleAccordion(id) {
+      const card = document.getElementById(id);
+      if (card) {
+        card.classList.toggle('open');
+      }
+    }
+
+    // Show Locked Alert
+    function showLockedAlert(moduleName) {
+      alert(`${moduleName} resources will unlock automatically after you complete Module 4 assessments.`);
+    }
+
+    // Switch Top Tabs
+    function switchResourceTab(tabName, btnEl) {
+      if (btnEl) {
+        document.querySelectorAll('.res-tab-item').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+
+      const allCards = document.querySelectorAll('.res-card');
+      const allModules = document.querySelectorAll('.module-accordion-card');
+
+      if (tabName === 'all' || tabName === 'module-wise') {
+        allCards.forEach(c => c.style.display = 'flex');
+        allModules.forEach(m => m.style.display = 'block');
+      } else if (tabName === 'bookmarks') {
+        allModules.forEach(m => {
+          let hasVisible = false;
+          m.querySelectorAll('.res-card').forEach(c => {
+            const id = c.getAttribute('data-id');
+            if (bookmarkedIds.has(id)) {
+              c.style.display = 'flex';
+              hasVisible = true;
+            } else {
+              c.style.display = 'none';
+            }
+          });
+          m.style.display = hasVisible ? 'block' : 'none';
+          if (hasVisible) m.classList.add('open');
+        });
+      } else if (tabName === 'downloads') {
+        allCards.forEach(c => c.style.display = 'flex');
+        allModules.forEach(m => m.style.display = 'block');
+        showToast('Displaying 28 downloaded files available offline.');
+      } else if (tabName === 'project') {
+        // Filter to PBIX, JSON, ZIP
+        allModules.forEach(m => {
+          let hasVisible = false;
+          m.querySelectorAll('.res-card').forEach(c => {
+            const type = c.getAttribute('data-type');
+            if (['pbix', 'json', 'zip', 'docx'].includes(type)) {
+              c.style.display = 'flex';
+              hasVisible = true;
+            } else {
+              c.style.display = 'none';
+            }
+          });
+          m.style.display = hasVisible ? 'block' : 'none';
+          if (hasVisible) m.classList.add('open');
+        });
+      } else if (tabName === 'class-wise') {
+        // Filter to Slides & Demos
+        allModules.forEach(m => {
+          let hasVisible = false;
+          m.querySelectorAll('.res-card').forEach(c => {
+            const type = c.getAttribute('data-type');
+            if (['ppt', 'mp4'].includes(type)) {
+              c.style.display = 'flex';
+              hasVisible = true;
+            } else {
+              c.style.display = 'none';
+            }
+          });
+          m.style.display = hasVisible ? 'block' : 'none';
+          if (hasVisible) m.classList.add('open');
+        });
+      }
+    }
+
+    // Toggle Bookmark
+    function toggleBookmark(resId, btn) {
+      if (bookmarkedIds.has(resId)) {
+        bookmarkedIds.delete(resId);
+        btn.classList.remove('bookmarked');
+        showToast('Resource removed from bookmarks.');
+      } else {
+        bookmarkedIds.add(resId);
+        btn.classList.add('bookmarked');
+        showToast('Resource bookmarked successfully!');
+      }
+      updateBookmarksCount();
+    }
+
+    function updateBookmarksCount() {
+      const el = document.getElementById('bookmarksCountSubtext');
+      if (el) el.textContent = `${bookmarkedIds.size} items`;
+    }
+
+    // Download Resource
+    function downloadResource(filename, btn) {
+      btn.innerHTML = `<span style="font-size:11px;">⏳ Preparing...</span>`;
+      btn.disabled = true;
+
+      setTimeout(() => {
+        downloadedFilesCount++;
+        const subtext = document.getElementById('downloadsCountSubtext');
+        if (subtext) subtext.textContent = `${downloadedFilesCount} files (1.2 GB)`;
+
+        btn.classList.add('downloaded');
+        btn.innerHTML = `✓ Downloaded`;
+        btn.disabled = false;
+
+        showToast(`Downloaded: ${filename}`);
+
+        // Trigger safe client-side blob download
+        const blob = new Blob([`Edurup Learning Resource File: ${filename}\nCourse: Data Analytics with Excel & Power BI\nStudent: Rahul Kumar`], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 700);
+    }
+
+    // Show Toast
+    function showToast(message) {
+      const toast = document.getElementById('resToast');
+      const msgEl = document.getElementById('toastMessage');
+      if (toast && msgEl) {
+        msgEl.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      }
+    }
+
+    // Filter Resources by Search & Selectors
+    function filterResources() {
+      const query = (document.getElementById('resourceFilterInput')?.value || '').toLowerCase().trim();
+      const type = document.getElementById('filterType')?.value || 'all';
+      const mod = document.getElementById('filterModule')?.value || 'all';
+
+      const cards = document.querySelectorAll('.res-card');
+      const modules = document.querySelectorAll('.module-accordion-card');
+
+      modules.forEach(m => {
+        const mKey = m.getAttribute('data-module');
+        if (mod !== 'all' && mKey !== mod) {
+          m.style.display = 'none';
+          return;
+        }
+
+        let visibleInModule = 0;
+        const moduleCards = m.querySelectorAll('.res-card');
+
+        moduleCards.forEach(c => {
+          const title = (c.getAttribute('data-title') || '').toLowerCase();
+          const cType = c.getAttribute('data-type') || '';
+
+          const matchesQuery = !query || title.includes(query);
+          const matchesType = type === 'all' || cType === type;
+
+          if (matchesQuery && matchesType) {
+            c.style.display = 'flex';
+            visibleInModule++;
+          } else {
+            c.style.display = 'none';
+          }
+        });
+
+        if (visibleInModule > 0 || (!query && type === 'all' && mod === 'all')) {
+          m.style.display = 'block';
+          if (query || type !== 'all') {
+            m.classList.add('open');
+          }
+        } else {
+          m.style.display = 'none';
+        }
+      });
+    }
+
+    // Filter By Category
+    function filterByCategory(type) {
+      const select = document.getElementById('filterType');
+      if (select) {
+        select.value = type;
+        filterResources();
+      }
+      showToast(`Filtered resources by: ${type.toUpperCase()}`);
+    }
+
+    // Reset Filters
+    function resetFilters() {
+      const search = document.getElementById('resourceFilterInput');
+      const type = document.getElementById('filterType');
+      const mod = document.getElementById('filterModule');
+      const cls = document.getElementById('filterClass');
+      const srt = document.getElementById('filterSort');
+
+      if (search) search.value = '';
+      if (type) type.value = 'all';
+      if (mod) mod.value = 'all';
+      if (cls) cls.value = 'all';
+      if (srt) srt.value = 'latest';
+
+      filterResources();
+      showToast('Filters reset to default.');
+    }
+
+    // Global Search Bar Handler
+    function handleGlobalSearch(val) {
+      const input = document.getElementById('resourceFilterInput');
+      if (input) {
+        input.value = val;
+        filterResources();
+      }
+    }
+
+    // Modal Handlers
+    function openRequestResourceModal() {
+      document.getElementById('requestResourceModal').classList.add('open');
+    }
+    function openExternalLinksModal() {
+      document.getElementById('externalLinksModal').classList.add('open');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function handleResourceRequestSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('reqTitle').value;
+      closeModal('requestResourceModal');
+      showToast(`Resource request submitted for "${title}". Mentors will review within 24h!`);
+      e.target.reset();
+    }
+
+    // Sign out helper
+    function signOutUser() {
+      if (confirm('Are you sure you want to sign out of your Edurup Learning portal?')) {
+        localStorage.removeItem('edurup_user');
+        window.location.href = 'login.html';
+      }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      initBookmarks();
+    });
+  </script>
+
+</body>
+</html>
