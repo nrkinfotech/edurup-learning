@@ -1568,7 +1568,7 @@
             <div class="mp-cards-grid" id="projectsGrid">
 
               <!-- CARD 1: SALES DATA ANALYSIS (COMPLETED) -->
-              <div class="project-card" data-status="completed" data-difficulty="beginner" data-duration="medium" data-title="Sales Data Analysis">
+              <div class="project-card" data-status="completed" data-difficulty="beginner" data-duration="medium" data-title="Sales Data Analysis" onclick="window.location.href='project-details.html'" style="cursor: pointer;">
                 <div class="project-card-banner">
                   <span class="project-status-pill status-badge-completed">Completed</span>
                   <!-- SVG illustration -->
@@ -1587,7 +1587,9 @@
                 </div>
                 <div class="project-card-body">
                   <div>
-                    <h3 class="project-card-title">Sales Data Analysis</h3>
+                    <a href="project-details.html" style="text-decoration:none; color:inherit;">
+                      <h3 class="project-card-title">Sales Data Analysis</h3>
+                    </a>
                     <p class="project-card-desc">Analyze sales data and identify key business insights.</p>
                     
                     <div class="project-meta-row">
@@ -1614,9 +1616,9 @@
                     </div>
                   </div>
 
-                  <button class="btn-view-project" onclick="openCompletedProjectModal('Sales Data Analysis')">
+                  <a href="project-details.html" class="btn-view-project" onclick="event.stopPropagation();">
                     View Project →
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -1916,11 +1918,11 @@
                 <tbody>
                   <tr>
                     <td>1</td>
-                    <td style="font-weight: 700;">Sales Data Analysis</td>
+                    <td style="font-weight: 700;"><a href="project-details.html" style="color:inherit; text-decoration:none;">Sales Data Analysis</a></td>
                     <td>08 Oct 2026</td>
                     <td><span class="table-badge-approved">Approved</span></td>
                     <td>Good analysis and clear insights!</td>
-                    <td><a href="javascript:void(0);" onclick="openFeedbackModal('Sales Data Analysis')" class="table-action-link">View Feedback →</a></td>
+                    <td><a href="project-details.html" class="table-action-link">View Feedback →</a></td>
                   </tr>
                   <tr>
                     <td>2</td>

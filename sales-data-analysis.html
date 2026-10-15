@@ -1,0 +1,2088 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sales Data Analysis | Projects | Edurup Learning</title>
+  <meta name="description" content="Analyze real sales data and identify key business insights using Excel and Power BI.">
+  <link rel="canonical" href="https://www.eduruplearning.com/project-details.html">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <style>
+    /* -------------------------------------------------------------
+       BASE & RESET
+    -------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --bg-dark: #0b1329;
+      --bg-body: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --success: #10b981;
+      --success-light: #dcfce7;
+      --success-text: #166534;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --warning-text: #92400e;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+      --danger-text: #b91c1c;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------------------------------------------
+       LAYOUT STRUCTURE (SIDEBAR + MAIN)
+    -------------------------------------------------------------- */
+    .pd-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* SIDEBAR */
+    .pd-sidebar {
+      width: 250px;
+      background-color: var(--bg-dark);
+      color: #94a3b8;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 20px 14px;
+      z-index: 100;
+    }
+
+    .pd-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .pd-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .pd-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 20px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+    .pd-brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .pd-brand span {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .pd-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .pd-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .pd-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .pd-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-icon {
+      font-size: 16px;
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Submenu groups */
+    .pd-nav-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .pd-nav-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .pd-nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+    .pd-nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .pd-nav-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 28px;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+    .pd-nav-group.open .pd-nav-submenu {
+      display: flex;
+    }
+
+    .pd-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .pd-sub-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .pd-sub-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* MAIN CONTAINER */
+    .pd-main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-width: calc(100% - 250px);
+    }
+
+    /* TOP SEARCH BAR */
+    .pd-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .pd-search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 14px;
+      width: 440px;
+      max-width: 100%;
+    }
+    .pd-search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+    .pd-search-box svg {
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .pd-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .pd-bell-btn {
+      position: relative;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      color: var(--text-muted);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .pd-bell-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+    .pd-bell-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 8px;
+      height: 8px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .pd-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .pd-user-pill:hover {
+      background: #f1f5f9;
+    }
+    .pd-user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #d946ef;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .pd-user-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .pd-user-name {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+    .pd-user-role {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       CONTENT WRAPPER
+    -------------------------------------------------------------- */
+    .pd-content-wrapper {
+      padding: 24px 32px 60px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Breadcrumbs */
+    .pd-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .pd-breadcrumbs a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .pd-breadcrumbs a:hover {
+      color: var(--primary);
+    }
+    .pd-breadcrumbs span.separator {
+      color: #cbd5e1;
+    }
+    .pd-breadcrumbs span.current {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* -------------------------------------------------------------
+       HERO HEADER & PROGRESS SECTION
+    -------------------------------------------------------------- */
+    .pd-hero-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .pd-hero-left {
+      flex: 1;
+      min-width: 300px;
+    }
+    .pd-hero-left h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+      margin-bottom: 4px;
+    }
+    .pd-hero-left p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .pd-meta-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .meta-pill-excel {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #166534;
+    }
+    .meta-pill-powerbi {
+      background: #fefce8;
+      border-color: #fef08a;
+      color: #854d0e;
+    }
+    .meta-pill-skills {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1e40af;
+    }
+
+    /* Progress Widget Card on Hero Right */
+    .pd-progress-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      min-width: 280px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .progress-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .progress-box-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .progress-box-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .pd-progress-track {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-bar-outer {
+      flex: 1;
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: #10b981;
+      border-radius: 6px;
+      transition: width 0.3s ease;
+    }
+    .progress-percent-val {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .btn-continue-hero {
+      width: 100%;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+    }
+    .btn-continue-hero:hover {
+      background: var(--primary-hover);
+    }
+
+    /* -------------------------------------------------------------
+       NAVIGATION TABS
+    -------------------------------------------------------------- */
+    .pd-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      margin-top: 4px;
+    }
+    .pd-tab-item {
+      padding: 10px 4px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      background: none;
+      border: none;
+    }
+    .pd-tab-item:hover {
+      color: var(--text-main);
+    }
+    .pd-tab-item.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .pd-tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary);
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* -------------------------------------------------------------
+       TWO COLUMN MAIN GRID
+    -------------------------------------------------------------- */
+    .pd-main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* LEFT COLUMN SECTIONS */
+    .pd-left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* PROJECT OVERVIEW CARD */
+    .pd-overview-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .overview-text-side {
+      flex: 1;
+    }
+    .overview-heading-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .overview-heading-icon {
+      font-size: 18px;
+      color: #f59e0b;
+    }
+    .overview-paragraph {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Video Walkthrough Card */
+    .overview-video-card {
+      width: 220px;
+      height: 110px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #091325 0%, #172554 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 10px 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .overview-video-card:hover {
+      transform: scale(1.02);
+    }
+    .video-mentor-crop {
+      position: absolute;
+      right: -10px;
+      bottom: 0;
+      width: 100px;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.85;
+      mix-blend-mode: luminosity;
+    }
+    .video-overlay-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to right, rgba(9, 19, 37, 0.95) 40%, rgba(9, 19, 37, 0.4) 100%);
+      z-index: 1;
+    }
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      padding-left: 2px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+    .video-tag-text {
+      position: relative;
+      z-index: 2;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      max-width: 120px;
+    }
+
+    /* 2 COLUMNS: LEARNING OUTCOMES & PROJECT REQUIREMENTS */
+    .pd-two-col-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .outcomes-box, .requirements-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .box-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+    .check-list-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+    .check-circle-green {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #10b981;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .check-circle-blue {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* PROJECT TASKS ACCORDION / LIST */
+    .pd-tasks-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .tasks-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .tasks-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .tasks-header-count {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .task-rows-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .task-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .task-item-row:hover {
+      border-color: var(--primary-border);
+      background: #fbfcfe;
+    }
+    .task-item-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+    }
+    .task-num-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .num-completed {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+    .num-pending {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    .task-title-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .task-title-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .task-desc-text {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .task-item-center {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 16px;
+    }
+    .task-doc-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .task-doc-link:hover {
+      text-decoration: underline;
+    }
+    .task-time-estimate {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .task-item-right {
+      min-width: 100px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .task-status-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pill-completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .pill-inprogress {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .pill-notstarted {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    /* -------------------------------------------------------------
+       RIGHT SIDEBAR COLUMN
+    -------------------------------------------------------------- */
+    .pd-sidebar-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* WIDGET 1: PROJECT DETAILS */
+    .pd-details-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .details-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.8rem;
+    }
+    .details-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .details-label {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .details-val {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .skills-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .skill-tag-pill {
+      background: #eff6ff;
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      border-radius: 12px;
+      padding: 3px 9px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    /* WIDGET 2: NEED HELP? (PRIYA SHARMA) */
+    .pd-help-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .mentor-profile-flex {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .mentor-avatar-box {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+    .mentor-avatar-box img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+    .mentor-status-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+    .btn-ask-question {
+      width: 100%;
+      background: var(--primary);
+      border: none;
+      color: #ffffff;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-ask-question:hover {
+      background: var(--primary-hover);
+    }
+
+    /* WIDGET 3: DATASETS & RESOURCES */
+    .pd-resources-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .resource-downloads-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .resource-file-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 4px;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+    .resource-file-row:hover {
+      background: #f8fafc;
+    }
+    .resource-file-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .file-icon-box {
+      font-size: 16px;
+    }
+    .file-title-meta {
+      display: flex;
+      flex-direction: column;
+    }
+    .file-title-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .file-size-text {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .file-dl-btn {
+      color: var(--primary);
+      background: #eff6ff;
+      border: 1px solid var(--primary-border);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .file-dl-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    /* WIDGET 4: SUBMISSION DEADLINE */
+    .pd-deadline-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .deadline-row-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .deadline-date-text {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #ef4444;
+    }
+    .deadline-countdown-pill {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    /* -------------------------------------------------------------
+       MODALS & TOASTS
+    -------------------------------------------------------------- */
+    .pd-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .pd-modal-overlay.open {
+      display: flex;
+    }
+    .pd-modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 540px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      position: relative;
+      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .pd-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: #f1f5f9;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+    .pd-modal-close:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .toast-notification {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* -------------------------------------------------------------
+       RESPONSIVE BREAKPOINTS
+    -------------------------------------------------------------- */
+    @media (max-width: 992px) {
+      .pd-main-grid {
+        grid-template-columns: 1fr;
+      }
+      .pd-overview-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .overview-video-card {
+        width: 100%;
+        height: 140px;
+      }
+    }
+    @media (max-width: 768px) {
+      .pd-sidebar {
+        display: none;
+      }
+      .pd-main-container {
+        max-width: 100%;
+      }
+      .pd-content-wrapper {
+        padding: 16px;
+      }
+      .pd-two-col-cards {
+        grid-template-columns: 1fr;
+      }
+      .pd-hero-header {
+        flex-direction: column;
+      }
+      .pd-progress-box {
+        width: 100%;
+      }
+      .task-item-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .task-item-center {
+        padding: 0;
+        justify-content: space-between;
+      }
+      .task-item-right {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pd-layout">
+
+    <!-- -----------------------------------------------------------
+         SIDEBAR NAVIGATION
+    ------------------------------------------------------------ -->
+    <aside class="pd-sidebar">
+      <!-- Brand Logo -->
+      <a href="dashboard.html" class="pd-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="pd-nav">
+        <!-- 1. Dashboard -->
+        <a href="dashboard.html" class="pd-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">🏠</span>
+            <span>Dashboard</span>
+          </div>
+        </a>
+
+        <!-- 2. Learning Dropdown -->
+        <div class="pd-nav-group">
+          <div class="pd-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📖</span>
+              <span>Learning</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="pd-nav-submenu">
+            <a href="recorded-classes.html" class="pd-sub-item">
+              <span>📹</span> Recorded Classes
+            </a>
+            <a href="live-classes.html" class="pd-sub-item">
+              <span>🔴</span> Live Classes
+            </a>
+            <a href="quizzes.html" class="pd-sub-item">
+              <span>📝</span> Quizzes
+            </a>
+            <a href="resources.html" class="pd-sub-item">
+              <span>📁</span> Resources
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Projects Dropdown (Expanded & Active) -->
+        <div class="pd-nav-group open">
+          <div class="pd-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">💼</span>
+              <span>Projects</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="pd-nav-submenu">
+            <a href="my-projects.html" class="pd-sub-item active">
+              <span>📁</span> My Projects
+            </a>
+            <a href="javascript:void(0);" onclick="openSubmissionDrawer()" class="pd-sub-item">
+              <span>📤</span> Project Submissions
+            </a>
+            <a href="javascript:void(0);" onclick="openFeedbackModal()" class="pd-sub-item">
+              <span>💬</span> Feedback
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Internship Dropdown -->
+        <div class="pd-nav-group">
+          <div class="pd-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📄</span>
+              <span>Internship</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="pd-nav-submenu">
+            <a href="javascript:void(0);" onclick="alert('Application Status: Active.')" class="pd-sub-item"><span>📄</span> Application</a>
+            <a href="javascript:void(0);" onclick="alert('Internship track: 6 Months with Certificate & LOR.')" class="pd-sub-item"><span>📋</span> Internship Details</a>
+            <a href="dashboard.html#my-tasks-section" class="pd-sub-item"><span>📌</span> My Tasks</a>
+            <a href="javascript:void(0);" onclick="alert('Weekly Reports unlock after module 2 completion.')" class="pd-sub-item"><span>📊</span> Weekly Reports</a>
+            <a href="javascript:void(0);" onclick="alert('Live Class Attendance: 92% active.')" class="pd-sub-item"><span>📅</span> Attendance</a>
+          </div>
+        </div>
+
+        <!-- 5. Certificates Dropdown -->
+        <div class="pd-nav-group">
+          <div class="pd-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">🎖️</span>
+              <span>Certificates</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="pd-nav-submenu">
+            <a href="dashboard.html#certificates-progress-section" class="pd-sub-item"><span>🎖️</span> My Certificates</a>
+            <a href="javascript:void(0);" onclick="alert('Offer Letter available in your student portal.')" class="pd-sub-item"><span>📄</span> Offer Letter</a>
+            <a href="javascript:void(0);" onclick="alert('Letter of Recommendation (LOR) issued after capstone.')" class="pd-sub-item"><span>📜</span> Letter of Recommendation</a>
+          </div>
+        </div>
+
+        <!-- 6. Messages -->
+        <a href="javascript:void(0);" onclick="openAskMentorModal()" class="pd-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">💬</span>
+            <span>Messages</span>
+          </div>
+        </a>
+
+        <!-- 7. Support -->
+        <a href="support.html" class="pd-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">❓</span>
+            <span>Support</span>
+          </div>
+        </a>
+
+        <!-- 8. My Profile -->
+        <a href="profile.html" class="pd-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">👤</span>
+            <span>My Profile</span>
+          </div>
+        </a>
+
+        <!-- 9. Sign Out -->
+        <a href="javascript:void(0);" onclick="signOutUser()" class="pd-nav-item" style="color:#ef4444; font-weight:700; margin-top:8px;">
+          <div class="nav-left">
+            <span class="nav-icon">🚪</span>
+            <span>Sign Out</span>
+          </div>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- -----------------------------------------------------------
+         MAIN CONTAINER
+    ------------------------------------------------------------ -->
+    <main class="pd-main-container">
+
+      <!-- TOP SEARCH BAR -->
+      <header class="pd-topbar">
+        <div class="pd-search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" placeholder="Search for videos, projects, tasks, resources...">
+        </div>
+
+        <div class="pd-topbar-actions">
+          <button class="pd-bell-btn" title="Notifications" onclick="alert('Mentor Priya reviewed task 3: Data Cleaning!')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span class="pd-bell-badge"></span>
+          </button>
+
+          <div class="pd-user-pill" onclick="window.location.href='profile.html'">
+            <div class="pd-user-avatar">RK</div>
+            <div class="pd-user-info">
+              <span class="pd-user-name">Rahul Kumar</span>
+              <span class="pd-user-role">Student</span>
+            </div>
+            <span style="font-size: 11px; color: #94a3b8; margin-left: 2px;">⌄</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT WRAPPER -->
+      <div class="pd-content-wrapper">
+
+        <!-- BREADCRUMBS -->
+        <div class="pd-breadcrumbs">
+          <a href="dashboard.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Dashboard
+          </a>
+          <span class="separator">›</span>
+          <a href="my-projects.html">Projects</a>
+          <span class="separator">›</span>
+          <span class="current">Sales Data Analysis</span>
+        </div>
+
+        <!-- HERO HEADER SECTION -->
+        <div class="pd-hero-header">
+          <div class="pd-hero-left">
+            <h1>Sales Data Analysis</h1>
+            <p>Analyze real sales data and identify key business insights using Excel and Power BI.</p>
+
+            <div class="pd-meta-badges">
+              <div class="meta-pill">
+                <span style="color:#f59e0b;">⭐</span>
+                <span>Beginner</span>
+              </div>
+
+              <div class="meta-pill">
+                <span>⏱️</span>
+                <span>7 Days</span>
+              </div>
+
+              <div class="meta-pill meta-pill-excel">
+                <span>📊</span>
+                <span>Excel</span>
+              </div>
+
+              <div class="meta-pill meta-pill-powerbi">
+                <span>📈</span>
+                <span>Power BI</span>
+              </div>
+
+              <div class="meta-pill meta-pill-skills">
+                <span>👥</span>
+                <span>10+ Skills</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- YOUR PROGRESS CARD -->
+          <div class="pd-progress-box">
+            <div class="progress-box-header">
+              <span class="progress-box-title">Your Progress</span>
+              <span class="progress-box-sub" id="tasksRatioText">4/8 Tasks Completed</span>
+            </div>
+
+            <div class="pd-progress-track">
+              <div class="progress-bar-outer">
+                <div class="progress-bar-inner" id="tasksProgressBar" style="width: 50%;"></div>
+              </div>
+              <span class="progress-percent-val" id="tasksPercentText">50%</span>
+            </div>
+
+            <button class="btn-continue-hero" onclick="scrollToTasks()">
+              Continue Project →
+            </button>
+          </div>
+        </div>
+
+        <!-- HORIZONTAL TABS BAR -->
+        <div class="pd-tabs-bar">
+          <button class="pd-tab-item active" onclick="switchDetailTab('overview', this)">Overview</button>
+          <button class="pd-tab-item" onclick="switchDetailTab('tasks', this)">Project Tasks</button>
+          <button class="pd-tab-item" onclick="switchDetailTab('resources', this)">Datasets & Resources</button>
+          <button class="pd-tab-item" onclick="switchDetailTab('submission', this)">Submission</button>
+          <button class="pd-tab-item" onclick="switchDetailTab('feedback', this)">Mentor Feedback</button>
+          <button class="pd-tab-item" onclick="switchDetailTab('discussion', this)">Discussion</button>
+        </div>
+
+        <!-- -----------------------------------------------------------
+             TWO COLUMN MAIN GRID
+        ------------------------------------------------------------ -->
+        <div class="pd-main-grid">
+
+          <!-- LEFT COLUMN -->
+          <div class="pd-left-column">
+
+            <!-- 1. PROJECT OVERVIEW CARD -->
+            <div class="pd-overview-card">
+              <div class="overview-text-side">
+                <div class="overview-heading-row">
+                  <span class="overview-heading-icon">📄</span>
+                  <h3>Project Overview</h3>
+                </div>
+                <p class="overview-paragraph">
+                  In this project, you will work with real-world sales data to analyze customer behavior, identify top products, and build an interactive dashboard using Excel and Power BI. This project will help you understand how businesses use data to make decisions.
+                </p>
+              </div>
+
+              <!-- Video Walkthrough Box -->
+              <div class="overview-video-card" onclick="openVideoWalkthroughModal()">
+                <img src="assets/arjun_avatar.png" alt="Arjun Mentor" class="video-mentor-crop">
+                <div class="video-overlay-gradient"></div>
+                <div class="video-play-btn">▶</div>
+                <span class="video-tag-text">Project Walkthrough (5 mins)</span>
+              </div>
+            </div>
+
+            <!-- 2. TWO COLUMN CARDS: OUTCOMES & REQUIREMENTS -->
+            <div class="pd-two-col-cards">
+              <!-- Learning Outcomes -->
+              <div class="outcomes-box">
+                <div class="box-header-title">
+                  <span style="color:#f59e0b; font-size:16px;">💡</span>
+                  <span>Learning Outcomes</span>
+                </div>
+                <div class="check-list-items">
+                  <div class="check-item">
+                    <span class="check-circle-green">✓</span>
+                    <span>Understand business problem and data</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-circle-green">✓</span>
+                    <span>Perform data cleaning and analysis</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-circle-green">✓</span>
+                    <span>Create meaningful visualizations</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-circle-green">✓</span>
+                    <span>Build an interactive dashboard</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-circle-green">✓</span>
+                    <span>Present key insights and recommendations</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Project Requirements -->
+              <div class="requirements-box">
+                <div class="box-header-title">
+                  <span style="color:#2563eb; font-size:16px;">📄</span>
+                  <span>Project Requirements</span>
+                </div>
+                <div class="check-list-items">
+                  <div class="check-item">
+                    <span class="check-circle-blue">✓</span>
+                    <span>Use the provided dataset</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-circle-blue">✓</span>
+                    <span>Follow the task list and deliverables</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-circle-blue">✓</span>
+                    <span>You can use Excel and/or Power BI</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-circle-blue">✓</span>
+                    <span>Submit the final files and report</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-circle-blue">✓</span>
+                    <span>Project will be reviewed by your mentor</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. PROJECT TASKS (8 TASKS) -->
+            <div class="pd-tasks-card" id="projectTasksSection">
+              <div class="tasks-card-header">
+                <div class="tasks-header-left">
+                  <span style="color:#f59e0b; font-size:17px;">📋</span>
+                  <span>Project Tasks (8 Tasks)</span>
+                </div>
+                <span class="tasks-header-count" id="tasksHeaderCount">4/8 Completed</span>
+              </div>
+
+              <div class="task-rows-container">
+                <!-- Task 1 -->
+                <div class="task-item-row" onclick="viewTaskDetails(1, 'Understand Business Problem')">
+                  <div class="task-item-left">
+                    <div class="task-num-circle num-completed">1</div>
+                    <div class="task-title-details">
+                      <span class="task-title-text">Understand Business Problem</span>
+                      <span class="task-desc-text">Read the problem statement and dataset details</span>
+                    </div>
+                  </div>
+                  <div class="task-item-center">
+                    <a href="javascript:void(0);" onclick="event.stopPropagation(); downloadResourceFile('Problem_Statement.pdf')" class="task-doc-link">
+                      <span>📄</span> Problem Statement
+                    </a>
+                    <span class="task-time-estimate">⏱️ 30 mins</span>
+                  </div>
+                  <div class="task-item-right">
+                    <span class="task-status-pill pill-completed">✓ Completed</span>
+                  </div>
+                </div>
+
+                <!-- Task 2 -->
+                <div class="task-item-row" onclick="viewTaskDetails(2, 'Import and Explore Data')">
+                  <div class="task-item-left">
+                    <div class="task-num-circle num-completed">2</div>
+                    <div class="task-title-details">
+                      <span class="task-title-text">Import and Explore Data</span>
+                      <span class="task-desc-text">Load the dataset in Excel and perform initial exploration</span>
+                    </div>
+                  </div>
+                  <div class="task-item-center">
+                    <a href="javascript:void(0);" onclick="event.stopPropagation(); downloadResourceFile('Sales_Data_Raw.csv')" class="task-doc-link">
+                      <span>🗄️</span> Sample Dataset
+                    </a>
+                    <span class="task-time-estimate">⏱️ 30 mins</span>
+                  </div>
+                  <div class="task-item-right">
+                    <span class="task-status-pill pill-completed">✓ Completed</span>
+                  </div>
+                </div>
+
+                <!-- Task 3 -->
+                <div class="task-item-row" onclick="viewTaskDetails(3, 'Data Cleaning')">
+                  <div class="task-item-left">
+                    <div class="task-num-circle num-completed">3</div>
+                    <div class="task-title-details">
+                      <span class="task-title-text">Data Cleaning</span>
+                      <span class="task-desc-text">Handle missing values, duplicates and correct data types</span>
+                    </div>
+                  </div>
+                  <div class="task-item-center">
+                    <a href="javascript:void(0);" onclick="event.stopPropagation(); downloadResourceFile('Data_Cleaning_Guide.pdf')" class="task-doc-link">
+                      <span>📖</span> Cleaning Guide
+                    </a>
+                    <span class="task-time-estimate">⏱️ 60 mins</span>
+                  </div>
+                  <div class="task-item-right">
+                    <span class="task-status-pill pill-completed">✓ Completed</span>
+                  </div>
+                </div>
+
+                <!-- Task 4 -->
+                <div class="task-item-row" onclick="viewTaskDetails(4, 'Analyze Sales Data')">
+                  <div class="task-item-left">
+                    <div class="task-num-circle num-completed">4</div>
+                    <div class="task-title-details">
+                      <span class="task-title-text">Analyze Sales Data</span>
+                      <span class="task-desc-text">Create pivot tables and analyze key metrics</span>
+                    </div>
+                  </div>
+                  <div class="task-item-center">
+                    <a href="javascript:void(0);" onclick="event.stopPropagation(); downloadResourceFile('Analysis_Hints.pdf')" class="task-doc-link">
+                      <span>💡</span> Analysis Hints
+                    </a>
+                    <span class="task-time-estimate">⏱️ 60 mins</span>
+                  </div>
+                  <div class="task-item-right">
+                    <span class="task-status-pill pill-inprogress">● In Progress</span>
+                  </div>
+                </div>
+
+                <!-- Task 5 -->
+                <div class="task-item-row" onclick="viewTaskDetails(5, 'Create Visualizations')">
+                  <div class="task-item-left">
+                    <div class="task-num-circle num-pending">5</div>
+                    <div class="task-title-details">
+                      <span class="task-title-text">Create Visualizations</span>
+                      <span class="task-desc-text">Build charts and graphs to show insights</span>
+                    </div>
+                  </div>
+                  <div class="task-item-center">
+                    <a href="javascript:void(0);" onclick="event.stopPropagation(); downloadResourceFile('Chart_Examples.pdf')" class="task-doc-link">
+                      <span>📊</span> Chart Examples
+                    </a>
+                    <span class="task-time-estimate">⏱️ 60 mins</span>
+                  </div>
+                  <div class="task-item-right">
+                    <span class="task-status-pill pill-notstarted">Not Started</span>
+                  </div>
+                </div>
+
+                <!-- Task 6 -->
+                <div class="task-item-row" onclick="viewTaskDetails(6, 'Build Interactive Dashboard')">
+                  <div class="task-item-left">
+                    <div class="task-num-circle num-pending">6</div>
+                    <div class="task-title-details">
+                      <span class="task-title-text">Build Interactive Dashboard</span>
+                      <span class="task-desc-text">Create an interactive dashboard in Power BI</span>
+                    </div>
+                  </div>
+                  <div class="task-item-center">
+                    <a href="javascript:void(0);" onclick="event.stopPropagation(); downloadResourceFile('Dashboard_Template.pbix')" class="task-doc-link">
+                      <span>📈</span> Dashboard Template
+                    </a>
+                    <span class="task-time-estimate">⏱️ 90 mins</span>
+                  </div>
+                  <div class="task-item-right">
+                    <span class="task-status-pill pill-notstarted">Not Started</span>
+                  </div>
+                </div>
+
+                <!-- Task 7 -->
+                <div class="task-item-row" onclick="viewTaskDetails(7, 'Write Business Insights')">
+                  <div class="task-item-left">
+                    <div class="task-num-circle num-pending">7</div>
+                    <div class="task-title-details">
+                      <span class="task-title-text">Write Business Insights</span>
+                      <span class="task-desc-text">Summarize key findings and recommendations</span>
+                    </div>
+                  </div>
+                  <div class="task-item-center">
+                    <a href="javascript:void(0);" onclick="event.stopPropagation(); downloadResourceFile('Report_Format.docx')" class="task-doc-link">
+                      <span>📋</span> Report Format
+                    </a>
+                    <span class="task-time-estimate">⏱️ 60 mins</span>
+                  </div>
+                  <div class="task-item-right">
+                    <span class="task-status-pill pill-notstarted">Not Started</span>
+                  </div>
+                </div>
+
+                <!-- Task 8 -->
+                <div class="task-item-row" onclick="viewTaskDetails(8, 'Final Submission')">
+                  <div class="task-item-left">
+                    <div class="task-num-circle num-pending">8</div>
+                    <div class="task-title-details">
+                      <span class="task-title-text">Final Submission</span>
+                      <span class="task-desc-text">Submit dashboard file and report</span>
+                    </div>
+                  </div>
+                  <div class="task-item-center">
+                    <a href="javascript:void(0);" onclick="event.stopPropagation(); downloadResourceFile('Submission_Guidelines.pdf')" class="task-doc-link">
+                      <span>📤</span> Submission Guidelines
+                    </a>
+                    <span class="task-time-estimate">⏱️ 30 mins</span>
+                  </div>
+                  <div class="task-item-right">
+                    <span class="task-status-pill pill-notstarted">Not Started</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- END pd-left-column -->
+
+          <!-- RIGHT SIDEBAR COLUMN -->
+          <div class="pd-sidebar-column">
+
+            <!-- WIDGET 1: PROJECT DETAILS -->
+            <div class="pd-details-card">
+              <div class="box-header-title">
+                <span style="color:#2563eb; font-size:16px;">📅</span>
+                <span>Project Details</span>
+              </div>
+
+              <div class="details-row">
+                <span class="details-label">Difficulty</span>
+                <span class="task-status-pill pill-completed">Beginner</span>
+              </div>
+
+              <div class="details-row">
+                <span class="details-label">Duration</span>
+                <span class="details-val">7 Days</span>
+              </div>
+
+              <div class="details-row">
+                <span class="details-label">Domain</span>
+                <span class="details-val">Data Analytics</span>
+              </div>
+
+              <div class="details-row">
+                <span class="details-label">Tools</span>
+                <div style="display:flex; gap:6px;">
+                  <span class="meta-pill meta-pill-excel" style="padding:2px 8px; font-size:0.72rem;">📊 Excel</span>
+                  <span class="meta-pill meta-pill-powerbi" style="padding:2px 8px; font-size:0.72rem;">📈 Power BI</span>
+                </div>
+              </div>
+
+              <div style="padding-top:12px;">
+                <span class="details-label" style="display:block; margin-bottom:4px;">Skills</span>
+                <div class="skills-tags-wrap">
+                  <span class="skill-tag-pill">Data Cleaning</span>
+                  <span class="skill-tag-pill">Data Analysis</span>
+                  <span class="skill-tag-pill">Data Visualization</span>
+                  <span class="skill-tag-pill">Dashboard</span>
+                  <span class="skill-tag-pill">Business Insights</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- WIDGET 2: NEED HELP? (PRIYA SHARMA) -->
+            <div class="pd-help-card">
+              <div class="box-header-title">
+                <span style="color:#8b5cf6; font-size:16px;">🎧</span>
+                <span>Need Help?</span>
+              </div>
+
+              <div class="mentor-profile-flex">
+                <div class="mentor-avatar-box">
+                  <img src="assets/testimonial-priya.jpg" alt="Priya Sharma">
+                  <span class="mentor-status-badge"></span>
+                </div>
+                <div>
+                  <h4 style="font-size:0.9rem; font-weight:700; color:#0f172a;">Priya Sharma</h4>
+                  <p style="font-size:0.74rem; color:#64748b; margin-bottom:2px;">Data Analytics Mentor</p>
+                  <span style="font-size:0.7rem; color:#166534; font-weight:600;">● Online</span>
+                </div>
+              </div>
+
+              <button class="btn-ask-question" onclick="openAskMentorModal()">
+                Ask a Question →
+              </button>
+            </div>
+
+            <!-- WIDGET 3: DATASETS & RESOURCES -->
+            <div class="pd-resources-card">
+              <div class="box-header-title">
+                <span style="color:#2563eb; font-size:16px;">📁</span>
+                <span>Datasets & Resources</span>
+              </div>
+
+              <div class="resource-downloads-list">
+                <div class="resource-file-row">
+                  <div class="resource-file-left">
+                    <span class="file-icon-box" style="color:#2563eb;">📄</span>
+                    <div class="file-title-meta">
+                      <span class="file-title-text">Sales Data (CSV)</span>
+                      <span class="file-size-text">2.4 MB</span>
+                    </div>
+                  </div>
+                  <button class="file-dl-btn" title="Download" onclick="downloadResourceFile('Sales_Data_Raw.csv')">📥</button>
+                </div>
+
+                <div class="resource-file-row">
+                  <div class="resource-file-left">
+                    <span class="file-icon-box" style="color:#f59e0b;">📊</span>
+                    <div class="file-title-meta">
+                      <span class="file-title-text">Sample Dashboard (PBIX)</span>
+                      <span class="file-size-text">1.8 MB</span>
+                    </div>
+                  </div>
+                  <button class="file-dl-btn" title="Download" onclick="downloadResourceFile('Sample_Dashboard.pbix')">📥</button>
+                </div>
+
+                <div class="resource-file-row">
+                  <div class="resource-file-left">
+                    <span class="file-icon-box" style="color:#ef4444;">📕</span>
+                    <div class="file-title-meta">
+                      <span class="file-title-text">Problem Statement (PDF)</span>
+                      <span class="file-size-text">256 KB</span>
+                    </div>
+                  </div>
+                  <button class="file-dl-btn" title="Download" onclick="downloadResourceFile('Problem_Statement.pdf')">📥</button>
+                </div>
+
+                <div class="resource-file-row">
+                  <div class="resource-file-left">
+                    <span class="file-icon-box" style="color:#ef4444;">📕</span>
+                    <div class="file-title-meta">
+                      <span class="file-title-text">Project Instructions (PDF)</span>
+                      <span class="file-size-text">321 KB</span>
+                    </div>
+                  </div>
+                  <button class="file-dl-btn" title="Download" onclick="downloadResourceFile('Project_Instructions.pdf')">📥</button>
+                </div>
+
+                <div class="resource-file-row">
+                  <div class="resource-file-left">
+                    <span class="file-icon-box" style="color:#f59e0b;">📊</span>
+                    <div class="file-title-meta">
+                      <span class="file-title-text">Dashboard Template (PBIX)</span>
+                      <span class="file-size-text">1.5 MB</span>
+                    </div>
+                  </div>
+                  <button class="file-dl-btn" title="Download" onclick="downloadResourceFile('Dashboard_Template.pbix')">📥</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- WIDGET 4: SUBMISSION DEADLINE -->
+            <div class="pd-deadline-card">
+              <div class="box-header-title">
+                <span style="color:#2563eb; font-size:16px;">🗓️</span>
+                <span>Submission Deadline</span>
+              </div>
+
+              <div class="deadline-row-bottom">
+                <span class="deadline-date-text">Due: 15 Oct 2026, 11:59 PM</span>
+                <span class="deadline-countdown-pill">5 Days Left</span>
+              </div>
+            </div>
+
+          </div><!-- END pd-sidebar-column -->
+
+        </div><!-- END pd-main-grid -->
+
+      </div><!-- END pd-content-wrapper -->
+
+    </main>
+
+  </div><!-- END pd-layout -->
+
+  <!-- -------------------------------------------------------------
+       MODAL 1: VIDEO WALKTHROUGH PLAYER
+  -------------------------------------------------------------- -->
+  <div class="pd-modal-overlay" id="walkthroughModal">
+    <div class="pd-modal-box" style="max-width: 620px;">
+      <button class="pd-modal-close" onclick="closeModal('walkthroughModal')">✕</button>
+      <h3 style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin-bottom: 4px;">Sales Data Analysis • Walkthrough</h3>
+      <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 14px;">Mentor video explanation of the business problem, key datasets, and expected deliverables.</p>
+
+      <div style="width: 100%; height: 280px; background: #0b1329; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+        <img src="assets/recorded_class_video_screen.png" alt="Video frame" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.75;">
+        <div style="position: absolute; width: 54px; height: 54px; border-radius: 50%; background: #2563eb; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.4); cursor: pointer;" onclick="alert('Playing walkthrough video: 05:24 duration.')">▶</div>
+        <div style="position: absolute; bottom: 12px; left: 14px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Mentor Walkthrough • 05:24</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       MODAL 2: SUBMIT PROJECT WORKSPACE
+  -------------------------------------------------------------- -->
+  <div class="pd-modal-overlay" id="submissionModal">
+    <div class="pd-modal-box">
+      <button class="pd-modal-close" onclick="closeModal('submissionModal')">✕</button>
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">Submit Project Deliverables</h3>
+      <p style="font-size: 0.84rem; color: #64748b; margin-bottom: 16px;">Upload your Excel analysis workbook and Power BI dashboard file for mentor evaluation.</p>
+
+      <form onsubmit="handleProjectSubmission(event)">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Upload Files (.xlsx, .pbix, .pdf)</label>
+          <div style="border: 2px dashed #cbd5e1; border-radius: 10px; padding: 24px; text-align: center; background: #f8fafc; cursor: pointer;" onclick="document.getElementById('fileInput').click()">
+            <div style="font-size: 24px; margin-bottom: 6px;">📤</div>
+            <div style="font-size: 0.82rem; font-weight: 700; color: #2563eb;">Click to browse files or drag and drop</div>
+            <div style="font-size: 0.72rem; color: #94a3b8; margin-top: 2px;">Supported formats: XLSX, PBIX, PDF (Max 50MB)</div>
+            <input type="file" id="fileInput" multiple style="display:none;" onchange="handleFileSelect(this)">
+          </div>
+          <div id="selectedFilesNotice" style="font-size: 0.78rem; color: #166534; font-weight: 600; margin-top: 6px;"></div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">GitHub / Google Drive Repository Link</label>
+          <input type="url" placeholder="https://github.com/rahulkumar/sales-data-analysis" required style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Notes for Mentor (Optional)</label>
+          <textarea rows="3" placeholder="Key highlights, challenges faced, or questions for mentor review..." style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none; resize: none;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" onclick="closeModal('submissionModal')" style="padding: 10px 18px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #64748b;">Cancel</button>
+          <button type="submit" style="padding: 10px 20px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;">Submit Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       MODAL 3: ASK MENTOR MODAL
+  -------------------------------------------------------------- -->
+  <div class="pd-modal-overlay" id="askMentorModal">
+    <div class="pd-modal-box">
+      <button class="pd-modal-close" onclick="closeModal('askMentorModal')">✕</button>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <img src="assets/testimonial-priya.jpg" alt="Priya" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; color: #0f172a;">Ask Priya Sharma</h4>
+          <span style="font-size: 0.74rem; color: #166534; font-weight: 600;">● Online • Data Analytics Mentor</span>
+        </div>
+      </div>
+
+      <form onsubmit="handleMentorQuestion(event)">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Select Project Task</label>
+          <select style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none; background:#fff;">
+            <option>Task 4: Analyze Sales Data</option>
+            <option>Task 5: Create Visualizations</option>
+            <option>Task 6: Build Interactive Dashboard</option>
+            <option>General Project Query</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Your Question</label>
+          <textarea rows="4" placeholder="Hi Priya, I wanted to confirm if we should calculate Year-over-Year revenue using Power Query or DAX measure..." required style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none; resize: none;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" onclick="closeModal('askMentorModal')" style="padding: 10px 18px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #64748b;">Cancel</button>
+          <button type="submit" style="padding: 10px 20px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notification" id="pdToast">
+    <span id="pdToastMessage">Downloading file...</span>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       JAVASCRIPT LOGIC
+  -------------------------------------------------------------- -->
+  <script>
+    let completedTasksCount = 4;
+    const totalTasksCount = 8;
+
+    function toggleNavGroup(el) {
+      const group = el.closest('.pd-nav-group');
+      if (group) group.classList.toggle('open');
+    }
+
+    function switchDetailTab(tabName, btnEl) {
+      document.querySelectorAll('.pd-tab-item').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      if (tabName === 'tasks') {
+        scrollToTasks();
+      } else if (tabName === 'resources') {
+        showToast('Viewing Project Datasets & Resources.');
+      } else if (tabName === 'submission') {
+        openSubmissionDrawer();
+      } else if (tabName === 'feedback') {
+        openFeedbackModal();
+      } else if (tabName === 'discussion') {
+        alert('💬 Project Discussion Forum: 14 students and Mentor Priya are discussing Sales Data insights.');
+      }
+    }
+
+    function scrollToTasks() {
+      const el = document.getElementById('projectTasksSection');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function viewTaskDetails(num, title) {
+      alert(`📌 Task ${num}: ${title}\nFollow instructions and download attached reference guides to complete.`);
+    }
+
+    function openVideoWalkthroughModal() {
+      document.getElementById('walkthroughModal').classList.add('open');
+    }
+    function openSubmissionDrawer() {
+      document.getElementById('submissionModal').classList.add('open');
+    }
+    function openAskMentorModal() {
+      document.getElementById('askMentorModal').classList.add('open');
+    }
+    function openFeedbackModal() {
+      alert('🎖️ Mentor Feedback (Pre-evaluation): Good analysis on Tasks 1-3. Complete Task 4 Pivot Tables for intermediate review.');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function downloadResourceFile(filename) {
+      showToast(`Downloading ${filename}...`);
+      const blob = new Blob([`Edurup Learning Resource File: ${filename}\nCourse: Data Analytics\nProject: Sales Data Analysis`], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('pdToast');
+      const text = document.getElementById('pdToastMessage');
+      if (toast && text) {
+        text.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+    }
+
+    function handleFileSelect(input) {
+      const notice = document.getElementById('selectedFilesNotice');
+      if (input.files && input.files.length > 0) {
+        notice.textContent = `✓ Selected ${input.files.length} file(s): ${Array.from(input.files).map(f => f.name).join(', ')}`;
+      }
+    }
+
+    function handleProjectSubmission(e) {
+      e.preventDefault();
+      closeModal('submissionModal');
+      showToast('🎉 Project deliverables submitted! Mentor Priya Sharma will review.');
+    }
+
+    function handleMentorQuestion(e) {
+      e.preventDefault();
+      closeModal('askMentorModal');
+      showToast('✉️ Question sent to Priya Sharma. Reply expected in ~15 mins.');
+    }
+
+    function signOutUser() {
+      if (confirm('Are you sure you want to sign out of your Edurup Learning portal?')) {
+        localStorage.removeItem('edurup_user');
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+
+</body>
+</html>
