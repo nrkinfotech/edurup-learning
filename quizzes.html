@@ -1,0 +1,2195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quizzes | Data Analytics Internship | Edurup Learning</title>
+  <meta name="description" content="Test your knowledge, track your progress and strengthen your skills with module-wise quizzes.">
+  <link rel="canonical" href="https://www.eduruplearning.com/quizzes.html">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <style>
+    /* -------------------------------------------------------------
+       BASE & RESET
+    -------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --bg-dark: #0b1329;
+      --bg-body: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --success: #10b981;
+      --success-light: #dcfce7;
+      --success-text: #166534;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --warning-text: #92400e;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+      --danger-text: #b91c1c;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------------------------------------------
+       LAYOUT STRUCTURE (SIDEBAR + MAIN)
+    -------------------------------------------------------------- */
+    .qz-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* SIDEBAR */
+    .qz-sidebar {
+      width: 250px;
+      background-color: var(--bg-dark);
+      color: #94a3b8;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 20px 14px;
+      z-index: 100;
+    }
+
+    .qz-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .qz-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .qz-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 20px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+    .qz-brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .qz-brand span {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .qz-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .qz-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .qz-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .qz-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-icon {
+      font-size: 16px;
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Submenu groups */
+    .qz-nav-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .qz-nav-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .qz-nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+    .qz-nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .qz-nav-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 28px;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+    .qz-nav-group.open .qz-nav-submenu {
+      display: flex;
+    }
+
+    .qz-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .qz-sub-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .qz-sub-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* MAIN CONTAINER */
+    .qz-main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-width: calc(100% - 250px);
+    }
+
+    /* TOP SEARCH BAR (MATCHING MOCKUP) */
+    .qz-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      gap: 20px;
+    }
+    .qz-search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 14px;
+      width: 440px;
+      max-width: 100%;
+    }
+    .qz-search-icon {
+      font-size: 14px;
+      color: #64748b;
+    }
+    .qz-search-input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+    .qz-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .qz-notif-btn {
+      position: relative;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #475569;
+    }
+    .qz-notif-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+    .qz-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .qz-user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #8b5cf6;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qz-user-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .qz-user-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .qz-user-role {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* HEADER & BREADCRUMB */
+    .qz-header {
+      padding: 20px 32px 16px 32px;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .qz-header-left {
+      flex: 1;
+      min-width: 280px;
+    }
+    .qz-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .qz-breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .qz-breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    .qz-breadcrumb-sep {
+      color: #cbd5e1;
+      font-size: 11px;
+    }
+    .qz-page-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+      margin-bottom: 4px;
+    }
+    .qz-page-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* COURSE SELECTOR PILL */
+    .course-selector-pill {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+    }
+    .course-selector-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .course-selector-name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .course-selector-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* BODY WRAPPER */
+    .qz-content-body {
+      padding: 24px 32px 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* -------------------------------------------------------------
+       ROW 1: TOP 5 STAT CARDS
+    -------------------------------------------------------------- */
+    .qz-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) 1.5fr;
+      gap: 16px;
+    }
+    .qz-stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .stat-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .stat-val-num {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+    .stat-val-label {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Progress card */
+    .stat-card-progress {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 8px;
+    }
+    .scp-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.82rem;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+    .scp-bar-wrap {
+      width: 100%;
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .scp-bar-fill {
+      width: 67%;
+      height: 100%;
+      background: #2563eb;
+      border-radius: 10px;
+    }
+
+    /* -------------------------------------------------------------
+       ROW 2: MAIN 2-COLUMN QUIZ WORKSPACE
+    -------------------------------------------------------------- */
+    .qz-workspace-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* ============================================================
+       COLUMN 1: MODULES & QUIZZES ACCORDION LIST
+    ============================================================ */
+    .qz-modules-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .col-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      padding: 0 4px;
+    }
+
+    .modules-accordion-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 820px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .modules-accordion-stack::-webkit-scrollbar {
+      width: 4px;
+    }
+    .modules-accordion-stack::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .module-group-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+    .module-group-header {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      background: #ffffff;
+      transition: background 0.15s;
+    }
+    .module-group-header:hover {
+      background: #f8fafc;
+    }
+    .mgh-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .mgh-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .mgh-meta {
+      min-width: 0;
+    }
+    .mgh-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mgh-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .mgh-chevron {
+      font-size: 12px;
+      color: var(--text-light);
+      transition: transform 0.2s;
+    }
+    .module-group-card.open .mgh-chevron {
+      transform: rotate(180deg);
+    }
+
+    .module-quizzes-list {
+      display: none;
+      flex-direction: column;
+      border-top: 1px solid var(--border-light);
+      background: #fafafa;
+    }
+    .module-group-card.open .module-quizzes-list {
+      display: flex;
+    }
+
+    .quiz-sub-item {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: #ffffff;
+    }
+    .quiz-sub-item:last-child {
+      border-bottom: none;
+    }
+    .quiz-sub-item:hover {
+      background: #f8fafc;
+    }
+    .quiz-sub-item.active {
+      background: #eff6ff;
+      border-left: 3px solid #2563eb;
+    }
+    .qsi-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      min-width: 0;
+    }
+    .qsi-play-icon {
+      font-size: 14px;
+      color: #2563eb;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .qsi-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .quiz-sub-item.active .qsi-title {
+      color: #1d4ed8;
+      font-weight: 800;
+    }
+    .qsi-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .qsi-badge-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .badge-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .badge-inprogress {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .badge-notstarted {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+    .qsi-score {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* ============================================================
+       COLUMN 2: INTERACTIVE QUIZ ENGINE
+    ============================================================ */
+    .qz-engine-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* TOP HEADER: ACTIVE QUIZ TITLE + TIMER + END QUIZ */
+    .qz-active-header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .qah-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .qah-title-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qah-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .qah-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .qah-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .qah-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .timer-pill-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius-md);
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .timer-icon {
+      font-size: 16px;
+      color: #2563eb;
+    }
+    .timer-label {
+      font-size: 0.68rem;
+      color: #1e40af;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .timer-display {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      letter-spacing: 0.5px;
+    }
+    .btn-end-quiz {
+      background: #ffffff;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-end-quiz:hover {
+      background: #fee2e2;
+    }
+
+    /* Progress bar row */
+    .qah-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qah-prog-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .qah-prog-bar-wrap {
+      flex: 1;
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .qah-prog-bar-fill {
+      width: 53%;
+      height: 100%;
+      background: #2563eb;
+      border-radius: 10px;
+      transition: width 0.3s;
+    }
+    .qah-prog-pct {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-main);
+      min-width: 34px;
+      text-align: right;
+    }
+
+    /* QUESTION VIEW + NAVIGATOR SPLIT */
+    .quiz-main-split {
+      display: grid;
+      grid-template-columns: 1fr 310px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Question Box */
+    .question-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .qc-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .qc-qnum {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .qc-marks-badge {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .qc-prompt-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.45;
+    }
+
+    /* Options Stack */
+    .qc-options-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .qc-option-row {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .qc-option-row:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+    .qc-option-row.selected {
+      border: 1.5px solid #2563eb;
+      background: #eff6ff;
+    }
+    .opt-letter-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .qc-option-row.selected .opt-letter-circle {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .opt-text-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+      flex: 1;
+    }
+    .qc-option-row.selected .opt-text-label {
+      font-weight: 700;
+      color: #1d4ed8;
+    }
+
+    /* Question Footer Buttons */
+    .qc-nav-buttons-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-light);
+    }
+    .btn-qc-prev {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-qc-prev:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    .btn-qc-next {
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: #ffffff;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-qc-next:hover {
+      background: var(--primary-hover);
+    }
+
+    /* RIGHT WIDGET: QUESTION NAVIGATOR & INSTRUCTIONS */
+    .quiz-sidebar-widgets {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .navigator-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .nav-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+    .nav-card-icon {
+      font-size: 15px;
+      color: var(--primary);
+    }
+
+    .nav-grid-box {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .nav-q-btn {
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #475569;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .nav-q-btn:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+    .nav-q-btn.answered {
+      background: #dcfce7;
+      border-color: #bbf7d0;
+      color: #166534;
+    }
+    .nav-q-btn.current {
+      background: #ffffff;
+      border: 2px solid #2563eb;
+      color: #2563eb;
+      font-weight: 800;
+    }
+    .nav-q-btn.not-answered {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      color: #475569;
+    }
+
+    .nav-legend-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-light);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* INSTRUCTIONS CARD */
+    .instructions-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .inst-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+    .inst-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .inst-list li::before {
+      content: '• ';
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* BOTTOM 2 CARDS: QUIZ DETAILS & QUICK ACTIONS */
+    .qz-bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .qz-bottom-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Details row */
+    .qd-cols-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .qd-col-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .qd-icon {
+      font-size: 16px;
+      color: var(--primary);
+    }
+    .qd-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .qd-val {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* Actions buttons */
+    .qa-buttons-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .btn-qa-clear {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-qa-clear:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    .btn-qa-submit {
+      flex: 1;
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-qa-submit:hover {
+      background: var(--primary-hover);
+    }
+
+    /* -------------------------------------------------------------
+       RESULTS MODAL (SUBMIT / COMPLETE)
+    -------------------------------------------------------------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 480px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      animation: modalPop 0.25s ease-out;
+    }
+    @keyframes modalPop {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* -------------------------------------------------------------
+       RESPONSIVE BREAKPOINTS
+    -------------------------------------------------------------- */
+    @media (max-width: 1200px) {
+      .qz-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .qz-workspace-grid {
+        grid-template-columns: 1fr;
+      }
+      .quiz-main-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .qz-sidebar {
+        display: none;
+      }
+      .qz-main-container {
+        max-width: 100%;
+      }
+      .qz-topbar, .qz-header, .qz-content-body {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+      .qz-search-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="qz-layout">
+    
+    <!-- -----------------------------------------------------------
+         LEFT SIDEBAR NAVIGATION
+    ------------------------------------------------------------ -->
+    <aside class="qz-sidebar">
+      <a href="dashboard.html" class="qz-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <nav class="qz-nav">
+        <!-- 1. Dashboard -->
+        <a href="dashboard.html" class="qz-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">🏠</span>
+            <span>Dashboard</span>
+          </div>
+        </a>
+
+        <!-- 2. Learning Dropdown (Expanded) -->
+        <div class="qz-nav-group open">
+          <div class="qz-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📖</span>
+              <span>Learning</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="qz-nav-submenu">
+            <a href="recorded-classes.html" class="qz-sub-item">
+              <span>📹</span> Recorded Classes
+            </a>
+            <a href="live-classes.html" class="qz-sub-item">
+              <span>🔴</span> Live Classes
+            </a>
+            <a href="quizzes.html" class="qz-sub-item active">
+              <span>📝</span> Quizzes
+            </a>
+            <a href="javascript:void(0);" onclick="alert('Resources: Datasets, Cheat sheets, and Practice workbooks ready.')" class="qz-sub-item">
+              <span>📁</span> Resources
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Projects Dropdown -->
+        <div class="qz-nav-group">
+          <div class="qz-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">💼</span>
+              <span>Projects</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="qz-nav-submenu">
+            <a href="dashboard.html#my-projects-section" class="qz-sub-item"><span>📁</span> My Projects</a>
+            <a href="dashboard.html#my-projects-section" class="qz-sub-item"><span>📤</span> Project Submissions</a>
+            <a href="javascript:void(0);" onclick="alert('Mentor Feedback: Clean Excel data formatting models!')" class="qz-sub-item"><span>💬</span> Feedback</a>
+          </div>
+        </div>
+
+        <!-- 4. Internship Dropdown -->
+        <div class="qz-nav-group">
+          <div class="qz-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📄</span>
+              <span>Internship</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="qz-nav-submenu">
+            <a href="javascript:void(0);" onclick="alert('Application Status: Active.')" class="qz-sub-item"><span>📄</span> Application</a>
+            <a href="javascript:void(0);" onclick="alert('Internship track: 6 Months with Certificate & LOR.')" class="qz-sub-item"><span>📋</span> Internship Details</a>
+            <a href="dashboard.html#my-tasks-section" class="qz-sub-item"><span>📌</span> My Tasks</a>
+            <a href="javascript:void(0);" onclick="alert('Weekly Reports unlock after module 2 completion.')" class="qz-sub-item"><span>📊</span> Weekly Reports</a>
+            <a href="javascript:void(0);" onclick="alert('Live Class Attendance: 92% active.')" class="qz-sub-item"><span>📅</span> Attendance</a>
+          </div>
+        </div>
+
+        <!-- 5. Certificates Dropdown -->
+        <div class="qz-nav-group">
+          <div class="qz-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">🎖️</span>
+              <span>Certificates</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="qz-nav-submenu">
+            <a href="dashboard.html#certificates-progress-section" class="qz-sub-item"><span>🎖️</span> My Certificates</a>
+            <a href="javascript:void(0);" onclick="alert('Offer Letter available in your student portal.')" class="qz-sub-item"><span>📄</span> Offer Letter</a>
+            <a href="javascript:void(0);" onclick="alert('Letter of Recommendation (LOR) issued after capstone.')" class="qz-sub-item"><span>📜</span> Letter of Recommendation</a>
+          </div>
+        </div>
+
+        <!-- 6. Messages -->
+        <a href="javascript:void(0);" onclick="alert('Mentor Chat is online! Feel free to ask queries.')" class="qz-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">💬</span>
+            <span>Messages</span>
+          </div>
+        </a>
+
+        <!-- 7. Support -->
+        <a href="support.html" class="qz-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">❓</span>
+            <span>Support</span>
+          </div>
+        </a>
+
+        <!-- 8. My Profile -->
+        <a href="profile.html" class="qz-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">👤</span>
+            <span>My Profile</span>
+          </div>
+        </a>
+
+        <!-- 9. Sign Out -->
+        <a href="javascript:void(0);" onclick="signOutUser()" class="qz-nav-item" style="color:#ef4444; font-weight:700; margin-top:8px;">
+          <div class="nav-left">
+            <span class="nav-icon">🚪</span>
+            <span>Sign Out</span>
+          </div>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- -----------------------------------------------------------
+         MAIN CONTAINER
+    ------------------------------------------------------------ -->
+    <main class="qz-main-container">
+      
+      <!-- Top Search & User Bar -->
+      <header class="qz-topbar">
+        <div class="qz-search-box">
+          <span class="qz-search-icon">🔍</span>
+          <input type="text" class="qz-search-input" placeholder="Search for videos, projects, tasks, resources..." onkeyup="filterQuizzes(this.value)">
+        </div>
+
+        <div class="qz-topbar-right">
+          <button type="button" class="qz-notif-btn" title="Notifications" onclick="alert('Quiz Alert: Quiz 3: Data Formatting is in progress!')">
+            🔔
+            <span class="qz-notif-badge"></span>
+          </button>
+
+          <a href="profile.html" class="qz-user-pill">
+            <div class="qz-user-avatar" id="topAvatar">RK</div>
+            <div class="qz-user-info">
+              <span class="qz-user-name" id="topUserName">Rahul Kumar</span>
+              <span class="qz-user-role">Student ⌄</span>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <!-- Page Header & Course Selector -->
+      <div class="qz-header">
+        <div class="qz-header-left">
+          <div class="qz-breadcrumb">
+            <a href="dashboard.html">🏠 Dashboard</a>
+            <span class="qz-breadcrumb-sep">></span>
+            <span>Learning</span>
+            <span class="qz-breadcrumb-sep">></span>
+            <span style="color:var(--text-main); font-weight:700;">Quizzes</span>
+          </div>
+          <h1 class="qz-page-title">Quizzes</h1>
+          <p class="qz-page-desc">Test your knowledge, track your progress and strengthen your skills with module-wise quizzes.</p>
+        </div>
+
+        <div class="course-selector-pill" onclick="alert('Current Program: Data Analytics with Excel & Power BI (6 Months)')">
+          <div class="course-selector-icon">📊</div>
+          <div>
+            <div class="course-selector-name">Data Analytics with Excel &amp; Power BI</div>
+            <div class="course-selector-sub">6 Months | Beginner</div>
+          </div>
+          <span style="color:#64748b; font-size:12px;">⌄</span>
+        </div>
+      </div>
+
+      <!-- Main Content Body -->
+      <div class="qz-content-body">
+        
+        <!-- ================= ROW 1: TOP 5 STAT CARDS ================= -->
+        <div class="qz-stats-grid">
+          
+          <!-- Stat 1: Total Quizzes -->
+          <div class="qz-stat-card">
+            <div class="stat-icon-box" style="background:#dcfce7; color:#166534;">✓</div>
+            <div>
+              <div class="stat-val-num">12</div>
+              <div class="stat-val-label">Total Quizzes</div>
+            </div>
+          </div>
+
+          <!-- Stat 2: Completed -->
+          <div class="qz-stat-card">
+            <div class="stat-icon-box" style="background:#eff6ff; color:#2563eb;">✓</div>
+            <div>
+              <div class="stat-val-num">8</div>
+              <div class="stat-val-label">Completed</div>
+            </div>
+          </div>
+
+          <!-- Stat 3: In Progress -->
+          <div class="qz-stat-card">
+            <div class="stat-icon-box" style="background:#fef3c7; color:#d97706;">⏱</div>
+            <div>
+              <div class="stat-val-num">2</div>
+              <div class="stat-val-label">In Progress</div>
+            </div>
+          </div>
+
+          <!-- Stat 4: Pending -->
+          <div class="qz-stat-card">
+            <div class="stat-icon-box" style="background:#fee2e2; color:#dc2626;">📄</div>
+            <div>
+              <div class="stat-val-num">2</div>
+              <div class="stat-val-label">Pending</div>
+            </div>
+          </div>
+
+          <!-- Stat 5: Overall Quiz Progress -->
+          <div class="qz-stat-card stat-card-progress">
+            <div class="scp-top">
+              <span>Overall Quiz Progress</span>
+              <span style="font-weight:800; font-size:1.05rem;" id="overallProgressText">67%</span>
+            </div>
+            <div class="scp-bar-wrap">
+              <div class="scp-bar-fill" id="overallProgressBar" style="width: 67%;"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= ROW 2: MAIN 2-COLUMN WORKSPACE ================= -->
+        <div class="qz-workspace-grid">
+          
+          <!-- ================= LEFT COLUMN: MODULES & QUIZZES LIST ================= -->
+          <div class="qz-modules-col">
+            <div class="col-title">Modules &amp; Quizzes</div>
+
+            <div class="modules-accordion-stack">
+              
+              <!-- Module 1: Excel Basics (Expanded) -->
+              <div class="module-group-card open" id="modGroup1">
+                <div class="module-group-header" onclick="toggleModuleGroup('modGroup1')">
+                  <div class="mgh-left">
+                    <div class="mgh-icon" style="background:#dcfce7; color:#16a34a;">X</div>
+                    <div class="mgh-meta">
+                      <div class="mgh-title">Module 1: Excel Basics</div>
+                      <div class="mgh-sub">3 Quizzes • 2 Completed</div>
+                    </div>
+                  </div>
+                  <span class="mgh-chevron">⌄</span>
+                </div>
+
+                <div class="module-quizzes-list">
+                  <!-- Quiz 1 -->
+                  <div class="quiz-sub-item" onclick="loadQuiz(1, 'Quiz 1: Excel Fundamentals', 'Module 1: Excel Basics')">
+                    <div class="qsi-left">
+                      <div class="qsi-meta">
+                        <div class="qsi-title">Quiz 1: Excel Fundamentals</div>
+                        <div>20 Questions • 20 mins</div>
+                      </div>
+                    </div>
+                    <div class="qsi-badge-col">
+                      <span class="badge-pill badge-completed">✓ Completed</span>
+                      <span class="qsi-score">Score: 85%</span>
+                    </div>
+                  </div>
+
+                  <!-- Quiz 2 -->
+                  <div class="quiz-sub-item" onclick="loadQuiz(2, 'Quiz 2: Formulas & Functions', 'Module 1: Excel Basics')">
+                    <div class="qsi-left">
+                      <div class="qsi-meta">
+                        <div class="qsi-title">Quiz 2: Formulas &amp; Functions</div>
+                        <div>15 Questions • 15 mins</div>
+                      </div>
+                    </div>
+                    <div class="qsi-badge-col">
+                      <span class="badge-pill badge-completed">✓ Completed</span>
+                      <span class="qsi-score">Score: 90%</span>
+                    </div>
+                  </div>
+
+                  <!-- Quiz 3 (ACTIVE) -->
+                  <div class="quiz-sub-item active" onclick="loadQuiz(3, 'Quiz 3: Data Formatting', 'Module 1: Excel Basics')">
+                    <div class="qsi-left">
+                      <span class="qsi-play-icon">▶</span>
+                      <div class="qsi-meta">
+                        <div class="qsi-title">Quiz 3: Data Formatting</div>
+                        <div>15 Questions • 15 mins</div>
+                      </div>
+                    </div>
+                    <div class="qsi-badge-col">
+                      <span class="badge-pill badge-inprogress">In Progress</span>
+                      <span class="qsi-score" id="quiz3AttemptText">Attempted: 8/15</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Module 2: Data Analysis with Excel (Expanded) -->
+              <div class="module-group-card open" id="modGroup2">
+                <div class="module-group-header" onclick="toggleModuleGroup('modGroup2')">
+                  <div class="mgh-left">
+                    <div class="mgh-icon" style="background:#eff6ff; color:#2563eb;">📊</div>
+                    <div class="mgh-meta">
+                      <div class="mgh-title">Module 2: Data Analysis with Excel</div>
+                      <div class="mgh-sub">2 Quizzes • 0 Completed</div>
+                    </div>
+                  </div>
+                  <span class="mgh-chevron">⌄</span>
+                </div>
+
+                <div class="module-quizzes-list">
+                  <!-- Quiz 4 -->
+                  <div class="quiz-sub-item" onclick="loadQuiz(4, 'Quiz 4: Data Analysis Concepts', 'Module 2: Data Analysis with Excel')">
+                    <div class="qsi-left">
+                      <div class="qsi-meta">
+                        <div class="qsi-title">Quiz 4: Data Analysis Concepts</div>
+                        <div>20 Questions • 20 mins</div>
+                      </div>
+                    </div>
+                    <div class="qsi-badge-col">
+                      <span class="badge-pill badge-notstarted">Not Started</span>
+                    </div>
+                  </div>
+
+                  <!-- Quiz 5 -->
+                  <div class="quiz-sub-item" onclick="loadQuiz(5, 'Quiz 5: Pivot Tables', 'Module 2: Data Analysis with Excel')">
+                    <div class="qsi-left">
+                      <div class="qsi-meta">
+                        <div class="qsi-title">Quiz 5: Pivot Tables</div>
+                        <div>15 Questions • 15 mins</div>
+                      </div>
+                    </div>
+                    <div class="qsi-badge-col">
+                      <span class="badge-pill badge-notstarted">Not Started</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Module 3: Power BI Basics (Locked) -->
+              <div class="module-group-card" onclick="alert('🔒 Module 3 is locked. Complete Module 2 Quizzes to unlock.')">
+                <div class="module-group-header">
+                  <div class="mgh-left">
+                    <div class="mgh-icon" style="background:#fef3c7; color:#d97706;">⚡</div>
+                    <div class="mgh-meta">
+                      <div class="mgh-title">Module 3: Power BI Basics</div>
+                      <div class="mgh-sub">2 Quizzes • Locked</div>
+                    </div>
+                  </div>
+                  <span style="font-size:12px; color:#94a3b8;">🔒 ❯</span>
+                </div>
+              </div>
+
+              <!-- Module 4: Data Visualization (Locked) -->
+              <div class="module-group-card" onclick="alert('🔒 Module 4 is locked. Complete prior modules to unlock.')">
+                <div class="module-group-header">
+                  <div class="mgh-left">
+                    <div class="mgh-icon" style="background:#f3e8ff; color:#9333ea;">📈</div>
+                    <div class="mgh-meta">
+                      <div class="mgh-title">Module 4: Data Visualization</div>
+                      <div class="mgh-sub">2 Quizzes • Locked</div>
+                    </div>
+                  </div>
+                  <span style="font-size:12px; color:#94a3b8;">🔒 ❯</span>
+                </div>
+              </div>
+
+              <!-- Module 5: Advanced Analytics (Locked) -->
+              <div class="module-group-card" onclick="alert('🔒 Module 5 is locked.')">
+                <div class="module-group-header">
+                  <div class="mgh-left">
+                    <div class="mgh-icon" style="background:#fee2e2; color:#dc2626;">🧮</div>
+                    <div class="mgh-meta">
+                      <div class="mgh-title">Module 5: Advanced Analytics</div>
+                      <div class="mgh-sub">2 Quizzes • Locked</div>
+                    </div>
+                  </div>
+                  <span style="font-size:12px; color:#94a3b8;">🔒 ❯</span>
+                </div>
+              </div>
+
+              <!-- Module 6: Project & Case Study (Locked) -->
+              <div class="module-group-card" onclick="alert('🔒 Module 6 is locked.')">
+                <div class="module-group-header">
+                  <div class="mgh-left">
+                    <div class="mgh-icon" style="background:#e0f2fe; color:#0284c7;">💼</div>
+                    <div class="mgh-meta">
+                      <div class="mgh-title">Module 6: Project &amp; Case Study</div>
+                      <div class="mgh-sub">1 Quiz • Locked</div>
+                    </div>
+                  </div>
+                  <span style="font-size:12px; color:#94a3b8;">🔒 ❯</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ================= RIGHT COLUMN: INTERACTIVE QUIZ ENGINE ================= -->
+          <div class="qz-engine-col">
+            
+            <!-- Active Quiz Header Card -->
+            <div class="qz-active-header-card">
+              <div class="qah-top-row">
+                <div class="qah-title-left">
+                  <div class="qah-icon-box">☑️</div>
+                  <div>
+                    <h2 class="qah-title" id="activeQuizTitle">Quiz 3: Data Formatting</h2>
+                    <div class="qah-subtitle" id="activeQuizModule">Module 1: Excel Basics</div>
+                  </div>
+                </div>
+
+                <div class="qah-actions-right">
+                  <div class="timer-pill-box">
+                    <span class="timer-icon">⏱</span>
+                    <div>
+                      <div class="timer-label">Time Remaining</div>
+                      <div class="timer-display" id="quizTimer">08:45</div>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn-end-quiz" onclick="confirmEndQuiz()">End Quiz</button>
+                </div>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="qah-progress-row">
+                <span class="qah-prog-label" id="progCountLabel">Question 8 of 15</span>
+                <div class="qah-prog-bar-wrap">
+                  <div class="qah-prog-bar-fill" id="progBarFill" style="width: 53%;"></div>
+                </div>
+                <span class="qah-prog-pct" id="progPercentText">53%</span>
+              </div>
+            </div>
+
+            <!-- Question View + Question Navigator Split -->
+            <div class="quiz-main-split">
+              
+              <!-- Active Question Box -->
+              <div class="question-card">
+                <div class="qc-top-row">
+                  <span class="qc-qnum" id="currentQNumHeading">Question 8</span>
+                  <span class="qc-marks-badge">1 Mark</span>
+                </div>
+
+                <div class="qc-prompt-text" id="currentQPrompt">
+                  Which of the following Excel features is used to change the number of decimal places in a cell?
+                </div>
+
+                <!-- Multiple Choice Options -->
+                <div class="qc-options-stack" id="optionsContainer">
+                  <!-- Generated dynamically via JS -->
+                </div>
+
+                <div class="qc-nav-buttons-row">
+                  <button type="button" class="btn-qc-prev" onclick="prevQuestion()">❮ Previous</button>
+                  <button type="button" class="btn-qc-next" onclick="nextQuestion()">Next Question ❯</button>
+                </div>
+              </div>
+
+              <!-- Question Navigator & Instructions (Right) -->
+              <div class="quiz-sidebar-widgets">
+                
+                <!-- Navigator Card -->
+                <div class="navigator-card">
+                  <div class="nav-card-header">
+                    <span class="nav-card-icon">🗂️</span>
+                    <span>Question Navigator</span>
+                  </div>
+
+                  <!-- 15 Buttons Grid (5 x 3) -->
+                  <div class="nav-grid-box" id="navGrid">
+                    <!-- Populated dynamically via JS -->
+                  </div>
+
+                  <div class="nav-legend-row">
+                    <div class="legend-item"><span style="color:#10b981;">🟢</span> Answered</div>
+                    <div class="legend-item"><span style="color:#2563eb;">🔵</span> Current</div>
+                    <div class="legend-item"><span style="color:#94a3b8;">⚪</span> Not Answered</div>
+                  </div>
+                </div>
+
+                <!-- Quiz Instructions -->
+                <div class="instructions-card">
+                  <div class="inst-header">
+                    <span style="color:#2563eb;">ℹ️</span>
+                    <span>Quiz Instructions</span>
+                  </div>
+                  <ul class="inst-list">
+                    <li>Total Questions: 15</li>
+                    <li>Time Duration: 15 Minutes</li>
+                    <li>Each question carries 1 mark</li>
+                    <li>You can navigate between questions</li>
+                    <li>Quiz will be auto-submitted when time ends</li>
+                  </ul>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Bottom Row: Quiz Details & Quick Actions -->
+            <div class="qz-bottom-grid">
+              
+              <!-- Bottom Card 1: Quiz Details -->
+              <div class="qz-bottom-card">
+                <div class="nav-card-header" style="margin-bottom:0;">
+                  <span class="nav-card-icon">📅</span>
+                  <span>Quiz Details</span>
+                </div>
+
+                <div class="qd-cols-row">
+                  <div class="qd-col-item">
+                    <span class="qd-icon">📝</span>
+                    <div>
+                      <div class="qd-label">Total Questions</div>
+                      <div class="qd-val">15</div>
+                    </div>
+                  </div>
+
+                  <div class="qd-col-item">
+                    <span class="qd-icon">⏱</span>
+                    <div>
+                      <div class="qd-label">Time Duration</div>
+                      <div class="qd-val">15 Minutes</div>
+                    </div>
+                  </div>
+
+                  <div class="qd-col-item">
+                    <span class="qd-icon">🎯</span>
+                    <div>
+                      <div class="qd-label">Passing Score</div>
+                      <div class="qd-val">70%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Card 2: Quick Actions -->
+              <div class="qz-bottom-card">
+                <div class="nav-card-header" style="margin-bottom:0;">
+                  <span class="nav-card-icon">⚙️</span>
+                  <span>Quick Actions</span>
+                </div>
+
+                <div class="qa-buttons-row">
+                  <button type="button" class="btn-qa-clear" onclick="clearCurrentResponse()">
+                    <span>🔄</span> Clear Response
+                  </button>
+                  <button type="button" class="btn-qa-submit" onclick="submitQuiz()">
+                    <span>🚀</span> Submit Quiz
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Quiz Results Modal -->
+  <div class="modal-overlay" id="resultsModal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-size:1.2rem; font-weight:800; color:#0f172a;">Quiz Results</h3>
+        <button type="button" onclick="closeResultsModal()" style="background:none; border:none; font-size:22px; cursor:pointer; color:#64748b;">✕</button>
+      </div>
+
+      <div style="text-align:center; padding:16px 0;">
+        <div style="width:72px; height:72px; border-radius:50%; background:#dcfce7; color:#166534; font-size:36px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:12px;">🏆</div>
+        <h4 style="font-size:1.4rem; font-weight:800; color:#0f172a; margin-bottom:4px;" id="modalScoreText">Score: 87% (13/15)</h4>
+        <span class="badge-pill badge-completed" style="font-size:0.85rem; padding:4px 12px; margin-bottom:14px;">Status: Passed (Passed >= 70%)</span>
+        
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px; margin-top:16px; text-align:left; font-size:0.82rem; color:#334155; line-height:1.6;">
+          <div>✅ <strong>Correct Answers:</strong> <span id="modalCorrectCount">13</span></div>
+          <div>❌ <strong>Incorrect Answers:</strong> <span id="modalIncorrectCount">2</span></div>
+          <div>⏱ <strong>Time Taken:</strong> 06:15 / 15:00 Mins</div>
+          <div style="margin-top:6px; color:#166534; font-weight:700;">Great job! You have demonstrated strong competency in Excel Data Formatting.</div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button type="button" onclick="closeResultsModal()" style="background:#2563eb; color:#ffffff; font-weight:700; font-size:0.85rem; padding:10px 20px; border:none; border-radius:8px; cursor:pointer;">Return to Quizzes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    // 15 Complete Questions for Quiz 3: Data Formatting
+    const quizQuestions = [
+      {
+        id: 1,
+        prompt: "What is the keyboard shortcut to open the 'Format Cells' dialog box in Excel?",
+        options: [
+          "Ctrl + F",
+          "Ctrl + 1",
+          "Alt + Enter",
+          "Ctrl + Shift + F"
+        ],
+        correctIndex: 1,
+        selectedIndex: 1 // Answered (B)
+      },
+      {
+        id: 2,
+        prompt: "Which format code is used to display negative currency numbers enclosed in parentheses?",
+        options: [
+          "₹#,##0;[Red](₹#,##0)",
+          "₹#,##0;(-₹#,##0)",
+          "₹#,##0;₹-#,##0",
+          "₹#,##0;None"
+        ],
+        correctIndex: 0,
+        selectedIndex: 0 // Answered (A)
+      },
+      {
+        id: 3,
+        prompt: "How does Excel store dates internally for mathematical calculations?",
+        options: [
+          "As plain text strings",
+          "As sequential serial numbers starting from Jan 1, 1900",
+          "As timestamps in Unix Epoch format",
+          "As floating-point binary percentages"
+        ],
+        correctIndex: 1,
+        selectedIndex: 1 // Answered (B)
+      },
+      {
+        id: 4,
+        prompt: "Which tool allows you to copy formatting from one cell and apply it immediately to another?",
+        options: [
+          "AutoFill Handle",
+          "Format Painter",
+          "Paste Special Values",
+          "Flash Fill"
+        ],
+        correctIndex: 1,
+        selectedIndex: 1 // Answered (B)
+      },
+      {
+        id: 5,
+        prompt: "What happens when you select a range and press Ctrl + Shift + % ?",
+        options: [
+          "Applies standard currency format",
+          "Applies percentage format with no decimal places",
+          "Calculates percentage of total automatically",
+          "Inserts modulo formula"
+        ],
+        correctIndex: 1,
+        selectedIndex: 1 // Answered (B)
+      },
+      {
+        id: 6,
+        prompt: "Which Excel alignment setting allows long text to wrap into multiple lines within a single cell?",
+        options: [
+          "Merge & Center",
+          "Wrap Text",
+          "Shrink to Fit",
+          "Justify Column"
+        ],
+        correctIndex: 1,
+        selectedIndex: 1 // Answered (B)
+      },
+      {
+        id: 7,
+        prompt: "When custom formatting numbers as '0.00%', what does entering 0.25 display as?",
+        options: [
+          "0.25",
+          "25.00%",
+          "0.00%",
+          "250%"
+        ],
+        correctIndex: 1,
+        selectedIndex: 1 // Answered (B)
+      },
+      {
+        id: 8,
+        prompt: "Which of the following Excel features is used to change the number of decimal places in a cell?",
+        options: [
+          "Conditional Formatting",
+          "Number Format",
+          "Cell Styles",
+          "Data Validation"
+        ],
+        correctIndex: 1,
+        selectedIndex: 1 // Answered (B) - Current question matching mockup!
+      },
+      {
+        id: 9,
+        prompt: "What symbol in an Excel cell indicates that the column width is too narrow to display the number?",
+        options: [
+          "#NAME?",
+          "#####",
+          "#VALUE!",
+          "#REF!"
+        ],
+        correctIndex: 1,
+        selectedIndex: null // Not answered
+      },
+      {
+        id: 10,
+        prompt: "Which number format displays 1500 as 1.5K or 1,500,000 as 1.5M?",
+        options: [
+          "Accounting format",
+          "Custom format with commas: 0.0,, 'M'",
+          "Scientific E+06 format",
+          "Fraction format"
+        ],
+        correctIndex: 1,
+        selectedIndex: null
+      },
+      {
+        id: 11,
+        prompt: "What does the keyboard shortcut Ctrl + B do in Excel?",
+        options: [
+          "Applies borders to all outer edges",
+          "Applies or removes Bold styling",
+          "Breaks linked external workbooks",
+          "Backs up the current active worksheet"
+        ],
+        correctIndex: 1,
+        selectedIndex: null
+      },
+      {
+        id: 12,
+        prompt: "Which feature allows you to highlight cells in red if their value is below 50?",
+        options: [
+          "Conditional Formatting",
+          "Data Validation",
+          "Goal Seek",
+          "Consolidate Data"
+        ],
+        correctIndex: 0,
+        selectedIndex: null
+      },
+      {
+        id: 13,
+        prompt: "In a custom number format with four sections (Positive; Negative; Zero; Text), what does @ represent?",
+        options: [
+          "Email verification rule",
+          "Text placeholder",
+          "Currency symbol",
+          "Decimal point"
+        ],
+        correctIndex: 1,
+        selectedIndex: null
+      },
+      {
+        id: 14,
+        prompt: "Which shortcut automatically fits the width of selected columns to the widest cell content?",
+        options: [
+          "Alt + H + O + I",
+          "Ctrl + Shift + W",
+          "Alt + F4",
+          "Ctrl + W"
+        ],
+        correctIndex: 0,
+        selectedIndex: null
+      },
+      {
+        id: 15,
+        prompt: "What does pressing Ctrl + Z do when editing formatting?",
+        options: [
+          "Redoes the last action",
+          "Undoes the last formatting or editing action",
+          "Zooms into the selected cell range",
+          "Clears all cell comments"
+        ],
+        correctIndex: 1,
+        selectedIndex: null
+      }
+    ];
+
+    let currentQIndex = 7; // Question 8 (0-indexed = 7) to match the mockup!
+
+    // Toggle Left Sidebar Nav Groups
+    function toggleNavGroup(el) {
+      const group = el.parentElement;
+      group.classList.toggle('open');
+    }
+
+    // Toggle Module Accordion in Left Column
+    function toggleModuleGroup(id) {
+      const group = document.getElementById(id);
+      if (group) group.classList.toggle('open');
+    }
+
+    // Timer Countdown
+    let timeRemaining = 525; // 08:45 = 525 seconds
+    setInterval(() => {
+      if (timeRemaining > 0) {
+        timeRemaining--;
+        const mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+        const secs = (timeRemaining % 60).toString().padStart(2, '0');
+        const timerEl = document.getElementById('quizTimer');
+        if (timerEl) timerEl.innerText = `${mins}:${secs}`;
+      }
+    }, 1000);
+
+    // Render Current Question
+    function renderQuestion() {
+      const q = quizQuestions[currentQIndex];
+      const letters = ['A', 'B', 'C', 'D'];
+
+      document.getElementById('currentQNumHeading').innerText = `Question ${currentQIndex + 1}`;
+      document.getElementById('currentQPrompt').innerText = q.prompt;
+
+      const optContainer = document.getElementById('optionsContainer');
+      optContainer.innerHTML = '';
+
+      q.options.forEach((optText, idx) => {
+        const isSelected = (q.selectedIndex === idx);
+        const row = document.createElement('div');
+        row.className = `qc-option-row ${isSelected ? 'selected' : ''}`;
+        row.onclick = () => selectOption(idx);
+
+        row.innerHTML = `
+          <div class="opt-letter-circle">${letters[idx]}</div>
+          <div class="opt-text-label">${optText}</div>
+        `;
+        optContainer.appendChild(row);
+      });
+
+      // Update Header Progress
+      const answeredCount = quizQuestions.filter(item => item.selectedIndex !== null).length;
+      const pct = Math.round((answeredCount / quizQuestions.length) * 100);
+      
+      document.getElementById('progCountLabel').innerText = `Question ${currentQIndex + 1} of ${quizQuestions.length}`;
+      document.getElementById('progBarFill').style.width = `${pct}%`;
+      document.getElementById('progPercentText').innerText = `${pct}%`;
+      document.getElementById('quiz3AttemptText').innerText = `Attempted: ${answeredCount}/${quizQuestions.length}`;
+
+      renderNavigator();
+    }
+
+    // Select Option
+    function selectOption(optIndex) {
+      const q = quizQuestions[currentQIndex];
+      q.selectedIndex = optIndex;
+      renderQuestion();
+    }
+
+    // Clear Response
+    function clearCurrentResponse() {
+      quizQuestions[currentQIndex].selectedIndex = null;
+      renderQuestion();
+    }
+
+    // Prev / Next Navigation
+    function prevQuestion() {
+      if (currentQIndex > 0) {
+        currentQIndex--;
+        renderQuestion();
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQIndex < quizQuestions.length - 1) {
+        currentQIndex++;
+        renderQuestion();
+      } else {
+        alert('You have reached the last question. Click "Submit Quiz" when you are ready.');
+      }
+    }
+
+    // Jump to question
+    function jumpToQuestion(idx) {
+      currentQIndex = idx;
+      renderQuestion();
+    }
+
+    // Render Question Navigator (15 Buttons)
+    function renderNavigator() {
+      const navGrid = document.getElementById('navGrid');
+      navGrid.innerHTML = '';
+
+      quizQuestions.forEach((q, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.innerText = idx + 1;
+
+        let statusClass = 'not-answered';
+        if (idx === currentQIndex) {
+          statusClass = 'current';
+        } else if (q.selectedIndex !== null) {
+          statusClass = 'answered';
+        }
+
+        btn.className = `nav-q-btn ${statusClass}`;
+        btn.onclick = () => jumpToQuestion(idx);
+        navGrid.appendChild(btn);
+      });
+    }
+
+    // Submit Quiz & Show Modal
+    function submitQuiz() {
+      let correct = 0;
+      quizQuestions.forEach(q => {
+        if (q.selectedIndex === q.correctIndex) correct++;
+      });
+
+      const total = quizQuestions.length;
+      const scorePct = Math.round((correct / total) * 100);
+
+      document.getElementById('modalScoreText').innerText = `Score: ${scorePct}% (${correct}/${total})`;
+      document.getElementById('modalCorrectCount').innerText = correct;
+      document.getElementById('modalIncorrectCount').innerText = total - correct;
+
+      document.getElementById('resultsModal').style.display = 'flex';
+    }
+
+    function confirmEndQuiz() {
+      if (confirm('Are you sure you want to end this quiz? Your current responses will be evaluated.')) {
+        submitQuiz();
+      }
+    }
+
+    function closeResultsModal() {
+      document.getElementById('resultsModal').style.display = 'none';
+    }
+
+    function loadQuiz(quizId, title, moduleName) {
+      document.querySelectorAll('.quiz-sub-item').forEach(el => el.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      document.getElementById('activeQuizTitle').innerText = title;
+      document.getElementById('activeQuizModule').innerText = moduleName;
+
+      currentQIndex = 0;
+      timeRemaining = 900;
+      renderQuestion();
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    // Search filter
+    function filterQuizzes(query) {
+      query = (query || '').toLowerCase();
+      document.querySelectorAll('.quiz-sub-item').forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(query) ? 'flex' : 'none';
+      });
+    }
+
+    // Init on load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderQuestion();
+
+      // Session user sync
+      const sessionStr = localStorage.getItem('edurup_user_session');
+      if (sessionStr) {
+        try {
+          const user = JSON.parse(sessionStr);
+          const name = user.fullName || user.name || 'Rahul Kumar';
+          const parts = name.split(' ');
+          const initials = parts.length > 1 ? (parts[0][0] + parts[1][0]).toUpperCase() : parts[0].slice(0, 2).toUpperCase();
+          const topUserName = document.getElementById('topUserName');
+          const topAvatar = document.getElementById('topAvatar');
+          if (topUserName) topUserName.innerText = name;
+          if (topAvatar) topAvatar.innerText = initials;
+        } catch(e) {}
+      }
+    });
+  </script>
+  <script src="assets/js/nav-auth.js?v=2"></script>
+</body>
+</html>
