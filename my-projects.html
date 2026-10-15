@@ -1,0 +1,2296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Projects | Data Analytics Internship | Edurup Learning</title>
+  <meta name="description" content="Build your portfolio with real-world projects, track your submissions, and get mentor reviews.">
+  <link rel="canonical" href="https://www.eduruplearning.com/my-projects.html">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <style>
+    /* -------------------------------------------------------------
+       BASE & RESET
+    -------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --bg-dark: #0b1329;
+      --bg-body: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --success: #10b981;
+      --success-light: #dcfce7;
+      --success-text: #166534;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --warning-text: #92400e;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+      --danger-text: #b91c1c;
+      --purple: #8b5cf6;
+      --purple-light: #f3e8ff;
+      --purple-text: #6b21a8;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------------------------------------------
+       LAYOUT STRUCTURE (SIDEBAR + MAIN)
+    -------------------------------------------------------------- */
+    .mp-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* SIDEBAR */
+    .mp-sidebar {
+      width: 250px;
+      background-color: var(--bg-dark);
+      color: #94a3b8;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 20px 14px;
+      z-index: 100;
+    }
+
+    .mp-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .mp-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .mp-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 20px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+    .mp-brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .mp-brand span {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .mp-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .mp-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .mp-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .mp-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-icon {
+      font-size: 16px;
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Submenu groups */
+    .mp-nav-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .mp-nav-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .mp-nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+    .mp-nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .mp-nav-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 28px;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+    .mp-nav-group.open .mp-nav-submenu {
+      display: flex;
+    }
+
+    .mp-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .mp-sub-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .mp-sub-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* MAIN CONTAINER */
+    .mp-main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-width: calc(100% - 250px);
+    }
+
+    /* TOP SEARCH BAR */
+    .mp-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .mp-search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 14px;
+      width: 440px;
+      max-width: 100%;
+    }
+    .mp-search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+    .mp-search-box svg {
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .mp-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .mp-bell-btn {
+      position: relative;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      color: var(--text-muted);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .mp-bell-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+    .mp-bell-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 8px;
+      height: 8px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .mp-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .mp-user-pill:hover {
+      background: #f1f5f9;
+    }
+    .mp-user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #d946ef;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .mp-user-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .mp-user-name {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+    .mp-user-role {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       CONTENT WRAPPER
+    -------------------------------------------------------------- */
+    .mp-content-wrapper {
+      padding: 24px 32px 60px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Breadcrumbs */
+    .mp-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .mp-breadcrumbs a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .mp-breadcrumbs a:hover {
+      color: var(--primary);
+    }
+    .mp-breadcrumbs span.separator {
+      color: #cbd5e1;
+    }
+    .mp-breadcrumbs span.current {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Title Section */
+    .mp-header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mp-header-title h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+    }
+    .mp-header-title p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       TOP 4 STATS CARDS
+    -------------------------------------------------------------- */
+    .mp-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+    .stat-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .stat-icon-blue {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+    .stat-icon-green {
+      background: #dcfce7;
+      color: #10b981;
+    }
+    .stat-icon-amber {
+      background: #fef3c7;
+      color: #f59e0b;
+    }
+    .stat-icon-yellow {
+      background: #fef9c3;
+      color: #ca8a04;
+    }
+    .stat-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    /* -------------------------------------------------------------
+       TABS & FILTER BAR
+    -------------------------------------------------------------- */
+    .mp-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 4px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .mp-tabs-group {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      overflow-x: auto;
+    }
+    .mp-tab-btn {
+      padding: 10px 4px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      background: none;
+      border: none;
+    }
+    .mp-tab-btn:hover {
+      color: var(--text-main);
+    }
+    .mp-tab-btn.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .mp-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .mp-filters-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .mp-filter-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      width: 190px;
+    }
+    .mp-filter-search input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 0.82rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+    .mp-filter-search svg {
+      color: var(--text-light);
+    }
+
+    .mp-filter-select {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 6px 26px 6px 10px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 13px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .mp-filter-select:hover {
+      border-color: var(--primary);
+    }
+
+    /* -------------------------------------------------------------
+       TWO COLUMN MAIN GRID
+    -------------------------------------------------------------- */
+    .mp-main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* LEFT COLUMN: PROJECTS GRID & RECENT SUBMISSIONS */
+    .mp-content-column {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* PROJECT CARDS 3-COL GRID */
+    .mp-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* PROJECT CARD */
+    .project-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .project-card:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    }
+
+    /* Banner / Graphic Area */
+    .project-card-banner {
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 14px;
+      height: 110px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .project-card-banner svg {
+      width: 100%;
+      height: 100%;
+      max-height: 80px;
+    }
+
+    .project-status-pill {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 2;
+    }
+    .status-badge-completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .status-badge-inprogress {
+      background: #f3e8ff;
+      color: #7c3aed;
+    }
+    .status-badge-locked {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+    .status-badge-notstarted {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    /* Body Details */
+    .project-card-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .project-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .project-card-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.35;
+      min-height: 32px;
+    }
+
+    .project-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .project-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .project-tags-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .tech-tag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .tech-tag-icon {
+      font-size: 11px;
+    }
+
+    /* Progress Track */
+    .project-progress-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .project-progress-bar {
+      flex: 1;
+      height: 5px;
+      background: #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .project-progress-fill {
+      height: 100%;
+      border-radius: 6px;
+    }
+    .fill-green { background: #10b981; }
+    .fill-blue { background: #2563eb; }
+    .fill-grey { background: #cbd5e1; }
+
+    .project-progress-text {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 30px;
+      text-align: right;
+    }
+
+    /* Buttons */
+    .btn-view-project {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn-view-project:hover {
+      background: #eff6ff;
+      border-color: var(--primary);
+    }
+
+    .btn-continue-project {
+      width: 100%;
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: #ffffff;
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+    }
+    .btn-continue-project:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-locked-project {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn-locked-project:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    /* -------------------------------------------------------------
+       RECENT SUBMISSIONS TABLE
+    -------------------------------------------------------------- */
+    .recent-submissions-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .submissions-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .submissions-title-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .submissions-title-left svg {
+      color: var(--primary);
+    }
+    .submissions-link-right {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .submissions-link-right:hover {
+      text-decoration: underline;
+    }
+
+    .submissions-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .submissions-table th {
+      text-align: left;
+      padding: 8px 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.76rem;
+    }
+    .submissions-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-main);
+    }
+    .submissions-table tr:last-child td {
+      border-bottom: none;
+    }
+    .table-badge-approved {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+    .table-badge-review {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+    .table-action-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .table-action-link:hover {
+      text-decoration: underline;
+    }
+
+    /* -------------------------------------------------------------
+       RIGHT SIDEBAR COLUMN WIDGETS
+    -------------------------------------------------------------- */
+    .mp-sidebar-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* WIDGET 1: PROJECT PROGRESS */
+    .mp-progress-widget {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .widget-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+    .widget-header-title svg {
+      color: var(--primary);
+    }
+
+    .project-progress-donut-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .donut-details-left {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .donut-subtitle {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .legend-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 0.78rem;
+    }
+    .legend-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .dot-green { background: #10b981; }
+    .dot-blue { background: #2563eb; }
+    .dot-grey { background: #cbd5e1; }
+    .legend-number {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .widget-donut-box {
+      position: relative;
+      width: 76px;
+      height: 76px;
+      flex-shrink: 0;
+    }
+    .widget-donut-box svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .widget-donut-bg {
+      fill: none;
+      stroke: #e2e8f0;
+      stroke-width: 3.5;
+    }
+    .widget-donut-fill {
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-dasharray: 100, 100;
+      stroke-dashoffset: 70; /* 30% fill */
+    }
+    .widget-donut-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* WIDGET 2: NEXT MILESTONE */
+    .mp-milestone-widget {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .milestone-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      margin-bottom: 6px;
+    }
+    .milestone-target-text {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .milestone-ratio {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .milestone-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .milestone-bar {
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .milestone-fill {
+      height: 100%;
+      width: 60%;
+      background: var(--primary);
+      border-radius: 6px;
+    }
+
+    /* WIDGET 3: NEED HELP (PRIYA SHARMA) */
+    .mp-help-widget {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .help-header-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 14px;
+      text-align: left;
+    }
+    .help-header-bar svg {
+      color: var(--primary);
+    }
+
+    .mentor-profile-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    .mentor-avatar-wrapper {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+    }
+    .mentor-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 20%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .mentor-online-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 11px;
+      height: 11px;
+      background: #10b981;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+    .mentor-details h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .mentor-details p {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .mentor-status-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #166534;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .help-text-prompt {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 14px;
+      text-align: left;
+      width: 100%;
+    }
+    .btn-ask-mentor {
+      width: 100%;
+      background: #eff6ff;
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn-ask-mentor:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* WIDGET 4: PROJECT RESOURCES */
+    .mp-resources-widget {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .proj-resource-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .proj-resource-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .proj-resource-row:hover {
+      background: #f8fafc;
+    }
+    .resource-row-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .resource-icon-box {
+      font-size: 15px;
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .resource-arrow {
+      color: var(--text-light);
+      font-size: 13px;
+    }
+
+    /* -------------------------------------------------------------
+       MODALS
+    -------------------------------------------------------------- */
+    .mp-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .mp-modal-overlay.open {
+      display: flex;
+    }
+    .mp-modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 520px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      position: relative;
+      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .mp-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: #f1f5f9;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+    .mp-modal-close:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    /* -------------------------------------------------------------
+       RESPONSIVE BREAKPOINTS
+    -------------------------------------------------------------- */
+    @media (max-width: 1200px) {
+      .mp-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 992px) {
+      .mp-main-grid {
+        grid-template-columns: 1fr;
+      }
+      .mp-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .mp-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .mp-sidebar {
+        display: none;
+      }
+      .mp-main-container {
+        max-width: 100%;
+      }
+      .mp-content-wrapper {
+        padding: 16px;
+      }
+      .mp-stats-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      .mp-cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .submissions-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+    @media (max-width: 480px) {
+      .mp-stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mp-layout">
+
+    <!-- -----------------------------------------------------------
+         SIDEBAR NAVIGATION
+    ------------------------------------------------------------ -->
+    <aside class="mp-sidebar">
+      <!-- Brand Logo -->
+      <a href="dashboard.html" class="mp-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="mp-nav">
+        <!-- 1. Dashboard -->
+        <a href="dashboard.html" class="mp-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">🏠</span>
+            <span>Dashboard</span>
+          </div>
+        </a>
+
+        <!-- 2. Learning Dropdown -->
+        <div class="mp-nav-group">
+          <div class="mp-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📖</span>
+              <span>Learning</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="mp-nav-submenu">
+            <a href="recorded-classes.html" class="mp-sub-item">
+              <span>📹</span> Recorded Classes
+            </a>
+            <a href="live-classes.html" class="mp-sub-item">
+              <span>🔴</span> Live Classes
+            </a>
+            <a href="quizzes.html" class="mp-sub-item">
+              <span>📝</span> Quizzes
+            </a>
+            <a href="resources.html" class="mp-sub-item">
+              <span>📁</span> Resources
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Projects Dropdown (Expanded & Active) -->
+        <div class="mp-nav-group open">
+          <div class="mp-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">💼</span>
+              <span>Projects</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="mp-nav-submenu">
+            <a href="my-projects.html" class="mp-sub-item active">
+              <span>📁</span> My Projects
+            </a>
+            <a href="javascript:void(0);" onclick="openSubmissionDetails('Customer Segmentation')" class="mp-sub-item">
+              <span>📤</span> Project Submissions
+            </a>
+            <a href="javascript:void(0);" onclick="openFeedbackModal('Sales Data Analysis')" class="mp-sub-item">
+              <span>💬</span> Feedback
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Internship Dropdown -->
+        <div class="mp-nav-group">
+          <div class="mp-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📄</span>
+              <span>Internship</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="mp-nav-submenu">
+            <a href="javascript:void(0);" onclick="alert('Application Status: Active.')" class="mp-sub-item"><span>📄</span> Application</a>
+            <a href="javascript:void(0);" onclick="alert('Internship track: 6 Months with Certificate & LOR.')" class="mp-sub-item"><span>📋</span> Internship Details</a>
+            <a href="dashboard.html#my-tasks-section" class="mp-sub-item"><span>📌</span> My Tasks</a>
+            <a href="javascript:void(0);" onclick="alert('Weekly Reports unlock after module 2 completion.')" class="mp-sub-item"><span>📊</span> Weekly Reports</a>
+            <a href="javascript:void(0);" onclick="alert('Live Class Attendance: 92% active.')" class="mp-sub-item"><span>📅</span> Attendance</a>
+          </div>
+        </div>
+
+        <!-- 5. Certificates Dropdown -->
+        <div class="mp-nav-group">
+          <div class="mp-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">🎖️</span>
+              <span>Certificates</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="mp-nav-submenu">
+            <a href="dashboard.html#certificates-progress-section" class="mp-sub-item"><span>🎖️</span> My Certificates</a>
+            <a href="javascript:void(0);" onclick="alert('Offer Letter available in your student portal.')" class="mp-sub-item"><span>📄</span> Offer Letter</a>
+            <a href="javascript:void(0);" onclick="alert('Letter of Recommendation (LOR) issued after capstone.')" class="mp-sub-item"><span>📜</span> Letter of Recommendation</a>
+          </div>
+        </div>
+
+        <!-- 6. Messages -->
+        <a href="javascript:void(0);" onclick="openAskMentorModal()" class="mp-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">💬</span>
+            <span>Messages</span>
+          </div>
+        </a>
+
+        <!-- 7. Support -->
+        <a href="support.html" class="mp-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">❓</span>
+            <span>Support</span>
+          </div>
+        </a>
+
+        <!-- 8. My Profile -->
+        <a href="profile.html" class="mp-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">👤</span>
+            <span>My Profile</span>
+          </div>
+        </a>
+
+        <!-- 9. Sign Out -->
+        <a href="javascript:void(0);" onclick="signOutUser()" class="mp-nav-item" style="color:#ef4444; font-weight:700; margin-top:8px;">
+          <div class="nav-left">
+            <span class="nav-icon">🚪</span>
+            <span>Sign Out</span>
+          </div>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- -----------------------------------------------------------
+         MAIN CONTAINER
+    ------------------------------------------------------------ -->
+    <main class="mp-main-container">
+
+      <!-- TOP SEARCH BAR -->
+      <header class="mp-topbar">
+        <div class="mp-search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="globalSearchInput" placeholder="Search projects, tasks, resources..." oninput="handleGlobalSearch(this.value)">
+        </div>
+
+        <div class="mp-topbar-actions">
+          <button class="mp-bell-btn" title="Notifications" onclick="alert('Mentor Priya reviewed your Customer Segmentation submission!')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span class="mp-bell-badge"></span>
+          </button>
+
+          <div class="mp-user-pill" onclick="window.location.href='profile.html'">
+            <div class="mp-user-avatar">RK</div>
+            <div class="mp-user-info">
+              <span class="mp-user-name">Rahul Kumar</span>
+              <span class="mp-user-role">Student</span>
+            </div>
+            <span style="font-size: 11px; color: #94a3b8; margin-left: 2px;">⌄</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT WRAPPER -->
+      <div class="mp-content-wrapper">
+
+        <!-- BREADCRUMBS -->
+        <div class="mp-breadcrumbs">
+          <a href="dashboard.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Dashboard
+          </a>
+          <span class="separator">›</span>
+          <span class="current">Projects</span>
+        </div>
+
+        <!-- HEADER TITLE -->
+        <div class="mp-header-title">
+          <h1>My Projects</h1>
+          <p>Build your portfolio with real-world projects</p>
+        </div>
+
+        <!-- TOP 4 STATS CARDS -->
+        <div class="mp-stats-row">
+          <!-- Card 1: All Projects -->
+          <div class="stat-card" onclick="filterProjectsByTab('all')">
+            <div class="stat-icon-wrapper stat-icon-blue">📁</div>
+            <div class="stat-info">
+              <span class="stat-label">All Projects</span>
+              <span class="stat-value">10</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Completed -->
+          <div class="stat-card" onclick="filterProjectsByTab('completed')">
+            <div class="stat-icon-wrapper stat-icon-green">✓</div>
+            <div class="stat-info">
+              <span class="stat-label">Completed</span>
+              <span class="stat-value">3</span>
+            </div>
+          </div>
+
+          <!-- Card 3: In Progress -->
+          <div class="stat-card" onclick="filterProjectsByTab('inprogress')">
+            <div class="stat-icon-wrapper stat-icon-amber">⏱️</div>
+            <div class="stat-info">
+              <span class="stat-label">In Progress</span>
+              <span class="stat-value">1</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Locked -->
+          <div class="stat-card" onclick="filterProjectsByTab('locked')">
+            <div class="stat-icon-wrapper stat-icon-yellow">🔒</div>
+            <div class="stat-info">
+              <span class="stat-label">Locked</span>
+              <span class="stat-value">6</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABS & FILTER BAR -->
+        <div class="mp-controls-row">
+          <div class="mp-tabs-group">
+            <button class="mp-tab-btn active" onclick="switchTab('all', this)">All Projects (10)</button>
+            <button class="mp-tab-btn" onclick="switchTab('inprogress', this)">In Progress (1)</button>
+            <button class="mp-tab-btn" onclick="switchTab('completed', this)">Completed (3)</button>
+            <button class="mp-tab-btn" onclick="switchTab('locked', this)">Locked (6)</button>
+          </div>
+
+          <div class="mp-filters-group">
+            <div class="mp-filter-search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="projectSearchInput" placeholder="Search projects..." oninput="filterProjectCards()">
+            </div>
+
+            <select class="mp-filter-select" id="difficultySelect" onchange="filterProjectCards()">
+              <option value="all">Difficulty</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+
+            <select class="mp-filter-select" id="durationSelect" onchange="filterProjectCards()">
+              <option value="all">Duration</option>
+              <option value="short">&lt; 5 Days</option>
+              <option value="medium">5 - 7 Days</option>
+              <option value="long">8+ Days</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- -----------------------------------------------------------
+             TWO COLUMN MAIN GRID
+        ------------------------------------------------------------ -->
+        <div class="mp-main-grid">
+
+          <!-- LEFT COLUMN: CARDS + SUBMISSIONS -->
+          <div class="mp-content-column">
+
+            <!-- PROJECT CARDS GRID (3 COLUMNS) -->
+            <div class="mp-cards-grid" id="projectsGrid">
+
+              <!-- CARD 1: SALES DATA ANALYSIS (COMPLETED) -->
+              <div class="project-card" data-status="completed" data-difficulty="beginner" data-duration="medium" data-title="Sales Data Analysis">
+                <div class="project-card-banner">
+                  <span class="project-status-pill status-badge-completed">Completed</span>
+                  <!-- SVG illustration -->
+                  <svg viewBox="0 0 260 100" fill="none">
+                    <rect x="20" y="24" width="34" height="34" rx="8" fill="#107c41"/>
+                    <text x="32" y="47" fill="#ffffff" font-size="18" font-weight="900" font-family="sans-serif">X</text>
+                    <!-- Bars -->
+                    <rect x="80" y="55" width="16" height="35" rx="3" fill="#10b981" opacity="0.6"/>
+                    <rect x="105" y="40" width="16" height="50" rx="3" fill="#10b981" opacity="0.8"/>
+                    <rect x="130" y="25" width="16" height="65" rx="3" fill="#10b981"/>
+                    <rect x="155" y="45" width="16" height="45" rx="3" fill="#10b981" opacity="0.7"/>
+                    <rect x="180" y="30" width="16" height="60" rx="3" fill="#10b981" opacity="0.9"/>
+                    <!-- Trend line -->
+                    <path d="M88 50 L113 35 L138 20 L163 40 L188 25" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="project-card-body">
+                  <div>
+                    <h3 class="project-card-title">Sales Data Analysis</h3>
+                    <p class="project-card-desc">Analyze sales data and identify key business insights.</p>
+                    
+                    <div class="project-meta-row">
+                      <div class="project-meta-item">
+                        <span style="color: #f59e0b;">⭐</span>
+                        <span>Beginner</span>
+                      </div>
+                      <div class="project-meta-item">
+                        <span>⏱️</span>
+                        <span>7 Days</span>
+                      </div>
+                    </div>
+
+                    <div class="project-tags-row">
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#107c41;">📊</span> Excel</span>
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#f59e0b;">📈</span> Power BI</span>
+                    </div>
+
+                    <div class="project-progress-wrapper">
+                      <div class="project-progress-bar">
+                        <div class="project-progress-fill fill-green" style="width: 100%;"></div>
+                      </div>
+                      <span class="project-progress-text" style="color: #10b981;">100%</span>
+                    </div>
+                  </div>
+
+                  <button class="btn-view-project" onclick="openCompletedProjectModal('Sales Data Analysis')">
+                    View Project →
+                  </button>
+                </div>
+              </div>
+
+              <!-- CARD 2: CUSTOMER SEGMENTATION (IN PROGRESS) -->
+              <div class="project-card" data-status="inprogress" data-difficulty="intermediate" data-duration="medium" data-title="Customer Segmentation">
+                <div class="project-card-banner">
+                  <span class="project-status-pill status-badge-inprogress">In Progress</span>
+                  <!-- SVG illustration -->
+                  <svg viewBox="0 0 260 100" fill="none">
+                    <circle cx="45" cy="50" r="20" fill="#38bdf8" opacity="0.2"/>
+                    <path d="M40 38 C40 35 48 35 48 38 L48 44 L40 44 Z M50 62 C50 65 42 65 42 62 L42 56 L50 56 Z" fill="#306998"/>
+                    <path d="M48 44 C48 48 55 48 55 44 L55 38 L48 38 Z" fill="#ffd43b"/>
+                    <!-- Clusters -->
+                    <circle cx="105" cy="35" r="4" fill="#3b82f6"/>
+                    <circle cx="120" cy="42" r="5" fill="#3b82f6"/>
+                    <circle cx="110" cy="52" r="6" fill="#2563eb"/>
+                    <circle cx="125" cy="58" r="4" fill="#1d4ed8"/>
+                    
+                    <circle cx="170" cy="45" r="5" fill="#f97316"/>
+                    <circle cx="185" cy="38" r="6" fill="#ea580c"/>
+                    <circle cx="195" cy="50" r="4" fill="#c2410c"/>
+                    <circle cx="180" cy="62" r="5" fill="#f97316"/>
+                    
+                    <circle cx="145" cy="72" r="5" fill="#8b5cf6"/>
+                    <circle cx="160" cy="80" r="6" fill="#7c3aed"/>
+                    <!-- connection dashed -->
+                    <line x1="118" y1="48" x2="175" y2="50" stroke="#cbd5e1" stroke-dasharray="3,3"/>
+                  </svg>
+                </div>
+                <div class="project-card-body">
+                  <div>
+                    <h3 class="project-card-title">Customer Segmentation</h3>
+                    <p class="project-card-desc">Segment customers using clustering techniques.</p>
+                    
+                    <div class="project-meta-row">
+                      <div class="project-meta-item">
+                        <span style="color: #f59e0b;">⭐</span>
+                        <span>Intermediate</span>
+                      </div>
+                      <div class="project-meta-item">
+                        <span>⏱️</span>
+                        <span>7 Days</span>
+                      </div>
+                    </div>
+
+                    <div class="project-tags-row">
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#3b82f6;">🐍</span> Python</span>
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#7c3aed;">🐼</span> Pandas</span>
+                    </div>
+
+                    <div class="project-progress-wrapper">
+                      <div class="project-progress-bar">
+                        <div class="project-progress-fill fill-blue" style="width: 60%;"></div>
+                      </div>
+                      <span class="project-progress-text" style="color: #2563eb;">60%</span>
+                    </div>
+                  </div>
+
+                  <button class="btn-continue-project" onclick="openContinueModal('Customer Segmentation')">
+                    Continue Project →
+                  </button>
+                </div>
+              </div>
+
+              <!-- CARD 3: E-COMMERCE DASHBOARD (LOCKED) -->
+              <div class="project-card" data-status="locked" data-difficulty="intermediate" data-duration="medium" data-title="E-commerce Dashboard">
+                <div class="project-card-banner">
+                  <span class="project-status-pill status-badge-locked">🔒 Locked</span>
+                  <!-- SVG illustration -->
+                  <svg viewBox="0 0 260 100" fill="none">
+                    <rect x="25" y="24" width="36" height="36" rx="8" fill="#f59e0b" opacity="0.2"/>
+                    <path d="M35 50 L35 40 M43 50 L43 32 M51 50 L51 36" stroke="#d97706" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <circle cx="165" cy="50" r="22" stroke="#e2e8f0" stroke-width="6"/>
+                    <circle cx="165" cy="50" r="22" stroke="#3b82f6" stroke-width="6" stroke-dasharray="80 120" stroke-linecap="round"/>
+                    
+                    <path d="M85 65 L105 50 L125 58 L145 35" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="project-card-body">
+                  <div>
+                    <h3 class="project-card-title">E-commerce Dashboard</h3>
+                    <p class="project-card-desc">Create an interactive dashboard in Power BI.</p>
+                    
+                    <div class="project-meta-row">
+                      <div class="project-meta-item">
+                        <span style="color: #f59e0b;">⭐</span>
+                        <span>Intermediate</span>
+                      </div>
+                      <div class="project-meta-item">
+                        <span>⏱️</span>
+                        <span>7 Days</span>
+                      </div>
+                    </div>
+
+                    <div class="project-tags-row">
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#f59e0b;">📊</span> Power BI</span>
+                    </div>
+
+                    <div class="project-progress-wrapper">
+                      <div class="project-progress-bar">
+                        <div class="project-progress-fill fill-grey" style="width: 0%;"></div>
+                      </div>
+                      <span class="project-progress-text">0%</span>
+                    </div>
+                  </div>
+
+                  <button class="btn-locked-project" onclick="openRequirementsModal('E-commerce Dashboard')">
+                    View Requirements →
+                  </button>
+                </div>
+              </div>
+
+              <!-- CARD 4: HR ANALYTICS DASHBOARD (NOT STARTED / OPEN) -->
+              <div class="project-card" data-status="inprogress" data-difficulty="intermediate" data-duration="medium" data-title="HR Analytics Dashboard">
+                <div class="project-card-banner">
+                  <span class="project-status-pill status-badge-notstarted">Not Started</span>
+                  <!-- SVG illustration -->
+                  <svg viewBox="0 0 260 100" fill="none">
+                    <circle cx="45" cy="42" r="14" fill="#3b82f6"/>
+                    <path d="M30 68 C30 57 40 54 45 54 C50 54 60 57 60 68" fill="#93c5fd"/>
+                    
+                    <rect x="95" y="55" width="12" height="25" rx="2" fill="#60a5fa"/>
+                    <rect x="115" y="42" width="12" height="38" rx="2" fill="#3b82f6"/>
+                    <rect x="135" y="32" width="12" height="48" rx="2" fill="#2563eb"/>
+                    
+                    <circle cx="185" cy="50" r="18" stroke="#3b82f6" stroke-width="5" stroke-dasharray="40 70"/>
+                  </svg>
+                </div>
+                <div class="project-card-body">
+                  <div>
+                    <h3 class="project-card-title">HR Analytics Dashboard</h3>
+                    <p class="project-card-desc">Explore workforce data and discover hiring trends.</p>
+                    
+                    <div class="project-meta-row">
+                      <div class="project-meta-item">
+                        <span style="color: #f59e0b;">⭐</span>
+                        <span>Intermediate</span>
+                      </div>
+                      <div class="project-meta-item">
+                        <span>⏱️</span>
+                        <span>5 Days</span>
+                      </div>
+                    </div>
+
+                    <div class="project-tags-row">
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#107c41;">📊</span> Excel</span>
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#f59e0b;">📈</span> Power BI</span>
+                    </div>
+
+                    <div class="project-progress-wrapper">
+                      <div class="project-progress-bar">
+                        <div class="project-progress-fill fill-grey" style="width: 0%;"></div>
+                      </div>
+                      <span class="project-progress-text">0%</span>
+                    </div>
+                  </div>
+
+                  <button class="btn-view-project" onclick="startProjectModal('HR Analytics Dashboard')">
+                    Start Project →
+                  </button>
+                </div>
+              </div>
+
+              <!-- CARD 5: MARKETING CAMPAIGN ANALYSIS (NOT STARTED) -->
+              <div class="project-card" data-status="inprogress" data-difficulty="beginner" data-duration="short" data-title="Marketing Campaign Analysis">
+                <div class="project-card-banner">
+                  <span class="project-status-pill status-badge-notstarted">Not Started</span>
+                  <!-- SVG illustration -->
+                  <svg viewBox="0 0 260 100" fill="none">
+                    <rect x="25" y="42" width="10" height="35" rx="2" fill="#f97316"/>
+                    <rect x="42" y="32" width="10" height="45" rx="2" fill="#ea580c"/>
+                    
+                    <path d="M80 65 L105 52 L135 62 L165 35 L195 42" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="105" cy="52" r="4" fill="#ffffff" stroke="#f97316" stroke-width="2"/>
+                    <circle cx="135" cy="62" r="4" fill="#ffffff" stroke="#f97316" stroke-width="2"/>
+                    <circle cx="165" cy="35" r="4" fill="#ffffff" stroke="#f97316" stroke-width="2"/>
+                    <circle cx="195" cy="42" r="4" fill="#ffffff" stroke="#f97316" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="project-card-body">
+                  <div>
+                    <h3 class="project-card-title">Marketing Campaign Analysis</h3>
+                    <p class="project-card-desc">Measure campaign performance and ROI.</p>
+                    
+                    <div class="project-meta-row">
+                      <div class="project-meta-item">
+                        <span style="color: #f59e0b;">⭐</span>
+                        <span>Beginner</span>
+                      </div>
+                      <div class="project-meta-item">
+                        <span>⏱️</span>
+                        <span>4 Days</span>
+                      </div>
+                    </div>
+
+                    <div class="project-tags-row">
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#107c41;">📊</span> Excel</span>
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#ea580c;">📈</span> Google Analytics</span>
+                    </div>
+
+                    <div class="project-progress-wrapper">
+                      <div class="project-progress-bar">
+                        <div class="project-progress-fill fill-grey" style="width: 0%;"></div>
+                      </div>
+                      <span class="project-progress-text">0%</span>
+                    </div>
+                  </div>
+
+                  <button class="btn-view-project" onclick="startProjectModal('Marketing Campaign Analysis')">
+                    Start Project →
+                  </button>
+                </div>
+              </div>
+
+              <!-- CARD 6: CUSTOMER CHURN PREDICTION (LOCKED) -->
+              <div class="project-card" data-status="locked" data-difficulty="advanced" data-duration="long" data-title="Customer Churn Prediction">
+                <div class="project-card-banner">
+                  <span class="project-status-pill status-badge-locked">🔒 Locked</span>
+                  <!-- SVG illustration -->
+                  <svg viewBox="0 0 260 100" fill="none">
+                    <circle cx="40" cy="50" r="16" fill="#306998" opacity="0.3"/>
+                    <path d="M35 44 C35 41 42 41 42 44 L42 48 L35 48 Z" fill="#306998"/>
+                    <path d="M44 56 C44 59 37 59 37 56 L37 52 L44 52 Z" fill="#ffd43b"/>
+                    
+                    <!-- Network nodes -->
+                    <circle cx="120" cy="30" r="5" fill="#6366f1"/>
+                    <circle cx="120" cy="70" r="5" fill="#6366f1"/>
+                    <circle cx="150" cy="50" r="6" fill="#4f46e5"/>
+                    <circle cx="180" cy="35" r="5" fill="#6366f1"/>
+                    <circle cx="180" cy="65" r="5" fill="#6366f1"/>
+                    <line x1="120" y1="30" x2="150" y2="50" stroke="#c7d2fe" stroke-width="2"/>
+                    <line x1="120" y1="70" x2="150" y2="50" stroke="#c7d2fe" stroke-width="2"/>
+                    <line x1="150" y1="50" x2="180" y2="35" stroke="#c7d2fe" stroke-width="2"/>
+                    <line x1="150" y1="50" x2="180" y2="65" stroke="#c7d2fe" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="project-card-body">
+                  <div>
+                    <h3 class="project-card-title">Customer Churn Prediction</h3>
+                    <p class="project-card-desc">Build a machine-learning model to predict churn.</p>
+                    
+                    <div class="project-meta-row">
+                      <div class="project-meta-item">
+                        <span style="color: #ef4444;">⭐</span>
+                        <span>Advanced</span>
+                      </div>
+                      <div class="project-meta-item">
+                        <span>⏱️</span>
+                        <span>10 Days</span>
+                      </div>
+                    </div>
+
+                    <div class="project-tags-row">
+                      <span class="tech-tag"><span class="tech-tag-icon" style="color:#3b82f6;">🐍</span> Python</span>
+                    </div>
+
+                    <div class="project-progress-wrapper">
+                      <div class="project-progress-bar">
+                        <div class="project-progress-fill fill-grey" style="width: 0%;"></div>
+                      </div>
+                      <span class="project-progress-text">0%</span>
+                    </div>
+                  </div>
+
+                  <button class="btn-locked-project" onclick="openRequirementsModal('Customer Churn Prediction')">
+                    View Requirements →
+                  </button>
+                </div>
+              </div>
+
+            </div><!-- END mp-cards-grid -->
+
+            <!-- RECENT SUBMISSIONS TABLE -->
+            <div class="recent-submissions-card">
+              <div class="submissions-header-bar">
+                <div class="submissions-title-left">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  <span>Recent Submissions</span>
+                </div>
+                <a href="javascript:void(0);" onclick="alert('Viewing all past project submissions & mentor grades.')" class="submissions-link-right">
+                  View All Submissions →
+                </a>
+              </div>
+
+              <table class="submissions-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Project</th>
+                    <th>Submitted On</th>
+                    <th>Status</th>
+                    <th>Feedback</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td style="font-weight: 700;">Sales Data Analysis</td>
+                    <td>08 Oct 2026</td>
+                    <td><span class="table-badge-approved">Approved</span></td>
+                    <td>Good analysis and clear insights!</td>
+                    <td><a href="javascript:void(0);" onclick="openFeedbackModal('Sales Data Analysis')" class="table-action-link">View Feedback →</a></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td style="font-weight: 700;">Customer Segmentation</td>
+                    <td>06 Oct 2026</td>
+                    <td><span class="table-badge-review">Under Review</span></td>
+                    <td>Pending review by mentor</td>
+                    <td><a href="javascript:void(0);" onclick="openSubmissionDetails('Customer Segmentation')" class="table-action-link">View Details →</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div><!-- END mp-content-column -->
+
+          <!-- RIGHT SIDEBAR COLUMN -->
+          <div class="mp-sidebar-column">
+
+            <!-- WIDGET 1: PROJECT PROGRESS -->
+            <div class="mp-progress-widget">
+              <div class="widget-header-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Project Progress</span>
+              </div>
+
+              <div class="project-progress-donut-flex">
+                <div class="donut-details-left">
+                  <div class="donut-subtitle">3/10 projects completed</div>
+                  <div class="legend-row">
+                    <div class="legend-indicator">
+                      <span class="legend-dot dot-green"></span>
+                      <span>Completed</span>
+                    </div>
+                    <span class="legend-number">3</span>
+                  </div>
+                  <div class="legend-row">
+                    <div class="legend-indicator">
+                      <span class="legend-dot dot-blue"></span>
+                      <span>In Progress</span>
+                    </div>
+                    <span class="legend-number">1</span>
+                  </div>
+                  <div class="legend-row">
+                    <div class="legend-indicator">
+                      <span class="legend-dot dot-grey"></span>
+                      <span>Locked</span>
+                    </div>
+                    <span class="legend-number">6</span>
+                  </div>
+                </div>
+
+                <div class="widget-donut-box">
+                  <svg viewBox="0 0 36 36">
+                    <path class="widget-donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="widget-donut-fill" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  </svg>
+                  <div class="widget-donut-text">30%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- WIDGET 2: NEXT MILESTONE -->
+            <div class="mp-milestone-widget">
+              <div class="widget-header-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                <span>Next Milestone</span>
+              </div>
+
+              <div class="milestone-title-row">
+                <span class="milestone-target-text">Complete 5 projects</span>
+                <span class="milestone-ratio">3/5</span>
+              </div>
+              <p class="milestone-desc">Submit and get approval for 5 projects to unlock your internship eligibility.</p>
+              <div class="milestone-bar">
+                <div class="milestone-fill"></div>
+              </div>
+            </div>
+
+            <!-- WIDGET 3: NEED HELP? -->
+            <div class="mp-help-widget">
+              <div class="help-header-bar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                <span>Need Help?</span>
+              </div>
+
+              <div class="mentor-profile-box">
+                <div class="mentor-avatar-wrapper">
+                  <img src="assets/testimonial-priya.jpg" alt="Priya Sharma" class="mentor-avatar-img">
+                  <span class="mentor-online-badge"></span>
+                </div>
+                <div class="mentor-details">
+                  <h4>Priya Sharma</h4>
+                  <p>Data Analytics Mentor</p>
+                  <span class="mentor-status-tag">● Online</span>
+                </div>
+              </div>
+
+              <p class="help-text-prompt">Have questions about projects, tools or submissions? Your mentor is here to help.</p>
+
+              <button class="btn-ask-mentor" onclick="openAskMentorModal()">
+                Ask Your Mentor →
+              </button>
+            </div>
+
+            <!-- WIDGET 4: PROJECT RESOURCES -->
+            <div class="mp-resources-widget">
+              <div class="widget-header-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                <span>Project Resources</span>
+              </div>
+
+              <div class="proj-resource-list">
+                <div class="proj-resource-row" onclick="openResourceDoc('Project Guidelines')">
+                  <div class="resource-row-left">
+                    <span class="resource-icon-box" style="color: #2563eb;">📄</span>
+                    <span>Project Guidelines</span>
+                  </div>
+                  <span class="resource-arrow">›</span>
+                </div>
+
+                <div class="proj-resource-row" onclick="openResourceDoc('Setup & Installation Guide')">
+                  <div class="resource-row-left">
+                    <span class="resource-icon-box" style="color: #3b82f6;">🧩</span>
+                    <span>Setup & Installation Guide</span>
+                  </div>
+                  <span class="resource-arrow">›</span>
+                </div>
+
+                <div class="proj-resource-row" onclick="window.location.href='resources.html'">
+                  <div class="resource-row-left">
+                    <span class="resource-icon-box" style="color: #10b981;">📊</span>
+                    <span>Datasets & Resources</span>
+                  </div>
+                  <span class="resource-arrow">›</span>
+                </div>
+
+                <div class="proj-resource-row" onclick="openResourceDoc('Submission Checklist')">
+                  <div class="resource-row-left">
+                    <span class="resource-icon-box" style="color: #f97316;">📋</span>
+                    <span>Submission Checklist</span>
+                  </div>
+                  <span class="resource-arrow">›</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- END mp-sidebar-column -->
+
+        </div><!-- END mp-main-grid -->
+
+      </div><!-- END mp-content-wrapper -->
+
+    </main>
+
+  </div><!-- END mp-layout -->
+
+  <!-- -------------------------------------------------------------
+       MODAL 1: MENTOR FEEDBACK MODAL
+  -------------------------------------------------------------- -->
+  <div class="mp-modal-overlay" id="feedbackModal">
+    <div class="mp-modal-box">
+      <button class="mp-modal-close" onclick="closeModal('feedbackModal')">✕</button>
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <span style="font-size: 24px;">🎖️</span>
+        <h3 id="modalFeedbackTitle" style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">Mentor Feedback</h3>
+      </div>
+      <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 16px;">Evaluated by <strong>Priya Sharma</strong> • Grade: <span style="color:#10b981; font-weight:800;">A+ (96/100)</span></p>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 0.86rem; color: #334155; line-height: 1.5;">
+        <p><strong>Review Summary:</strong></p>
+        <p style="margin-top: 6px;">"Excellent data cleansing pipeline and clear KPI visualizations in your Excel dashboard. The variance analysis between projected vs actual Q3 revenue was exceptionally well explained in your presentation slide deck. Keep up the high standard!"</p>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <button type="button" onclick="closeModal('feedbackModal')" style="padding: 10px 20px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;">Close Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       MODAL 2: CONTINUE / SUBMIT PROJECT WORKSPACE
+  -------------------------------------------------------------- -->
+  <div class="mp-modal-overlay" id="submitModal">
+    <div class="mp-modal-box">
+      <button class="mp-modal-close" onclick="closeModal('submitModal')">✕</button>
+      <h3 id="modalProjectTitle" style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">Project Workspace</h3>
+      <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 16px;">Upload your Jupyter notebook, clean dataset, or Power BI report.</p>
+
+      <form onsubmit="handleProjectSubmit(event)">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">GitHub Repository / Google Drive Link</label>
+          <input type="url" placeholder="https://github.com/rahulkumar/customer-segmentation" required style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Deliverables Checklist</label>
+          <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; color: #334155;">
+            <label><input type="checkbox" checked> Data Cleaning & Exploration Notebook (.ipynb)</label>
+            <label><input type="checkbox" checked> K-Means Clustering Visualizations</label>
+            <label><input type="checkbox"> Executive Presentation Deck (PDF)</label>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+          <button type="button" onclick="closeModal('submitModal')" style="padding: 10px 18px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #64748b;">Cancel</button>
+          <button type="submit" style="padding: 10px 20px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;">Submit for Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       MODAL 3: ASK MENTOR CHAT MODAL
+  -------------------------------------------------------------- -->
+  <div class="mp-modal-overlay" id="mentorModal">
+    <div class="mp-modal-box">
+      <button class="mp-modal-close" onclick="closeModal('mentorModal')">✕</button>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <img src="assets/testimonial-priya.jpg" alt="Priya" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; color: #0f172a;">Message Priya Sharma</h4>
+          <span style="font-size: 0.74rem; color: #166534; font-weight: 600;">● Online • Typically replies in ~15 mins</span>
+        </div>
+      </div>
+
+      <form onsubmit="handleMentorMessage(event)">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Select Project</label>
+          <select style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none; background:#fff;">
+            <option>Customer Segmentation (Python & Pandas)</option>
+            <option>Sales Data Analysis (Excel & Power BI)</option>
+            <option>HR Analytics Dashboard</option>
+            <option>Other / General Internship Query</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 6px;">Your Question or Blocker</label>
+          <textarea rows="4" placeholder="Hi Priya, I have a question about calculating the optimal K in the Elbow Method..." required style="width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.88rem; outline: none; resize: none;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" onclick="closeModal('mentorModal')" style="padding: 10px 18px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #64748b;">Cancel</button>
+          <button type="submit" style="padding: 10px 20px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;">Send Query</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       JAVASCRIPT LOGIC
+  -------------------------------------------------------------- -->
+  <script>
+    // Toggle Nav Group
+    function toggleNavGroup(el) {
+      const group = el.closest('.mp-nav-group');
+      if (group) group.classList.toggle('open');
+    }
+
+    // Modal helpers
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+    function openFeedbackModal(project) {
+      document.getElementById('modalFeedbackTitle').textContent = `Feedback: ${project}`;
+      document.getElementById('feedbackModal').classList.add('open');
+    }
+    function openSubmissionDetails(project) {
+      document.getElementById('modalProjectTitle').textContent = `${project} Workspace`;
+      document.getElementById('submitModal').classList.add('open');
+    }
+    function openContinueModal(project) {
+      openSubmissionDetails(project);
+    }
+    function openCompletedProjectModal(project) {
+      openFeedbackModal(project);
+    }
+    function startProjectModal(project) {
+      alert(`🚀 Welcome to ${project}! You can find dataset links and step-by-step guidelines in the workspace.`);
+      openSubmissionDetails(project);
+    }
+    function openRequirementsModal(project) {
+      alert(`🔒 ${project} requires completion of Milestone 1 (Complete 3 projects). Keep going to unlock!`);
+    }
+    function openAskMentorModal() {
+      document.getElementById('mentorModal').classList.add('open');
+    }
+    function openResourceDoc(title) {
+      alert(`📖 Opening ${title}... Guidelines and submission rubric are available for download.`);
+    }
+
+    function handleProjectSubmit(e) {
+      e.preventDefault();
+      closeModal('submitModal');
+      alert('🎉 Project submission uploaded successfully! Mentor Priya Sharma will review within 24-48 hours.');
+    }
+    function handleMentorMessage(e) {
+      e.preventDefault();
+      closeModal('mentorModal');
+      alert('✉️ Message sent to Priya Sharma! You will receive a response in your Messages portal.');
+    }
+
+    // Tab Switching
+    function switchTab(status, btn) {
+      document.querySelectorAll('.mp-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        const cardStatus = card.getAttribute('data-status');
+        if (status === 'all' || cardStatus === status) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function filterProjectsByTab(status) {
+      const tabBtns = document.querySelectorAll('.mp-tab-btn');
+      let targetBtn = null;
+      if (status === 'all') targetBtn = tabBtns[0];
+      else if (status === 'inprogress') targetBtn = tabBtns[1];
+      else if (status === 'completed') targetBtn = tabBtns[2];
+      else if (status === 'locked') targetBtn = tabBtns[3];
+
+      switchTab(status, targetBtn);
+    }
+
+    // Filter by Search & Selectors
+    function filterProjectCards() {
+      const query = (document.getElementById('projectSearchInput')?.value || '').toLowerCase().trim();
+      const diff = document.getElementById('difficultySelect')?.value || 'all';
+      const dur = document.getElementById('durationSelect')?.value || 'all';
+
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        const title = (card.getAttribute('data-title') || '').toLowerCase();
+        const cardDiff = card.getAttribute('data-difficulty') || '';
+        const cardDur = card.getAttribute('data-duration') || '';
+
+        const matchQuery = !query || title.includes(query);
+        const matchDiff = diff === 'all' || cardDiff === diff;
+        const matchDur = dur === 'all' || cardDur === dur;
+
+        if (matchQuery && matchDiff && matchDur) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Global Search Bar Handler
+    function handleGlobalSearch(val) {
+      const input = document.getElementById('projectSearchInput');
+      if (input) {
+        input.value = val;
+        filterProjectCards();
+      }
+    }
+
+    // Sign out helper
+    function signOutUser() {
+      if (confirm('Are you sure you want to sign out of your Edurup Learning portal?')) {
+        localStorage.removeItem('edurup_user');
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+
+</body>
+</html>
