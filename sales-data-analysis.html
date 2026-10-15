@@ -1271,7 +1271,7 @@
             <a href="my-projects.html" class="pd-sub-item active">
               <span>📁</span> My Projects
             </a>
-            <a href="javascript:void(0);" onclick="openSubmissionDrawer()" class="pd-sub-item">
+            <a href="project-submission.html" class="pd-sub-item">
               <span>📤</span> Project Submissions
             </a>
             <a href="javascript:void(0);" onclick="openFeedbackModal()" class="pd-sub-item">
@@ -1451,7 +1451,7 @@
           <button class="pd-tab-item active" onclick="switchDetailTab('overview', this)">Overview</button>
           <button class="pd-tab-item" onclick="switchDetailTab('tasks', this)">Project Tasks</button>
           <button class="pd-tab-item" onclick="switchDetailTab('resources', this)">Datasets & Resources</button>
-          <button class="pd-tab-item" onclick="switchDetailTab('submission', this)">Submission</button>
+          <a href="project-submission.html" class="pd-tab-item">Submission</a>
           <button class="pd-tab-item" onclick="switchDetailTab('feedback', this)">Mentor Feedback</button>
           <button class="pd-tab-item" onclick="switchDetailTab('discussion', this)">Discussion</button>
         </div>
@@ -1700,7 +1700,7 @@
                 </div>
 
                 <!-- Task 8 -->
-                <div class="task-item-row" onclick="viewTaskDetails(8, 'Final Submission')">
+                <div class="task-item-row" onclick="window.location.href='project-submission.html'">
                   <div class="task-item-left">
                     <div class="task-num-circle num-pending">8</div>
                     <div class="task-title-details">
@@ -2000,7 +2000,7 @@
       } else if (tabName === 'resources') {
         showToast('Viewing Project Datasets & Resources.');
       } else if (tabName === 'submission') {
-        openSubmissionDrawer();
+        window.location.href = 'project-submission.html';
       } else if (tabName === 'feedback') {
         openFeedbackModal();
       } else if (tabName === 'discussion') {

@@ -1,0 +1,2340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Final Submission • Sales Data Analysis | Edurup Learning</title>
+  <meta name="description" content="Submit your completed project with all deliverables for mentor review.">
+  <link rel="canonical" href="https://www.eduruplearning.com/project-submission.html">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <style>
+    /* -------------------------------------------------------------
+       BASE & RESET
+    -------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --bg-dark: #0b1329;
+      --bg-body: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --success: #10b981;
+      --success-light: #dcfce7;
+      --success-text: #166534;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --warning-text: #92400e;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+      --danger-text: #b91c1c;
+      --purple: #8b5cf6;
+      --purple-light: #f3e8ff;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------------------------------------------
+       LAYOUT STRUCTURE (SIDEBAR + MAIN)
+    -------------------------------------------------------------- */
+    .sub-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* SIDEBAR */
+    .sub-sidebar {
+      width: 250px;
+      background-color: var(--bg-dark);
+      color: #94a3b8;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 20px 14px;
+      z-index: 100;
+    }
+
+    .sub-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .sub-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .sub-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 20px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+    .sub-brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .sub-brand span {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .sub-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .sub-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .sub-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .sub-nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-icon {
+      font-size: 16px;
+      width: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Submenu groups */
+    .sub-nav-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .sub-nav-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .sub-nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+    .sub-nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .sub-nav-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 28px;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+    .sub-nav-group.open .sub-nav-submenu {
+      display: flex;
+    }
+
+    .sub-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .sub-sub-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .sub-sub-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    /* MAIN CONTAINER */
+    .sub-main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-width: calc(100% - 250px);
+    }
+
+    /* TOP SEARCH BAR */
+    .sub-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .sub-search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 14px;
+      width: 440px;
+      max-width: 100%;
+    }
+    .sub-search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+    .sub-search-box svg {
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .sub-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .sub-bell-btn {
+      position: relative;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      color: var(--text-muted);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .sub-bell-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+    .sub-bell-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 8px;
+      height: 8px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .sub-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .sub-user-pill:hover {
+      background: #f1f5f9;
+    }
+    .sub-user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #d946ef;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .sub-user-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .sub-user-name {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+    .sub-user-role {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       CONTENT WRAPPER
+    -------------------------------------------------------------- */
+    .sub-content-wrapper {
+      padding: 24px 32px 60px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Breadcrumbs */
+    .sub-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .sub-breadcrumbs a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .sub-breadcrumbs a:hover {
+      color: var(--primary);
+    }
+    .sub-breadcrumbs span.separator {
+      color: #cbd5e1;
+    }
+    .sub-breadcrumbs span.current {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* -------------------------------------------------------------
+       HERO HEADER & PROGRESS SECTION
+    -------------------------------------------------------------- */
+    .sub-hero-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .sub-hero-left {
+      flex: 1;
+      min-width: 300px;
+    }
+    .hero-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .hero-title-row h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+    }
+    .badge-final-sub {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .sub-hero-left p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .sub-meta-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .meta-pill-excel {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #166534;
+    }
+    .meta-pill-powerbi {
+      background: #fefce8;
+      border-color: #fef08a;
+      color: #854d0e;
+    }
+    .meta-pill-tasks {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1e40af;
+    }
+
+    /* Project Progress on Hero Right */
+    .sub-progress-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      min-width: 280px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .progress-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .progress-box-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .progress-box-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .sub-progress-track {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .progress-bar-outer {
+      flex: 1;
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: #10b981;
+      border-radius: 6px;
+      width: 100%;
+    }
+    .progress-percent-val {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .btn-view-tasks {
+      width: 100%;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+    }
+    .btn-view-tasks:hover {
+      background: var(--primary-hover);
+    }
+
+    /* -------------------------------------------------------------
+       NAVIGATION TABS
+    -------------------------------------------------------------- */
+    .sub-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      margin-top: 4px;
+    }
+    .sub-tab-item {
+      padding: 10px 4px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      background: none;
+      border: none;
+      text-decoration: none;
+    }
+    .sub-tab-item:hover {
+      color: var(--text-main);
+    }
+    .sub-tab-item.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .sub-tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary);
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* -------------------------------------------------------------
+       THREE-COLUMN / MULTI-COLUMN MAIN GRID
+    -------------------------------------------------------------- */
+    .sub-main-grid {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr) 280px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* -------------------------------------------------------------
+       COLUMN 1: LEFT SUB-COLUMN
+    -------------------------------------------------------------- */
+    .sub-left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* SUBMISSION STEPS STEPPER */
+    .steps-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .box-header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    .stepper-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .stepper-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      position: relative;
+    }
+    .stepper-item::after {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 26px;
+      bottom: -14px;
+      width: 2px;
+      background: #e2e8f0;
+    }
+    .stepper-item:last-child::after {
+      display: none;
+    }
+    .stepper-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+    .step-active .stepper-circle {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    .step-pending .stepper-circle {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #cbd5e1;
+    }
+
+    .stepper-text h5 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+      line-height: 1.25;
+    }
+    .step-active .stepper-text h5 {
+      color: var(--primary);
+    }
+    .stepper-text p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* PROJECT INFO CARD */
+    .project-info-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.78rem;
+    }
+    .info-row:last-child {
+      border-bottom: none;
+    }
+    .info-label {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .info-val {
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: right;
+    }
+
+    .deadline-banner-box {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-light);
+    }
+    .deadline-banner-box .dl-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+    .deadline-banner-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dl-date {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ef4444;
+    }
+    .dl-left-pill {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    /* -------------------------------------------------------------
+       COLUMN 2: CENTER FORM WORKSPACE
+    -------------------------------------------------------------- */
+    .sub-center-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sub-section-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .section-num-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-num-badge {
+      width: 22px;
+      height: 22px;
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .section-title-wrap h3 {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .section-title-wrap p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* DRAG & DROP UPLOAD ZONE */
+    .dropzone-box {
+      border: 2px dashed #93c5fd;
+      border-radius: var(--radius-md);
+      background: #f8fafc;
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-bottom: 16px;
+    }
+    .dropzone-box:hover {
+      background: #eff6ff;
+      border-color: var(--primary);
+    }
+    .dropzone-icon {
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .dropzone-text-main {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 3px;
+    }
+    .dropzone-text-main span {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+    .dropzone-subtext {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .btn-choose-files {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: all 0.15s;
+    }
+    .btn-choose-files:hover {
+      border-color: var(--primary-border);
+      background: #eff6ff;
+    }
+
+    /* UPLOADED FILES TABLE */
+    .uploaded-files-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .uploaded-files-table th {
+      text-align: left;
+      padding: 8px 10px;
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .uploaded-files-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-main);
+    }
+    .uploaded-files-table tr:last-child td {
+      border-bottom: none;
+    }
+    .file-name-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+    .file-type-icon {
+      font-size: 14px;
+    }
+    .status-uploaded-pill {
+      color: #166534;
+      font-weight: 700;
+      font-size: 0.74rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-delete-file {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 14px;
+      transition: color 0.15s;
+      padding: 2px 4px;
+    }
+    .btn-delete-file:hover {
+      color: #ef4444;
+    }
+
+    /* SECTION 2: ADD PROJECT LINKS (3-COLUMN ROW) */
+    .links-grid-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .link-field-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .link-field-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .link-input-elem {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .link-input-elem:focus {
+      border-color: var(--primary);
+    }
+
+    /* SECTION 3: PROJECT SUMMARY */
+    .summary-editor-wrapper {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .editor-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .toolbar-btn {
+      background: none;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 3px 6px;
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+    .toolbar-btn:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+    .editor-textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      outline: none;
+      resize: vertical;
+      min-height: 90px;
+      font-family: inherit;
+      font-size: 0.84rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* BOTTOM ACTION BAR */
+    .sub-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 4px;
+      padding-top: 12px;
+    }
+    .btn-back-tasks {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 9px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-back-tasks:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .action-right-btns {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-save-draft {
+      background: #ffffff;
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 9px 18px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-save-draft:hover {
+      background: #eff6ff;
+    }
+
+    .btn-submit-review {
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: #ffffff;
+      border-radius: var(--radius-sm);
+      padding: 9px 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+      transition: background 0.15s;
+    }
+    .btn-submit-review:hover {
+      background: var(--primary-hover);
+    }
+
+    /* -------------------------------------------------------------
+       COLUMN 3: RIGHT SIDEBAR
+    -------------------------------------------------------------- */
+    .sub-right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* SUBMISSION STATUS CARD */
+    .status-widget-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .status-alert-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .status-alert-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-clock-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #fef3c7;
+      color: #92400e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+    .pill-not-submitted {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+    .status-desc-text {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* SUBMISSION CHECKLIST */
+    .checklist-widget-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .sub-check-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sub-check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--text-main);
+    }
+    .check-dot-green {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #10b981;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+    .check-dot-empty {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #cbd5e1;
+      flex-shrink: 0;
+    }
+
+    /* MENTOR CARD */
+    .mentor-widget-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .mentor-sub-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .mentor-sub-avatar {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+    .mentor-sub-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+    .mentor-status-dot {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+    .mentor-dual-btns {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-mentor-outline {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 7px 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .btn-mentor-outline:hover {
+      background: #eff6ff;
+    }
+
+    /* PREVIOUS SUBMISSIONS TIMELINE */
+    .prev-submissions-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .timeline-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      position: relative;
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 14px;
+      bottom: -10px;
+      width: 2px;
+      background: #e2e8f0;
+    }
+    .timeline-item:last-child::after {
+      display: none;
+    }
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 3px;
+      z-index: 2;
+    }
+    .dot-amber { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+    .dot-red { background: #ef4444; }
+
+    .timeline-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+    .timeline-title-text {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .pill-status-small {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+    .pill-draft { background: #fef3c7; color: #92400e; }
+    .pill-reviewed { background: #dcfce7; color: #166534; }
+    .pill-changes { background: #fee2e2; color: #b91c1c; }
+
+    .timeline-date-text {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .timeline-note-text {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .timeline-action-link {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .timeline-action-link:hover {
+      text-decoration: underline;
+    }
+
+    /* -------------------------------------------------------------
+       MODALS & TOAST
+    -------------------------------------------------------------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 520px;
+      width: 100%;
+      padding: 26px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      position: relative;
+      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #f1f5f9;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .modal-close-btn:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .toast-notification {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* -------------------------------------------------------------
+       RESPONSIVE BREAKPOINTS
+    -------------------------------------------------------------- */
+    @media (max-width: 1200px) {
+      .sub-main-grid {
+        grid-template-columns: minmax(0, 1fr) 280px;
+      }
+      .sub-left-column {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 900px) {
+      .sub-main-grid {
+        grid-template-columns: 1fr;
+      }
+      .sub-left-column {
+        display: flex;
+        flex-direction: column;
+      }
+      .links-grid-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 768px) {
+      .sub-sidebar {
+        display: none;
+      }
+      .sub-main-container {
+        max-width: 100%;
+      }
+      .sub-content-wrapper {
+        padding: 16px;
+      }
+      .sub-hero-header {
+        flex-direction: column;
+      }
+      .sub-progress-box {
+        width: 100%;
+      }
+      .sub-action-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-right-btns {
+        flex-direction: column;
+      }
+      .btn-save-draft, .btn-submit-review {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sub-layout">
+
+    <!-- -----------------------------------------------------------
+         SIDEBAR NAVIGATION
+    ------------------------------------------------------------ -->
+    <aside class="sub-sidebar">
+      <!-- Brand Logo -->
+      <a href="dashboard.html" class="sub-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="sub-nav">
+        <!-- 1. Dashboard -->
+        <a href="dashboard.html" class="sub-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">🏠</span>
+            <span>Dashboard</span>
+          </div>
+        </a>
+
+        <!-- 2. Learning Dropdown -->
+        <div class="sub-nav-group">
+          <div class="sub-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📖</span>
+              <span>Learning</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="sub-nav-submenu">
+            <a href="recorded-classes.html" class="sub-sub-item">
+              <span>📹</span> Recorded Classes
+            </a>
+            <a href="live-classes.html" class="sub-sub-item">
+              <span>🔴</span> Live Classes
+            </a>
+            <a href="quizzes.html" class="sub-sub-item">
+              <span>📝</span> Quizzes
+            </a>
+            <a href="resources.html" class="sub-sub-item">
+              <span>📁</span> Resources
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Projects Dropdown (Expanded & Active) -->
+        <div class="sub-nav-group open">
+          <div class="sub-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">💼</span>
+              <span>Projects</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="sub-nav-submenu">
+            <a href="my-projects.html" class="sub-sub-item active">
+              <span>📁</span> My Projects
+            </a>
+            <a href="project-submission.html" class="sub-sub-item">
+              <span>📤</span> Project Submissions
+            </a>
+            <a href="javascript:void(0);" onclick="alert('Mentor Feedback for Sales Data Analysis: Excellent business insights and clean Excel modeling!')" class="sub-sub-item">
+              <span>💬</span> Feedback
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Internship Dropdown -->
+        <div class="sub-nav-group">
+          <div class="sub-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">📄</span>
+              <span>Internship</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="sub-nav-submenu">
+            <a href="javascript:void(0);" onclick="alert('Application Status: Active.')" class="sub-sub-item"><span>📄</span> Application</a>
+            <a href="javascript:void(0);" onclick="alert('Internship track: 6 Months with Certificate & LOR.')" class="sub-sub-item"><span>📋</span> Internship Details</a>
+            <a href="dashboard.html#my-tasks-section" class="sub-sub-item"><span>📌</span> My Tasks</a>
+            <a href="javascript:void(0);" onclick="alert('Weekly Reports unlock after module 2 completion.')" class="sub-sub-item"><span>📊</span> Weekly Reports</a>
+            <a href="javascript:void(0);" onclick="alert('Live Class Attendance: 92% active.')" class="sub-sub-item"><span>📅</span> Attendance</a>
+          </div>
+        </div>
+
+        <!-- 5. Certificates Dropdown -->
+        <div class="sub-nav-group">
+          <div class="sub-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <span class="nav-icon">🎖️</span>
+              <span>Certificates</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="sub-nav-submenu">
+            <a href="dashboard.html#certificates-progress-section" class="sub-sub-item"><span>🎖️</span> My Certificates</a>
+            <a href="javascript:void(0);" onclick="alert('Offer Letter available in your student portal.')" class="sub-sub-item"><span>📄</span> Offer Letter</a>
+            <a href="javascript:void(0);" onclick="alert('Letter of Recommendation (LOR) issued after capstone.')" class="sub-sub-item"><span>📜</span> Letter of Recommendation</a>
+          </div>
+        </div>
+
+        <!-- 6. Messages -->
+        <a href="javascript:void(0);" onclick="openAskMentorModal()" class="sub-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">💬</span>
+            <span>Messages</span>
+          </div>
+        </a>
+
+        <!-- 7. Support -->
+        <a href="support.html" class="sub-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">❓</span>
+            <span>Support</span>
+          </div>
+        </a>
+
+        <!-- 8. My Profile -->
+        <a href="profile.html" class="sub-nav-item">
+          <div class="nav-left">
+            <span class="nav-icon">👤</span>
+            <span>My Profile</span>
+          </div>
+        </a>
+
+        <!-- 9. Sign Out -->
+        <a href="javascript:void(0);" onclick="signOutUser()" class="sub-nav-item" style="color:#ef4444; font-weight:700; margin-top:8px;">
+          <div class="nav-left">
+            <span class="nav-icon">🚪</span>
+            <span>Sign Out</span>
+          </div>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- -----------------------------------------------------------
+         MAIN CONTAINER
+    ------------------------------------------------------------ -->
+    <main class="sub-main-container">
+
+      <!-- TOP SEARCH BAR -->
+      <header class="sub-topbar">
+        <div class="sub-search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" placeholder="Search for videos, projects, tasks, resources...">
+        </div>
+
+        <div class="sub-topbar-actions">
+          <button class="sub-bell-btn" title="Notifications" onclick="alert('Your submission draft is auto-saved.')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span class="sub-bell-badge"></span>
+          </button>
+
+          <div class="sub-user-pill" onclick="window.location.href='profile.html'">
+            <div class="sub-user-avatar">RK</div>
+            <div class="sub-user-info">
+              <span class="sub-user-name">Rahul Kumar</span>
+              <span class="sub-user-role">Student</span>
+            </div>
+            <span style="font-size: 11px; color: #94a3b8; margin-left: 2px;">⌄</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT WRAPPER -->
+      <div class="sub-content-wrapper">
+
+        <!-- BREADCRUMBS -->
+        <div class="sub-breadcrumbs">
+          <a href="dashboard.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -1px; margin-right: 2px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Dashboard
+          </a>
+          <span class="separator">›</span>
+          <a href="my-projects.html">Projects</a>
+          <span class="separator">›</span>
+          <a href="project-details.html">Sales Data Analysis</a>
+          <span class="separator">›</span>
+          <span class="current">Final Submission</span>
+        </div>
+
+        <!-- HERO HEADER SECTION -->
+        <div class="sub-hero-header">
+          <div class="sub-hero-left">
+            <div class="hero-title-row">
+              <h1>Sales Data Analysis</h1>
+              <span class="badge-final-sub">Final Submission</span>
+            </div>
+            <p>Submit your completed project with all deliverables for mentor review.</p>
+
+            <div class="sub-meta-badges">
+              <div class="meta-pill">
+                <span style="color:#f59e0b;">⭐</span>
+                <span>Beginner</span>
+              </div>
+
+              <div class="meta-pill">
+                <span>⏱️</span>
+                <span>7 Days</span>
+              </div>
+
+              <div class="meta-pill meta-pill-excel">
+                <span>📊</span>
+                <span>Excel</span>
+              </div>
+
+              <div class="meta-pill meta-pill-powerbi">
+                <span>📈</span>
+                <span>Power BI</span>
+              </div>
+
+              <div class="meta-pill meta-pill-tasks">
+                <span>👥</span>
+                <span>8 Tasks</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT PROGRESS CARD -->
+          <div class="sub-progress-box">
+            <div class="progress-box-header">
+              <span class="progress-box-title">Project Progress</span>
+              <span class="progress-box-sub">8/8 Tasks Completed</span>
+            </div>
+
+            <div class="sub-progress-track">
+              <div class="progress-bar-outer">
+                <div class="progress-bar-inner"></div>
+              </div>
+              <span class="progress-percent-val">100%</span>
+            </div>
+
+            <a href="project-details.html#projectTasksSection" class="btn-view-tasks">
+              View Project Tasks →
+            </a>
+          </div>
+        </div>
+
+        <!-- HORIZONTAL TABS BAR -->
+        <div class="sub-tabs-bar">
+          <a href="project-details.html" class="sub-tab-item">Overview</a>
+          <a href="project-details.html#projectTasksSection" class="sub-tab-item">Project Tasks</a>
+          <a href="project-details.html" class="sub-tab-item">Datasets & Resources</a>
+          <a href="project-submission.html" class="sub-tab-item active">Submission</a>
+          <a href="javascript:void(0);" onclick="openPreviousFeedbackModal('Submission #1', 'Good analysis. Please improve visualizations in your Power BI executive dashboard.')" class="sub-tab-item">Mentor Feedback</a>
+          <a href="javascript:void(0);" onclick="alert('Project discussion is active with 14 cohort peers.')" class="sub-tab-item">Discussion</a>
+        </div>
+
+        <!-- -----------------------------------------------------------
+             THREE-COLUMN / MULTI-COLUMN MAIN GRID
+        ------------------------------------------------------------ -->
+        <div class="sub-main-grid">
+
+          <!-- -------------------------------------------------------
+               COLUMN 1: LEFT SUB-COLUMN
+          -------------------------------------------------------- -->
+          <div class="sub-left-column">
+
+            <!-- SUBMISSION STEPS -->
+            <div class="steps-card">
+              <div class="box-header-title">
+                <span style="color:#2563eb; font-size:16px;">📄</span>
+                <span>Submission Steps</span>
+              </div>
+
+              <div class="stepper-list">
+                <!-- Step 1 -->
+                <div class="stepper-item step-active" id="stepIndicator1">
+                  <div class="stepper-circle">1</div>
+                  <div class="stepper-text">
+                    <h5>Upload Project Files</h5>
+                    <p>Add your deliverables</p>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="stepper-item step-pending" id="stepIndicator2">
+                  <div class="stepper-circle">2</div>
+                  <div class="stepper-text">
+                    <h5>Add Project Links</h5>
+                    <p>GitHub / Live Dashboard</p>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="stepper-item step-pending" id="stepIndicator3">
+                  <div class="stepper-circle">3</div>
+                  <div class="stepper-text">
+                    <h5>Write Project Summary</h5>
+                    <p>Explain your work</p>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="stepper-item step-pending" id="stepIndicator4">
+                  <div class="stepper-circle">4</div>
+                  <div class="stepper-text">
+                    <h5>Review & Submit</h5>
+                    <p>Check and submit</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PROJECT INFORMATION -->
+            <div class="project-info-card">
+              <div class="box-header-title">
+                <span style="color:#2563eb; font-size:16px;">📁</span>
+                <span>Project Information</span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-label">Course</span>
+                <span class="info-val">Data Analytics</span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-label">Duration</span>
+                <span class="info-val">7 Days</span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-label">Tools Used</span>
+                <span class="info-val">Excel, Power BI</span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-label">Project Type</span>
+                <span class="info-val">Individual</span>
+              </div>
+
+              <div class="deadline-banner-box">
+                <div class="dl-title">
+                  <span>🗓️</span>
+                  <span>Submission Deadline</span>
+                </div>
+                <div class="deadline-banner-flex">
+                  <span class="dl-date">15 Oct 2026, 11:59 PM</span>
+                  <span class="dl-left-pill">7 Days Left</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- END sub-left-column -->
+
+          <!-- -------------------------------------------------------
+               COLUMN 2: CENTER FORM WORKSPACE
+          -------------------------------------------------------- -->
+          <div class="sub-center-column">
+
+            <!-- SECTION 1: UPLOAD PROJECT FILES -->
+            <div class="sub-section-card">
+              <div class="section-num-header">
+                <div class="section-num-badge">1</div>
+                <div class="section-title-wrap">
+                  <h3>Upload Project Files</h3>
+                  <p>Upload your final project files (reports, dashboards, code, datasets, etc.). You can upload multiple files.</p>
+                </div>
+              </div>
+
+              <!-- DRAG & DROP ZONE -->
+              <div class="dropzone-box" onclick="document.getElementById('hiddenFileInput').click()">
+                <div class="dropzone-icon">
+                  <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <div class="dropzone-text-main">
+                  Drag & drop files here <span>or click to upload</span>
+                </div>
+                <div class="dropzone-subtext">
+                  Supported formats: PDF, PPT, DOCX, XLSX, CSV, IPYNB, ZIP (Max 100 MB each)
+                </div>
+                <button type="button" class="btn-choose-files" onclick="event.stopPropagation(); document.getElementById('hiddenFileInput').click()">
+                  <span>📥</span> Choose Files
+                </button>
+                <input type="file" id="hiddenFileInput" multiple style="display:none;" onchange="handleNewFileUploads(this)">
+              </div>
+
+              <!-- UPLOADED FILES TABLE -->
+              <table class="uploaded-files-table" id="filesTable">
+                <thead>
+                  <tr>
+                    <th>File Name</th>
+                    <th>Size</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="filesTableBody">
+                  <tr id="fileRow1">
+                    <td>
+                      <div class="file-name-cell">
+                        <span class="file-type-icon" style="color:#ef4444;">📕</span>
+                        <span>Sales_Data_Analysis_Report.pdf</span>
+                      </div>
+                    </td>
+                    <td>2.4 MB</td>
+                    <td><span class="status-uploaded-pill">✓ Uploaded</span></td>
+                    <td style="text-align: right;">
+                      <button class="btn-delete-file" title="Remove File" onclick="removeFileRow('fileRow1', 'Sales_Data_Analysis_Report.pdf')">🗑️</button>
+                    </td>
+                  </tr>
+
+                  <tr id="fileRow2">
+                    <td>
+                      <div class="file-name-cell">
+                        <span class="file-type-icon" style="color:#10b981;">📊</span>
+                        <span>Cleaned_Dataset.xlsx</span>
+                      </div>
+                    </td>
+                    <td>1.8 MB</td>
+                    <td><span class="status-uploaded-pill">✓ Uploaded</span></td>
+                    <td style="text-align: right;">
+                      <button class="btn-delete-file" title="Remove File" onclick="removeFileRow('fileRow2', 'Cleaned_Dataset.xlsx')">🗑️</button>
+                    </td>
+                  </tr>
+
+                  <tr id="fileRow3">
+                    <td>
+                      <div class="file-name-cell">
+                        <span class="file-type-icon" style="color:#f59e0b;">📈</span>
+                        <span>PowerBI_Dashboard.pbix</span>
+                      </div>
+                    </td>
+                    <td>3.2 MB</td>
+                    <td><span class="status-uploaded-pill">✓ Uploaded</span></td>
+                    <td style="text-align: right;">
+                      <button class="btn-delete-file" title="Remove File" onclick="removeFileRow('fileRow3', 'PowerBI_Dashboard.pbix')">🗑️</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- SECTION 2: ADD PROJECT LINKS (OPTIONAL) -->
+            <div class="sub-section-card">
+              <div class="section-num-header">
+                <div class="section-num-badge">2</div>
+                <div class="section-title-wrap">
+                  <h3>Add Project Links (Optional)</h3>
+                  <p>If you have hosted your project on GitHub, Google Drive or a live dashboard, add the links below.</p>
+                </div>
+              </div>
+
+              <div class="links-grid-row">
+                <!-- GitHub -->
+                <div class="link-field-box">
+                  <label class="link-field-label">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span>GitHub Repository Link</span>
+                  </label>
+                  <input type="url" id="linkGithub" class="link-input-elem" placeholder="https://github.com/username/project">
+                </div>
+
+                <!-- Live Dashboard -->
+                <div class="link-field-box">
+                  <label class="link-field-label">
+                    <span style="color:#2563eb; font-size:14px;">🔗</span>
+                    <span>Live Dashboard Link (e.g., Power BI, Tableau, Streamlit)</span>
+                  </label>
+                  <input type="url" id="linkDashboard" class="link-input-elem" placeholder="https://app.powerbi.com/view/...">
+                </div>
+
+                <!-- Google Drive -->
+                <div class="link-field-box">
+                  <label class="link-field-label">
+                    <span style="color:#f59e0b; font-size:14px;">📁</span>
+                    <span>Google Drive Link</span>
+                  </label>
+                  <input type="url" id="linkDrive" class="link-input-elem" placeholder="https://drive.google.com/...">
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 3: PROJECT SUMMARY -->
+            <div class="sub-section-card">
+              <div class="section-num-header">
+                <div class="section-num-badge">3</div>
+                <div class="section-title-wrap">
+                  <h3>Project Summary</h3>
+                  <p>Write a brief summary of your project, key insights, challenges faced, and what you learned (200-500 words).</p>
+                </div>
+              </div>
+
+              <div class="summary-editor-wrapper">
+                <div class="editor-toolbar">
+                  <button type="button" class="toolbar-btn" onclick="applyFormat('**')">B</button>
+                  <button type="button" class="toolbar-btn" onclick="applyFormat('*')"><em>I</em></button>
+                  <button type="button" class="toolbar-btn" onclick="applyFormat('<u>', '</u>')"><u>U</u></button>
+                  <span style="color:#cbd5e1;">|</span>
+                  <button type="button" class="toolbar-btn" onclick="applyFormat('- ')">☰</button>
+                  <button type="button" class="toolbar-btn" onclick="applyFormat('1. ')">1.☰</button>
+                  <button type="button" class="toolbar-btn" onclick="applyFormat('[link](', ')')">🔗</button>
+                </div>
+                <textarea id="projectSummaryInput" class="editor-textarea" placeholder="Explain your approach, challenges faced, key findings, and what you learned from this project..."></textarea>
+              </div>
+            </div>
+
+            <!-- BOTTOM ACTION BUTTONS -->
+            <div class="sub-action-bar">
+              <a href="project-details.html#projectTasksSection" class="btn-back-tasks">
+                ← Back to Project Tasks
+              </a>
+
+              <div class="action-right-btns">
+                <button type="button" class="btn-save-draft" onclick="saveSubmissionDraft()">
+                  Save as Draft
+                </button>
+                <button type="button" class="btn-submit-review" onclick="submitFinalDeliverables()">
+                  Submit for Review →
+                </button>
+              </div>
+            </div>
+
+          </div><!-- END sub-center-column -->
+
+          <!-- -------------------------------------------------------
+               COLUMN 3: RIGHT SIDEBAR
+          -------------------------------------------------------- -->
+          <div class="sub-right-column">
+
+            <!-- 1. SUBMISSION STATUS -->
+            <div class="status-widget-card">
+              <div class="box-header-title">
+                <span style="color:#2563eb; font-size:16px;">📄</span>
+                <span>Submission Status</span>
+              </div>
+
+              <div class="status-alert-box">
+                <div class="status-alert-left">
+                  <div class="status-clock-circle">⏱️</div>
+                </div>
+                <span class="pill-not-submitted" id="submissionStatusPill">Not Submitted</span>
+              </div>
+
+              <p class="status-desc-text">
+                You haven't submitted your project yet. Complete all required details and submit for mentor review.
+              </p>
+            </div>
+
+            <!-- 2. SUBMISSION CHECKLIST -->
+            <div class="checklist-widget-card">
+              <div class="box-header-title">
+                <span style="color:#8b5cf6; font-size:16px;">📋</span>
+                <span>Submission Checklist</span>
+              </div>
+
+              <div class="sub-check-list">
+                <div class="sub-check-item">
+                  <span class="check-dot-green">✓</span>
+                  <span>Upload project files</span>
+                </div>
+                <div class="sub-check-item">
+                  <span class="check-dot-green">✓</span>
+                  <span>Add project links (optional)</span>
+                </div>
+                <div class="sub-check-item">
+                  <span class="check-dot-green">✓</span>
+                  <span>Write project summary</span>
+                </div>
+                <div class="sub-check-item">
+                  <span class="check-dot-empty" id="chkReview"></span>
+                  <span>Review all details</span>
+                </div>
+                <div class="sub-check-item">
+                  <span class="check-dot-empty" id="chkSubmit"></span>
+                  <span>Submit for mentor review</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. MENTOR CARD -->
+            <div class="mentor-widget-card">
+              <div class="box-header-title">
+                <span style="color:#2563eb; font-size:16px;">👤</span>
+                <span>Mentor</span>
+              </div>
+
+              <div class="mentor-sub-profile">
+                <div class="mentor-sub-avatar">
+                  <img src="assets/testimonial-priya.jpg" alt="Priya Sharma">
+                  <span class="mentor-status-dot"></span>
+                </div>
+                <div>
+                  <h4 style="font-size:0.88rem; font-weight:700; color:#0f172a;">Priya Sharma</h4>
+                  <p style="font-size:0.72rem; color:#64748b; margin-bottom:2px;">Data Analytics Mentor</p>
+                  <span style="font-size:0.7rem; color:#166534; font-weight:600;">● Online</span>
+                </div>
+              </div>
+
+              <div class="mentor-dual-btns">
+                <button type="button" class="btn-mentor-outline" onclick="openAskMentorModal()">
+                  Message Mentor
+                </button>
+                <button type="button" class="btn-mentor-outline" onclick="openScheduleMeetingModal()">
+                  <span>📅</span> Schedule Meeting
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. PREVIOUS SUBMISSIONS TIMELINE -->
+            <div class="prev-submissions-card">
+              <div class="box-header-title">
+                <span style="color:#7c3aed; font-size:16px;">⏱️</span>
+                <span>Previous Submissions</span>
+              </div>
+
+              <div class="timeline-container">
+                <!-- Item 1: Draft -->
+                <div class="timeline-item">
+                  <div class="timeline-dot dot-amber"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-title-row">
+                      <span class="timeline-title-text">Draft Submission</span>
+                      <span class="pill-status-small pill-draft">Draft</span>
+                    </div>
+                    <span class="timeline-date-text">10 Oct 2026, 02:30 PM</span>
+                    <p class="timeline-note-text">Working on final report and dashboard.</p>
+                    <a href="javascript:void(0);" onclick="openPreviousFeedbackModal('Draft Submission', 'Draft saved with 3 files attached. Ready for final review.')" class="timeline-action-link">View Details</a>
+                  </div>
+                </div>
+
+                <!-- Item 2: Submission #1 -->
+                <div class="timeline-item">
+                  <div class="timeline-dot dot-green"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-title-row">
+                      <span class="timeline-title-text">Submission #1</span>
+                      <span class="pill-status-small pill-reviewed">Reviewed</span>
+                    </div>
+                    <span class="timeline-date-text">02 Oct 2026, 04:15 PM</span>
+                    <p class="timeline-note-text">Good analysis. Please improve visualizations.</p>
+                    <a href="javascript:void(0);" onclick="openPreviousFeedbackModal('Submission #1', 'Good analysis. Please improve visualizations in your Power BI executive dashboard.')" class="timeline-action-link">View Feedback</a>
+                  </div>
+                </div>
+
+                <!-- Item 3: Submission #2 -->
+                <div class="timeline-item">
+                  <div class="timeline-dot dot-red"></div>
+                  <div class="timeline-content">
+                    <div class="timeline-title-row">
+                      <span class="timeline-title-text">Submission #2</span>
+                      <span class="pill-status-small pill-changes">Changes Required</span>
+                    </div>
+                    <span class="timeline-date-text">28 Sep 2026, 11:20 AM</span>
+                    <p class="timeline-note-text">Need to include more business insights.</p>
+                    <a href="javascript:void(0);" onclick="openPreviousFeedbackModal('Submission #2', 'Need to include more business insights and top 5 product recommendations.')" class="timeline-action-link">View Feedback</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- END sub-right-column -->
+
+        </div><!-- END sub-main-grid -->
+
+      </div><!-- END sub-content-wrapper -->
+
+    </main>
+
+  </div><!-- END sub-layout -->
+
+  <!-- -------------------------------------------------------------
+       MODAL 1: PREVIOUS FEEDBACK MODAL
+  -------------------------------------------------------------- -->
+  <div class="modal-overlay" id="historyFeedbackModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('historyFeedbackModal')">✕</button>
+      <h3 id="histFeedbackTitle" style="font-size: 1.15rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">Mentor Evaluation</h3>
+      <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 14px;">Evaluated by <strong>Priya Sharma</strong> (Data Analytics Mentor)</p>
+      
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+        <p id="histFeedbackBody" style="font-size: 0.84rem; color: #334155; line-height: 1.45;"></p>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <button type="button" onclick="closeModal('historyFeedbackModal')" style="padding: 9px 18px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer;">Close Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       MODAL 2: SCHEDULE MEETING MODAL
+  -------------------------------------------------------------- -->
+  <div class="modal-overlay" id="meetingModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('meetingModal')">✕</button>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <img src="assets/testimonial-priya.jpg" alt="Priya" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; color: #0f172a;">1-on-1 Project Review with Priya</h4>
+          <span style="font-size: 0.74rem; color: #166534; font-weight: 600;">● Available this Friday • 20 Min Slot</span>
+        </div>
+      </div>
+
+      <form onsubmit="handleScheduleSubmit(event)">
+        <div style="margin-bottom: 12px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 4px;">Select Available Date</label>
+          <select style="width: 100%; padding: 9px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.84rem; outline: none; background:#fff;">
+            <option>Friday, 16 Oct 2026 - 03:00 PM</option>
+            <option>Friday, 16 Oct 2026 - 04:30 PM</option>
+            <option>Monday, 19 Oct 2026 - 11:00 AM</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 4px;">Topics for Discussion</label>
+          <textarea rows="3" placeholder="Power BI measure optimization, final dashboard presentation tips..." style="width: 100%; padding: 9px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.84rem; outline: none; resize: none;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" onclick="closeModal('meetingModal')" style="padding: 9px 16px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: #64748b;">Cancel</button>
+          <button type="submit" style="padding: 9px 18px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer;">Confirm Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       MODAL 3: ASK MENTOR MODAL
+  -------------------------------------------------------------- -->
+  <div class="modal-overlay" id="askMentorModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('askMentorModal')">✕</button>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <img src="assets/testimonial-priya.jpg" alt="Priya" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; color: #0f172a;">Message Priya Sharma</h4>
+          <span style="font-size: 0.74rem; color: #166534; font-weight: 600;">● Online • Replies in ~15 mins</span>
+        </div>
+      </div>
+
+      <form onsubmit="handleMentorMsg(event)">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 4px;">Subject</label>
+          <input type="text" value="Final Submission • Sales Data Analysis" readonly style="width: 100%; padding: 9px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.84rem; background: #f8fafc; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 4px;">Question / Note</label>
+          <textarea rows="4" placeholder="Hi Priya, I have completed the final report and uploaded the deliverables..." required style="width: 100%; padding: 9px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.84rem; outline: none; resize: none;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" onclick="closeModal('askMentorModal')" style="padding: 9px 16px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: #64748b;">Cancel</button>
+          <button type="submit" style="padding: 9px 18px; border: none; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer;">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notification" id="subToast">
+    <span id="subToastMsg">Action completed successfully.</span>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       JAVASCRIPT LOGIC
+  -------------------------------------------------------------- */
+  -->
+  <script>
+    function toggleNavGroup(el) {
+      const group = el.closest('.sub-nav-group');
+      if (group) group.classList.toggle('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function openPreviousFeedbackModal(title, text) {
+      document.getElementById('histFeedbackTitle').textContent = `Feedback: ${title}`;
+      document.getElementById('histFeedbackBody').textContent = `"${text}"`;
+      document.getElementById('historyFeedbackModal').classList.add('open');
+    }
+
+    function openScheduleMeetingModal() {
+      document.getElementById('meetingModal').classList.add('open');
+    }
+
+    function openAskMentorModal() {
+      document.getElementById('askMentorModal').classList.add('open');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('subToast');
+      const text = document.getElementById('subToastMsg');
+      if (toast && text) {
+        text.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3200);
+      }
+    }
+
+    // Rich Text Format Helper
+    function applyFormat(prefix, suffix) {
+      if (!suffix) suffix = prefix;
+      const textarea = document.getElementById('projectSummaryInput');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selected = textarea.value.substring(start, end) || 'text';
+      textarea.value = textarea.value.substring(0, start) + prefix + selected + suffix + textarea.value.substring(end);
+      textarea.focus();
+    }
+
+    // Remove File Row
+    function removeFileRow(rowId, fileName) {
+      if (confirm(`Are you sure you want to remove ${fileName}?`)) {
+        const row = document.getElementById(rowId);
+        if (row) row.remove();
+        showToast(`Removed ${fileName}`);
+      }
+    }
+
+    // Handle New File Uploads
+    function handleNewFileUploads(input) {
+      if (input.files && input.files.length > 0) {
+        const tbody = document.getElementById('filesTableBody');
+        Array.from(input.files).forEach((file, idx) => {
+          const rowId = `customFileRow_${Date.now()}_${idx}`;
+          const tr = document.createElement('tr');
+          tr.id = rowId;
+          const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+
+          tr.innerHTML = `
+            <td>
+              <div class="file-name-cell">
+                <span class="file-type-icon" style="color:#2563eb;">📄</span>
+                <span>${file.name}</span>
+              </div>
+            </td>
+            <td>${sizeMb > 0 ? sizeMb + ' MB' : (file.size / 1024).toFixed(0) + ' KB'}</td>
+            <td><span class="status-uploaded-pill">✓ Uploaded</span></td>
+            <td style="text-align: right;">
+              <button class="btn-delete-file" title="Remove File" onclick="removeFileRow('${rowId}', '${file.name}')">🗑️</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        showToast(`Successfully uploaded ${input.files.length} file(s)!`);
+      }
+    }
+
+    // Save Draft
+    function saveSubmissionDraft() {
+      const gh = document.getElementById('linkGithub')?.value;
+      const db = document.getElementById('linkDashboard')?.value;
+      const dr = document.getElementById('linkDrive')?.value;
+      const sm = document.getElementById('projectSummaryInput')?.value;
+
+      localStorage.setItem('sales_project_draft', JSON.stringify({ gh, db, dr, sm, savedAt: new Date().toISOString() }));
+      showToast('💾 Draft successfully saved to your browser!');
+    }
+
+    // Submit for Review
+    function submitFinalDeliverables() {
+      const summary = document.getElementById('projectSummaryInput')?.value.trim();
+      const rows = document.querySelectorAll('#filesTableBody tr');
+
+      if (rows.length === 0) {
+        alert('Please upload at least one deliverable file before submitting!');
+        return;
+      }
+
+      // Update UI to submitted
+      document.getElementById('chkReview').classList.replace('check-dot-empty', 'check-dot-green');
+      document.getElementById('chkReview').textContent = '✓';
+      document.getElementById('chkSubmit').classList.replace('check-dot-empty', 'check-dot-green');
+      document.getElementById('chkSubmit').textContent = '✓';
+
+      const statusPill = document.getElementById('submissionStatusPill');
+      if (statusPill) {
+        statusPill.className = 'pill-status-small pill-reviewed';
+        statusPill.textContent = 'Submitted for Review';
+      }
+
+      // Update stepper
+      document.getElementById('stepIndicator2').classList.replace('step-pending', 'step-active');
+      document.getElementById('stepIndicator3').classList.replace('step-pending', 'step-active');
+      document.getElementById('stepIndicator4').classList.replace('step-pending', 'step-active');
+
+      alert('🎉 Congratulations! Your project deliverables have been successfully submitted for mentor evaluation. Priya Sharma will grade and provide feedback within 24-48 hours.');
+      showToast('Project submitted successfully!');
+    }
+
+    function handleScheduleSubmit(e) {
+      e.preventDefault();
+      closeModal('meetingModal');
+      showToast('📅 1-on-1 meeting confirmed with Priya Sharma!');
+    }
+
+    function handleMentorMsg(e) {
+      e.preventDefault();
+      closeModal('askMentorModal');
+      showToast('✉️ Message sent to Priya Sharma!');
+    }
+
+    function signOutUser() {
+      if (confirm('Are you sure you want to sign out of your Edurup Learning portal?')) {
+        localStorage.removeItem('edurup_user');
+        window.location.href = 'login.html';
+      }
+    }
+
+    // Load draft if available
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const raw = localStorage.getItem('sales_project_draft');
+        if (raw) {
+          const draft = JSON.parse(raw);
+          if (draft.gh) document.getElementById('linkGithub').value = draft.gh;
+          if (draft.db) document.getElementById('linkDashboard').value = draft.db;
+          if (draft.dr) document.getElementById('linkDrive').value = draft.dr;
+          if (draft.sm) document.getElementById('projectSummaryInput').value = draft.sm;
+        }
+      } catch (err) {}
+    });
+  </script>
+
+</body>
+</html>
