@@ -1,0 +1,2434 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sales Data Analysis - Mentor Feedback | Edurup Learning</title>
+  <meta name="description" content="View detailed mentor evaluation, comments, deliverables feedback, and action steps for Sales Data Analysis project.">
+  <link rel="canonical" href="https://www.eduruplearning.com/project-feedback.html">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <style>
+    /* -------------------------------------------------------------
+       BASE & RESET
+    -------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --bg-dark: #0b1329;
+      --bg-body: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --success: #10b981;
+      --success-light: #dcfce7;
+      --success-text: #166534;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --warning-text: #92400e;
+      --danger: #ef4444;
+      --danger-light: #fee2e2;
+      --danger-text: #b91c1c;
+      --purple: #8b5cf6;
+      --purple-light: #f3e8ff;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* -------------------------------------------------------------
+       LAYOUT STRUCTURE (SIDEBAR + MAIN)
+    -------------------------------------------------------------- */
+    .fb-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* SIDEBAR (Unified Standard) */
+    .fb-sidebar {
+      width: 250px;
+      background-color: var(--bg-dark);
+      color: #94a3b8;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 20px 14px;
+      z-index: 100;
+    }
+
+    .fb-sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .fb-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+
+    .fb-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 20px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+    .fb-brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .fb-brand span {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .fb-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+    }
+
+    .fb-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .fb-nav-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .fb-nav-item.active {
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-left svg {
+      width: 19px;
+      height: 19px;
+      flex-shrink: 0;
+    }
+
+    /* Submenu groups */
+    .fb-nav-group {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .fb-nav-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #94a3b8;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .fb-nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+    .nav-chevron {
+      font-size: 11px;
+      color: #64748b;
+      transition: transform 0.2s ease;
+    }
+    .fb-nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+      color: #ffffff;
+    }
+
+    .fb-nav-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 28px;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+    .fb-nav-group.open .fb-nav-submenu {
+      display: flex;
+    }
+
+    .fb-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 0.84rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .fb-sub-item:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .fb-sub-item.active {
+      background: rgba(37, 99, 235, 0.25);
+      color: #60a5fa;
+      font-weight: 700;
+    }
+
+    /* -------------------------------------------------------------
+       MAIN CONTAINER
+    -------------------------------------------------------------- */
+    .fb-main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      min-width: 0;
+    }
+
+    /* TOP SEARCH BAR */
+    .fb-topbar {
+      height: 68px;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .fb-search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 8px 16px;
+      width: 420px;
+      max-width: 100%;
+    }
+    .fb-search-box svg {
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .fb-search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.86rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+    .fb-search-box input::placeholder {
+      color: var(--text-light);
+    }
+
+    .fb-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .fb-bell-btn {
+      position: relative;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .fb-bell-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+    .fb-bell-badge {
+      position: absolute;
+      top: 6px;
+      right: 7px;
+      width: 8px;
+      height: 8px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .fb-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 8px 4px 4px;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .fb-user-pill:hover {
+      background: #f1f5f9;
+    }
+    .fb-user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+    .fb-user-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      text-align: left;
+    }
+    .fb-user-name {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .fb-user-role {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       CONTENT WRAPPER
+    -------------------------------------------------------------- */
+    .fb-content-wrapper {
+      padding: 24px 32px 60px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* BREADCRUMBS */
+    .fb-breadcrumbs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .fb-breadcrumbs a {
+      color: var(--text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+    .fb-breadcrumbs a:hover {
+      color: var(--primary);
+    }
+    .fb-breadcrumbs .separator {
+      color: #cbd5e1;
+      font-size: 0.8rem;
+    }
+    .fb-breadcrumbs .current {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* HEADER ROW */
+    .fb-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .fb-title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .fb-title-row h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+    }
+    .badge-under-review {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .fb-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* META PILLS ROW */
+    .fb-meta-pills {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: #334155;
+    }
+    .meta-tag-blue {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1d4ed8;
+    }
+    .meta-tag-green {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #15803d;
+    }
+    .meta-tag-yellow {
+      background: #fefce8;
+      border-color: #fef08a;
+      color: #a16207;
+    }
+    .meta-tag-orange {
+      background: #fff7ed;
+      border-color: #fed7aa;
+      color: #c2410c;
+    }
+    .meta-tag-slate {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      color: #475569;
+    }
+
+    /* -------------------------------------------------------------
+       TABS BAR
+    -------------------------------------------------------------- */
+    .fb-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      border-bottom: 1px solid var(--border-color);
+      margin-top: 4px;
+    }
+    .fb-tab-btn {
+      padding: 10px 0;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.15s;
+    }
+    .fb-tab-btn:hover {
+      color: var(--text-main);
+    }
+    .fb-tab-btn.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .fb-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px 3px 0 0;
+    }
+
+    /* -------------------------------------------------------------
+       TWO COLUMN MAIN LAYOUT GRID
+    -------------------------------------------------------------- */
+    .fb-grid-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .fb-left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+
+    .fb-right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* -------------------------------------------------------------
+       CARD 1: MENTOR OVERALL FEEDBACK CARD
+    -------------------------------------------------------------- */
+    .mentor-overall-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .mentor-profile-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex-shrink: 0;
+      width: 140px;
+    }
+    .mentor-avatar-wrap {
+      position: relative;
+      width: 68px;
+      height: 68px;
+      margin-bottom: 8px;
+    }
+    .mentor-avatar-img {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+    .mentor-online-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      width: 14px;
+      height: 14px;
+      background: #10b981;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+    }
+    .mentor-name {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+    .mentor-role {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .mentor-stars {
+      color: #f59e0b;
+      font-size: 0.88rem;
+      margin-top: 5px;
+      letter-spacing: 1px;
+    }
+    .mentor-tag-label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .mentor-quote-col {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 0 16px;
+      border-left: 1px solid var(--border-light);
+      border-right: 1px solid var(--border-light);
+    }
+    .quote-icon {
+      font-size: 32px;
+      line-height: 1;
+      color: #3b82f6;
+      font-family: Georgia, serif;
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+    .quote-text {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: #334155;
+      font-style: normal;
+    }
+
+    .mentor-status-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+      min-width: 150px;
+    }
+    .status-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .badge-changes-required {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fee2e2;
+      color: #ef4444;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .review-date-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .review-date-box svg {
+      color: var(--text-light);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .review-date-text {
+      line-height: 1.3;
+    }
+
+    /* -------------------------------------------------------------
+       MIDDLE SECTION: DELIVERABLES + MENTOR COMMENTS GRID
+    -------------------------------------------------------------- */
+    .fb-middle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Card Box Standard */
+    .fb-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .fb-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .card-header-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-header-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+    .card-header-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Deliverable Tabs */
+    .deliverable-tabs {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 14px;
+      padding-bottom: 2px;
+      overflow-x: auto;
+    }
+    .deliv-tab-btn {
+      background: none;
+      border: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 6px 0;
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+    .deliv-tab-btn:hover {
+      color: var(--text-main);
+    }
+    .deliv-tab-btn.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .deliv-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: var(--primary);
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* PDF Viewer Simulated Container */
+    .pdf-viewer-frame {
+      border: 1px solid #334155;
+      border-radius: 8px;
+      background: #1e293b;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 380px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .pdf-viewer-toolbar {
+      background: #1e293b;
+      border-bottom: 1px solid #334155;
+      padding: 7px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #94a3b8;
+      font-size: 0.76rem;
+      user-select: none;
+    }
+    .pdf-tool-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pdf-page-indicator {
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    .pdf-tool-center {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pdf-zoom-btn {
+      background: #334155;
+      border: none;
+      color: #f1f5f9;
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    .pdf-zoom-btn:hover {
+      background: #475569;
+    }
+    .pdf-tool-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .pdf-tool-icon:hover {
+      color: #ffffff;
+    }
+
+    .pdf-viewer-body {
+      flex: 1;
+      display: flex;
+      background: #0f172a;
+      overflow: hidden;
+    }
+
+    .pdf-thumbnail-strip {
+      width: 68px;
+      background: #0b1329;
+      border-right: 1px solid #334155;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      overflow-y: auto;
+    }
+    .pdf-thumb-item {
+      width: 48px;
+      height: 64px;
+      background: #ffffff;
+      border-radius: 4px;
+      border: 1px solid #475569;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 4px;
+    }
+    .pdf-thumb-item.active {
+      border: 2px solid #3b82f6;
+      box-shadow: 0 0 6px rgba(59, 130, 246, 0.6);
+    }
+    .pdf-thumb-lines {
+      width: 100%;
+      height: 3px;
+      background: #cbd5e1;
+      margin-bottom: 3px;
+      border-radius: 1px;
+    }
+    .pdf-thumb-number {
+      font-size: 9px;
+      color: #64748b;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .pdf-main-canvas {
+      flex: 1;
+      background: #1e293b;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Document Sheet */
+    .document-paper {
+      width: 100%;
+      max-width: 320px;
+      min-height: 420px;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      padding: 24px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .doc-brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+    .doc-brand-header img {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+    }
+    .doc-brand-header span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .doc-title-block {
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+    .doc-title-main {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+    .doc-subtitle {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 4px;
+      font-style: italic;
+    }
+    .doc-author-meta {
+      font-size: 0.68rem;
+      color: #64748b;
+      margin-top: 8px;
+      line-height: 1.4;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 6px;
+    }
+    .doc-chart-preview {
+      margin-top: auto;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      height: 100px;
+      padding: 10px 10px 0 10px;
+      background: linear-gradient(180deg, rgba(239, 246, 255, 0) 0%, rgba(239, 246, 255, 0.6) 100%);
+      border-radius: 6px;
+    }
+    .doc-bar {
+      width: 14px;
+      background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
+      border-radius: 3px 3px 0 0;
+      transition: height 0.3s;
+    }
+    .doc-wave-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 24px;
+      background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+      clip-path: ellipse(75% 100% at 50% 100%);
+    }
+
+    /* Mentor Comments List */
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .comment-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .comment-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .comment-num-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .num-blue {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+    .num-amber {
+      background: #fef3c7;
+      color: #d97706;
+      border: 1px solid #fde68a;
+    }
+    .num-yellow {
+      background: #fef9c3;
+      color: #ca8a04;
+      border: 1px solid #fef08a;
+    }
+
+    .comment-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .comment-header-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .comment-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .comment-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .comment-time {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    /* Small pill labels */
+    .pill-good {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .pill-improve {
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .pill-minor {
+      background: #fef9c3;
+      color: #a16207;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .comment-body-text {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #475569;
+    }
+
+    /* -------------------------------------------------------------
+       BOTTOM 3 SUMMARY CARDS
+    -------------------------------------------------------------- */
+    .fb-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .summary-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+    .summary-card-strengths {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    .summary-card-areas {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .summary-card-next {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .summary-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .summary-header svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .summary-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+    .summary-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .summary-bullet {
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .step-num-pill {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* -------------------------------------------------------------
+       RIGHT COLUMN CARDS
+    -------------------------------------------------------------- */
+    .right-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .right-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .right-header-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #8b5cf6;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .right-header-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Stepper Timeline */
+    .stepper-timeline {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-left: 8px;
+    }
+    .stepper-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      position: relative;
+      padding-bottom: 22px;
+    }
+    .stepper-item:last-child {
+      padding-bottom: 0;
+    }
+    .stepper-line {
+      position: absolute;
+      top: 24px;
+      left: 11px;
+      bottom: 0;
+      width: 2px;
+      background: #e2e8f0;
+      z-index: 1;
+    }
+    .stepper-line.line-green {
+      background: #10b981;
+    }
+    .stepper-line.line-blue {
+      background: #3b82f6;
+    }
+
+    .stepper-node {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+    .node-green {
+      background: #10b981;
+      color: #ffffff;
+    }
+    .node-blue {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 0 0 4px #dbeafe;
+    }
+    .node-gray {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #cbd5e1;
+    }
+
+    .stepper-content {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+    .stepper-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .stepper-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .stepper-sub-pending {
+      color: #d97706;
+      font-weight: 600;
+    }
+
+    /* Quick Action Buttons */
+    .btn-resubmit-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s ease;
+    }
+    .btn-resubmit-cta:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-action-outline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #334155;
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-action-outline:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: var(--primary);
+    }
+
+    /* Previous Submissions Card */
+    .prev-sub-timeline {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-left: 10px;
+    }
+    .prev-sub-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      position: relative;
+      padding-bottom: 18px;
+    }
+    .prev-sub-item:last-child {
+      padding-bottom: 0;
+    }
+    .prev-sub-line {
+      position: absolute;
+      top: 14px;
+      left: 4px;
+      bottom: 0;
+      width: 2px;
+      background: #e2e8f0;
+      z-index: 1;
+    }
+    .prev-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #f59e0b;
+      margin-top: 5px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+    .prev-dot-gray {
+      background: #cbd5e1;
+    }
+
+    .prev-sub-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .prev-sub-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .prev-sub-name {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .prev-date {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .prev-note {
+      font-size: 0.76rem;
+      color: #64748b;
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+    .prev-link {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+    .prev-link:hover {
+      text-decoration: underline;
+    }
+
+    /* -------------------------------------------------------------
+       MODALS
+    -------------------------------------------------------------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 520px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+    .modal-close-btn:hover {
+      color: #0f172a;
+    }
+
+    /* -------------------------------------------------------------
+       RESPONSIVE DESIGN
+    -------------------------------------------------------------- */
+    @media (max-width: 1180px) {
+      .fb-grid-layout {
+        grid-template-columns: 1fr;
+      }
+      .fb-middle-grid {
+        grid-template-columns: 1fr;
+      }
+      .fb-summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .fb-sidebar {
+        display: none;
+      }
+      .fb-content-wrapper {
+        padding: 16px;
+      }
+      .mentor-overall-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .mentor-quote-col {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid var(--border-light);
+        border-bottom: 1px solid var(--border-light);
+        padding: 14px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fb-layout">
+
+    <!-- -----------------------------------------------------------
+         LEFT SIDEBAR NAVIGATION (UNIFIED STANDARD)
+    ------------------------------------------------------------ -->
+    <aside class="fb-sidebar">
+      <a href="dashboard.html" class="fb-brand">
+        <img src="assets/logo.png" alt="Edurup Learning">
+        <span>Edurup Learning</span>
+      </a>
+
+      <nav class="fb-nav">
+        <!-- 1. Dashboard -->
+        <a href="dashboard.html" class="fb-nav-item">
+          <div class="nav-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Dashboard</span>
+          </div>
+        </a>
+
+        <!-- 2. Learning Dropdown -->
+        <div class="fb-nav-group">
+          <div class="fb-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              <span>Learning</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="fb-nav-submenu">
+            <a href="recorded-classes.html" class="fb-sub-item">
+              <span>📹</span> Recorded Classes
+            </a>
+            <a href="live-classes.html" class="fb-sub-item">
+              <span>🔴</span> Live Classes
+            </a>
+            <a href="quizzes.html" class="fb-sub-item">
+              <span>📝</span> Quizzes
+            </a>
+            <a href="resources.html" class="fb-sub-item">
+              <span>📁</span> Resources
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Projects Dropdown (Expanded & Active!) -->
+        <div class="fb-nav-group open">
+          <div class="fb-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              <span>Projects</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="fb-nav-submenu">
+            <a href="my-projects.html" class="fb-sub-item">
+              <span>📁</span> My Projects
+            </a>
+            <a href="project-submission.html" class="fb-sub-item">
+              <span>📤</span> Project Submissions
+            </a>
+            <a href="project-feedback.html" class="fb-sub-item active">
+              <span>💬</span> Feedback
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Internship Dropdown -->
+        <div class="fb-nav-group">
+          <div class="fb-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              <span>Internship</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="fb-nav-submenu">
+            <a href="javascript:void(0);" onclick="alert('Application Status: Active.')" class="fb-sub-item"><span>📄</span> Application</a>
+            <a href="javascript:void(0);" onclick="alert('Internship track: 6 Months with Certificate & LOR.')" class="fb-sub-item"><span>📋</span> Internship Details</a>
+            <a href="dashboard.html#my-tasks-section" class="fb-sub-item"><span>📌</span> My Tasks</a>
+            <a href="javascript:void(0);" onclick="alert('Weekly Reports unlock after module 2 completion.')" class="fb-sub-item"><span>📊</span> Weekly Reports</a>
+            <a href="javascript:void(0);" onclick="alert('Live Class Attendance: 92% active.')" class="fb-sub-item"><span>📅</span> Attendance</a>
+          </div>
+        </div>
+
+        <!-- 5. Certificates Dropdown -->
+        <div class="fb-nav-group">
+          <div class="fb-nav-group-header" onclick="toggleNavGroup(this)">
+            <div class="nav-left">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              <span>Certificates</span>
+            </div>
+            <span class="nav-chevron">⌄</span>
+          </div>
+          <div class="fb-nav-submenu">
+            <a href="dashboard.html#certificates-progress-section" class="fb-sub-item"><span>🎖️</span> My Certificates</a>
+            <a href="javascript:void(0);" onclick="alert('Offer Letter available in your student portal.')" class="fb-sub-item"><span>📄</span> Offer Letter</a>
+            <a href="javascript:void(0);" onclick="alert('Letter of Recommendation (LOR) issued after capstone evaluation.')" class="fb-sub-item"><span>📜</span> Letter of Recommendation</a>
+          </div>
+        </div>
+
+        <!-- 6. Messages -->
+        <a href="javascript:void(0);" onclick="openMentorChatModal()" class="fb-nav-item">
+          <div class="nav-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Messages</span>
+          </div>
+        </a>
+
+        <!-- 7. Support -->
+        <a href="support.html" class="fb-nav-item">
+          <div class="nav-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span>Support</span>
+          </div>
+        </a>
+
+        <!-- 8. My Profile -->
+        <a href="profile.html" class="fb-nav-item">
+          <div class="nav-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>My Profile</span>
+          </div>
+        </a>
+
+        <!-- 9. Sign Out -->
+        <a href="javascript:void(0);" onclick="signOutUser()" class="fb-nav-item" style="color:#ef4444; font-weight:700; margin-top:8px;">
+          <div class="nav-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Sign Out</span>
+          </div>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- -----------------------------------------------------------
+         MAIN CONTENT AREA
+    ------------------------------------------------------------ -->
+    <main class="fb-main-container">
+
+      <!-- TOP SEARCH BAR -->
+      <header class="fb-topbar">
+        <div class="fb-search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" placeholder="Search for videos, projects, tasks, resources...">
+        </div>
+
+        <div class="fb-topbar-actions">
+          <button class="fb-bell-btn" title="Notifications" onclick="alert('Notification: Mentor Priya Sharma submitted feedback on your Sales Data Analysis project.')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span class="fb-bell-badge"></span>
+          </button>
+
+          <div class="fb-user-pill" onclick="window.location.href='profile.html'">
+            <div class="fb-user-avatar">RK</div>
+            <div class="fb-user-info">
+              <span class="fb-user-name">Rahul Kumar</span>
+              <span class="fb-user-role">Student</span>
+            </div>
+            <span style="font-size: 11px; color: #94a3b8; margin-left: 2px;">⌄</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <div class="fb-content-wrapper">
+
+        <!-- BREADCRUMBS -->
+        <nav class="fb-breadcrumbs">
+          <a href="dashboard.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Dashboard
+          </a>
+          <span class="separator">›</span>
+          <a href="my-projects.html">Projects</a>
+          <span class="separator">›</span>
+          <a href="project-details.html">Sales Data Analysis</a>
+          <span class="separator">›</span>
+          <a href="project-submission.html">Submission #1</a>
+          <span class="separator">›</span>
+          <span class="current">Feedback</span>
+        </nav>
+
+        <!-- PAGE HEADER ROW -->
+        <div class="fb-header">
+          <div class="fb-title-row">
+            <h1>Sales Data Analysis</h1>
+            <span class="badge-under-review">Under Review</span>
+          </div>
+          <p class="fb-subtitle">Submission #1 - Mentor Feedback</p>
+
+          <!-- META TAGS PILLS -->
+          <div class="fb-meta-pills">
+            <div class="meta-tag meta-tag-blue">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              <span>Data Analytics</span>
+            </div>
+
+            <div class="meta-tag meta-tag-green">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><line x1="8" y1="12" x2="16" y2="12"></line><line x1="12" y1="8" x2="12" y2="16"></line></svg>
+              <span>Excel</span>
+            </div>
+
+            <div class="meta-tag meta-tag-yellow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="12" width="4" height="8" rx="1"></rect><rect x="8" y="8" width="4" height="12" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>
+              <span>Power BI</span>
+            </div>
+
+            <div class="meta-tag meta-tag-orange">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+              <span>Beginner</span>
+            </div>
+
+            <div class="meta-tag meta-tag-slate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>7 Days</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABS BAR -->
+        <div class="fb-tabs-bar">
+          <a href="project-details.html" class="fb-tab-btn">Submission Details</a>
+          <button class="fb-tab-btn active">Mentor Feedback</button>
+          <a href="project-submission.html" class="fb-tab-btn">Revision</a>
+          <button class="fb-tab-btn" onclick="alert('📁 Documents: 4 attached files (Report.pdf, Dataset.xlsx, Model.pbix, Presentation.pptx)')">Documents</button>
+          <button class="fb-tab-btn" onclick="openMentorChatModal()">Discussion</button>
+        </div>
+
+        <!-- -----------------------------------------------------------
+             MAIN 2-COLUMN GRID (LEFT CONTENT + RIGHT SIDEBAR)
+        ------------------------------------------------------------ -->
+        <div class="fb-grid-layout">
+
+          <!-- LEFT COLUMN (Main Content) -->
+          <div class="fb-left-column">
+
+            <!-- 1. MENTOR OVERALL CARD -->
+            <div class="mentor-overall-card">
+              <!-- Left: Avatar & Info -->
+              <div class="mentor-profile-col">
+                <div class="mentor-avatar-wrap">
+                  <img src="assets/testimonial-priya.jpg" alt="Priya Sharma" class="mentor-avatar-img">
+                  <span class="mentor-online-badge" title="Online now"></span>
+                </div>
+                <h4 class="mentor-name">Priya Sharma</h4>
+                <span class="mentor-role">Data Analytics Mentor</span>
+                <div class="mentor-stars">★★★★★</div>
+                <span class="mentor-tag-label">Overall Feedback</span>
+              </div>
+
+              <!-- Center: Quote Text -->
+              <div class="mentor-quote-col">
+                <span class="quote-icon">❝</span>
+                <p class="quote-text">
+                  Good work! You have handled data cleaning and analysis well. The dashboard looks good, but you can improve the visualizations and add more business insights. Please check the detailed feedback below and resubmit with the suggested changes.
+                </p>
+              </div>
+
+              <!-- Right: Review Status -->
+              <div class="mentor-status-col">
+                <span class="status-title">Review Status</span>
+                <span class="badge-changes-required">Changes Required</span>
+                <div class="review-date-box">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span class="review-date-text">Reviewed on<br><strong>02 Oct 2026, 04:15 PM</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. MIDDLE SPLIT: DELIVERABLES PREVIEW + MENTOR COMMENTS -->
+            <div class="fb-middle-grid">
+
+              <!-- LEFT BOX: Feedback on Deliverables -->
+              <div class="fb-card">
+                <div class="fb-card-header">
+                  <div class="card-header-icon" style="background:#2563eb;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                  </div>
+                  <h3 class="card-header-title">Feedback on Deliverables</h3>
+                </div>
+
+                <!-- Deliverable Sub-tabs -->
+                <div class="deliverable-tabs">
+                  <button class="deliv-tab-btn active" onclick="switchDeliverableTab('report', this)">Project Report</button>
+                  <button class="deliv-tab-btn" onclick="switchDeliverableTab('dataset', this)">Dataset</button>
+                  <button class="deliv-tab-btn" onclick="switchDeliverableTab('code', this)">Code</button>
+                  <button class="deliv-tab-btn" onclick="switchDeliverableTab('dashboard', this)">Dashboard</button>
+                  <button class="deliv-tab-btn" onclick="switchDeliverableTab('presentation', this)">Presentation</button>
+                </div>
+
+                <!-- PDF Viewer Simulator Frame -->
+                <div class="pdf-viewer-frame" id="deliverablePreviewContainer">
+                  <!-- Toolbar -->
+                  <div class="pdf-viewer-toolbar">
+                    <div class="pdf-tool-left">
+                      <span class="pdf-page-indicator" id="pdfPageIndicator">1 / 12</span>
+                    </div>
+                    <div class="pdf-tool-center">
+                      <button type="button" class="pdf-zoom-btn" onclick="zoomDoc(-1)">−</button>
+                      <span id="pdfZoomLevel" style="font-size:0.75rem; color:#e2e8f0; font-weight:600;">100%</span>
+                      <button type="button" class="pdf-zoom-btn" onclick="zoomDoc(1)">+</button>
+                    </div>
+                    <div class="pdf-tool-right">
+                      <span class="pdf-tool-icon" title="Search document">🔍</span>
+                      <span class="pdf-tool-icon" title="Highlight / Annotate">✏️</span>
+                      <span class="pdf-tool-icon" title="Rotate page">↻</span>
+                      <span class="pdf-tool-icon" title="Fullscreen" onclick="toggleFullscreenDoc()">⛶</span>
+                    </div>
+                  </div>
+
+                  <!-- Viewer Body with Thumbnails and Sheet -->
+                  <div class="pdf-viewer-body">
+                    <!-- Left Thumbnails -->
+                    <div class="pdf-thumbnail-strip">
+                      <div class="pdf-thumb-item active" onclick="selectThumb(1)">
+                        <div class="pdf-thumb-lines" style="width:70%;"></div>
+                        <div class="pdf-thumb-lines"></div>
+                        <div class="pdf-thumb-lines" style="width:50%;"></div>
+                        <div style="margin-top:auto; height:18px; background:#eff6ff; border-radius:2px;"></div>
+                        <span class="pdf-thumb-number">1</span>
+                      </div>
+
+                      <div class="pdf-thumb-item" onclick="selectThumb(2)">
+                        <div class="pdf-thumb-lines"></div>
+                        <div class="pdf-thumb-lines"></div>
+                        <div class="pdf-thumb-lines" style="width:80%;"></div>
+                        <div class="pdf-thumb-lines" style="width:60%;"></div>
+                        <span class="pdf-thumb-number">2</span>
+                      </div>
+
+                      <div class="pdf-thumb-item" onclick="selectThumb(3)">
+                        <div class="pdf-thumb-lines"></div>
+                        <div class="pdf-thumb-lines" style="width:75%;"></div>
+                        <div style="margin-top:auto; height:14px; background:#dbeafe; border-radius:2px;"></div>
+                        <span class="pdf-thumb-number">3</span>
+                      </div>
+                    </div>
+
+                    <!-- Canvas Main Page -->
+                    <div class="pdf-main-canvas" id="pdfCanvas">
+                      <div class="document-paper" id="documentPaper">
+                        <!-- Top Brand Logo -->
+                        <div class="doc-brand-header">
+                          <img src="assets/logo.png" alt="Edurup">
+                          <span>Edurup Learning</span>
+                        </div>
+
+                        <!-- Main Title -->
+                        <div class="doc-title-block">
+                          <h2 class="doc-title-main">Sales Data Analysis Project Report</h2>
+                          <p class="doc-subtitle">Business Insights & Recommendations</p>
+                          <div class="doc-author-meta">
+                            <div>Prepared by: <strong>Rahul Kumar</strong></div>
+                            <div>Date: <strong>01 Oct 2026</strong></div>
+                          </div>
+                        </div>
+
+                        <!-- Illustrated Chart on Cover -->
+                        <div class="doc-chart-preview">
+                          <div class="doc-bar" style="height: 35px;"></div>
+                          <div class="doc-bar" style="height: 55px;"></div>
+                          <div class="doc-bar" style="height: 45px;"></div>
+                          <div class="doc-bar" style="height: 75px;"></div>
+                          <div class="doc-bar" style="height: 60px;"></div>
+                          <div class="doc-bar" style="height: 90px; background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);"></div>
+                        </div>
+
+                        <!-- Wave graphic footer -->
+                        <div class="doc-wave-footer"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT BOX: Mentor Comments -->
+              <div class="fb-card">
+                <div class="fb-card-header">
+                  <div class="card-header-icon" style="background:#2563eb;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  </div>
+                  <h3 class="card-header-title">Mentor Comments</h3>
+                </div>
+
+                <!-- 5 Itemized Comments -->
+                <div class="comments-list">
+                  <!-- 1. Data Cleaning -->
+                  <div class="comment-item">
+                    <div class="comment-num-badge num-blue">1</div>
+                    <div class="comment-content">
+                      <div class="comment-header-line">
+                        <div class="comment-title-group">
+                          <span class="comment-title">Data Cleaning</span>
+                          <span class="pill-good">Good</span>
+                        </div>
+                        <span class="comment-time">02 Oct 2026, 04:15 PM</span>
+                      </div>
+                      <p class="comment-body-text">You have handled missing values and duplicates correctly. Well done!</p>
+                    </div>
+                  </div>
+
+                  <!-- 2. Exploratory Analysis -->
+                  <div class="comment-item">
+                    <div class="comment-num-badge num-blue">2</div>
+                    <div class="comment-content">
+                      <div class="comment-header-line">
+                        <div class="comment-title-group">
+                          <span class="comment-title">Exploratory Analysis</span>
+                          <span class="pill-good">Good</span>
+                        </div>
+                        <span class="comment-time">02 Oct 2026, 04:15 PM</span>
+                      </div>
+                      <p class="comment-body-text">Good exploration of sales trends and key metrics.</p>
+                    </div>
+                  </div>
+
+                  <!-- 3. Visualizations -->
+                  <div class="comment-item">
+                    <div class="comment-num-badge num-amber">3</div>
+                    <div class="comment-content">
+                      <div class="comment-header-line">
+                        <div class="comment-title-group">
+                          <span class="comment-title">Visualizations</span>
+                          <span class="pill-improve">Needs Improvement</span>
+                        </div>
+                        <span class="comment-time">02 Oct 2026, 04:15 PM</span>
+                      </div>
+                      <p class="comment-body-text">You can add more meaningful charts (e.g., category wise trend, top 10 products, regional comparison).</p>
+                    </div>
+                  </div>
+
+                  <!-- 4. Business Insights -->
+                  <div class="comment-item">
+                    <div class="comment-num-badge num-amber">4</div>
+                    <div class="comment-content">
+                      <div class="comment-header-line">
+                        <div class="comment-title-group">
+                          <span class="comment-title">Business Insights</span>
+                          <span class="pill-improve">Needs Improvement</span>
+                        </div>
+                        <span class="comment-time">02 Oct 2026, 04:15 PM</span>
+                      </div>
+                      <p class="comment-body-text">Add 3–5 key business insights with explanations and possible recommendations.</p>
+                    </div>
+                  </div>
+
+                  <!-- 5. Report Presentation -->
+                  <div class="comment-item">
+                    <div class="comment-num-badge num-yellow">5</div>
+                    <div class="comment-content">
+                      <div class="comment-header-line">
+                        <div class="comment-title-group">
+                          <span class="comment-title">Report Presentation</span>
+                          <span class="pill-minor">Minor Changes</span>
+                        </div>
+                        <span class="comment-time">02 Oct 2026, 04:15 PM</span>
+                      </div>
+                      <p class="comment-body-text">Improve the layout and add an executive summary at the beginning.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- END fb-middle-grid -->
+
+            <!-- 3. BOTTOM 3 SUMMARY CARDS -->
+            <div class="fb-summary-grid">
+              
+              <!-- CARD 1: Strengths -->
+              <div class="summary-card summary-card-strengths">
+                <div class="summary-header" style="color: #166534;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <span>Strengths</span>
+                </div>
+                <ul class="summary-list">
+                  <li><span class="summary-bullet">•</span> Correct data cleaning process</li>
+                  <li><span class="summary-bullet">•</span> Good use of Excel/Power BI tools</li>
+                  <li><span class="summary-bullet">•</span> Clear analysis of sales trends</li>
+                </ul>
+              </div>
+
+              <!-- CARD 2: Areas for Improvement -->
+              <div class="summary-card summary-card-areas">
+                <div class="summary-header" style="color: #92400e;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path></svg>
+                  <span>Areas for Improvement</span>
+                </div>
+                <ul class="summary-list">
+                  <li><span class="summary-bullet">•</span> Add more meaningful visualizations</li>
+                  <li><span class="summary-bullet">•</span> Include deeper business insights</li>
+                  <li><span class="summary-bullet">•</span> Improve report layout and storytelling</li>
+                </ul>
+              </div>
+
+              <!-- CARD 3: Next Steps -->
+              <div class="summary-card summary-card-next">
+                <div class="summary-header" style="color: #1e40af;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                  <span>Next Steps</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:6px; font-size:0.8rem; color:#1e293b;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="step-num-pill">1</span>
+                    <span>Make the suggested changes</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="step-num-pill">2</span>
+                    <span>Update your files (report & dashboard)</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="step-num-pill">3</span>
+                    <span>Resubmit by <strong style="color:#ef4444;">05 Oct 2026</strong></span>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- END fb-summary-grid -->
+
+          </div><!-- END fb-left-column -->
+
+          <!-- RIGHT COLUMN (Sidebar Widgets) -->
+          <div class="fb-right-column">
+
+            <!-- WIDGET 1: Submission Status Stepper -->
+            <div class="right-card">
+              <div class="right-card-header">
+                <div class="right-header-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                </div>
+                <span>Submission Status</span>
+              </div>
+
+              <div class="stepper-timeline">
+                <!-- Step 1 -->
+                <div class="stepper-item">
+                  <div class="stepper-line line-green"></div>
+                  <div class="stepper-node node-green">✓</div>
+                  <div class="stepper-content">
+                    <span class="stepper-title">Files Submitted</span>
+                    <span class="stepper-sub">01 Oct 2026, 10:30 AM</span>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="stepper-item">
+                  <div class="stepper-line line-blue"></div>
+                  <div class="stepper-node node-green">✓</div>
+                  <div class="stepper-content">
+                    <span class="stepper-title">Under Mentor Review</span>
+                    <span class="stepper-sub">01 Oct 2026, 10:45 AM</span>
+                  </div>
+                </div>
+
+                <!-- Step 3 (Current Active) -->
+                <div class="stepper-item">
+                  <div class="stepper-line"></div>
+                  <div class="stepper-node node-blue">3</div>
+                  <div class="stepper-content">
+                    <span class="stepper-title" style="color:#2563eb;">Feedback Received</span>
+                    <span class="stepper-sub">02 Oct 2026, 04:15 PM</span>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="stepper-item">
+                  <div class="stepper-line"></div>
+                  <div class="stepper-node node-gray">4</div>
+                  <div class="stepper-content">
+                    <span class="stepper-title">Resubmit by Student</span>
+                    <span class="stepper-sub stepper-sub-pending">Pending</span>
+                  </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="stepper-item">
+                  <div class="stepper-node node-gray">5</div>
+                  <div class="stepper-content">
+                    <span class="stepper-title">Final Review</span>
+                    <span class="stepper-sub stepper-sub-pending">Pending</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- WIDGET 2: Quick Actions -->
+            <div class="right-card">
+              <div class="right-card-header">
+                <div class="right-header-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </div>
+                <span>Quick Actions</span>
+              </div>
+
+              <!-- Action buttons -->
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <a href="project-submission.html" class="btn-resubmit-cta">
+                  <span>Resubmit with Changes</span>
+                  <span style="font-size:16px;">→</span>
+                </a>
+
+                <button type="button" class="btn-action-outline" onclick="openMentorChatModal()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  <span>Message Mentor</span>
+                </button>
+
+                <button type="button" class="btn-action-outline" onclick="openScheduleMeetingModal()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span>Schedule Meeting</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- WIDGET 3: Previous Submissions -->
+            <div class="right-card">
+              <div class="right-card-header">
+                <div class="right-header-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <span>Previous Submissions</span>
+              </div>
+
+              <div class="prev-sub-timeline">
+                <!-- Submission #1 -->
+                <div class="prev-sub-item">
+                  <div class="prev-sub-line"></div>
+                  <div class="prev-dot"></div>
+                  <div class="prev-sub-details">
+                    <div class="prev-sub-header">
+                      <span class="prev-sub-name">Submission #1</span>
+                      <span class="pill-improve" style="font-size:0.68rem;">Changes Required</span>
+                    </div>
+                    <span class="prev-date">01 Oct 2026, 10:30 AM</span>
+                    <p class="prev-note">Good analysis. Please improve visualizations and add more business insights.</p>
+                    <a href="javascript:void(0);" onclick="scrollToElement('deliverablePreviewContainer')" class="prev-link">View Feedback</a>
+                  </div>
+                </div>
+
+                <!-- Submission #2 -->
+                <div class="prev-sub-item">
+                  <div class="prev-dot prev-dot-gray"></div>
+                  <div class="prev-sub-details">
+                    <div class="prev-sub-header">
+                      <span class="prev-sub-name">Submission #2</span>
+                      <span style="background:#f1f5f9; color:#64748b; font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:12px;">Not Submitted</span>
+                    </div>
+                    <span class="prev-date">--</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- END fb-right-column -->
+
+        </div><!-- END fb-grid-layout -->
+
+      </div><!-- END fb-content-wrapper -->
+
+    </main>
+
+  </div><!-- END fb-layout -->
+
+  <!-- -------------------------------------------------------------
+       MODAL 1: MENTOR CHAT MODAL
+  -------------------------------------------------------------- -->
+  <div class="modal-overlay" id="mentorChatModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('mentorChatModal')">✕</button>
+      
+      <div style="display:flex; align-items:center; gap:12px; border-bottom:1px solid #e2e8f0; padding-bottom:12px;">
+        <img src="assets/testimonial-priya.jpg" style="width:44px; height:44px; border-radius:50%; object-fit:cover;">
+        <div>
+          <h3 style="font-size:1rem; font-weight:700; color:#0f172a;">Priya Sharma</h3>
+          <span style="font-size:0.75rem; color:#10b981; font-weight:600;">● Online • Data Analytics Mentor</span>
+        </div>
+      </div>
+
+      <div id="chatMessageList" style="display:flex; flex-direction:column; gap:10px; height:240px; overflow-y:auto; padding:6px 0;">
+        <div style="background:#eff6ff; color:#1e3a8a; padding:10px 14px; border-radius:10px 10px 10px 2px; font-size:0.84rem; max-width:85%; line-height:1.4;">
+          Hi Rahul! I reviewed your Sales Data Analysis project. Your data cleaning was spotless! For the Power BI dashboard, try adding a regional breakdown donut chart and 3 bullet recommendations for executive stakeholders. Let me know if you need help!
+          <div style="font-size:0.7rem; color:#60a5fa; margin-top:4px;">02 Oct 2026, 04:16 PM</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="chatInputBox" placeholder="Type your message to Priya..." style="flex:1; border:1px solid #cbd5e1; border-radius:8px; padding:9px 12px; font-size:0.84rem; outline:none;" onkeydown="if(event.key==='Enter') sendMentorMessage()">
+        <button type="button" onclick="sendMentorMessage()" style="background:#2563eb; color:#ffffff; border:none; border-radius:8px; padding:0 16px; font-weight:700; font-size:0.84rem; cursor:pointer;">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- -------------------------------------------------------------
+       MODAL 2: SCHEDULE 1-ON-1 MEETING MODAL
+  -------------------------------------------------------------- -->
+  <div class="modal-overlay" id="scheduleMeetingModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('scheduleMeetingModal')">✕</button>
+      
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
+        <div style="width:40px; height:40px; border-radius:10px; background:#eff6ff; color:#2563eb; display:flex; align-items:center; justify-content:center; font-size:18px;">📅</div>
+        <div>
+          <h3 style="font-size:1.05rem; font-weight:700; color:#0f172a;">Schedule 1:1 Feedback Session</h3>
+          <p style="font-size:0.78rem; color:#64748b;">30-minute video discussion with Priya Sharma</p>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div>
+          <label style="font-size:0.78rem; font-weight:700; color:#334155; display:block; margin-bottom:4px;">Select Available Date</label>
+          <select id="meetingDate" style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:9px 12px; font-size:0.84rem; outline:none; background:#ffffff;">
+            <option value="03 Oct 2026">Tomorrow (03 Oct 2026) - 4 Slots</option>
+            <option value="04 Oct 2026">Sunday (04 Oct 2026) - 2 Slots</option>
+            <option value="05 Oct 2026">Monday (05 Oct 2026) - 5 Slots</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size:0.78rem; font-weight:700; color:#334155; display:block; margin-bottom:4px;">Select Time Slot (IST)</label>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <label style="display:flex; align-items:center; gap:6px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 12px; font-size:0.8rem; cursor:pointer;">
+              <input type="radio" name="slot" checked> 04:00 PM - 04:30 PM
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 12px; font-size:0.8rem; cursor:pointer;">
+              <input type="radio" name="slot"> 05:00 PM - 05:30 PM
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 12px; font-size:0.8rem; cursor:pointer;">
+              <input type="radio" name="slot"> 06:30 PM - 07:00 PM
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 12px; font-size:0.8rem; cursor:pointer;">
+              <input type="radio" name="slot"> 08:00 PM - 08:30 PM
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:0.78rem; font-weight:700; color:#334155; display:block; margin-bottom:4px;">Questions or Focus Area</label>
+          <textarea id="meetingTopic" rows="2" placeholder="e.g. Need clarification on adding executive summary & Power BI DAX formulas..." style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:8px 12px; font-size:0.82rem; outline:none; resize:none;"></textarea>
+        </div>
+
+        <button type="button" onclick="confirmMeetingBooking()" style="background:#2563eb; color:#ffffff; border:none; border-radius:8px; padding:11px; font-weight:700; font-size:0.86rem; cursor:pointer; margin-top:4px;">Confirm & Book Session →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // Toggle Nav Group
+    function toggleNavGroup(el) {
+      const group = el.closest('.fb-nav-group');
+      if (group) group.classList.toggle('open');
+    }
+
+    // Scroll to element helper
+    function scrollToElement(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Modals
+    function openMentorChatModal() {
+      document.getElementById('mentorChatModal').classList.add('open');
+      setTimeout(() => {
+        const inp = document.getElementById('chatInputBox');
+        if (inp) inp.focus();
+      }, 100);
+    }
+
+    function openScheduleMeetingModal() {
+      document.getElementById('scheduleMeetingModal').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    // Close modal on click outside
+    window.onclick = function(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        e.target.classList.remove('open');
+      }
+    };
+
+    // Chat Message logic
+    function sendMentorMessage() {
+      const inp = document.getElementById('chatInputBox');
+      const text = inp.value.trim();
+      if (!text) return;
+
+      const list = document.getElementById('chatMessageList');
+      
+      // User bubble
+      const userBubble = document.createElement('div');
+      userBubble.style.cssText = 'background:#2563eb; color:#ffffff; padding:9px 13px; border-radius:10px 10px 2px 10px; font-size:0.84rem; max-width:85%; align-self:flex-end; margin-top:4px; line-height:1.4;';
+      userBubble.innerHTML = `${text}<div style="font-size:0.68rem; color:#bfdbfe; margin-top:3px; text-align:right;">Just now</div>`;
+      list.appendChild(userBubble);
+      inp.value = '';
+      list.scrollTop = list.scrollHeight;
+
+      // Automated mentor reply after 1.2s
+      setTimeout(() => {
+        const mentorReply = document.createElement('div');
+        mentorReply.style.cssText = 'background:#eff6ff; color:#1e3a8a; padding:9px 13px; border-radius:10px 10px 10px 2px; font-size:0.84rem; max-width:85%; line-height:1.4; margin-top:4px;';
+        mentorReply.innerHTML = `Thanks for your note! I'm reviewing the files. You can also join our live Q&A session tomorrow or book a 1:1 call if you need deep-dive support.<div style="font-size:0.68rem; color:#60a5fa; margin-top:3px;">Just now</div>`;
+        list.appendChild(mentorReply);
+        list.scrollTop = list.scrollHeight;
+      }, 1200);
+    }
+
+    function confirmMeetingBooking() {
+      const date = document.getElementById('meetingDate').value;
+      alert(`🎉 Session Confirmed!\n\n• Mentor: Priya Sharma\n• Date: ${date}\n• Meeting Link sent to your registered student email & student portal dashboard.`);
+      closeModal('scheduleMeetingModal');
+    }
+
+    // Document zoom simulator
+    let currentZoom = 100;
+    function zoomDoc(delta) {
+      currentZoom = Math.min(150, Math.max(70, currentZoom + delta * 15));
+      document.getElementById('pdfZoomLevel').textContent = `${currentZoom}%`;
+      const docPaper = document.getElementById('documentPaper');
+      if (docPaper) {
+        docPaper.style.transform = `scale(${currentZoom / 100})`;
+        docPaper.style.transformOrigin = 'top center';
+      }
+    }
+
+    function selectThumb(page) {
+      document.querySelectorAll('.pdf-thumb-item').forEach((item, idx) => {
+        if (idx + 1 === page) item.classList.add('active');
+        else item.classList.remove('active');
+      });
+      document.getElementById('pdfPageIndicator').textContent = `${page} / 12`;
+    }
+
+    function toggleFullscreenDoc() {
+      const frame = document.getElementById('deliverablePreviewContainer');
+      if (!document.fullscreenElement) {
+        if (frame.requestFullscreen) frame.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // Deliverable Tabs Switcher
+    function switchDeliverableTab(type, btn) {
+      document.querySelectorAll('.deliv-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const canvas = document.getElementById('pdfCanvas');
+      if (type === 'report') {
+        canvas.innerHTML = `
+          <div class="document-paper" id="documentPaper">
+            <div class="doc-brand-header">
+              <img src="assets/logo.png" alt="Edurup">
+              <span>Edurup Learning</span>
+            </div>
+            <div class="doc-title-block">
+              <h2 class="doc-title-main">Sales Data Analysis Project Report</h2>
+              <p class="doc-subtitle">Business Insights & Recommendations</p>
+              <div class="doc-author-meta">
+                <div>Prepared by: <strong>Rahul Kumar</strong></div>
+                <div>Date: <strong>01 Oct 2026</strong></div>
+              </div>
+            </div>
+            <div class="doc-chart-preview">
+              <div class="doc-bar" style="height: 35px;"></div>
+              <div class="doc-bar" style="height: 55px;"></div>
+              <div class="doc-bar" style="height: 45px;"></div>
+              <div class="doc-bar" style="height: 75px;"></div>
+              <div class="doc-bar" style="height: 60px;"></div>
+              <div class="doc-bar" style="height: 90px; background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);"></div>
+            </div>
+            <div class="doc-wave-footer"></div>
+          </div>
+        `;
+        document.getElementById('pdfPageIndicator').textContent = '1 / 12';
+      } else if (type === 'dataset') {
+        canvas.innerHTML = `
+          <div style="background:#ffffff; width:100%; max-width:320px; border-radius:6px; padding:16px; font-size:0.75rem; color:#1e293b; box-shadow:0 4px 14px rgba(0,0,0,0.3);">
+            <div style="font-weight:700; color:#059669; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+              <span>📊</span> sales_data_clean.xlsx (12,450 Rows)
+            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:0.7rem; text-align:left;">
+              <thead>
+                <tr style="background:#f1f5f9; border-bottom:1px solid #cbd5e1;">
+                  <th style="padding:4px;">ID</th>
+                  <th style="padding:4px;">Region</th>
+                  <th style="padding:4px;">Sales</th>
+                  <th style="padding:4px;">Profit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">#101</td><td>North</td><td>$4,200</td><td style="color:#10b981;">+$840</td></tr>
+                <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">#102</td><td>South</td><td>$2,850</td><td style="color:#10b981;">+$510</td></tr>
+                <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">#103</td><td>East</td><td>$5,600</td><td style="color:#10b981;">+$1,120</td></tr>
+                <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">#104</td><td>West</td><td>$3,100</td><td style="color:#10b981;">+$620</td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:12px; font-size:0.68rem; color:#64748b; background:#f8fafc; padding:6px; border-radius:4px;">
+              Mentor Note: Zero nulls, properly indexed date columns.
+            </div>
+          </div>
+        `;
+        document.getElementById('pdfPageIndicator').textContent = 'Sheet 1 / 3';
+      } else if (type === 'code') {
+        canvas.innerHTML = `
+          <div style="background:#0f172a; border:1px solid #334155; width:100%; max-width:320px; border-radius:6px; padding:16px; font-family:monospace; font-size:0.72rem; color:#38bdf8; line-height:1.5;">
+            <div style="color:#94a3b8; margin-bottom:6px;">-- Data Cleaning Query (SQL)</div>
+            <span style="color:#f43f5e;">SELECT</span> region, SUM(sales) <span style="color:#f43f5e;">AS</span> total_sales<br>
+            <span style="color:#f43f5e;">FROM</span> edurup_sales_clean<br>
+            <span style="color:#f43f5e;">WHERE</span> status = <span style="color:#eab308;">'Completed'</span><br>
+            <span style="color:#f43f5e;">GROUP BY</span> region<br>
+            <span style="color:#f43f5e;">ORDER BY</span> total_sales <span style="color:#f43f5e;">DESC</span>;
+          </div>
+        `;
+        document.getElementById('pdfPageIndicator').textContent = 'Query 1 / 4';
+      } else if (type === 'dashboard') {
+        canvas.innerHTML = `
+          <div style="background:#ffffff; width:100%; max-width:320px; border-radius:6px; padding:14px; box-shadow:0 4px 14px rgba(0,0,0,0.3);">
+            <div style="font-weight:700; color:#ca8a04; font-size:0.8rem; margin-bottom:8px;">Power BI Model - Executive Summary</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:10px;">
+              <div style="background:#fefce8; padding:8px; border-radius:4px; text-align:center;">
+                <div style="font-size:0.65rem; color:#854d0e;">Total Revenue</div>
+                <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">$1.24M</div>
+              </div>
+              <div style="background:#f0fdf4; padding:8px; border-radius:4px; text-align:center;">
+                <div style="font-size:0.65rem; color:#166534;">Avg Margin</div>
+                <div style="font-size:0.95rem; font-weight:800; color:#15803d;">22.4%</div>
+              </div>
+            </div>
+            <div style="height:60px; background:#eff6ff; border-radius:4px; display:flex; align-items:center; justify-content:center; color:#2563eb; font-size:0.72rem; font-weight:600;">
+              📈 Monthly Revenue Trend (2026)
+            </div>
+          </div>
+        `;
+        document.getElementById('pdfPageIndicator').textContent = 'Page 1 / 2';
+      } else if (type === 'presentation') {
+        canvas.innerHTML = `
+          <div style="background:#1e293b; width:100%; max-width:320px; border-radius:6px; padding:20px; color:#ffffff; box-shadow:0 4px 14px rgba(0,0,0,0.4); text-align:center;">
+            <div style="font-size:0.65rem; color:#38bdf8; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Slide 1: Executive Briefing</div>
+            <h3 style="font-size:1.05rem; font-weight:800; margin-bottom:8px;">Sales Optimization Strategy</h3>
+            <p style="font-size:0.75rem; color:#94a3b8; line-height:1.4;">Prepared for Corporate Internship Capstone Evaluation</p>
+          </div>
+        `;
+        document.getElementById('pdfPageIndicator').textContent = 'Slide 1 / 10';
+      }
+    }
+
+    function signOutUser() {
+      if (confirm('Are you sure you want to sign out from your student account?')) {
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+</html>
