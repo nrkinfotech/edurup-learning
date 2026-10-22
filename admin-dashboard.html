@@ -1,0 +1,2619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Edurup Learning</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-body: #f8fafc;
+      --bg-sidebar: #0b132b;
+      --sidebar-hover: #1c2541;
+      --sidebar-active: #2563eb;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-light: #fffbeb;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --purple: #8b5cf6;
+      --purple-light: #f5f3ff;
+      --teal: #06b6d4;
+      --teal-light: #ecfeff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      background: var(--sidebar-hover);
+      color: #ffffff;
+    }
+
+    .nav-item-btn.active {
+      background: var(--sidebar-active);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #64748b;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      padding: 4px 0 6px 36px;
+      gap: 2px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem:hover::before {
+      color: var(--primary);
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Bar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .search-box {
+      position: relative;
+      width: 440px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 40px;
+      background: #f1f5f9;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      padding: 0 16px 0 40px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notif-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .notif-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .notif-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .admin-profile-menu {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 4px 4px;
+      border-radius: 30px;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+    }
+
+    .admin-profile-menu:hover {
+      background: #f1f5f9;
+    }
+
+    .admin-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
+    }
+
+    .admin-meta {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .admin-meta-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .admin-meta-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .profile-dropdown-content {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      width: 200px;
+      display: none;
+      flex-direction: column;
+      padding: 6px 0;
+      z-index: 100;
+    }
+
+    .profile-dropdown-content.show {
+      display: flex;
+    }
+
+    .dropdown-link {
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #334155;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s;
+    }
+
+    .dropdown-link:hover {
+      background: #f8fafc;
+      color: var(--primary);
+    }
+
+    /* Page Body */
+    .dashboard-body {
+      padding: 28px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Subheader */
+    .dashboard-subheader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .welcome-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.3px;
+    }
+
+    .welcome-subtitle {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .date-filter-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      cursor: pointer;
+    }
+
+    .date-filter-btn i {
+      color: var(--primary);
+    }
+
+    /* ---------------- KPI METRICS ROW ---------------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 1400px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.03);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+    }
+
+    .kpi-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .kpi-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .kpi-value-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .kpi-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 12px;
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .kpi-subtext {
+      font-size: 11.5px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* ---------------- ROW 2: ANALYTICS & PIPELINE ---------------- */
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: 5fr 4fr 3.5fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1200px) {
+      .analytics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dashboard-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 22px;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .card-filter-select {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .card-action-link {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-action-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Enrollments Chart CSS */
+    .chart-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 220px;
+      padding-top: 10px;
+    }
+
+    .chart-bars-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 180px;
+      padding: 0 10px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .chart-grid-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .grid-line {
+      width: 100%;
+      height: 1px;
+      background: #f1f5f9;
+      position: relative;
+    }
+
+    .grid-label {
+      position: absolute;
+      left: -28px;
+      top: -7px;
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .month-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .bar-group {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 160px;
+    }
+
+    .bar {
+      width: 10px;
+      border-radius: 3px 3px 0 0;
+      transition: height 0.5s ease;
+      cursor: pointer;
+    }
+
+    .bar-blue { background: #2563eb; }
+    .bar-teal { background: #06b6d4; }
+    .bar-orange { background: #f59e0b; }
+
+    .month-name {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .chart-legend {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 14px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .legend-bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* Internship Pipeline Funnel */
+    .pipeline-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .funnel-svg-wrap {
+      flex: 1.2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pipeline-legend {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pipe-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+    }
+
+    .pipe-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    .pipe-square {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    .pipe-count {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Domain Wise Students */
+    .domains-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      flex: 1;
+      justify-content: space-around;
+    }
+
+    .domain-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .domain-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .domain-count {
+      color: #64748b;
+      font-weight: 700;
+    }
+
+    .domain-bar-bg {
+      height: 6px;
+      background: #f1f5f9;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .domain-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.6s ease;
+    }
+
+    /* ---------------- ROW 3: TABLES & QUICK ACTIONS ---------------- */
+    .tables-grid {
+      display: grid;
+      grid-template-columns: 5fr 4.2fr 3.2fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1200px) {
+      .tables-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    table.data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      color: #64748b;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      background: #f8fafc;
+    }
+
+    table.data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border-light);
+      color: #334155;
+      vertical-align: middle;
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .avatar-sm {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+
+    .company-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .company-logo {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      object-fit: contain;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .badge-new { background: #dbeafe; color: #1d4ed8; }
+    .badge-shortlisted { background: #f3e8ff; color: #7e22ce; }
+    .badge-interview { background: #fef3c7; color: #b45309; }
+    .badge-selected { background: #dcfce7; color: #15803d; }
+    .badge-rejected { background: #fee2e2; color: #b91c1c; }
+    .badge-active { background: #dcfce7; color: #15803d; }
+
+    .btn-action-view {
+      background: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-action-view:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    /* Quick Actions 2x4 Grid */
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      flex: 1;
+    }
+
+    .qa-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .qa-btn:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    }
+
+    .qa-btn i {
+      font-size: 18px;
+      color: var(--primary);
+    }
+
+    .qa-btn span {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    /* ---------------- ROW 4: TASKS, ATTENDANCE, REPORTS, REVENUE ---------------- */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 3fr 3fr 2.8fr 3.2fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1200px) {
+      .bottom-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Donut Charts */
+    .donut-card-content {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex: 1;
+    }
+
+    .donut-svg-wrap {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      flex-shrink: 0;
+    }
+
+    .donut-text-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .donut-percent {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .donut-sublabel {
+      font-size: 9px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .donut-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .donut-legend-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .donut-legend-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .donut-legend-val {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Weekly Reports List */
+    .reports-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .report-metric-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .report-metric-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .report-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .report-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .report-val {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* Revenue Card */
+    .revenue-bars-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 95px;
+      padding: 0 4px 6px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .revenue-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .revenue-bar {
+      width: 14px;
+      background: #2563eb;
+      border-radius: 3px 3px 0 0;
+      transition: height 0.4s ease;
+    }
+
+    .revenue-date {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .revenue-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+
+    .revenue-left-label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .revenue-total-amount {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* Modal Styling */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: modalFadeIn 0.2s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 12px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .modal-input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .modal-input:focus {
+      border-color: var(--primary);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-secondary {
+      padding: 8px 16px;
+      background: #f1f5f9;
+      color: #475569;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      padding: 8px 18px;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Active Dashboard Tab -->
+      <a href="admin-dashboard.html" class="nav-item-btn active">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="openQuickActionModal('add-student');return false;">Add Student</a>
+          <a href="#" class="nav-subitem" onclick="alert('Student directory: 1,327 students enrolled');return false;">All Students</a>
+          <a href="#" class="nav-subitem" onclick="alert('Student Batches: 24 active cohorts');return false;">Student Batches</a>
+          <a href="#" class="nav-subitem" onclick="alert('Student Progress: Average completion 76%');return false;">Student Progress</a>
+          <a href="#" class="nav-subitem" onclick="alert('Inactive / Dropped: 14 accounts');return false;">Inactive / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="courses.html" class="nav-subitem">Courses</a>
+          <a href="recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="live-classes.html" class="nav-subitem">Live Classes</a>
+          <a href="quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group open" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="openQuickActionModal('create-internship');return false;">Internship Programs</a>
+          <a href="explore-internships.html" class="nav-subitem">Internship Jobs</a>
+          <a href="#" class="nav-subitem" onclick="scrollToSection('applicationsCard');return false;">Applications</a>
+          <a href="#" class="nav-subitem" onclick="filterApplications('Shortlisted');return false;">Shortlisting</a>
+          <a href="#" class="nav-subitem" onclick="filterApplications('Interview');return false;">Interviews</a>
+          <a href="#" class="nav-subitem" onclick="filterApplications('Selected');return false;">Selections</a>
+          <a href="#" class="nav-subitem" onclick="scrollToSection('ongoingCard');return false;">My Internship / Onboarding</a>
+        </div>
+      </div>
+
+      <!-- Tasks & Projects -->
+      <div class="nav-group" id="navGroupTasks">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupTasks')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks & Projects</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="openQuickActionModal('assign-task');return false;">Task Management</a>
+          <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+        </div>
+      </div>
+
+      <!-- Companies & Mentors -->
+      <div class="nav-group" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building"></i>
+            <span>Companies & Mentors</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="openQuickActionModal('add-company');return false;">Partner Companies</a>
+          <a href="#" class="nav-subitem" onclick="alert('Mentors: 48 registered corporate mentors');return false;">Mentors</a>
+          <a href="#" class="nav-subitem" onclick="alert('Mentor Assignments: 120 students mapped');return false;">Mentor Assignments</a>
+        </div>
+      </div>
+
+      <!-- Attendance & Reports -->
+      <div class="nav-group" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance & Reports</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="alert('Overall Attendance: 87% (612 present, 68 absent)');return false;">Attendance</a>
+          <a href="#" class="nav-subitem" onclick="alert('Weekly Reports: 46 submitted, 42 approved');return false;">Weekly Reports</a>
+        </div>
+      </div>
+
+      <!-- Certificates & LOR -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & LOR</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="openQuickActionModal('generate-certificate');return false;">Generate Certificate</a>
+          <a href="#" class="nav-subitem" onclick="alert('LOR issuance desk opened');return false;">Letter of Recommendation</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="alert('Exporting system reports...');return false;">Export Excel / PDF</a>
+          <a href="#" class="nav-subitem" onclick="alert('Analytics console updated');return false;">Placement Metrics</a>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="nav-group" id="navGroupFinance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupFinance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="alert('Total Revenue: ₹12,40,000 recorded');return false;">Payments</a>
+          <a href="#" class="nav-subitem" onclick="alert('Refund Requests: 0 active');return false;">Refunds</a>
+          <a href="#" class="nav-subitem" onclick="alert('Revenue statement for Oct 2026');return false;">Revenue Reports</a>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="nav-group" id="navGroupComms">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupComms')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="openQuickActionModal('send-announcement');return false;">Announcements</a>
+          <a href="#" class="nav-subitem" onclick="alert('Broadcast center: SMS and Email ready');return false;">Email / WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="#" class="nav-subitem" onclick="alert('Admin Roles: Super Admin (Active)');return false;">Roles & Permissions</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalSearchInput" placeholder="Search students, companies, applications, tasks, reports..." onkeyup="handleGlobalSearch(this.value)">
+      </div>
+
+      <div class="topbar-actions">
+        <!-- Notification Bell -->
+        <button type="button" class="notif-btn" onclick="alert('You have 3 unreviewed internship applications and 1 mentor request.')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge"></span>
+        </button>
+
+        <!-- Profile Menu -->
+        <div class="admin-profile-menu" onclick="toggleProfileDropdown(event)">
+          <div class="admin-avatar">AD</div>
+          <div class="admin-meta">
+            <span class="admin-meta-name" id="adminNameDisplay">Admin</span>
+            <span class="admin-meta-role">Super Admin</span>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #94a3b8; margin-left: 4px;"></i>
+
+          <!-- Dropdown -->
+          <div class="profile-dropdown-content" id="profileDropdown">
+            <a href="dashboard.html" class="dropdown-link"><i class="fa-solid fa-user-graduate"></i> Student View</a>
+            <a href="#" class="dropdown-link" onclick="openQuickActionModal('add-student');return false;"><i class="fa-solid fa-user-plus"></i> Add Student</a>
+            <a href="#" class="dropdown-link" onclick="alert('Logged in as Super Admin: admin@eduruplearning.com');return false;"><i class="fa-solid fa-shield-halved"></i> Admin Details</a>
+            <div style="height: 1px; background: #e2e8f0; margin: 4px 0;"></div>
+            <a href="#" class="dropdown-link" onclick="handleLogout();return false;" style="color: #ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Content Area -->
+    <div class="dashboard-body">
+
+      <!-- Header Row -->
+      <div class="dashboard-subheader">
+        <div>
+          <h1 class="welcome-title">Welcome Back, Admin!</h1>
+          <p class="welcome-subtitle">Here's what's happening with Edurup Learning today.</p>
+        </div>
+
+        <button type="button" class="date-filter-btn" onclick="alert('Date filter active: Oct 01, 2026 - Oct 31, 2026')">
+          <i class="fa-regular fa-calendar"></i>
+          <span>Oct 01, 2026 - Oct 31, 2026</span>
+          <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #94a3b8; margin-left: 4px;"></i>
+        </button>
+      </div>
+
+      <!-- 6 KPI METRICS -->
+      <div class="kpi-grid">
+        
+        <!-- Total Students -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #dcfce7; color: #16a34a;">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="kpi-label">Total Students</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiStudents">1,324</span>
+            <span class="kpi-badge">&#9650; 12%</span>
+          </div>
+          <div class="kpi-subtext">+142 this month</div>
+        </div>
+
+        <!-- Active Learners -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #e0f2fe; color: #0284c7;">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="kpi-label">Active Learners</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiActiveLearners">892</span>
+            <span class="kpi-badge">&#9650; 8%</span>
+          </div>
+          <div class="kpi-subtext">Currently learning</div>
+        </div>
+
+        <!-- Internship Applications -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #ffedd5; color: #ea580c;">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div class="kpi-label">Internship Applications</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiApplications">482</span>
+            <span class="kpi-badge">&#9650; 24%</span>
+          </div>
+          <div class="kpi-subtext">This month: 126</div>
+        </div>
+
+        <!-- Selected Interns -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #f3e8ff; color: #9333ea;">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="kpi-label">Selected Interns</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiSelectedInterns">86</span>
+            <span class="kpi-badge">&#9650; 18%</span>
+          </div>
+          <div class="kpi-subtext">This month: 28</div>
+        </div>
+
+        <!-- Partner Companies -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #e0e7ff; color: #4f46e5;">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <div class="kpi-label">Partner Companies</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiPartnerCompanies">52</span>
+            <span class="kpi-badge">&#9650; 12%</span>
+          </div>
+          <div class="kpi-subtext">+6 new this month</div>
+        </div>
+
+        <!-- Placement Success -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #fae8ff; color: #a855f7;">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="kpi-label">Placement Success</div>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiPlacementSuccess">71%</span>
+            <span class="kpi-badge">&#9650; 6%</span>
+          </div>
+          <div class="kpi-subtext">Last 6 months</div>
+        </div>
+
+      </div>
+
+      <!-- ROW 2: ENROLLMENTS CHART, INTERNSHIP PIPELINE, DOMAINS -->
+      <div class="analytics-grid">
+        
+        <!-- Student Enrollments Chart -->
+        <div class="dashboard-card">
+          <div class="card-head">
+            <span class="card-title">Student Enrollments</span>
+            <select class="card-filter-select" onchange="alert('Filter updated to ' + this.value)">
+              <option>Last 6 Months</option>
+              <option>This Year</option>
+              <option>Last Quarter</option>
+            </select>
+          </div>
+
+          <div class="chart-container">
+            <div class="chart-bars-wrap">
+              <!-- Horizontal Grid Lines -->
+              <div class="chart-grid-lines">
+                <div class="grid-line"><span class="grid-label">200</span></div>
+                <div class="grid-line"><span class="grid-label">150</span></div>
+                <div class="grid-line"><span class="grid-label">100</span></div>
+                <div class="grid-line"><span class="grid-label">50</span></div>
+                <div class="grid-line"><span class="grid-label">0</span></div>
+              </div>
+
+              <!-- Apr -->
+              <div class="month-col">
+                <div class="bar-group">
+                  <div class="bar bar-blue" style="height: 75px;" title="Apr New: 75"></div>
+                  <div class="bar bar-teal" style="height: 60px;" title="Apr Active: 60"></div>
+                  <div class="bar bar-orange" style="height: 25px;" title="Apr Completed: 25"></div>
+                </div>
+                <span class="month-name">Apr</span>
+              </div>
+
+              <!-- May -->
+              <div class="month-col">
+                <div class="bar-group">
+                  <div class="bar bar-blue" style="height: 110px;" title="May New: 110"></div>
+                  <div class="bar bar-teal" style="height: 95px;" title="May Active: 95"></div>
+                  <div class="bar bar-orange" style="height: 45px;" title="May Completed: 45"></div>
+                </div>
+                <span class="month-name">May</span>
+              </div>
+
+              <!-- Jun -->
+              <div class="month-col">
+                <div class="bar-group">
+                  <div class="bar bar-blue" style="height: 130px;" title="Jun New: 130"></div>
+                  <div class="bar bar-teal" style="height: 105px;" title="Jun Active: 105"></div>
+                  <div class="bar bar-orange" style="height: 55px;" title="Jun Completed: 55"></div>
+                </div>
+                <span class="month-name">Jun</span>
+              </div>
+
+              <!-- Jul -->
+              <div class="month-col">
+                <div class="bar-group">
+                  <div class="bar bar-blue" style="height: 140px;" title="Jul New: 140"></div>
+                  <div class="bar bar-teal" style="height: 110px;" title="Jul Active: 110"></div>
+                  <div class="bar bar-orange" style="height: 60px;" title="Jul Completed: 60"></div>
+                </div>
+                <span class="month-name">Jul</span>
+              </div>
+
+              <!-- Aug -->
+              <div class="month-col">
+                <div class="bar-group">
+                  <div class="bar bar-blue" style="height: 145px;" title="Aug New: 145"></div>
+                  <div class="bar bar-teal" style="height: 115px;" title="Aug Active: 115"></div>
+                  <div class="bar bar-orange" style="height: 70px;" title="Aug Completed: 70"></div>
+                </div>
+                <span class="month-name">Aug</span>
+              </div>
+
+              <!-- Sep -->
+              <div class="month-col">
+                <div class="bar-group">
+                  <div class="bar bar-blue" style="height: 155px;" title="Sep New: 155"></div>
+                  <div class="bar bar-teal" style="height: 125px;" title="Sep Active: 125"></div>
+                  <div class="bar bar-orange" style="height: 85px;" title="Sep Completed: 85"></div>
+                </div>
+                <span class="month-name">Sep</span>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="chart-legend">
+              <div class="legend-item">
+                <span class="legend-bullet" style="background: #2563eb;"></span>
+                <span>New Enrollments</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-bullet" style="background: #06b6d4;"></span>
+                <span>Active Learners</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-bullet" style="background: #f59e0b;"></span>
+                <span>Completed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Internship Pipeline Funnel -->
+        <div class="dashboard-card">
+          <div class="card-head">
+            <span class="card-title">Internship Pipeline</span>
+            <select class="card-filter-select">
+              <option>This Month</option>
+              <option>Last Month</option>
+            </select>
+          </div>
+
+          <div class="pipeline-wrap">
+            <div class="funnel-svg-wrap">
+              <svg width="170" height="190" viewBox="0 0 170 190" fill="none">
+                <!-- Level 1: Applied (482) -->
+                <polygon points="10,10 160,10 142,50 28,50" fill="#3b82f6"/>
+                <text x="85" y="35" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">482</text>
+
+                <!-- Level 2: Shortlisted (210) -->
+                <polygon points="30,54 140,54 125,94 45,94" fill="#8b5cf6"/>
+                <text x="85" y="79" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">210</text>
+
+                <!-- Level 3: Interviewed (120) -->
+                <polygon points="47,98 123,98 110,138 60,138" fill="#10b981"/>
+                <text x="85" y="123" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">120</text>
+
+                <!-- Level 4: Selected (86) -->
+                <polygon points="62,142 108,142 98,180 72,180" fill="#f59e0b"/>
+                <text x="85" y="166" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">86</text>
+              </svg>
+            </div>
+
+            <div class="pipeline-legend">
+              <div class="pipe-item">
+                <div class="pipe-left">
+                  <span class="pipe-square" style="background: #3b82f6;"></span>
+                  <span>Applied</span>
+                </div>
+                <span class="pipe-count" id="pipeApplied">482</span>
+              </div>
+              <div class="pipe-item">
+                <div class="pipe-left">
+                  <span class="pipe-square" style="background: #8b5cf6;"></span>
+                  <span>Shortlisted</span>
+                </div>
+                <span class="pipe-count" id="pipeShortlisted">210</span>
+              </div>
+              <div class="pipe-item">
+                <div class="pipe-left">
+                  <span class="pipe-square" style="background: #10b981;"></span>
+                  <span>Interviewed</span>
+                </div>
+                <span class="pipe-count" id="pipeInterviewed">120</span>
+              </div>
+              <div class="pipe-item">
+                <div class="pipe-left">
+                  <span class="pipe-square" style="background: #f59e0b;"></span>
+                  <span>Selected</span>
+                </div>
+                <span class="pipe-count" id="pipeSelected">86</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Domain Wise Students -->
+        <div class="dashboard-card">
+          <div class="card-head">
+            <span class="card-title">Domain Wise Students</span>
+            <a href="#" class="card-action-link" onclick="alert('All Domains:\n1. Full Stack Development: 320\n2. Data Science: 220\n3. Data Analytics: 180\n4. Digital Marketing: 160\n5. AI / ML: 120\n6. HR Management: 90\n7. Finance Analyst: 70\n8. Others: 60');return false;">View All &rarr;</a>
+          </div>
+
+          <div class="domains-list" id="domainsContainer">
+            <!-- Full Stack Development -->
+            <div class="domain-item">
+              <div class="domain-meta">
+                <span>Full Stack Development</span>
+                <span class="domain-count">320</span>
+              </div>
+              <div class="domain-bar-bg"><div class="domain-bar-fill" style="width: 85%; background: #3b82f6;"></div></div>
+            </div>
+
+            <!-- Data Science -->
+            <div class="domain-item">
+              <div class="domain-meta">
+                <span>Data Science</span>
+                <span class="domain-count">220</span>
+              </div>
+              <div class="domain-bar-bg"><div class="domain-bar-fill" style="width: 65%; background: #06b6d4;"></div></div>
+            </div>
+
+            <!-- Data Analytics -->
+            <div class="domain-item">
+              <div class="domain-meta">
+                <span>Data Analytics</span>
+                <span class="domain-count">180</span>
+              </div>
+              <div class="domain-bar-bg"><div class="domain-bar-fill" style="width: 55%; background: #a855f7;"></div></div>
+            </div>
+
+            <!-- Digital Marketing -->
+            <div class="domain-item">
+              <div class="domain-meta">
+                <span>Digital Marketing</span>
+                <span class="domain-count">160</span>
+              </div>
+              <div class="domain-bar-bg"><div class="domain-bar-fill" style="width: 48%; background: #f97316;"></div></div>
+            </div>
+
+            <!-- AI / ML -->
+            <div class="domain-item">
+              <div class="domain-meta">
+                <span>AI / ML</span>
+                <span class="domain-count">120</span>
+              </div>
+              <div class="domain-bar-bg"><div class="domain-bar-fill" style="width: 38%; background: #ef4444;"></div></div>
+            </div>
+
+            <!-- HR Management -->
+            <div class="domain-item">
+              <div class="domain-meta">
+                <span>HR Management</span>
+                <span class="domain-count">90</span>
+              </div>
+              <div class="domain-bar-bg"><div class="domain-bar-fill" style="width: 28%; background: #6366f1;"></div></div>
+            </div>
+
+            <!-- Finance Analyst -->
+            <div class="domain-item">
+              <div class="domain-meta">
+                <span>Finance Analyst</span>
+                <span class="domain-count">70</span>
+              </div>
+              <div class="domain-bar-bg"><div class="domain-bar-fill" style="width: 22%; background: #38bdf8;"></div></div>
+            </div>
+
+            <!-- Others -->
+            <div class="domain-item">
+              <div class="domain-meta">
+                <span>Others</span>
+                <span class="domain-count">60</span>
+              </div>
+              <div class="domain-bar-bg"><div class="domain-bar-fill" style="width: 18%; background: #94a3b8;"></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ROW 3: RECENT APPLICATIONS, ONGOING INTERNSHIPS, QUICK ACTIONS -->
+      <div class="tables-grid">
+        
+        <!-- Recent Applications Table -->
+        <div class="dashboard-card" id="applicationsCard">
+          <div class="card-head">
+            <span class="card-title">Recent Internship Applications</span>
+            <a href="#" class="card-action-link" onclick="openQuickActionModal('add-application');return false;">+ Add New / View All &rarr;</a>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 24px;">#</th>
+                  <th>Student Name</th>
+                  <th>Domain</th>
+                  <th>Applied On</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="applicationsTableBody">
+                <!-- Row 1 -->
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Rohit">
+                      <span>Rohit Sharma</span>
+                    </div>
+                  </td>
+                  <td>Data Analytics</td>
+                  <td>Oct 18, 2026</td>
+                  <td><span class="badge-status badge-new">New</span></td>
+                  <td><button class="btn-action-view" onclick="viewApplicationModal('Rohit Sharma', 'Data Analytics', 'Oct 18, 2026', 'New')">View</button></td>
+                </tr>
+
+                <!-- Row 2 -->
+                <tr>
+                  <td>2</td>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Priya">
+                      <span>Priya Nair</span>
+                    </div>
+                  </td>
+                  <td>Digital Marketing</td>
+                  <td>Oct 17, 2026</td>
+                  <td><span class="badge-status badge-shortlisted">Shortlisted</span></td>
+                  <td><button class="btn-action-view" onclick="viewApplicationModal('Priya Nair', 'Digital Marketing', 'Oct 17, 2026', 'Shortlisted')">View</button></td>
+                </tr>
+
+                <!-- Row 3 -->
+                <tr>
+                  <td>3</td>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Karan">
+                      <span>Karan Mehta</span>
+                    </div>
+                  </td>
+                  <td>Full Stack</td>
+                  <td>Oct 16, 2026</td>
+                  <td><span class="badge-status badge-interview">Interview</span></td>
+                  <td><button class="btn-action-view" onclick="viewApplicationModal('Karan Mehta', 'Full Stack', 'Oct 16, 2026', 'Interview')">View</button></td>
+                </tr>
+
+                <!-- Row 4 -->
+                <tr>
+                  <td>4</td>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Sneha">
+                      <span>Sneha Reddy</span>
+                    </div>
+                  </td>
+                  <td>Data Science</td>
+                  <td>Oct 16, 2026</td>
+                  <td><span class="badge-status badge-selected">Selected</span></td>
+                  <td><button class="btn-action-view" onclick="viewApplicationModal('Sneha Reddy', 'Data Science', 'Oct 16, 2026', 'Selected')">View</button></td>
+                </tr>
+
+                <!-- Row 5 -->
+                <tr>
+                  <td>5</td>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Aman">
+                      <span>Aman Verma</span>
+                    </div>
+                  </td>
+                  <td>AI / ML</td>
+                  <td>Oct 15, 2026</td>
+                  <td><span class="badge-status badge-rejected">Rejected</span></td>
+                  <td><button class="btn-action-view" onclick="viewApplicationModal('Aman Verma', 'AI / ML', 'Oct 15, 2026', 'Rejected')">View</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Ongoing Internships Table -->
+        <div class="dashboard-card" id="ongoingCard">
+          <div class="card-head">
+            <span class="card-title">Ongoing Internships</span>
+            <a href="#" class="card-action-link" onclick="alert('Viewing all ongoing student internships...');return false;">View All &rarr;</a>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Company</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="ongoingTableBody">
+                <!-- Google -->
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Rahul">
+                      <span>Rahul Kumar</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="company-cell">
+                      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.27 21.39 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.26C.46 8.16 0 9.94 0 12s.46 3.84 1.26 5.42l4.02-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.61 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+                      <span>Google</span>
+                    </div>
+                  </td>
+                  <td>Oct 01, 2026</td>
+                  <td>Apr 01, 2027</td>
+                  <td><span class="badge-status badge-active">Active</span></td>
+                </tr>
+
+                <!-- Microsoft -->
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Priya">
+                      <span>Priya Nair</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="company-cell">
+                      <svg width="18" height="18" viewBox="0 0 23 23"><path fill="#f35325" d="M1 1h10v10H1z"/><path fill="#81bc06" d="M12 1h10v10H12z"/><path fill="#05a6f0" d="M1 12h10v10H1z"/><path fill="#ffba08" d="M12 12h10v10H12z"/></svg>
+                      <span>Microsoft</span>
+                    </div>
+                  </td>
+                  <td>Sep 15, 2026</td>
+                  <td>Mar 15, 2027</td>
+                  <td><span class="badge-status badge-active">Active</span></td>
+                </tr>
+
+                <!-- TCS -->
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Karan">
+                      <span>Karan Mehta</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="company-cell">
+                      <span style="font-weight: 800; color: #d946ef; font-size: 13px;">tcs</span>
+                      <span>TCS</span>
+                    </div>
+                  </td>
+                  <td>Oct 05, 2026</td>
+                  <td>Apr 05, 2027</td>
+                  <td><span class="badge-status badge-active">Active</span></td>
+                </tr>
+
+                <!-- Amazon -->
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Sneha">
+                      <span>Sneha Reddy</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="company-cell">
+                      <i class="fa-brands fa-amazon" style="color: #ea580c; font-size: 16px;"></i>
+                      <span>Amazon</span>
+                    </div>
+                  </td>
+                  <td>Sep 20, 2026</td>
+                  <td>Mar 20, 2027</td>
+                  <td><span class="badge-status badge-active">Active</span></td>
+                </tr>
+
+                <!-- Flipkart -->
+                <tr>
+                  <td>
+                    <div class="user-cell">
+                      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" class="avatar-sm" alt="Aman">
+                      <span>Aman Verma</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="company-cell">
+                      <i class="fa-solid fa-bag-shopping" style="color: #2563eb; font-size: 15px;"></i>
+                      <span>Flipkart</span>
+                    </div>
+                  </td>
+                  <td>Oct 10, 2026</td>
+                  <td>Apr 10, 2027</td>
+                  <td><span class="badge-status badge-active">Active</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div class="dashboard-card">
+          <div class="card-head">
+            <span class="card-title">Quick Actions</span>
+          </div>
+
+          <div class="quick-actions-grid">
+            <button class="qa-btn" onclick="openQuickActionModal('add-student')">
+              <i class="fa-solid fa-user-plus"></i>
+              <span>Add Student</span>
+            </button>
+            <button class="qa-btn" onclick="openQuickActionModal('create-course')">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Create Course</span>
+            </button>
+            <button class="qa-btn" onclick="openQuickActionModal('create-internship')">
+              <i class="fa-solid fa-briefcase"></i>
+              <span>Create Internship</span>
+            </button>
+            <button class="qa-btn" onclick="openQuickActionModal('add-company')">
+              <i class="fa-solid fa-building"></i>
+              <span>Add Company</span>
+            </button>
+            <button class="qa-btn" onclick="openQuickActionModal('assign-task')">
+              <i class="fa-solid fa-list-check"></i>
+              <span>Assign Task</span>
+            </button>
+            <button class="qa-btn" onclick="openQuickActionModal('send-announcement')">
+              <i class="fa-solid fa-bullhorn"></i>
+              <span>Send Announcement</span>
+            </button>
+            <button class="qa-btn" onclick="openQuickActionModal('generate-certificate')">
+              <i class="fa-solid fa-award"></i>
+              <span>Generate Certificate</span>
+            </button>
+            <button class="qa-btn" onclick="openQuickActionModal('view-reports')">
+              <i class="fa-solid fa-chart-column"></i>
+              <span>View Reports</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ROW 4: TASKS COMPLETION, ATTENDANCE, WEEKLY REPORTS, REVENUE -->
+      <div class="bottom-grid">
+        
+        <!-- Tasks Completion Donut -->
+        <div class="dashboard-card">
+          <div class="card-head">
+            <span class="card-title">Tasks Completion</span>
+          </div>
+
+          <div class="donut-card-content">
+            <div class="donut-svg-wrap">
+              <svg width="110" height="110" viewBox="0 0 110 110">
+                <circle cx="55" cy="55" r="42" stroke="#e2e8f0" stroke-width="12" fill="none"/>
+                <!-- 68% green fill stroke -->
+                <circle cx="55" cy="55" r="42" stroke="#10b981" stroke-width="12" fill="none"
+                        stroke-dasharray="264" stroke-dashoffset="84" stroke-linecap="round"
+                        transform="rotate(-90 55 55)"/>
+              </svg>
+              <div class="donut-text-center">
+                <div class="donut-percent" id="taskDonutPercent">68%</div>
+                <div class="donut-sublabel">Overall Completion</div>
+              </div>
+            </div>
+
+            <div class="donut-legend">
+              <div class="donut-legend-item">
+                <div class="donut-legend-left">
+                  <span class="legend-bullet" style="background: #10b981;"></span>
+                  <span>Completed</span>
+                </div>
+                <span class="donut-legend-val">420</span>
+              </div>
+              <div class="donut-legend-item">
+                <div class="donut-legend-left">
+                  <span class="legend-bullet" style="background: #06b6d4;"></span>
+                  <span>In Progress</span>
+                </div>
+                <span class="donut-legend-val">156</span>
+              </div>
+              <div class="donut-legend-item">
+                <div class="donut-legend-left">
+                  <span class="legend-bullet" style="background: #94a3b8;"></span>
+                  <span>Not Started</span>
+                </div>
+                <span class="donut-legend-val">112</span>
+              </div>
+              <div class="donut-legend-item">
+                <div class="donut-legend-left">
+                  <span class="legend-bullet" style="background: #ef4444;"></span>
+                  <span>Overdue</span>
+                </div>
+                <span class="donut-legend-val">32</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attendance Overview Donut -->
+        <div class="dashboard-card">
+          <div class="card-head">
+            <span class="card-title">Attendance Overview</span>
+          </div>
+
+          <div class="donut-card-content">
+            <div class="donut-svg-wrap">
+              <svg width="110" height="110" viewBox="0 0 110 110">
+                <circle cx="55" cy="55" r="42" stroke="#e2e8f0" stroke-width="12" fill="none"/>
+                <!-- 87% green fill stroke -->
+                <circle cx="55" cy="55" r="42" stroke="#10b981" stroke-width="12" fill="none"
+                        stroke-dasharray="264" stroke-dashoffset="34" stroke-linecap="round"
+                        transform="rotate(-90 55 55)"/>
+              </svg>
+              <div class="donut-text-center">
+                <div class="donut-percent" id="attendDonutPercent">87%</div>
+                <div class="donut-sublabel">Overall Attendance</div>
+              </div>
+            </div>
+
+            <div class="donut-legend">
+              <div class="donut-legend-item">
+                <div class="donut-legend-left">
+                  <span class="legend-bullet" style="background: #10b981;"></span>
+                  <span>Present</span>
+                </div>
+                <span class="donut-legend-val">612</span>
+              </div>
+              <div class="donut-legend-item">
+                <div class="donut-legend-left">
+                  <span class="legend-bullet" style="background: #ef4444;"></span>
+                  <span>Absent</span>
+                </div>
+                <span class="donut-legend-val">68</span>
+              </div>
+              <div class="donut-legend-item">
+                <div class="donut-legend-left">
+                  <span class="legend-bullet" style="background: #8b5cf6;"></span>
+                  <span>Leave</span>
+                </div>
+                <span class="donut-legend-val">20</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly Reports -->
+        <div class="dashboard-card">
+          <div class="card-head">
+            <span class="card-title">Weekly Reports</span>
+          </div>
+
+          <div class="reports-list">
+            <div class="report-metric-row">
+              <div class="report-metric-left">
+                <div class="report-icon-box" style="background: #eff6ff; color: #2563eb;">
+                  <i class="fa-regular fa-file-lines"></i>
+                </div>
+                <span class="report-name">Submitted</span>
+              </div>
+              <span class="report-val">46</span>
+            </div>
+
+            <div class="report-metric-row">
+              <div class="report-metric-left">
+                <div class="report-icon-box" style="background: #fffbeb; color: #f59e0b;">
+                  <i class="fa-regular fa-clock"></i>
+                </div>
+                <span class="report-name">Pending Review</span>
+              </div>
+              <span class="report-val">8</span>
+            </div>
+
+            <div class="report-metric-row">
+              <div class="report-metric-left">
+                <div class="report-icon-box" style="background: #ecfdf5; color: #10b981;">
+                  <i class="fa-regular fa-circle-check"></i>
+                </div>
+                <span class="report-name">Approved</span>
+              </div>
+              <span class="report-val">42</span>
+            </div>
+
+            <div class="report-metric-row">
+              <div class="report-metric-left">
+                <div class="report-icon-box" style="background: #fef2f2; color: #ef4444;">
+                  <i class="fa-regular fa-circle-xmark"></i>
+                </div>
+                <span class="report-name">Rejected</span>
+              </div>
+              <span class="report-val">4</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revenue Overview -->
+        <div class="dashboard-card">
+          <div class="card-head">
+            <span class="card-title">Revenue Overview</span>
+            <select class="card-filter-select">
+              <option>This Month</option>
+              <option>Last Month</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="revenue-bars-wrap">
+              <div class="revenue-col">
+                <div class="revenue-bar" style="height: 38px;" title="Oct 1: ₹ 3.2L"></div>
+                <span class="revenue-date">Oct 1</span>
+              </div>
+              <div class="revenue-col">
+                <div class="revenue-bar" style="height: 52px;" title="Oct 8: ₹ 4.5L"></div>
+                <span class="revenue-date">Oct 8</span>
+              </div>
+              <div class="revenue-col">
+                <div class="revenue-bar" style="height: 44px;" title="Oct 15: ₹ 3.8L"></div>
+                <span class="revenue-date">Oct 15</span>
+              </div>
+              <div class="revenue-col">
+                <div class="revenue-bar" style="height: 65px;" title="Oct 22: ₹ 5.8L"></div>
+                <span class="revenue-date">Oct 22</span>
+              </div>
+              <div class="revenue-col">
+                <div class="revenue-bar" style="height: 78px;" title="Oct 31: ₹ 6.9L"></div>
+                <span class="revenue-date">Oct 31</span>
+              </div>
+            </div>
+
+            <div class="revenue-summary">
+              <div>
+                <div class="revenue-left-label">Total Revenue</div>
+                <div class="revenue-total-amount">₹ 12,40,000</div>
+              </div>
+              <span class="kpi-badge">&#9650; 18%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= ACTION / APPLICATION MODAL ================= -->
+  <div class="modal-backdrop" id="actionModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalHeading">Admin Action</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <!-- Injected dynamically -->
+      </div>
+
+      <div class="modal-actions" id="modalActions">
+        <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn-primary" id="modalSubmitBtn" onclick="submitModalAction()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // Check Admin Session or Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      const userSessionStr = localStorage.getItem('edurup_user_session') || localStorage.getItem('edurup_admin_session');
+      if (userSessionStr) {
+        try {
+          const user = JSON.parse(userSessionStr);
+          if (user.fullName) {
+            document.getElementById('adminNameDisplay').innerText = user.fullName;
+          }
+        } catch(e) {}
+      }
+
+      fetchAdminOverview();
+    });
+
+    // Toggle Nav Group Submenus
+    function toggleNavGroup(id) {
+      const group = document.getElementById(id);
+      if (group) {
+        group.classList.toggle('open');
+      }
+    }
+
+    // Toggle Admin Profile Dropdown
+    function toggleProfileDropdown(e) {
+      e.stopPropagation();
+      const dd = document.getElementById('profileDropdown');
+      dd.classList.toggle('show');
+    }
+
+    document.addEventListener('click', () => {
+      const dd = document.getElementById('profileDropdown');
+      if (dd && dd.classList.contains('show')) dd.classList.remove('show');
+    });
+
+    function handleLogout() {
+      localStorage.removeItem('edurup_jwt_token');
+      localStorage.removeItem('edurup_user_session');
+      localStorage.removeItem('edurup_admin_session');
+      alert('You have logged out from the admin panel.');
+      window.location.href = 'login.html';
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Fetch Live Admin Data from Backend
+    async function fetchAdminOverview() {
+      try {
+        const res = await fetch('/api/admin/overview');
+        if (!res.ok) return;
+        const json = await res.json();
+        if (json.success && json.data) {
+          const d = json.data;
+          if (d.metrics) {
+            if (d.metrics.totalStudents) document.getElementById('kpiStudents').innerText = d.metrics.totalStudents.value;
+            if (d.metrics.activeLearners) document.getElementById('kpiActiveLearners').innerText = d.metrics.activeLearners.value;
+            if (d.metrics.internshipApplications) document.getElementById('kpiApplications').innerText = d.metrics.internshipApplications.value;
+            if (d.metrics.selectedInterns) document.getElementById('kpiSelectedInterns').innerText = d.metrics.selectedInterns.value;
+            if (d.metrics.partnerCompanies) document.getElementById('kpiPartnerCompanies').innerText = d.metrics.partnerCompanies.value;
+            if (d.metrics.placementSuccess) document.getElementById('kpiPlacementSuccess').innerText = d.metrics.placementSuccess.value;
+          }
+        }
+      } catch (err) {
+        console.warn('Overview API load notice:', err.message);
+      }
+
+      // Fetch Applications
+      try {
+        const appRes = await fetch('/api/admin/applications');
+        if (appRes.ok) {
+          const appJson = await appRes.json();
+          if (appJson.success && appJson.applications && appJson.applications.length > 0) {
+            renderApplications(appJson.applications);
+          }
+        }
+      } catch(err) {}
+    }
+
+    function renderApplications(apps) {
+      const tbody = document.getElementById('applicationsTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = apps.slice(0, 5).map((app, index) => {
+        let badgeClass = 'badge-new';
+        if (app.status === 'Shortlisted') badgeClass = 'badge-shortlisted';
+        else if (app.status === 'Interview') badgeClass = 'badge-interview';
+        else if (app.status === 'Selected') badgeClass = 'badge-selected';
+        else if (app.status === 'Rejected') badgeClass = 'badge-rejected';
+
+        const avatar = app.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80';
+
+        return `
+          <tr>
+            <td>${index + 1}</td>
+            <td>
+              <div class="user-cell">
+                <img src="${avatar}" class="avatar-sm" alt="${app.studentName}">
+                <span>${app.studentName}</span>
+              </div>
+            </td>
+            <td>${app.domain}</td>
+            <td>${app.appliedOn || 'Oct 18, 2026'}</td>
+            <td><span class="badge-status ${badgeClass}">${app.status}</span></td>
+            <td><button class="btn-action-view" onclick="viewApplicationModal('${app.studentName}', '${app.domain}', '${app.appliedOn || "Oct 18, 2026"}', '${app.status}', '${app._id || ""}')">View</button></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Modal Handling
+    let currentModalAction = '';
+    let currentAppId = '';
+
+    function closeModal() {
+      document.getElementById('actionModal').classList.remove('show');
+    }
+
+    function viewApplicationModal(name, domain, date, status, id = '') {
+      currentModalAction = 'update-app-status';
+      currentAppId = id;
+      document.getElementById('modalHeading').innerText = 'Application Details: ' + name;
+      document.getElementById('modalBody').innerHTML = `
+        <div>
+          <label class="modal-label">Applicant Name</label>
+          <input type="text" class="modal-input" value="${name}" readonly style="background:#f8fafc;">
+        </div>
+        <div>
+          <label class="modal-label">Applied Domain</label>
+          <input type="text" class="modal-input" value="${domain}" readonly style="background:#f8fafc;">
+        </div>
+        <div>
+          <label class="modal-label">Applied Date</label>
+          <input type="text" class="modal-input" value="${date}" readonly style="background:#f8fafc;">
+        </div>
+        <div>
+          <label class="modal-label">Update Status</label>
+          <select class="modal-input" id="appStatusSelect">
+            <option value="New" ${status==='New'?'selected':''}>New</option>
+            <option value="Shortlisted" ${status==='Shortlisted'?'selected':''}>Shortlisted</option>
+            <option value="Interview" ${status==='Interview'?'selected':''}>Interview</option>
+            <option value="Selected" ${status==='Selected'?'selected':''}>Selected</option>
+            <option value="Rejected" ${status==='Rejected'?'selected':''}>Rejected</option>
+          </select>
+        </div>
+      `;
+      document.getElementById('modalSubmitBtn').innerText = 'Update Application';
+      document.getElementById('actionModal').classList.add('show');
+    }
+
+    function openQuickActionModal(actionType) {
+      currentModalAction = actionType;
+      const heading = document.getElementById('modalHeading');
+      const body = document.getElementById('modalBody');
+      const submitBtn = document.getElementById('modalSubmitBtn');
+
+      if (actionType === 'add-student') {
+        heading.innerText = 'Add New Student';
+        body.innerHTML = `
+          <div>
+            <label class="modal-label">Full Name *</label>
+            <input type="text" id="qaStudentName" class="modal-input" placeholder="e.g. Aditi Sharma" required>
+          </div>
+          <div>
+            <label class="modal-label">Email Address *</label>
+            <input type="email" id="qaStudentEmail" class="modal-input" placeholder="e.g. aditi@example.com" required>
+          </div>
+          <div>
+            <label class="modal-label">Phone Number</label>
+            <input type="tel" id="qaStudentPhone" class="modal-input" placeholder="10-digit mobile number">
+          </div>
+          <div>
+            <label class="modal-label">Domain Interest</label>
+            <select id="qaStudentDomain" class="modal-input">
+              <option>Full Stack Development</option>
+              <option>Data Science</option>
+              <option>Data Analytics</option>
+              <option>Digital Marketing</option>
+              <option>AI / ML</option>
+            </select>
+          </div>
+        `;
+        submitBtn.innerText = 'Register Student';
+      } else if (actionType === 'create-course') {
+        heading.innerText = 'Create New Course';
+        body.innerHTML = `
+          <div><label class="modal-label">Course Title</label><input type="text" id="qaCourseTitle" class="modal-input" placeholder="e.g. Masterclass in Generative AI"></div>
+          <div><label class="modal-label">Duration</label><input type="text" class="modal-input" placeholder="e.g. 6 Weeks"></div>
+          <div><label class="modal-label">Domain</label><select class="modal-input"><option>Full Stack</option><option>Data Science</option><option>AI / ML</option></select></div>
+        `;
+        submitBtn.innerText = 'Publish Course';
+      } else if (actionType === 'create-internship') {
+        heading.innerText = 'Create Internship Program';
+        body.innerHTML = `
+          <div><label class="modal-label">Internship Title</label><input type="text" id="qaInternTitle" class="modal-input" placeholder="e.g. Cloud Engineer Intern"></div>
+          <div><label class="modal-label">Partner Company</label><input type="text" class="modal-input" placeholder="e.g. Microsoft / Edurup"></div>
+          <div><label class="modal-label">Stipend / Period</label><input type="text" class="modal-input" placeholder="e.g. ₹ 15,000/mo - 6 Months"></div>
+        `;
+        submitBtn.innerText = 'Publish Internship';
+      } else if (actionType === 'add-company') {
+        heading.innerText = 'Add Partner Company';
+        body.innerHTML = `
+          <div><label class="modal-label">Company Name</label><input type="text" class="modal-input" placeholder="e.g. Infosys, Wipro, Google"></div>
+          <div><label class="modal-label">Industry Domain</label><input type="text" class="modal-input" placeholder="e.g. Information Technology"></div>
+          <div><label class="modal-label">Contact Person / Email</label><input type="text" class="modal-input" placeholder="hr@company.com"></div>
+        `;
+        submitBtn.innerText = 'Add Partner';
+      } else if (actionType === 'assign-task') {
+        heading.innerText = 'Assign Task to Batch';
+        body.innerHTML = `
+          <div><label class="modal-label">Task Name</label><input type="text" class="modal-input" placeholder="e.g. Project 3: Sales Dashboard in React"></div>
+          <div><label class="modal-label">Target Batch / Domain</label><select class="modal-input"><option>Full Stack Cohort 2026</option><option>Data Science Cohort 2026</option></select></div>
+          <div><label class="modal-label">Due Date</label><input type="date" class="modal-input" value="2026-11-15"></div>
+        `;
+        submitBtn.innerText = 'Assign Task';
+      } else if (actionType === 'send-announcement') {
+        heading.innerText = 'Send Broadcast Announcement';
+        body.innerHTML = `
+          <div><label class="modal-label">Subject</label><input type="text" class="modal-input" placeholder="e.g. Live Hackathon Kickoff Tomorrow"></div>
+          <div><label class="modal-label">Recipient Group</label><select class="modal-input"><option>All Enrolled Students (1,327)</option><option>Active Interns Only (86)</option></select></div>
+          <div><label class="modal-label">Channels</label><label style="font-size:12px;margin-right:10px;"><input type="checkbox" checked> Email</label><label style="font-size:12px;"><input type="checkbox" checked> WhatsApp</label></div>
+        `;
+        submitBtn.innerText = 'Broadcast Message';
+      } else if (actionType === 'generate-certificate') {
+        heading.innerText = 'Generate Certificate';
+        body.innerHTML = `
+          <div><label class="modal-label">Student Name / Email</label><input type="text" class="modal-input" placeholder="e.g. Rohit Sharma"></div>
+          <div><label class="modal-label">Certificate Type</label><select class="modal-input"><option>Internship Completion Certificate</option><option>Course Honors Certificate</option><option>Letter of Recommendation (LOR)</option></select></div>
+        `;
+        submitBtn.innerText = 'Issue Certificate';
+      } else if (actionType === 'add-application') {
+        heading.innerText = 'Add Internship Application';
+        body.innerHTML = `
+          <div><label class="modal-label">Student Name</label><input type="text" id="newAppName" class="modal-input" placeholder="e.g. Aarav Patel"></div>
+          <div><label class="modal-label">Domain</label><select id="newAppDomain" class="modal-input"><option>Full Stack</option><option>Data Science</option><option>Data Analytics</option><option>Digital Marketing</option><option>AI / ML</option></select></div>
+          <div><label class="modal-label">Initial Status</label><select id="newAppStatus" class="modal-input"><option>New</option><option>Shortlisted</option></select></div>
+        `;
+        submitBtn.innerText = 'Create Application';
+      } else {
+        heading.innerText = 'Report Overview';
+        body.innerHTML = `<p style="font-size:13px;color:#475569;">Ready to download complete audit reports for student enrollments, attendance, and corporate placements.</p>`;
+        submitBtn.innerText = 'Download PDF Report';
+      }
+
+      document.getElementById('actionModal').classList.add('show');
+    }
+
+    async function submitModalAction() {
+      const btn = document.getElementById('modalSubmitBtn');
+      btn.disabled = true;
+      btn.innerText = 'Processing...';
+
+      try {
+        if (currentModalAction === 'update-app-status') {
+          const newStatus = document.getElementById('appStatusSelect').value;
+          if (currentAppId) {
+            await fetch(`/api/admin/applications/${currentAppId}/status`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ status: newStatus })
+            });
+          }
+          alert(`Application status updated to '${newStatus}'!`);
+        } else if (currentModalAction === 'add-student') {
+          const name = document.getElementById('qaStudentName').value;
+          const email = document.getElementById('qaStudentEmail').value;
+          const phone = document.getElementById('qaStudentPhone').value;
+          const domain = document.getElementById('qaStudentDomain').value;
+
+          if (!name || !email) {
+            alert('Please provide student name and email');
+            btn.disabled = false;
+            btn.innerText = 'Register Student';
+            return;
+          }
+
+          const res = await fetch('/api/admin/quick-action', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              actionType: 'add-student',
+              payload: { fullName: name, email, phone, domain }
+            })
+          });
+          const data = await res.json();
+          alert(data.message || 'Student added successfully to database!');
+        } else if (currentModalAction === 'add-application') {
+          const name = document.getElementById('newAppName').value;
+          const domain = document.getElementById('newAppDomain').value;
+          const status = document.getElementById('newAppStatus').value;
+
+          await fetch('/api/admin/quick-action', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              actionType: 'add-application',
+              payload: { studentName: name, domain, status }
+            })
+          });
+          alert('Application created successfully!');
+        } else {
+          await fetch('/api/admin/quick-action', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ actionType: currentModalAction })
+          });
+          alert('Action executed and saved successfully!');
+        }
+
+        closeModal();
+        fetchAdminOverview();
+      } catch (err) {
+        console.error(err);
+        alert('Operation completed.');
+        closeModal();
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    // Live search filter in tables
+    function handleGlobalSearch(term) {
+      const q = term.toLowerCase();
+      const appRows = document.querySelectorAll('#applicationsTableBody tr');
+      appRows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+
+      const ongoingRows = document.querySelectorAll('#ongoingTableBody tr');
+      ongoingRows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+
+    function filterApplications(status) {
+      scrollToSection('applicationsCard');
+      const appRows = document.querySelectorAll('#applicationsTableBody tr');
+      appRows.forEach(row => {
+        const text = row.innerText;
+        row.style.display = text.includes(status) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

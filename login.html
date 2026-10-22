@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | Edurup Learning</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --navy: #0f172a;
+      --dark: #1e293b;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+      --bg: #f8fafc;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    body {
+      background: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, rgba(248, 250, 252, 1) 90%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .nav {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+    .brand-text {
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+    .brand-text span {
+      color: var(--primary);
+    }
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    .auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .auth-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 460px;
+      padding: 36px;
+      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+    }
+    .auth-tabs {
+      display: flex;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 28px;
+      gap: 4px;
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .auth-tab.active {
+      background: #ffffff;
+      color: var(--text);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .auth-header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .auth-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .auth-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap i.field-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 15px;
+    }
+    .input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px 0 44px;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--text);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .toggle-eye {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .btn-submit {
+      width: 100%;
+      height: 48px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      margin-top: 10px;
+    }
+    .btn-submit:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+    }
+    .admin-pill-box {
+      margin-top: 20px;
+      background: #eff6ff;
+      border: 1px dashed #bfdbfe;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: #1e40af;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .admin-pill-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .auth-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .auth-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .toast-msg {
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: none;
+    }
+    .toast-error {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fee2e2;
+    }
+    .toast-success {
+      background: #f0fdf4;
+      color: #16a34a;
+      border: 1px solid #dcfce7;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <div class="brand-logo">E</div>
+      <div class="brand-text">Edurup <span>Learning</span></div>
+    </a>
+    <a href="signup.html" class="nav-link">New Student? Sign Up &rarr;</a>
+  </nav>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" id="tabAdmin" onclick="setRole('admin')">
+          <i class="fa-solid fa-shield-halved"></i> Admin Portal
+        </button>
+        <button type="button" class="auth-tab" id="tabStudent" onclick="setRole('student')">
+          <i class="fa-solid fa-user-graduate"></i> Student Login
+        </button>
+      </div>
+
+      <div class="auth-header">
+        <h1 class="auth-title" id="authHeading">Admin Portal Sign In</h1>
+        <p class="auth-subtitle" id="authSubheading">Enter your administrator credentials to access the console</p>
+      </div>
+
+      <div id="toast" class="toast-msg"></div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Email or Phone Number</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-envelope field-icon"></i>
+            <input type="text" id="loginTarget" class="input" placeholder="admin@eduruplearning.com" required value="admin@eduruplearning.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock field-icon"></i>
+            <input type="password" id="loginPassword" class="input" placeholder="Enter password" required value="Admin@Edurup2026">
+            <i class="fa-regular fa-eye toggle-eye" onclick="togglePassword()"></i>
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">
+          <span>Sign In to Dashboard</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <!-- Quick autofill pill for admin testing -->
+      <div class="admin-pill-box" id="adminHintBox">
+        <div>
+          <strong>Admin Account:</strong><br>
+          admin@eduruplearning.com / Admin@Edurup2026
+        </div>
+        <button type="button" class="admin-pill-btn" onclick="fillAdminCredentials()">Auto-Fill</button>
+      </div>
+
+      <div class="auth-footer">
+        <span id="footerText">Student looking for portal?</span> 
+        <a href="#" onclick="toggleRoleTab();return false;" id="footerLink">Switch to Student Login</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentRole = 'admin';
+
+    function setRole(role) {
+      currentRole = role;
+      const tabAdmin = document.getElementById('tabAdmin');
+      const tabStudent = document.getElementById('tabStudent');
+      const heading = document.getElementById('authHeading');
+      const subheading = document.getElementById('authSubheading');
+      const targetInput = document.getElementById('loginTarget');
+      const passInput = document.getElementById('loginPassword');
+      const hintBox = document.getElementById('adminHintBox');
+      const footerText = document.getElementById('footerText');
+      const footerLink = document.getElementById('footerLink');
+
+      if (role === 'admin') {
+        tabAdmin.classList.add('active');
+        tabStudent.classList.remove('active');
+        heading.innerText = 'Admin Portal Sign In';
+        subheading.innerText = 'Enter your administrator credentials to access the console';
+        targetInput.value = 'admin@eduruplearning.com';
+        targetInput.placeholder = 'admin@eduruplearning.com';
+        passInput.value = 'Admin@Edurup2026';
+        hintBox.style.display = 'flex';
+        footerText.innerText = 'Student looking for portal?';
+        footerLink.innerText = 'Switch to Student Login';
+      } else {
+        tabStudent.classList.add('active');
+        tabAdmin.classList.remove('active');
+        heading.innerText = 'Student Sign In';
+        subheading.innerText = 'Enter your registered mobile number or email address';
+        targetInput.value = '';
+        targetInput.placeholder = '10-digit mobile number or email';
+        passInput.value = '';
+        hintBox.style.display = 'none';
+        footerText.innerText = 'Need an administrator account?';
+        footerLink.innerText = 'Switch to Admin Portal';
+      }
+    }
+
+    function toggleRoleTab() {
+      setRole(currentRole === 'admin' ? 'student' : 'admin');
+    }
+
+    function fillAdminCredentials() {
+      document.getElementById('loginTarget').value = 'admin@eduruplearning.com';
+      document.getElementById('loginPassword').value = 'Admin@Edurup2026';
+    }
+
+    function togglePassword() {
+      const input = document.getElementById('loginPassword');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function showToast(msg, isSuccess = false) {
+      const toast = document.getElementById('toast');
+      toast.className = 'toast-msg ' + (isSuccess ? 'toast-success' : 'toast-error');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const target = document.getElementById('loginTarget').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('submitBtn');
+
+      if (!target || !password) {
+        showToast('Please enter both Email/Phone and Password');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+
+      try {
+        const res = await fetch('/api/auth/signin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: target, phone: target, password })
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+          showToast(data.message || 'Login failed. Please check credentials.');
+          btn.disabled = false;
+          btn.innerHTML = '<span>Sign In to Dashboard</span> <i class="fa-solid fa-arrow-right"></i>';
+          return;
+        }
+
+        if (data.token) localStorage.setItem('edurup_jwt_token', data.token);
+        if (data.user) {
+          localStorage.setItem('edurup_user_session', JSON.stringify(data.user));
+          if (data.user.role === 'admin' || data.user.email === 'admin@eduruplearning.com') {
+            localStorage.setItem('edurup_admin_session', JSON.stringify(data.user));
+          }
+        }
+
+        showToast('✅ Login successful! Redirecting...', true);
+
+        setTimeout(() => {
+          if (data.user && (data.user.role === 'admin' || data.user.email === 'admin@eduruplearning.com')) {
+            window.location.href = 'admin-dashboard.html';
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        }, 600);
+
+      } catch (err) {
+        console.error(err);
+        showToast('Server connection failed. Please ensure backend is running.');
+        btn.disabled = false;
+        btn.innerHTML = '<span>Sign In to Dashboard</span> <i class="fa-solid fa-arrow-right"></i>';
+      }
+    }
+  </script>
+</body>
+</html>

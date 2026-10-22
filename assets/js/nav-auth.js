@@ -28,10 +28,17 @@ function updateNavAuthStatus() {
     const enrollBtn = navActions ? navActions.querySelector('.nav-enroll-btn') : null;
 
     if (isLoggedIn) {
-      btn.href = 'dashboard.html';
+      let isAdmin = false;
+      if (sessionStr) {
+        try {
+          const u = JSON.parse(sessionStr);
+          isAdmin = u && (u.role === 'admin' || u.email === 'admin@eduruplearning.com');
+        } catch(e) {}
+      }
+      btn.href = isAdmin ? 'admin-dashboard.html' : 'dashboard.html';
       btn.className = 'nav-profile-btn';
       btn.innerHTML = `<span class="nav-avatar-icon">${initial}</span>`;
-      btn.title = `Profile Dashboard (${userName})`;
+      btn.title = isAdmin ? `Admin Console (${userName})` : `Profile Dashboard (${userName})`;
       btn.setAttribute('aria-label', `Profile Dashboard (${userName})`);
 
       // Position profile icon next to Enquire Now button

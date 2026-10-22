@@ -934,8 +934,13 @@ async function handlePasswordSignIn(event) {
     if (result.token) localStorage.setItem('edurup_jwt_token', result.token);
     if (result.user) localStorage.setItem('edurup_user_session', JSON.stringify(result.user));
 
-    alert('✅ Sign In Successful! Welcome back, ' + (result.user ? result.user.fullName : 'Student') + '.');
-    window.location.href = 'dashboard.html';
+    const isAdmin = result.user && (result.user.role === 'admin' || result.user.email === 'admin@eduruplearning.com');
+    if (isAdmin) {
+      localStorage.setItem('edurup_admin_session', JSON.stringify(result.user));
+    }
+
+    alert('✅ Sign In Successful! Welcome back, ' + (result.user ? result.user.fullName : 'User') + '.');
+    window.location.href = isAdmin ? 'admin-dashboard.html' : 'dashboard.html';
   } catch(err) {
     console.error('Sign In Error:', err);
     alert('❌ Connection Error: Unable to connect to server. Please check backend server.');

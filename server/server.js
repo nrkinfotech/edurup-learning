@@ -43,6 +43,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/support', require('./routes/supportRoutes'));
 app.use('/api/payment', require('./routes/paymentRoutes'));
+app.use('/api/admin', require('./routes/adminRoutes'));
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({
