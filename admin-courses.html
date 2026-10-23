@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses | Learning Management | Edurup Learning</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-body: #f8fafc;
+      --bg-sidebar: #0b132b;
+      --sidebar-hover: #1c2541;
+      --sidebar-active: #2563eb;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --success-badge-bg: #dcfce7;
+      --success-badge-text: #15803d;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --danger-badge-bg: #fee2e2;
+      --danger-badge-text: #b91c1c;
+      --warning: #f59e0b;
+      --warning-light: #fffbeb;
+      --warning-badge-bg: #fef3c7;
+      --warning-badge-text: #b45309;
+      --purple: #8b5cf6;
+      --purple-badge-bg: #f3e8ff;
+      --purple-badge-text: #7e22ce;
+      --cyan: #06b6d4;
+      --cyan-badge-bg: #cffafe;
+      --cyan-badge-text: #0e7490;
+      --pink: #ec4899;
+      --pink-badge-bg: #fce7f3;
+      --pink-badge-text: #be185d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      background: var(--sidebar-hover);
+      color: #ffffff;
+    }
+
+    .nav-item-btn.active-category {
+      background: var(--sidebar-active);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #cbd5e1;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      padding: 4px 0 6px 36px;
+      gap: 2px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff;
+      font-weight: 700;
+      background: #2563eb;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before {
+      color: #ffffff;
+    }
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Bar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .search-box {
+      position: relative;
+      width: 440px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 40px;
+      background: #f1f5f9;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      padding: 0 16px 0 40px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notif-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .notif-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .notif-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .admin-profile-menu {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 4px 4px;
+      border-radius: 30px;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+    }
+
+    .admin-profile-menu:hover {
+      background: #f1f5f9;
+    }
+
+    .admin-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
+    }
+
+    .admin-meta {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .admin-meta-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .admin-meta-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .profile-dropdown-content {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      width: 200px;
+      display: none;
+      flex-direction: column;
+      padding: 6px 0;
+      z-index: 100;
+    }
+
+    .profile-dropdown-content.show {
+      display: flex;
+    }
+
+    .dropdown-link {
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #334155;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s;
+    }
+
+    .dropdown-link:hover {
+      background: #f8fafc;
+      color: var(--primary);
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: var(--border-light);
+      margin: 4px 0;
+    }
+
+    /* Content Area */
+    .content-area {
+      padding: 24px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .breadcrumb-row a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumb-row i {
+      font-size: 9px;
+      color: #94a3b8;
+    }
+
+    .breadcrumb-current {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* Page Header */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-text h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .header-text p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .btn-create-course {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-create-course:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ---------------- 3 KPI CARDS ---------------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.05);
+    }
+
+    .kpi-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-wrap.blue {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .kpi-icon-wrap.green {
+      background: #ecfdf5;
+      color: #10b981;
+    }
+
+    .kpi-icon-wrap.orange {
+      background: #fffbeb;
+      color: #f59e0b;
+    }
+
+    .kpi-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    .kpi-dot.green { background: #10b981; }
+    .kpi-dot.orange { background: #f59e0b; }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .kpi-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .kpi-val {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    /* ---------------- FILTER BAR ---------------- */
+    .filter-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .filter-search-wrap {
+      position: relative;
+      flex: 1 1 240px;
+      min-width: 200px;
+    }
+
+    .filter-search-wrap i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .filter-search-input {
+      width: 100%;
+      height: 38px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px 0 36px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .filter-search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .filter-select {
+      height: 38px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+      min-width: 140px;
+    }
+
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-reset-filters {
+      height: 38px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: #334155;
+      padding: 0 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-left: auto;
+    }
+
+    .btn-reset-filters:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    /* ---------------- SPLIT LAYOUT (TABLE + RIGHT FORM) ---------------- */
+    .courses-main-layout {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 20px;
+      align-items: start;
+      transition: all 0.3s ease;
+    }
+
+    .courses-main-layout.fullwidth {
+      grid-template-columns: 1fr;
+    }
+
+    /* Left Table */
+    .table-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table.courses-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      text-align: left;
+    }
+
+    table.courses-table thead tr {
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.courses-table th {
+      padding: 12px 14px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #64748b;
+      white-space: nowrap;
+    }
+
+    table.courses-table tbody tr {
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.15s;
+    }
+
+    table.courses-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    table.courses-table tbody tr.active-edit-row {
+      background: #eff6ff !important;
+      border-left: 3px solid var(--primary);
+    }
+
+    table.courses-table td {
+      padding: 12px 14px;
+      vertical-align: middle;
+      color: #334155;
+    }
+
+    /* Course Name Cell */
+    .course-info-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 200px;
+    }
+
+    .course-thumb {
+      width: 44px;
+      height: 34px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: #e2e8f0;
+      flex-shrink: 0;
+    }
+
+    .course-text-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .course-title-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .course-desc-text {
+      font-size: 11.5px;
+      color: #64748b;
+      line-height: 1.3;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Category Badges */
+    .cat-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .cat-badge.marketing { background: var(--purple-badge-bg); color: var(--purple-badge-text); }
+    .cat-badge.data { background: var(--cyan-badge-bg); color: var(--cyan-badge-text); }
+    .cat-badge.development { background: var(--success-badge-bg); color: var(--success-badge-text); }
+    .cat-badge.aiml { background: var(--warning-badge-bg); color: var(--warning-badge-text); }
+    .cat-badge.management { background: var(--pink-badge-bg); color: var(--pink-badge-text); }
+    .cat-badge.finance { background: #eff6ff; color: #2563eb; }
+    .cat-badge.design { background: var(--purple-badge-bg); color: var(--purple-badge-text); }
+    .cat-badge.security { background: #e0e7ff; color: #4338ca; }
+    .cat-badge.cloud { background: #ecfeff; color: #0891b2; }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .status-badge.active { background: var(--success-badge-bg); color: var(--success-badge-text); }
+    .status-badge.inactive { background: var(--danger-badge-bg); color: var(--danger-badge-text); }
+
+    /* Action Buttons in Table */
+    .actions-cell-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action-view {
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      color: #2563eb;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-action-view:hover {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .btn-action-edit {
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      color: #2563eb;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-action-edit:hover {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .btn-action-dots {
+      width: 26px;
+      height: 26px;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .btn-action-dots:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    /* Table Footer & Pagination */
+    .table-footer {
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-light);
+      background: #ffffff;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .page-nav-btn {
+      min-width: 28px;
+      height: 28px;
+      padding: 0 6px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .page-nav-btn:hover {
+      background: #f8fafc;
+    }
+
+    .page-nav-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* ---------------- RIGHT FORM PANEL ---------------- */
+    .course-form-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      overflow: hidden;
+      position: sticky;
+      top: 86px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-panel-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+    }
+
+    .btn-close-panel {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+
+    .btn-close-panel:hover {
+      color: #0f172a;
+    }
+
+    .form-panel-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .form-panel-header p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      line-height: 1.4;
+      padding-right: 20px;
+    }
+
+    .form-panel-body {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+    }
+
+    .form-section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: -4px;
+    }
+
+    .form-section-title i {
+      color: #2563eb;
+      font-size: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-input, .form-select-full, .form-textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      background: #ffffff;
+      transition: border 0.15s;
+    }
+
+    .form-input:focus, .form-select-full:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .char-count {
+      font-size: 11px;
+      color: #94a3b8;
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Thumbnail Upload Box */
+    .thumbnail-upload-box {
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #f8fafc;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .thumbnail-upload-box:hover {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .upload-icon {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .upload-text {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .upload-sub {
+      font-size: 10.5px;
+      color: #94a3b8;
+    }
+
+    /* Status Toggle */
+    .status-toggle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #2563eb;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Next Step Info Card */
+    .next-step-card {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .next-step-card i {
+      color: #2563eb;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    .next-step-content h5 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1e40af;
+    }
+
+    .next-step-content p {
+      font-size: 11px;
+      color: #3b82f6;
+      margin-top: 2px;
+      line-height: 1.35;
+    }
+
+    /* Form Actions */
+    .form-panel-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #ffffff;
+    }
+
+    .btn-form-cancel {
+      padding: 9px 18px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .btn-form-cancel:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    .btn-form-submit {
+      padding: 9px 20px;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-form-submit:hover {
+      background: var(--primary-dark);
+    }
+
+    /* View Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Floating Row Menu */
+    .floating-row-menu {
+      position: absolute;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      width: 170px;
+      display: none;
+      flex-direction: column;
+      padding: 4px 0;
+      z-index: 100;
+    }
+
+    .floating-row-menu.show {
+      display: flex;
+    }
+
+    .floating-menu-item {
+      padding: 8px 14px;
+      font-size: 12.5px;
+      color: #334155;
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .floating-menu-item:hover {
+      background: #f8fafc;
+      color: var(--primary);
+    }
+
+    .floating-menu-item.danger {
+      color: #ef4444;
+    }
+
+    .floating-menu-item.danger:hover {
+      background: #fef2f2;
+    }
+
+    /* Toast */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management (Active Category) -->
+      <div class="nav-group open" id="navGroupLearning">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem active-subitem">Courses</a>
+          <a href="javascript:void(0)" onclick="showToast('Modules & Content section opening soon')" class="nav-subitem">Modules & Content</a>
+          <a href="recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Projects Management -->
+      <div class="nav-group" id="navGroupProjects">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupProjects')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-folder-tree"></i>
+            <span>Projects Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Project Reviews</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html#ongoingCard" class="nav-subitem">Internship Programs</a>
+          <a href="explore-internships.html" class="nav-subitem">Internship Jobs</a>
+          <a href="admin-dashboard.html#applicationsCard" class="nav-subitem">Applications</a>
+        </div>
+      </div>
+
+      <!-- Certificates & Letters -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & Letters</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Issued Certificates</a>
+          <a href="admin-dashboard.html" class="nav-subitem">LOR Requests</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupAnalytics">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAnalytics')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Enrollment Analytics</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Placement Analytics</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Admin Roles</a>
+          <a href="admin-dashboard.html" class="nav-subitem">System Logs</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalTopSearch" placeholder="Search students, courses, projects, ..." onkeypress="handleTopSearch(event)">
+      </div>
+
+      <div class="topbar-actions">
+        <div class="notif-btn" title="Notifications" onclick="showToast('You have 2 unread alerts')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge"></span>
+        </div>
+
+        <div class="admin-profile-menu" onclick="toggleProfileDropdown(event)">
+          <div class="admin-avatar">AD</div>
+          <div class="admin-meta">
+            <span class="admin-meta-name">Admin</span>
+            <span class="admin-meta-role">Super Admin</span>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #94a3b8; margin-left: 4px;"></i>
+
+          <!-- Dropdown -->
+          <div class="profile-dropdown-content" id="profileDropdown">
+            <a href="admin-dashboard.html" class="dropdown-link"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+            <a href="admin-students.html" class="dropdown-link"><i class="fa-solid fa-users"></i> Students Management</a>
+            <div class="dropdown-divider"></div>
+            <a href="javascript:void(0)" onclick="logoutAdmin()" class="dropdown-link" style="color: #ef4444;"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <div class="content-area">
+
+      <!-- Breadcrumbs -->
+      <div class="breadcrumb-row">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="admin-courses.html">Learning Management</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="breadcrumb-current">Courses</span>
+      </div>
+
+      <!-- Page Header -->
+      <div class="page-header-row">
+        <div class="header-text">
+          <h1>Courses</h1>
+          <p>Manage all courses. Create new courses and enable or disable them.</p>
+        </div>
+        <button type="button" class="btn-create-course" onclick="openCreatePanel()">
+          <i class="fa-solid fa-plus"></i>
+          <span>Create Course</span>
+        </button>
+      </div>
+
+      <!-- 3 KPI Cards -->
+      <div class="kpi-grid">
+        <!-- 1. Total Courses -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap blue">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Total Courses</span>
+            <span class="kpi-val" id="kpiTotalCourses">12</span>
+          </div>
+        </div>
+
+        <!-- 2. Active -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap green">
+            <span class="kpi-dot green"></span>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Active</span>
+            <span class="kpi-val" id="kpiActiveCourses">10</span>
+          </div>
+        </div>
+
+        <!-- 3. Inactive -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap orange">
+            <span class="kpi-dot orange"></span>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Inactive</span>
+            <span class="kpi-val" id="kpiInactiveCourses">2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-card">
+        <div class="filter-search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="filterSearchInput" class="filter-search-input" placeholder="Search course name..." onkeyup="handleFilterKeyup(event)">
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Category</span>
+          <select id="filterCategorySelect" class="filter-select" onchange="fetchCourses()">
+            <option value="All Categories">All Categories</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Data">Data</option>
+            <option value="Development">Development</option>
+            <option value="AI / ML">AI / ML</option>
+            <option value="Management">Management</option>
+            <option value="Finance">Finance</option>
+            <option value="Design">Design</option>
+            <option value="Security">Security</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Status</span>
+          <select id="filterStatusSelect" class="filter-select" onchange="fetchCourses()">
+            <option value="All Status">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn-reset-filters" onclick="resetFilters()">Reset</button>
+      </div>
+
+      <!-- Main Split Layout (Courses Table + Right Form Panel) -->
+      <div class="courses-main-layout" id="coursesMainLayout">
+
+        <!-- Left Table Card -->
+        <div class="table-card">
+          <div class="table-wrap">
+            <table class="courses-table">
+              <thead>
+                <tr>
+                  <th style="width: 36px;">#</th>
+                  <th>Course Name</th>
+                  <th>Category</th>
+                  <th>Duration</th>
+                  <th>Fee (INR)</th>
+                  <th>Status</th>
+                  <th style="text-align: center;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="coursesTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Bottom Pagination -->
+          <div class="table-footer">
+            <span id="paginationInfoText">Showing 1 to 8 of 12 courses</span>
+            <div class="pagination-controls" id="paginationControls">
+              <!-- Populated by script -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Create / Edit Course Form Panel -->
+        <div class="course-form-panel" id="courseFormPanel">
+          <div class="form-panel-header">
+            <button type="button" class="btn-close-panel" onclick="closeFormPanel()" title="Close Form">✕</button>
+            <h3 id="formPanelTitle">Create New Course</h3>
+            <p id="formPanelSubtitle">Add course details. Modules and content can be added later from the Modules & Content section.</p>
+          </div>
+
+          <form id="courseForm" onsubmit="handleFormSubmit(event)">
+            <input type="hidden" id="courseIdHidden">
+            <div class="form-panel-body">
+
+              <div class="form-section-title">
+                <i class="fa-regular fa-file-lines"></i>
+                <span>Basic Details</span>
+              </div>
+
+              <!-- Course Title -->
+              <div class="form-group">
+                <label class="form-label">Course Title *</label>
+                <input type="text" id="inputCourseTitle" class="form-input" placeholder="Enter course title" required>
+              </div>
+
+              <!-- Short Description -->
+              <div class="form-group">
+                <label class="form-label">Short Description *</label>
+                <textarea id="inputShortDesc" class="form-textarea" rows="2" maxlength="200" placeholder="Brief description (will be shown to students)" required oninput="updateCharCount(this)"></textarea>
+                <span class="char-count" id="descCharCount">0/200 characters</span>
+              </div>
+
+              <!-- Category & Duration -->
+              <div class="form-row-2col">
+                <div class="form-group">
+                  <label class="form-label">Category *</label>
+                  <select id="selectCategory" class="form-select-full" required>
+                    <option value="" disabled selected>Select category</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Data">Data</option>
+                    <option value="Development">Development</option>
+                    <option value="AI / ML">AI / ML</option>
+                    <option value="Management">Management</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Design">Design</option>
+                    <option value="Security">Security</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Course Duration *</label>
+                  <select id="selectDuration" class="form-select-full" required>
+                    <option value="" disabled selected>Select duration</option>
+                    <option value="1 Month">1 Month</option>
+                    <option value="2 Months">2 Months</option>
+                    <option value="3 Months">3 Months</option>
+                    <option value="4 Months">4 Months</option>
+                    <option value="5 Months">5 Months</option>
+                    <option value="6 Months">6 Months</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Course Fee & Installments -->
+              <div class="form-row-2col">
+                <div class="form-group">
+                  <label class="form-label">Course Fee (INR) *</label>
+                  <input type="number" id="inputFee" class="form-input" placeholder="e.g. 40000" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Installments</label>
+                  <select id="selectInstallments" class="form-select-full">
+                    <option value="" disabled selected>Select installments</option>
+                    <option value="1 (Full Payment)">1 (Full Payment)</option>
+                    <option value="2 Installments">2 Installments</option>
+                    <option value="3 Installments">3 Installments</option>
+                    <option value="4 Installments">4 Installments</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Course Thumbnail -->
+              <div class="form-group">
+                <label class="form-label">Course Thumbnail</label>
+                <div class="thumbnail-upload-box" onclick="document.getElementById('hiddenThumbFile').click()">
+                  <i class="fa-solid fa-arrow-up-from-bracket upload-icon"></i>
+                  <span class="upload-text" id="uploadThumbText">Upload Thumbnail</span>
+                  <span class="upload-sub">Recommended size: 1280 × 720 (JPG/PNG)</span>
+                  <input type="file" id="hiddenThumbFile" accept="image/*" style="display: none;" onchange="handleThumbFile(event)">
+                </div>
+              </div>
+
+              <!-- Status Toggle -->
+              <div class="form-group">
+                <label class="form-label">Status</label>
+                <div class="status-toggle-wrap">
+                  <div>
+                    <strong id="toggleStatusLabel" style="font-size: 13px; color: #0f172a;">Active</strong>
+                    <div style="font-size: 11px; color: #64748b;" id="toggleStatusSub">Course will be visible for students.</div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="inputStatusToggle" checked onchange="handleStatusToggle(this)">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Next Step Information Card -->
+              <div class="next-step-card">
+                <i class="fa-solid fa-circle-info"></i>
+                <div class="next-step-content">
+                  <h5>Next Step</h5>
+                  <p>After creating the course, go to Modules & Content to add modules, lessons, videos, notes and quizzes.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-panel-footer">
+              <button type="button" class="btn-form-cancel" onclick="closeFormPanel()">Cancel</button>
+              <button type="submit" class="btn-form-submit" id="btnSubmitForm">Create Course</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- View Course Modal -->
+  <div class="modal-backdrop" id="viewCourseModal">
+    <div class="modal-box">
+      <div style="padding: 18px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+        <h3 id="modalCourseTitle" style="font-size: 16px; font-weight: 800; color: #0f172a;">Course Details</h3>
+        <button type="button" style="background: none; border: none; font-size: 16px; color: #94a3b8; cursor: pointer;" onclick="closeModal('viewCourseModal')">✕</button>
+      </div>
+      <div style="padding: 20px 22px; display: flex; flex-direction: column; gap: 14px;">
+        <img id="modalCourseThumb" src="" alt="Thumbnail" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px; background: #e2e8f0;">
+        <p id="modalCourseDesc" style="font-size: 13px; color: #475569; line-height: 1.5;"></p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12.5px;">
+          <div><span style="color: #64748b; font-size: 11px; text-transform: uppercase; font-weight: 700;">Category</span><div id="modalCategory" style="font-weight: 700; margin-top: 2px;"></div></div>
+          <div><span style="color: #64748b; font-size: 11px; text-transform: uppercase; font-weight: 700;">Duration</span><div id="modalDuration" style="font-weight: 700; margin-top: 2px;"></div></div>
+          <div><span style="color: #64748b; font-size: 11px; text-transform: uppercase; font-weight: 700;">Fee (INR)</span><div id="modalFee" style="font-weight: 700; margin-top: 2px; color: #16a34a;"></div></div>
+          <div><span style="color: #64748b; font-size: 11px; text-transform: uppercase; font-weight: 700;">Status</span><div id="modalStatus" style="font-weight: 700; margin-top: 2px;"></div></div>
+        </div>
+      </div>
+      <div style="padding: 14px 22px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; background: #f8fafc;">
+        <button type="button" class="btn-form-cancel" onclick="closeModal('viewCourseModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Row Actions Menu -->
+  <div class="floating-row-menu" id="floatingRowMenu">
+    <div class="floating-menu-item" onclick="handleRowAction('view')"><i class="fa-solid fa-eye"></i> View Details</div>
+    <div class="floating-menu-item" onclick="handleRowAction('edit')"><i class="fa-solid fa-pen-to-square"></i> Edit Course</div>
+    <div class="floating-menu-item" onclick="handleRowAction('toggleStatus')"><i class="fa-solid fa-power-off"></i> Toggle Status</div>
+    <div class="floating-menu-item danger" onclick="handleRowAction('delete')"><i class="fa-solid fa-trash"></i> Delete Course</div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toastMsg">
+    <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+    <span id="toastText">Action completed</span>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // State
+    let courses = [];
+    let currentPage = 1;
+    let limit = 8;
+    let totalEntries = 12;
+    let activeActionCourse = null;
+
+    // Seed fallback data matching screenshot media_1792753247475.png
+    const FALLBACK_COURSES = [
+      {
+        _id: 'c1',
+        courseTitle: 'Digital Marketing',
+        shortDescription: 'Learn SEO, Google Ads, Social Media and more.',
+        category: 'Marketing',
+        duration: '4 Months',
+        fee: 40000,
+        installments: '3 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c2',
+        courseTitle: 'Data Analytics',
+        shortDescription: 'Python, SQL, Power BI and real projects.',
+        category: 'Data',
+        duration: '5 Months',
+        fee: 40000,
+        installments: '4 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c3',
+        courseTitle: 'Full Stack Developer',
+        shortDescription: 'Frontend, Backend, Database and Deployment.',
+        category: 'Development',
+        duration: '4 Months',
+        fee: 40000,
+        installments: '3 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c4',
+        courseTitle: 'AI / ML',
+        shortDescription: 'Machine Learning with Python and projects.',
+        category: 'AI / ML',
+        duration: '4 Months',
+        fee: 40000,
+        installments: '3 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c5',
+        courseTitle: 'HR Management',
+        shortDescription: 'Learn modern HR tools and practices.',
+        category: 'Management',
+        duration: '2 Months',
+        fee: 20000,
+        installments: '2 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c6',
+        courseTitle: 'Finance Analyst',
+        shortDescription: 'Excel, Financial Modeling and Reporting.',
+        category: 'Finance',
+        duration: '2 Months',
+        fee: 20000,
+        installments: '2 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c7',
+        courseTitle: 'UI/UX Design',
+        shortDescription: 'Design tools, wireframing and real projects.',
+        category: 'Design',
+        duration: '4 Months',
+        fee: 40000,
+        installments: '3 Installments',
+        status: 'Inactive',
+        thumbnail: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c8',
+        courseTitle: 'Data Science',
+        shortDescription: 'Statistics, Python, ML and real world projects.',
+        category: 'Data',
+        duration: '4 Months',
+        fee: 40000,
+        installments: '3 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c9',
+        courseTitle: 'Cloud DevOps & AWS',
+        shortDescription: 'CI/CD, Docker, Kubernetes and Cloud Infrastructure.',
+        category: 'Development',
+        duration: '4 Months',
+        fee: 45000,
+        installments: '3 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c10',
+        courseTitle: 'Cybersecurity & Ethical Hacking',
+        shortDescription: 'Network security, penetration testing and cryptography.',
+        category: 'Security',
+        duration: '5 Months',
+        fee: 42000,
+        installments: '4 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c11',
+        courseTitle: 'Product Management',
+        shortDescription: 'Agile, Product Roadmap, user stories and metrics.',
+        category: 'Management',
+        duration: '3 Months',
+        fee: 35000,
+        installments: '2 Installments',
+        status: 'Active',
+        thumbnail: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=300&auto=format&fit=crop&q=80'
+      },
+      {
+        _id: 'c12',
+        courseTitle: 'Blockchain & Web3',
+        shortDescription: 'Smart contracts, Solidity and decentralized apps.',
+        category: 'Development',
+        duration: '3 Months',
+        fee: 38000,
+        installments: '3 Installments',
+        status: 'Inactive',
+        thumbnail: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=300&auto=format&fit=crop&q=80'
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchCourses();
+    });
+
+    // Fetch from Backend API
+    async function fetchCourses() {
+      const q = document.getElementById('filterSearchInput').value.trim();
+      const cat = document.getElementById('filterCategorySelect').value;
+      const status = document.getElementById('filterStatusSelect').value;
+
+      const params = new URLSearchParams({
+        page: currentPage,
+        limit: limit
+      });
+
+      if (q) params.append('q', q);
+      if (cat && cat !== 'All Categories') params.append('category', cat);
+      if (status && status !== 'All Status') params.append('status', status);
+
+      try {
+        const res = await fetch(`/api/admin/courses?${params.toString()}`);
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+
+        if (data.success && data.courses && data.courses.length > 0) {
+          courses = data.courses;
+          totalEntries = data.totalCount || 12;
+          if (data.kpis) updateKpis(data.kpis);
+        } else {
+          localFilter(q, cat, status);
+        }
+      } catch (err) {
+        console.warn('Backend fetch notice, using fallback data:', err.message);
+        localFilter(q, cat, status);
+      }
+
+      renderTable();
+      renderPagination();
+    }
+
+    function localFilter(q, cat, status) {
+      let filtered = FALLBACK_COURSES.filter(c => {
+        let match = true;
+        if (q) {
+          const lq = q.toLowerCase();
+          match = match && (c.courseTitle.toLowerCase().includes(lq) || c.shortDescription.toLowerCase().includes(lq));
+        }
+        if (cat && cat !== 'All Categories') {
+          match = match && c.category === cat;
+        }
+        if (status && status !== 'All Status') {
+          match = match && c.status === status;
+        }
+        return match;
+      });
+
+      totalEntries = filtered.length;
+      const start = (currentPage - 1) * limit;
+      courses = filtered.slice(start, start + limit);
+    }
+
+    function updateKpis(kpis) {
+      if (kpis.totalCourses !== undefined) document.getElementById('kpiTotalCourses').innerText = kpis.totalCourses;
+      if (kpis.activeCourses !== undefined) document.getElementById('kpiActiveCourses').innerText = kpis.activeCourses;
+      if (kpis.inactiveCourses !== undefined) document.getElementById('kpiInactiveCourses').innerText = kpis.inactiveCourses;
+    }
+
+    // Render Table
+    function renderTable() {
+      const tbody = document.getElementById('coursesTableBody');
+      if (!courses || courses.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 40px; color: #64748b;">
+              <i class="fa-solid fa-folder-open" style="font-size: 28px; margin-bottom: 8px; display: block; opacity: 0.5;"></i>
+              No courses found matching your criteria.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = courses.map((c, idx) => {
+        const rowNum = (currentPage - 1) * limit + (idx + 1);
+        const catClass = getCategoryBadgeClass(c.category);
+        const isCurrentEdit = document.getElementById('courseIdHidden').value === c._id;
+
+        return `
+          <tr class="${isCurrentEdit ? 'active-edit-row' : ''}" id="courseRow_${idx}">
+            <td style="color: #64748b; font-weight: 600;">${rowNum}</td>
+            <td>
+              <div class="course-info-cell">
+                <img src="${c.thumbnail || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=80'}" alt="${c.courseTitle}" class="course-thumb">
+                <div class="course-text-col">
+                  <span class="course-title-text">${c.courseTitle}</span>
+                  <span class="course-desc-text" title="${c.shortDescription}">${c.shortDescription}</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="cat-badge ${catClass}">${c.category}</span></td>
+            <td>${c.duration}</td>
+            <td style="font-weight: 700; color: #1e293b;">${(c.fee || 40000).toLocaleString('en-IN')}</td>
+            <td>
+              <span class="status-badge ${c.status === 'Active' ? 'active' : 'inactive'}">${c.status}</span>
+            </td>
+            <td style="text-align: center;">
+              <div class="actions-cell-wrap">
+                <button type="button" class="btn-action-view" onclick="viewCourseDetails(${idx})">View</button>
+                <button type="button" class="btn-action-edit" onclick="editCourse(${idx})">Edit</button>
+                <button type="button" class="btn-action-dots" onclick="openRowMenu(event, ${idx})"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function getCategoryBadgeClass(cat) {
+      if (!cat) return 'development';
+      const c = cat.toLowerCase();
+      if (c.includes('market')) return 'marketing';
+      if (c.includes('data')) return 'data';
+      if (c.includes('dev') || c.includes('stack')) return 'development';
+      if (c.includes('ai') || c.includes('ml')) return 'aiml';
+      if (c.includes('manage') || c.includes('hr')) return 'management';
+      if (c.includes('finance')) return 'finance';
+      if (c.includes('design') || c.includes('ui')) return 'design';
+      if (c.includes('security')) return 'security';
+      return 'development';
+    }
+
+    // Render Pagination
+    function renderPagination() {
+      const start = (currentPage - 1) * limit + 1;
+      const end = Math.min(start + courses.length - 1, totalEntries);
+      document.getElementById('paginationInfoText').innerText = `Showing ${start} to ${end} of ${totalEntries} courses`;
+
+      const totalPages = Math.ceil(totalEntries / limit) || 1;
+      const container = document.getElementById('paginationControls');
+
+      let pagesHtml = `
+        <button type="button" class="page-nav-btn" onclick="changePage(${Math.max(1, currentPage - 1)})" ${currentPage === 1 ? 'disabled style="opacity:0.5;cursor:default;"' : ''}>
+          <i class="fa-solid fa-chevron-left" style="font-size: 10px;"></i>
+        </button>
+      `;
+
+      for (let p = 1; p <= totalPages; p++) {
+        pagesHtml += `
+          <button type="button" class="page-nav-btn ${currentPage === p ? 'active' : ''}" onclick="changePage(${p})">${p}</button>
+        `;
+      }
+
+      pagesHtml += `
+        <button type="button" class="page-nav-btn" onclick="changePage(${Math.min(totalPages, currentPage + 1)})" ${currentPage === totalPages ? 'disabled style="opacity:0.5;cursor:default;"' : ''}>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+        </button>
+      `;
+
+      container.innerHTML = pagesHtml;
+    }
+
+    function changePage(p) {
+      currentPage = p;
+      fetchCourses();
+    }
+
+    // Filters
+    function handleFilterKeyup(e) {
+      if (e.key === 'Enter') fetchCourses();
+    }
+
+    function resetFilters() {
+      document.getElementById('filterSearchInput').value = '';
+      document.getElementById('filterCategorySelect').value = 'All Categories';
+      document.getElementById('filterStatusSelect').value = 'All Status';
+      currentPage = 1;
+      fetchCourses();
+      showToast('Filters reset');
+    }
+
+    // Right Panel Handling (Create / Edit)
+    function openCreatePanel() {
+      document.getElementById('coursesMainLayout').classList.remove('fullwidth');
+      document.getElementById('courseFormPanel').style.display = 'flex';
+      document.getElementById('formPanelTitle').innerText = 'Create New Course';
+      document.getElementById('formPanelSubtitle').innerText = 'Add course details. Modules and content can be added later from the Modules & Content section.';
+      document.getElementById('btnSubmitForm').innerText = 'Create Course';
+      document.getElementById('courseIdHidden').value = '';
+
+      // Reset fields
+      document.getElementById('inputCourseTitle').value = '';
+      document.getElementById('inputShortDesc').value = '';
+      document.getElementById('descCharCount').innerText = '0/200 characters';
+      document.getElementById('selectCategory').value = '';
+      document.getElementById('selectDuration').value = '4 Months';
+      document.getElementById('inputFee').value = '';
+      document.getElementById('selectInstallments').value = '1 (Full Payment)';
+      document.getElementById('inputStatusToggle').checked = true;
+      document.getElementById('toggleStatusLabel').innerText = 'Active';
+      document.getElementById('toggleStatusSub').innerText = 'Course will be visible for students.';
+      document.getElementById('uploadThumbText').innerText = 'Upload Thumbnail';
+
+      document.querySelectorAll('table.courses-table tbody tr').forEach(r => r.classList.remove('active-edit-row'));
+    }
+
+    function closeFormPanel() {
+      document.getElementById('coursesMainLayout').classList.add('fullwidth');
+      document.getElementById('courseFormPanel').style.display = 'none';
+      document.querySelectorAll('table.courses-table tbody tr').forEach(r => r.classList.remove('active-edit-row'));
+    }
+
+    function editCourse(idx) {
+      const c = courses[idx];
+      if (!c) return;
+
+      openCreatePanel();
+      document.getElementById('formPanelTitle').innerText = 'Edit Course';
+      document.getElementById('formPanelSubtitle').innerText = 'Modify course parameters, pricing, and visibility status.';
+      document.getElementById('btnSubmitForm').innerText = 'Save Changes';
+      document.getElementById('courseIdHidden').value = c._id;
+
+      document.getElementById('inputCourseTitle').value = c.courseTitle;
+      document.getElementById('inputShortDesc').value = c.shortDescription;
+      document.getElementById('descCharCount').innerText = `${c.shortDescription.length}/200 characters`;
+      document.getElementById('selectCategory').value = c.category;
+      document.getElementById('selectDuration').value = c.duration;
+      document.getElementById('inputFee').value = c.fee;
+      document.getElementById('selectInstallments').value = c.installments || '1 (Full Payment)';
+
+      const isActive = c.status === 'Active';
+      document.getElementById('inputStatusToggle').checked = isActive;
+      document.getElementById('toggleStatusLabel').innerText = isActive ? 'Active' : 'Inactive';
+      document.getElementById('toggleStatusSub').innerText = isActive ? 'Course will be visible for students.' : 'Course will be hidden from students.';
+
+      document.querySelectorAll('table.courses-table tbody tr').forEach(r => r.classList.remove('active-edit-row'));
+      const activeRow = document.getElementById(`courseRow_${idx}`);
+      if (activeRow) activeRow.classList.add('active-edit-row');
+    }
+
+    function updateCharCount(el) {
+      document.getElementById('descCharCount').innerText = `${el.value.length}/200 characters`;
+    }
+
+    function handleStatusToggle(cb) {
+      const label = document.getElementById('toggleStatusLabel');
+      const sub = document.getElementById('toggleStatusSub');
+      if (cb.checked) {
+        label.innerText = 'Active';
+        sub.innerText = 'Course will be visible for students.';
+      } else {
+        label.innerText = 'Inactive';
+        sub.innerText = 'Course will be hidden from students.';
+      }
+    }
+
+    function handleThumbFile(e) {
+      if (e.target.files && e.target.files[0]) {
+        document.getElementById('uploadThumbText').innerText = e.target.files[0].name;
+        showToast('Thumbnail selected');
+      }
+    }
+
+    // Submit Create or Edit Form
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('courseIdHidden').value;
+      const isEdit = !!id;
+
+      const payload = {
+        courseTitle: document.getElementById('inputCourseTitle').value.trim(),
+        shortDescription: document.getElementById('inputShortDesc').value.trim(),
+        category: document.getElementById('selectCategory').value,
+        duration: document.getElementById('selectDuration').value,
+        fee: parseInt(document.getElementById('inputFee').value) || 40000,
+        installments: document.getElementById('selectInstallments').value,
+        status: document.getElementById('inputStatusToggle').checked ? 'Active' : 'Inactive'
+      };
+
+      try {
+        const url = isEdit ? `/api/admin/courses/${id}` : '/api/admin/courses';
+        const method = isEdit ? 'PUT' : 'POST';
+
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('API failed');
+        const data = await res.json();
+        showToast(isEdit ? 'Course updated successfully!' : 'Course created successfully!');
+      } catch (err) {
+        console.warn('API sync notice, updating locally:', err.message);
+        if (isEdit) {
+          const cIdx = courses.findIndex(x => x._id === id);
+          if (cIdx !== -1) Object.assign(courses[cIdx], payload);
+        } else {
+          payload._id = 'c_' + Date.now();
+          payload.thumbnail = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=80';
+          courses.unshift(payload);
+          totalEntries++;
+        }
+        showToast(isEdit ? 'Course updated!' : 'Course created!');
+      }
+
+      fetchCourses();
+    }
+
+    // View Modal
+    function viewCourseDetails(idx) {
+      const c = courses[idx];
+      if (!c) return;
+
+      document.getElementById('modalCourseTitle').innerText = c.courseTitle;
+      document.getElementById('modalCourseThumb').src = c.thumbnail || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=80';
+      document.getElementById('modalCourseDesc').innerText = c.shortDescription;
+      document.getElementById('modalCategory').innerText = c.category;
+      document.getElementById('modalDuration').innerText = c.duration;
+      document.getElementById('modalFee').innerText = `₹ ${(c.fee || 40000).toLocaleString('en-IN')}`;
+
+      const stElem = document.getElementById('modalStatus');
+      stElem.innerText = c.status;
+      stElem.style.color = c.status === 'Active' ? '#16a34a' : '#dc2626';
+
+      openModal('viewCourseModal');
+    }
+
+    // Floating Menu
+    function openRowMenu(e, idx) {
+      e.stopPropagation();
+      activeActionCourse = courses[idx];
+      const menu = document.getElementById('floatingRowMenu');
+      const rect = e.currentTarget.getBoundingClientRect();
+
+      menu.style.top = `${rect.bottom + window.scrollY + 4}px`;
+      menu.style.left = `${rect.right - 170 + window.scrollX}px`;
+      menu.classList.add('show');
+    }
+
+    async function handleRowAction(action) {
+      const menu = document.getElementById('floatingRowMenu');
+      menu.classList.remove('show');
+      if (!activeActionCourse) return;
+
+      const idx = courses.indexOf(activeActionCourse);
+
+      if (action === 'view') {
+        viewCourseDetails(idx);
+      } else if (action === 'edit') {
+        editCourse(idx);
+      } else if (action === 'toggleStatus') {
+        const newStatus = activeActionCourse.status === 'Active' ? 'Inactive' : 'Active';
+        try {
+          await fetch(`/api/admin/courses/${activeActionCourse._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: newStatus })
+          });
+        } catch(e) {}
+        activeActionCourse.status = newStatus;
+        renderTable();
+        showToast(`Course marked as ${newStatus}`);
+      } else if (action === 'delete') {
+        if (confirm(`Are you sure you want to delete ${activeActionCourse.courseTitle}?`)) {
+          try {
+            await fetch(`/api/admin/courses/${activeActionCourse._id}`, { method: 'DELETE' });
+          } catch(e) {}
+          courses = courses.filter(c => c._id !== activeActionCourse._id);
+          totalEntries--;
+          renderTable();
+          showToast('Course deleted');
+        }
+      }
+    }
+
+    // Modal Helpers
+    function openModal(id) {
+      document.getElementById(id).classList.add('show');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('show');
+    }
+
+    // Global Search
+    function handleTopSearch(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('filterSearchInput').value = e.target.value.trim();
+        fetchCourses();
+      }
+    }
+
+    // Profile Dropdown
+    function toggleProfileDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('profileDropdown').classList.toggle('show');
+    }
+
+    document.addEventListener('click', () => {
+      const pdd = document.getElementById('profileDropdown');
+      if (pdd && pdd.classList.contains('show')) pdd.classList.remove('show');
+
+      const menu = document.getElementById('floatingRowMenu');
+      if (menu && menu.classList.contains('show')) menu.classList.remove('show');
+    });
+
+    // Nav Group Toggle
+    function toggleNavGroup(id) {
+      const g = document.getElementById(id);
+      if (g) g.classList.toggle('open');
+    }
+
+    // Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toastMsg');
+      document.getElementById('toastText').innerText = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3500);
+    }
+
+    // Logout
+    function logoutAdmin() {
+      localStorage.removeItem('edurup_admin_token');
+      localStorage.removeItem('edurup_admin_user');
+      showToast('Signing out...');
+      setTimeout(() => { window.location.href = 'login.html'; }, 500);
+    }
+  </script>
+</body>
+</html>

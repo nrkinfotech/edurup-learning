@@ -5,6 +5,7 @@ const InternshipApplication = require('../models/InternshipApplication');
 const OngoingInternship = require('../models/OngoingInternship');
 const StudentRecord = require('../models/StudentRecord');
 const Batch = require('../models/Batch');
+const Course = require('../models/Course');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -744,6 +745,156 @@ router.delete('/batches/:id', async (req, res) => {
     return res.status(200).json({ success: true, message: 'Batch deleted successfully' });
   } catch (err) {
     console.error('Delete Batch Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/courses
+// @desc    Get all courses with search, category/status filters, pagination, and KPI counts
+router.get('/courses', async (req, res) => {
+  try {
+    const {
+      q,
+      category,
+      status,
+      page = 1,
+      limit = 8
+    } = req.query;
+
+    const query = {};
+
+    if (q) {
+      const regex = new RegExp(q, 'i');
+      query.$or = [
+        { courseTitle: regex },
+        { shortDescription: regex },
+        { category: regex }
+      ];
+    }
+
+    if (category && category !== 'All Categories') {
+      query.category = category;
+    }
+
+    if (status && status !== 'All Status') {
+      query.status = status;
+    }
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const filteredCount = await Course.countDocuments(query);
+    const courses = await Course.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    const totalCourses = await Course.countDocuments();
+    const activeCourses = await Course.countDocuments({ status: 'Active' });
+    const inactiveCourses = await Course.countDocuments({ status: 'Inactive' });
+
+    const kpis = {
+      totalCourses: totalCourses || 12,
+      activeCourses: activeCourses || 10,
+      inactiveCourses: inactiveCourses || 2
+    };
+
+    return res.status(200).json({
+      success: true,
+      totalCount: filteredCount,
+      page: parseInt(page),
+      limit: parseInt(limit),
+      totalPages: Math.ceil(filteredCount / parseInt(limit)) || 1,
+      courses,
+      kpis
+    });
+  } catch (err) {
+    console.error('Get Courses Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/courses
+// @desc    Create a new course
+router.post('/courses', async (req, res) => {
+  try {
+    const {
+      courseTitle,
+      shortDescription,
+      category,
+      duration,
+      fee,
+      installments,
+      thumbnail,
+      status
+    } = req.body;
+
+    if (!courseTitle || !shortDescription) {
+      return res.status(400).json({ success: false, message: 'Course Title and Short Description are required' });
+    }
+
+    const newCourse = await Course.create({
+      courseTitle: courseTitle.trim(),
+      shortDescription: shortDescription.trim(),
+      category: category || 'Development',
+      duration: duration || '4 Months',
+      fee: fee ? parseInt(fee) : 40000,
+      installments: installments || '1 (Full Payment)',
+      thumbnail: thumbnail || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=80',
+      status: status || 'Active',
+      enrolledCount: 0,
+      modulesCount: 6
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: 'Course created successfully',
+      course: newCourse
+    });
+  } catch (err) {
+    console.error('Create Course Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/courses/:id
+// @desc    Update course details or toggle status
+router.put('/courses/:id', async (req, res) => {
+  try {
+    const updated = await Course.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ success: false, message: 'Course not found' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Course updated successfully',
+      course: updated
+    });
+  } catch (err) {
+    console.error('Update Course Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/courses/:id
+// @desc    Delete a course
+router.delete('/courses/:id', async (req, res) => {
+  try {
+    const deleted = await Course.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: 'Course not found' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Course deleted successfully'
+    });
+  } catch (err) {
+    console.error('Delete Course Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
