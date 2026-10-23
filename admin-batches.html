@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Batches | Students Management | Edurup Learning</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-body: #f8fafc;
+      --bg-sidebar: #0b132b;
+      --sidebar-hover: #1c2541;
+      --sidebar-active: #2563eb;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-light: #fffbeb;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --purple: #8b5cf6;
+      --purple-light: #f5f3ff;
+      --teal: #06b6d4;
+      --teal-light: #ecfeff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      background: var(--sidebar-hover);
+      color: #ffffff;
+    }
+
+    .nav-item-btn.active-category {
+      background: var(--sidebar-active);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #cbd5e1;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      padding: 4px 0 6px 36px;
+      gap: 2px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before,
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Bar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .search-box {
+      position: relative;
+      width: 440px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 40px;
+      background: #f1f5f9;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      padding: 0 16px 0 40px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notif-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .notif-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .notif-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .admin-profile-menu {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 4px 4px;
+      border-radius: 30px;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+    }
+
+    .admin-profile-menu:hover {
+      background: #f1f5f9;
+    }
+
+    .admin-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
+    }
+
+    .admin-meta {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .admin-meta-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .admin-meta-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .profile-dropdown-content {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      width: 200px;
+      display: none;
+      flex-direction: column;
+      padding: 6px 0;
+      z-index: 100;
+    }
+
+    .profile-dropdown-content.show {
+      display: flex;
+    }
+
+    .dropdown-link {
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #334155;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s;
+    }
+
+    .dropdown-link:hover {
+      background: #f8fafc;
+      color: var(--primary);
+    }
+
+    /* Page Body */
+    .page-body {
+      padding: 24px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+
+    .breadcrumbs a {
+      color: #64748b;
+      text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumbs i {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title-wrap h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+    }
+
+    .header-title-wrap p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-create-batch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-create-batch:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ---------------- 4 KPI CARDS ---------------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.05);
+    }
+
+    .kpi-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .kpi-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .kpi-val-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .kpi-val {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .kpi-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .kpi-subtext {
+      font-size: 11.5px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* ---------------- FILTER BOX ---------------- */
+    .filter-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      flex-wrap: wrap;
+    }
+
+    .filter-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .filter-field.wide {
+      flex: 1.5;
+      min-width: 200px;
+    }
+
+    .filter-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .filter-input-wrap {
+      position: relative;
+    }
+
+    .filter-input-wrap i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .filter-input {
+      width: 100%;
+      height: 38px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px 0 34px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .filter-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .filter-select {
+      width: 100%;
+      height: 38px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 12.5px;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+
+    .filter-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 1px;
+    }
+
+    .btn-clear-filters {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-clear-filters:hover {
+      text-decoration: underline;
+    }
+
+    .btn-apply-filters {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .btn-apply-filters:hover {
+      background: var(--primary-dark);
+    }
+
+    /* ---------------- TABLE CONTAINER ---------------- */
+    .table-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-top-bar {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-light);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .table-count-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .table-top-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .entries-select {
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      outline: none;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table.batches-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    table.batches-table th {
+      text-align: left;
+      padding: 12px 14px;
+      background: #f8fafc;
+      color: #64748b;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    table.batches-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-light);
+      color: #334155;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    table.batches-table tr:hover td {
+      background: #fcfdfe;
+    }
+
+    /* Batch Name Cell */
+    .batch-name-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .batch-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .batch-title {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Progress Bar */
+    .progress-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 160px;
+    }
+
+    .progress-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: #2563eb;
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .progress-text {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #475569;
+      width: 48px;
+      text-align: right;
+    }
+
+    /* Status Badges */
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .status-active { background: #dcfce7; color: #15803d; }
+    .status-upcoming { background: #e0f2fe; color: #0284c7; }
+    .status-completed { background: #f1f5f9; color: #475569; }
+
+    /* Creator Cell */
+    .creator-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .creator-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+
+    .creator-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .creator-name {
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .creator-date {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* Row Actions */
+    .action-icons-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-row-action {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+
+    .btn-row-action:hover {
+      background: #eff6ff;
+      color: var(--primary);
+      border-color: #bfdbfe;
+    }
+
+    /* Pagination Bar */
+    .pagination-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .page-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover {
+      background: #f8fafc;
+    }
+
+    .page-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* ---------------- MODALS ---------------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 520px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: modalFadeIn 0.2s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 12px;
+    }
+
+    .modal-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .modal-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .modal-input {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .modal-input:focus {
+      border-color: var(--primary);
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 14px;
+    }
+
+    .btn-secondary {
+      padding: 8px 16px;
+      background: #f1f5f9;
+      color: #475569;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      padding: 8px 18px;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management (Active Category) -->
+      <div class="nav-group open" id="navGroupStudents">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem active-subitem">Student Batches</a>
+          <a href="admin-students.html?filter=progress" class="nav-subitem">Student Progress</a>
+          <a href="admin-students.html?filter=inactive" class="nav-subitem">Inactive / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="courses.html" class="nav-subitem">Courses</a>
+          <a href="recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="live-classes.html" class="nav-subitem">Live Classes</a>
+          <a href="quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html#ongoingCard" class="nav-subitem">Internship Programs</a>
+          <a href="explore-internships.html" class="nav-subitem">Internship Jobs</a>
+          <a href="admin-dashboard.html#applicationsCard" class="nav-subitem">Applications</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Shortlisting</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Interviews</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Selections</a>
+          <a href="admin-dashboard.html" class="nav-subitem">My Internship / Onboarding</a>
+        </div>
+      </div>
+
+      <!-- Tasks & Projects -->
+      <div class="nav-group" id="navGroupTasks">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupTasks')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks & Projects</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Task Management</a>
+          <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+        </div>
+      </div>
+
+      <!-- Companies & Mentors -->
+      <div class="nav-group" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building"></i>
+            <span>Companies & Mentors</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Partner Companies</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Mentors</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Mentor Assignments</a>
+        </div>
+      </div>
+
+      <!-- Attendance & Reports -->
+      <div class="nav-group" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance & Reports</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Attendance</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Weekly Reports</a>
+        </div>
+      </div>
+
+      <!-- Certificates & LOR -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & LOR</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Generate Certificate</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Letter of Recommendation</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Reports Console</a>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="nav-group" id="navGroupFinance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupFinance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Payments & Revenue</a>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="nav-group" id="navGroupComms">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupComms')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Announcements</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="topSearchInput" placeholder="Search students, companies, applications, reports..." onkeyup="handleTopSearch(this.value)">
+      </div>
+
+      <div class="topbar-actions">
+        <!-- Notification Bell -->
+        <button type="button" class="notif-btn" onclick="alert('No new batch alerts.')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge"></span>
+        </button>
+
+        <!-- Profile Menu -->
+        <div class="admin-profile-menu" onclick="toggleProfileDropdown(event)">
+          <div class="admin-avatar">AD</div>
+          <div class="admin-meta">
+            <span class="admin-meta-name" id="adminNameDisplay">Admin</span>
+            <span class="admin-meta-role">Super Admin</span>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #94a3b8; margin-left: 4px;"></i>
+
+          <!-- Dropdown -->
+          <div class="profile-dropdown-content" id="profileDropdown">
+            <a href="admin-dashboard.html" class="dropdown-link"><i class="fa-solid fa-house"></i> Admin Dashboard</a>
+            <a href="admin-students.html" class="dropdown-link"><i class="fa-solid fa-users"></i> All Students</a>
+            <div style="height: 1px; background: #e2e8f0; margin: 4px 0;"></div>
+            <a href="#" class="dropdown-link" onclick="handleLogout();return false;" style="color: #ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+      <!-- Breadcrumbs -->
+      <div class="breadcrumbs">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="admin-students.html">Students Management</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span style="color: #0f172a; font-weight: 700;">Student Batches</span>
+      </div>
+
+      <!-- Header Row -->
+      <div class="page-header">
+        <div class="header-title-wrap">
+          <h1>Student Batches</h1>
+          <p>Manage student batches, view enrolled students and track progress.</p>
+        </div>
+
+        <button type="button" class="btn-create-batch" onclick="openCreateBatchModal()">
+          <i class="fa-solid fa-plus"></i>
+          <span>Create Batch</span>
+        </button>
+      </div>
+
+      <!-- 4 KPI CARDS -->
+      <div class="kpi-grid">
+        
+        <!-- Total Batches -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #f3e8ff; color: #9333ea;">
+            <i class="fa-solid fa-users-rectangle"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Total Batches</span>
+            <div class="kpi-val-row">
+              <span class="kpi-val" id="kpiTotalBatches">24</span>
+              <span class="kpi-badge">&#8593; 20%</span>
+            </div>
+            <span class="kpi-subtext">All courses</span>
+          </div>
+        </div>
+
+        <!-- Active Batches -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #dcfce7; color: #16a34a;">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Active Batches</span>
+            <div class="kpi-val-row">
+              <span class="kpi-val" id="kpiActiveBatches">18</span>
+              <span class="kpi-badge">&#8593; 12%</span>
+            </div>
+            <span class="kpi-subtext">Ongoing batches</span>
+          </div>
+        </div>
+
+        <!-- Upcoming Batches -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #e0f2fe; color: #0284c7;">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Upcoming Batches</span>
+            <div class="kpi-val-row">
+              <span class="kpi-val" id="kpiUpcomingBatches">4</span>
+            </div>
+            <span class="kpi-subtext">Starting soon</span>
+          </div>
+        </div>
+
+        <!-- Completed Batches -->
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap" style="background: #ffedd5; color: #ea580c;">
+            <i class="fa-regular fa-circle-check"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Completed Batches</span>
+            <div class="kpi-val-row">
+              <span class="kpi-val" id="kpiCompletedBatches">2</span>
+            </div>
+            <span class="kpi-subtext">Finished</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FILTER BOX -->
+      <div class="filter-card">
+        
+        <div class="filter-field wide">
+          <label class="filter-label">Search</label>
+          <div class="filter-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="batchSearchInput" class="filter-input" placeholder="Search batch name, course..." oninput="handleSearchInput()">
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <label class="filter-label">Course</label>
+          <select id="filterCourse" class="filter-select" onchange="triggerFilter()">
+            <option value="All Courses">All Courses</option>
+            <option value="Data Analytics">Data Analytics</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Full Stack Developer">Full Stack Developer</option>
+            <option value="Data Science">Data Science</option>
+            <option value="AI / ML">AI / ML</option>
+            <option value="HR Management">HR Management</option>
+            <option value="Finance Analyst">Finance Analyst</option>
+            <option value="UI/UX Design">UI/UX Design</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label class="filter-label">Batch Status</label>
+          <select id="filterStatus" class="filter-select" onchange="triggerFilter()">
+            <option value="All Status">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Upcoming">Upcoming</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label class="filter-label">Start Date</label>
+          <div class="filter-input-wrap">
+            <i class="fa-regular fa-calendar"></i>
+            <input type="text" id="filterStartDate" class="filter-input" placeholder="Select date" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'" onchange="triggerFilter()">
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <label class="filter-label">End Date</label>
+          <div class="filter-input-wrap">
+            <i class="fa-regular fa-calendar"></i>
+            <input type="text" id="filterEndDate" class="filter-input" placeholder="Select date" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'" onchange="triggerFilter()">
+          </div>
+        </div>
+
+        <div class="filter-actions">
+          <button type="button" class="btn-clear-filters" onclick="resetFilters()">Clear Filters</button>
+          <button type="button" class="btn-apply-filters" onclick="triggerFilter()">Apply Filters</button>
+        </div>
+
+      </div>
+
+      <!-- BATCHES DATA TABLE -->
+      <div class="table-card">
+        
+        <div class="table-top-bar">
+          <div class="table-count-title">
+            Batches (<span id="totalBatchesCount">24</span>)
+          </div>
+
+          <div class="table-top-controls">
+            <div>
+              Show 
+              <select class="entries-select" id="entriesPerPage" onchange="changeLimit(this.value)">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+              entries
+            </div>
+
+            <div id="paginationSummary">1 – 10 of 24</div>
+
+            <div class="pagination-bar">
+              <button class="page-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn" onclick="goToPage(2)">2</button>
+              <button class="page-btn" onclick="goToPage(3)">3</button>
+              <span style="padding: 0 4px; font-size:12px; color:#94a3b8;">...</span>
+              <button class="page-btn" onclick="nextPage()"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="batches-table">
+            <thead>
+              <tr>
+                <th style="width: 35px;">#</th>
+                <th>Batch Name</th>
+                <th>Course</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Enrolled Students</th>
+                <th>Status</th>
+                <th>Created By</th>
+                <th style="text-align: right; padding-right: 20px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="batchesTbody">
+              <!-- Dynamically populated from MongoDB -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= CREATE / EDIT BATCH MODAL ================= -->
+  <div class="modal-backdrop" id="batchModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="batchModalTitle">Create Batch</h3>
+        <button class="modal-close" onclick="closeBatchModal()">&times;</button>
+      </div>
+
+      <form id="batchForm" onsubmit="handleSaveBatch(event)">
+        <input type="hidden" id="editBatchId">
+
+        <div class="modal-body">
+          <div>
+            <label class="modal-label">Batch Name *</label>
+            <input type="text" id="modalBatchName" class="modal-input" placeholder="e.g. Data Analytics - Nov 2026" required>
+          </div>
+
+          <div class="modal-grid-2">
+            <div>
+              <label class="modal-label">Course / Domain *</label>
+              <select id="modalCourse" class="modal-input" required>
+                <option value="Full Stack Developer">Full Stack Developer</option>
+                <option value="Data Analytics">Data Analytics</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+                <option value="AI / ML">AI / ML</option>
+                <option value="HR Management">HR Management</option>
+                <option value="Finance Analyst">Finance Analyst</option>
+                <option value="UI/UX Design">UI/UX Design</option>
+              </select>
+            </div>
+            <div>
+              <label class="modal-label">Batch Code</label>
+              <input type="text" id="modalBatchCode" class="modal-input" placeholder="e.g. DA-NOV-2026">
+            </div>
+          </div>
+
+          <div class="modal-grid-2">
+            <div>
+              <label class="modal-label">Start Date *</label>
+              <input type="date" id="modalStartDate" class="modal-input" required>
+            </div>
+            <div>
+              <label class="modal-label">End Date *</label>
+              <input type="date" id="modalEndDate" class="modal-input" required>
+            </div>
+          </div>
+
+          <div class="modal-grid-2">
+            <div>
+              <label class="modal-label">Capacity (Max Students)</label>
+              <input type="number" id="modalCapacity" class="modal-input" value="35" min="10" max="100">
+            </div>
+            <div>
+              <label class="modal-label">Current Status</label>
+              <select id="modalStatus" class="modal-input">
+                <option value="Active">Active</option>
+                <option value="Upcoming">Upcoming</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="modal-label">Assigned Mentor / Creator</label>
+            <input type="text" id="modalMentorName" class="modal-input" placeholder="e.g. Rohit Sharma, Arjun Mehta" value="Super Admin">
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeBatchModal()">Cancel</button>
+          <button type="submit" class="btn-primary" id="modalSubmitBtn">Save Batch</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= VIEW BATCH DETAILS MODAL ================= -->
+  <div class="modal-backdrop" id="viewBatchModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Batch Overview & Enrolled Students</h3>
+        <button class="modal-close" onclick="closeViewModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="viewModalBody">
+        <!-- Injected dynamically -->
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" onclick="closeViewModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    let batchesData = [];
+    let currentPage = 1;
+    let limit = 10;
+
+    // Default seeded batches matching reference screenshot
+    const DEFAULT_BATCHES = [
+      {
+        _id: "b1",
+        batchName: "Data Analytics - Aug 2026",
+        badgeText: "DA",
+        badgeColor: "#8b5cf6",
+        course: "Data Analytics",
+        startDate: "Aug 05, 2026",
+        endDate: "Nov 05, 2026",
+        enrolledStudents: 28,
+        capacity: 35,
+        status: "Active",
+        createdBy: {
+          name: "Rohit Sharma",
+          date: "Aug 01, 2026",
+          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b2",
+        batchName: "Digital Marketing - Aug 2026",
+        badgeText: "DM",
+        badgeColor: "#3b82f6",
+        course: "Digital Marketing",
+        startDate: "Aug 10, 2026",
+        endDate: "Nov 10, 2026",
+        enrolledStudents: 32,
+        capacity: 35,
+        status: "Active",
+        createdBy: {
+          name: "Priya Nair",
+          date: "Aug 02, 2026",
+          avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b3",
+        batchName: "Full Stack - Sep 2026",
+        badgeText: "FS",
+        badgeColor: "#6366f1",
+        course: "Full Stack Developer",
+        startDate: "Sep 01, 2026",
+        endDate: "Dec 01, 2026",
+        enrolledStudents: 25,
+        capacity: 35,
+        status: "Active",
+        createdBy: {
+          name: "Karan Mehta",
+          date: "Aug 15, 2026",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b4",
+        batchName: "Data Science - Aug 2026",
+        badgeText: "DS",
+        badgeColor: "#ef4444",
+        course: "Data Science",
+        startDate: "Aug 12, 2026",
+        endDate: "Nov 12, 2026",
+        enrolledStudents: 30,
+        capacity: 35,
+        status: "Active",
+        createdBy: {
+          name: "Sneha Reddy",
+          date: "Aug 05, 2026",
+          avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b5",
+        batchName: "AI / ML - Sep 2026",
+        badgeText: "AI",
+        badgeColor: "#06b6d4",
+        course: "AI / ML",
+        startDate: "Sep 05, 2026",
+        endDate: "Dec 05, 2026",
+        enrolledStudents: 18,
+        capacity: 30,
+        status: "Active",
+        createdBy: {
+          name: "Aman Verma",
+          date: "Aug 10, 2026",
+          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b6",
+        batchName: "HR Internship Batch 1",
+        badgeText: "HR",
+        badgeColor: "#ec4899",
+        course: "HR Management",
+        startDate: "Aug 20, 2026",
+        endDate: "Oct 20, 2026",
+        enrolledStudents: 20,
+        capacity: 25,
+        status: "Active",
+        createdBy: {
+          name: "Neha Gupta",
+          date: "Aug 18, 2026",
+          avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b7",
+        batchName: "Finance Analyst - Sep 2026",
+        badgeText: "FA",
+        badgeColor: "#a855f7",
+        course: "Finance Analyst",
+        startDate: "Sep 12, 2026",
+        endDate: "Dec 12, 2026",
+        enrolledStudents: 14,
+        capacity: 30,
+        status: "Upcoming",
+        createdBy: {
+          name: "Vikram Rao",
+          date: "Aug 25, 2026",
+          avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b8",
+        batchName: "UI/UX Design - Oct 2026",
+        badgeText: "UI",
+        badgeColor: "#f43f5e",
+        course: "UI/UX Design",
+        startDate: "Oct 01, 2026",
+        endDate: "Dec 31, 2026",
+        enrolledStudents: 8,
+        capacity: 30,
+        status: "Upcoming",
+        createdBy: {
+          name: "Ananya Singh",
+          date: "Aug 28, 2026",
+          avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b9",
+        batchName: "Digital Marketing - Jul 2026",
+        badgeText: "DM",
+        badgeColor: "#10b981",
+        course: "Digital Marketing",
+        startDate: "Jul 01, 2026",
+        endDate: "Sep 30, 2026",
+        enrolledStudents: 35,
+        capacity: 35,
+        status: "Completed",
+        createdBy: {
+          name: "Sahil Khan",
+          date: "Jul 01, 2026",
+          avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&auto=format&fit=crop&q=80"
+        }
+      },
+      {
+        _id: "b10",
+        batchName: "Full Stack - Jul 2026",
+        badgeText: "FS",
+        badgeColor: "#8b5cf6",
+        course: "Full Stack Developer",
+        startDate: "Jul 05, 2026",
+        endDate: "Sep 30, 2026",
+        enrolledStudents: 30,
+        capacity: 30,
+        status: "Completed",
+        createdBy: {
+          name: "Kavya Iyer",
+          date: "Jul 05, 2026",
+          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+        }
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Admin session display
+      const userSessionStr = localStorage.getItem('edurup_user_session') || localStorage.getItem('edurup_admin_session');
+      if (userSessionStr) {
+        try {
+          const user = JSON.parse(userSessionStr);
+          if (user.fullName) {
+            document.getElementById('adminNameDisplay').innerText = user.fullName;
+          }
+        } catch(e) {}
+      }
+
+      loadBatches();
+    });
+
+    function toggleNavGroup(id) {
+      const g = document.getElementById(id);
+      if (g) g.classList.toggle('open');
+    }
+
+    function toggleProfileDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('profileDropdown').classList.toggle('show');
+    }
+
+    document.addEventListener('click', () => {
+      const dd = document.getElementById('profileDropdown');
+      if (dd && dd.classList.contains('show')) dd.classList.remove('show');
+    });
+
+    function handleLogout() {
+      localStorage.removeItem('edurup_jwt_token');
+      localStorage.removeItem('edurup_user_session');
+      localStorage.removeItem('edurup_admin_session');
+      alert('You have logged out from the admin panel.');
+      window.location.href = 'login.html';
+    }
+
+    // Load Batches from MongoDB
+    async function loadBatches() {
+      const q = document.getElementById('batchSearchInput').value.trim();
+      const course = document.getElementById('filterCourse').value;
+      const status = document.getElementById('filterStatus').value;
+
+      const params = new URLSearchParams({
+        page: currentPage,
+        limit: limit
+      });
+
+      if (q) params.append('q', q);
+      if (course && course !== 'All Courses') params.append('course', course);
+      if (status && status !== 'All Status') params.append('status', status);
+
+      try {
+        const res = await fetch(`/api/admin/batches?${params.toString()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            if (data.batches && data.batches.length > 0) {
+              batchesData = sortMatchingScreenshot(data.batches);
+            } else {
+              batchesData = filterLocalBatches(DEFAULT_BATCHES);
+            }
+
+            if (data.kpis) {
+              updateKpis(data.kpis);
+            }
+            renderTable();
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('API connection notice:', err.message);
+      }
+
+      // Fallback
+      batchesData = filterLocalBatches(DEFAULT_BATCHES);
+      renderTable();
+    }
+
+    function sortMatchingScreenshot(list) {
+      const order = [
+        "Data Analytics - Aug 2026",
+        "Digital Marketing - Aug 2026",
+        "Full Stack - Sep 2026",
+        "Data Science - Aug 2026",
+        "AI / ML - Sep 2026",
+        "HR Internship Batch 1",
+        "Finance Analyst - Sep 2026",
+        "UI/UX Design - Oct 2026",
+        "Digital Marketing - Jul 2026",
+        "Full Stack - Jul 2026"
+      ];
+
+      return [...list].sort((a, b) => {
+        const idxA = order.indexOf(a.batchName);
+        const idxB = order.indexOf(b.batchName);
+        if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+        if (idxA !== -1) return -1;
+        if (idxB !== -1) return 1;
+        return 0;
+      });
+    }
+
+    function filterLocalBatches(list) {
+      const q = document.getElementById('batchSearchInput').value.toLowerCase().trim();
+      const course = document.getElementById('filterCourse').value;
+      const status = document.getElementById('filterStatus').value;
+
+      return list.filter(b => {
+        if (q && !(b.batchName.toLowerCase().includes(q) || b.course.toLowerCase().includes(q))) return false;
+        if (course !== 'All Courses' && b.course !== course) return false;
+        if (status !== 'All Status' && b.status !== status) return false;
+        return true;
+      });
+    }
+
+    function updateKpis(k) {
+      if (k.totalBatches) document.getElementById('kpiTotalBatches').innerText = k.totalBatches.count;
+      if (k.activeBatches) document.getElementById('kpiActiveBatches').innerText = k.activeBatches.count;
+      if (k.upcomingBatches) document.getElementById('kpiUpcomingBatches').innerText = k.upcomingBatches.count;
+      if (k.completedBatches) document.getElementById('kpiCompletedBatches').innerText = k.completedBatches.count;
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('batchesTbody');
+      tbody.innerHTML = '';
+
+      if (batchesData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:30px;color:#94a3b8;">No matching student batches found.</td></tr>`;
+        return;
+      }
+
+      batchesData.forEach((b, index) => {
+        const num = (currentPage - 1) * limit + index + 1;
+
+        // Progress percentage
+        const percent = Math.min(100, Math.round(((b.enrolledStudents || 0) / (b.capacity || 35)) * 100));
+
+        // Status badge
+        let statusClass = 'status-active';
+        if (b.status === 'Upcoming') statusClass = 'status-upcoming';
+        else if (b.status === 'Completed') statusClass = 'status-completed';
+
+        // Badge color
+        const badgeColor = b.badgeColor || '#8b5cf6';
+        const badgeText = b.badgeText || b.batchName.slice(0, 2).toUpperCase();
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${num}</td>
+          <td>
+            <div class="batch-name-cell">
+              <div class="batch-badge" style="background: ${badgeColor};">${badgeText}</div>
+              <span class="batch-title">${b.batchName}</span>
+            </div>
+          </td>
+          <td>${b.course}</td>
+          <td>${b.startDate}</td>
+          <td>${b.endDate}</td>
+          <td>
+            <div class="progress-cell">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: ${percent}%;"></div>
+              </div>
+              <span class="progress-text">${b.enrolledStudents} / ${b.capacity}</span>
+            </div>
+          </td>
+          <td><span class="status-pill ${statusClass}">${b.status}</span></td>
+          <td>
+            <div class="creator-cell">
+              <img src="${b.createdBy?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'}" class="creator-avatar" alt="${b.createdBy?.name || 'Admin'}">
+              <div class="creator-info">
+                <span class="creator-name">${b.createdBy?.name || 'Super Admin'}</span>
+                <span class="creator-date">${b.createdBy?.date || 'Aug 01, 2026'}</span>
+              </div>
+            </div>
+          </td>
+          <td style="text-align: right; padding-right: 18px;">
+            <div class="action-icons-wrap" style="justify-content: flex-end;">
+              <button type="button" class="btn-row-action" title="View Batch" onclick="viewBatch('${b._id}')"><i class="fa-regular fa-eye"></i></button>
+              <button type="button" class="btn-row-action" title="Edit Batch" onclick="openEditBatchModal('${b._id}')"><i class="fa-solid fa-pencil"></i></button>
+              <button type="button" class="btn-row-action" title="More Options" onclick="openBatchMoreMenu('${b._id}', event)"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Live search
+    let searchDebounce;
+    function handleSearchInput() {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(() => {
+        currentPage = 1;
+        loadBatches();
+      }, 300);
+    }
+
+    function handleTopSearch(val) {
+      document.getElementById('batchSearchInput').value = val;
+      handleSearchInput();
+    }
+
+    function triggerFilter() {
+      currentPage = 1;
+      loadBatches();
+    }
+
+    function resetFilters() {
+      document.getElementById('batchSearchInput').value = '';
+      document.getElementById('filterCourse').value = 'All Courses';
+      document.getElementById('filterStatus').value = 'All Status';
+      document.getElementById('filterStartDate').value = '';
+      document.getElementById('filterEndDate').value = '';
+      currentPage = 1;
+      loadBatches();
+    }
+
+    function changeLimit(val) {
+      limit = parseInt(val);
+      currentPage = 1;
+      loadBatches();
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        loadBatches();
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < 3) {
+        currentPage++;
+        loadBatches();
+      }
+    }
+
+    function goToPage(p) {
+      currentPage = p;
+      loadBatches();
+    }
+
+    // Modal Operations: Create & Edit Batch
+    function openCreateBatchModal() {
+      document.getElementById('batchModalTitle').innerText = 'Create Batch';
+      document.getElementById('editBatchId').value = '';
+      document.getElementById('modalBatchName').value = '';
+      document.getElementById('modalBatchCode').value = '';
+      document.getElementById('modalCourse').value = 'Full Stack Developer';
+      document.getElementById('modalStartDate').value = '2026-11-01';
+      document.getElementById('modalEndDate').value = '2027-02-01';
+      document.getElementById('modalCapacity').value = '35';
+      document.getElementById('modalStatus').value = 'Upcoming';
+      document.getElementById('modalMentorName').value = 'Super Admin';
+      document.getElementById('modalSubmitBtn').innerText = 'Create Batch';
+      document.getElementById('batchModal').classList.add('show');
+    }
+
+    function openEditBatchModal(id) {
+      const b = batchesData.find(item => item._id === id);
+      if (!b) return;
+
+      document.getElementById('batchModalTitle').innerText = 'Edit Batch';
+      document.getElementById('editBatchId').value = id;
+      document.getElementById('modalBatchName').value = b.batchName;
+      document.getElementById('modalBatchCode').value = b.batchCode || '';
+      document.getElementById('modalCourse').value = b.course;
+      document.getElementById('modalCapacity').value = b.capacity || 35;
+      document.getElementById('modalStatus').value = b.status || 'Active';
+      document.getElementById('modalMentorName').value = b.createdBy?.name || 'Super Admin';
+      document.getElementById('modalSubmitBtn').innerText = 'Save Changes';
+      document.getElementById('batchModal').classList.add('show');
+    }
+
+    function closeBatchModal() {
+      document.getElementById('batchModal').classList.remove('show');
+    }
+
+    async function handleSaveBatch(e) {
+      e.preventDefault();
+      const id = document.getElementById('editBatchId').value;
+      const isEdit = !!id;
+
+      const payload = {
+        batchName: document.getElementById('modalBatchName').value.trim(),
+        batchCode: document.getElementById('modalBatchCode').value.trim(),
+        course: document.getElementById('modalCourse').value,
+        startDate: document.getElementById('modalStartDate').value || 'Nov 01, 2026',
+        endDate: document.getElementById('modalEndDate').value || 'Feb 01, 2027',
+        capacity: parseInt(document.getElementById('modalCapacity').value) || 35,
+        status: document.getElementById('modalStatus').value,
+        mentorName: document.getElementById('modalMentorName').value.trim() || 'Super Admin'
+      };
+
+      try {
+        const url = isEdit ? `/api/admin/batches/${id}` : '/api/admin/batches';
+        const method = isEdit ? 'PUT' : 'POST';
+
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const json = await res.json();
+        if (json.success) {
+          alert(`✅ Batch "${payload.batchName}" ${isEdit ? 'updated' : 'created'} successfully!`);
+          closeBatchModal();
+          loadBatches();
+        } else {
+          alert('Error: ' + (json.message || 'Operation failed.'));
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Server Connection Error: Could not save batch.');
+      }
+    }
+
+    // View Batch Modal
+    function viewBatch(id) {
+      const b = batchesData.find(item => item._id === id);
+      if (!b) return;
+
+      const percent = Math.min(100, Math.round(((b.enrolledStudents || 0) / (b.capacity || 35)) * 100));
+
+      const body = document.getElementById('viewModalBody');
+      body.innerHTML = `
+        <div style="display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid #f1f5f9;">
+          <div class="batch-badge" style="background: ${b.badgeColor || '#8b5cf6'}; width:42px; height:42px; font-size:16px;">${b.badgeText || 'BT'}</div>
+          <div>
+            <h2 style="font-size:18px;font-weight:800;color:#0f172a;">${b.batchName}</h2>
+            <p style="font-size:13px;color:#64748b;">${b.course} • Code: ${b.batchCode || 'N/A'}</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+          <div>
+            <strong style="font-size:11.5px;color:#94a3b8;display:block;">TIMELINE</strong>
+            <span style="font-size:13.5px;color:#1e293b;font-weight:600;">${b.startDate} &rarr; ${b.endDate}</span>
+          </div>
+          <div>
+            <strong style="font-size:11.5px;color:#94a3b8;display:block;">BATCH STATUS</strong>
+            <span class="status-pill status-${b.status?.toLowerCase()}">${b.status}</span>
+          </div>
+          <div>
+            <strong style="font-size:11.5px;color:#94a3b8;display:block;">ENROLLMENT PROGRESS</strong>
+            <span style="font-size:13.5px;color:#1e293b;font-weight:700;">${b.enrolledStudents} / ${b.capacity} (${percent}%)</span>
+          </div>
+          <div>
+            <strong style="font-size:11.5px;color:#94a3b8;display:block;">MENTOR / CREATED BY</strong>
+            <span style="font-size:13.5px;color:#1e293b;font-weight:600;">${b.createdBy?.name || 'Super Admin'} (${b.createdBy?.date || 'Aug 2026'})</span>
+          </div>
+        </div>
+
+        <div style="background:#f8fafc;padding:14px;border-radius:10px;margin-top:16px;">
+          <strong style="font-size:12px;color:#334155;display:block;margin-bottom:6px;">Quick Actions for this Batch:</strong>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="admin-students.html?batch=${encodeURIComponent(b.batchName)}" class="btn-secondary" style="text-decoration:none;font-size:12px;">View All Enrolled Students &rarr;</a>
+            <button type="button" class="btn-secondary" style="font-size:12px;" onclick="alert('Batch curriculum: 12 Modules, 24 Live Sessions')">View Curriculum</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('viewBatchModal').classList.add('show');
+    }
+
+    function closeViewModal() {
+      document.getElementById('viewBatchModal').classList.remove('show');
+    }
+
+    // Row More Options Menu
+    function openBatchMoreMenu(id, e) {
+      e.stopPropagation();
+      const choice = prompt(`Select action for batch:\n1. Delete Batch\n2. Mark as Completed\n3. Mark as Active\n\nEnter number (1-3):`);
+      if (choice === '1') {
+        if (confirm('Are you sure you want to delete this batch?')) {
+          deleteBatch(id);
+        }
+      } else if (choice === '2') {
+        updateBatchStatus(id, 'Completed');
+      } else if (choice === '3') {
+        updateBatchStatus(id, 'Active');
+      }
+    }
+
+    async function deleteBatch(id) {
+      try {
+        const res = await fetch(`/api/admin/batches/${id}`, { method: 'DELETE' });
+        const json = await res.json();
+        alert(json.message || 'Batch deleted.');
+        loadBatches();
+      } catch (err) {
+        alert('Delete failed.');
+      }
+    }
+
+    async function updateBatchStatus(id, status) {
+      try {
+        await fetch(`/api/admin/batches/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        alert(`Batch marked as ${status}!`);
+        loadBatches();
+      } catch (err) {
+        alert('Update failed.');
+      }
+    }
+  </script>
+</body>
+</html>
