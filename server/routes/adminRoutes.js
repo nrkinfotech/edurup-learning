@@ -6,6 +6,7 @@ const OngoingInternship = require('../models/OngoingInternship');
 const StudentRecord = require('../models/StudentRecord');
 const Batch = require('../models/Batch');
 const Course = require('../models/Course');
+const Module = require('../models/Module');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -895,6 +896,233 @@ router.delete('/courses/:id', async (req, res) => {
     });
   } catch (err) {
     console.error('Delete Course Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/modules
+// @desc    Get all modules and lessons for a course
+router.get('/modules', async (req, res) => {
+  try {
+    const { course = 'Digital Marketing' } = req.query;
+
+    const courseDoc = await Course.findOne({ courseTitle: course });
+    const modules = await Module.find({ courseTitle: course }).sort({ moduleNumber: 1 });
+
+    const courseInfo = courseDoc ? {
+      title: courseDoc.courseTitle,
+      shortDescription: courseDoc.shortDescription,
+      duration: courseDoc.duration,
+      fee: `₹${(courseDoc.fee || 40000).toLocaleString('en-IN')}`,
+      modulesCount: modules.length || 8,
+      thumbnail: courseDoc.thumbnail || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&auto=format&fit=crop&q=80'
+    } : {
+      title: course,
+      shortDescription: 'Learn SEO, Google Ads, Social Media Marketing and more.',
+      duration: '4 Months',
+      fee: '₹40,000',
+      modulesCount: modules.length || 8,
+      thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&auto=format&fit=crop&q=80'
+    };
+
+    return res.status(200).json({
+      success: true,
+      course: courseInfo,
+      modules
+    });
+  } catch (err) {
+    console.error('Get Modules Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/modules
+// @desc    Add a new module to a course
+router.post('/modules', async (req, res) => {
+  try {
+    const { courseTitle, moduleTitle, moduleNumber } = req.body;
+    if (!courseTitle || !moduleTitle) {
+      return res.status(400).json({ success: false, message: 'Course Title and Module Title are required' });
+    }
+
+    const count = await Module.countDocuments({ courseTitle });
+    const num = moduleNumber || count + 1;
+
+    const newModule = await Module.create({
+      courseTitle,
+      moduleNumber: num,
+      moduleTitle,
+      lessonsCount: 0,
+      totalDuration: '0h 00m',
+      status: 'Published',
+      lessons: []
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: 'Module created successfully',
+      module: newModule
+    });
+  } catch (err) {
+    console.error('Create Module Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/modules/:id
+// @desc    Update a module title or status
+router.put('/modules/:id', async (req, res) => {
+  try {
+    const updated = await Module.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updated) {
+      return res.status(404).json({ success: false, message: 'Module not found' });
+    }
+    return res.status(200).json({ success: true, message: 'Module updated successfully', module: updated });
+  } catch (err) {
+    console.error('Update Module Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/modules/:id
+// @desc    Delete a module
+router.delete('/modules/:id', async (req, res) => {
+  try {
+    const deleted = await Module.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: 'Module not found' });
+    }
+    return res.status(200).json({ success: true, message: 'Module deleted successfully' });
+  } catch (err) {
+    console.error('Delete Module Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/modules/:id/lessons
+// @desc    Add a lesson to a module
+router.post('/modules/:id/lessons', async (req, res) => {
+  try {
+    const mod = await Module.findById(req.params.id);
+    if (!mod) {
+      return res.status(404).json({ success: false, message: 'Module not found' });
+    }
+
+    const {
+      lessonTitle,
+      type = 'Video',
+      duration = '15 min',
+      durationMinutes = 15,
+      description = '',
+      videoUrl = '',
+      status = 'Published',
+      isAvailable = true,
+      isFreePreview = false
+    } = req.body;
+
+    const lessonNumber = mod.lessons.length + 1;
+    const newLesson = {
+      lessonNumber,
+      lessonTitle,
+      type,
+      duration: duration.includes('min') ? duration : `${duration} min`,
+      durationMinutes: parseInt(durationMinutes) || 15,
+      description,
+      videoUrl,
+      status,
+      isAvailable,
+      isFreePreview
+    };
+
+    mod.lessons.push(newLesson);
+    mod.lessonsCount = mod.lessons.length;
+
+    // Recalculate total duration
+    const totalMins = mod.lessons.reduce((acc, l) => acc + (l.durationMinutes || 15), 0);
+    const hrs = Math.floor(totalMins / 60);
+    const mins = totalMins % 60;
+    mod.totalDuration = `${hrs}h ${mins.toString().padStart(2, '0')}m`;
+
+    await mod.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Lesson added successfully',
+      module: mod
+    });
+  } catch (err) {
+    console.error('Add Lesson Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/modules/:id/lessons/:lessonId
+// @desc    Update a lesson inside a module
+router.put('/modules/:id/lessons/:lessonId', async (req, res) => {
+  try {
+    const mod = await Module.findById(req.params.id);
+    if (!mod) {
+      return res.status(404).json({ success: false, message: 'Module not found' });
+    }
+
+    const lesson = mod.lessons.id(req.params.lessonId);
+    if (!lesson) {
+      return res.status(404).json({ success: false, message: 'Lesson not found' });
+    }
+
+    Object.assign(lesson, req.body);
+    if (req.body.durationMinutes) {
+      lesson.duration = `${req.body.durationMinutes} min`;
+    }
+
+    const totalMins = mod.lessons.reduce((acc, l) => acc + (l.durationMinutes || 15), 0);
+    const hrs = Math.floor(totalMins / 60);
+    const mins = totalMins % 60;
+    mod.totalDuration = `${hrs}h ${mins.toString().padStart(2, '0')}m`;
+
+    await mod.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Lesson updated successfully',
+      module: mod
+    });
+  } catch (err) {
+    console.error('Update Lesson Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/modules/:id/lessons/:lessonId
+// @desc    Delete a lesson from a module
+router.delete('/modules/:id/lessons/:lessonId', async (req, res) => {
+  try {
+    const mod = await Module.findById(req.params.id);
+    if (!mod) {
+      return res.status(404).json({ success: false, message: 'Module not found' });
+    }
+
+    mod.lessons = mod.lessons.filter(l => l._id.toString() !== req.params.lessonId);
+    mod.lessonsCount = mod.lessons.length;
+
+    const totalMins = mod.lessons.reduce((acc, l) => acc + (l.durationMinutes || 15), 0);
+    const hrs = Math.floor(totalMins / 60);
+    const mins = totalMins % 60;
+    mod.totalDuration = `${hrs}h ${mins.toString().padStart(2, '0')}m`;
+
+    await mod.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Lesson deleted successfully',
+      module: mod
+    });
+  } catch (err) {
+    console.error('Delete Lesson Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
