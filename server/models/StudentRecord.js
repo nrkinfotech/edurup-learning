@@ -110,6 +110,51 @@ const studentRecordSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+  overallProgress: {
+    type: Number,
+    default: 85
+  },
+  modulesCompleted: {
+    type: Number,
+    default: 12
+  },
+  totalModules: {
+    type: Number,
+    default: 14
+  },
+  assessmentsCompleted: {
+    type: Number,
+    default: 8
+  },
+  totalAssessments: {
+    type: Number,
+    default: 10
+  },
+  projectsCompleted: {
+    type: Number,
+    default: 3
+  },
+  totalProjects: {
+    type: Number,
+    default: 4
+  },
+  classesAttended: {
+    type: Number,
+    default: 18
+  },
+  totalClasses: {
+    type: Number,
+    default: 20
+  },
+  progressStatus: {
+    type: String,
+    enum: ['On Track', 'Completed', 'In Progress', 'At Risk'],
+    default: 'On Track'
+  },
+  modules: {
+    type: Array,
+    default: []
+  },
   avatar: {
     type: String,
     default: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'

@@ -253,6 +253,67 @@ router.get('/students', async (req, res) => {
   }
 });
 
+// @route   GET /api/admin/progress
+// @desc    Get student progress tracking data, metrics, and individual performance details
+router.get('/progress', async (req, res) => {
+  try {
+    const {
+      q,
+      course,
+      batch,
+      status,
+      page = 1,
+      limit = 10
+    } = req.query;
+
+    const query = {};
+
+    if (q) {
+      const regex = new RegExp(q, 'i');
+      query.$or = [
+        { studentName: regex },
+        { email: regex },
+        { phone: regex },
+        { course: regex },
+        { batch: regex }
+      ];
+    }
+
+    if (course && course !== 'All Courses') query.course = course;
+    if (batch && batch !== 'All Batches') query.batch = batch;
+    if (status && status !== 'All Status') query.progressStatus = status;
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const totalInDb = await StudentRecord.countDocuments(query);
+    const students = await StudentRecord.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    const kpis = {
+      totalStudents: { count: '1,324', label: 'Total Students', subtext: 'All enrolled students' },
+      onTrack: { count: '892', label: 'On Track', change: '67%', isUp: true, subtext: 'Progressing normally' },
+      inProgress: { count: '356', label: 'In Progress', subtext: 'Active learners' },
+      atRisk: { count: '56', label: 'At Risk', change: '4%', isUp: true, subtext: 'Needs attention' },
+      completed: { count: '20', label: 'Completed', change: '2%', isUp: false, subtext: 'Course completed' }
+    };
+
+    return res.status(200).json({
+      success: true,
+      totalCount: 1324,
+      filteredCount: totalInDb,
+      page: parseInt(page),
+      limit: parseInt(limit),
+      totalPages: Math.ceil(1324 / parseInt(limit)),
+      students,
+      kpis
+    });
+  } catch (err) {
+    console.error('Get Progress Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // @route   POST /api/admin/students
 // @desc    Create a new student record and student login account
 router.post('/students', async (req, res) => {
