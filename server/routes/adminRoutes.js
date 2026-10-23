@@ -8,6 +8,7 @@ const Batch = require('../models/Batch');
 const Course = require('../models/Course');
 const Module = require('../models/Module');
 const RecordedClass = require('../models/RecordedClass');
+const Quiz = require('../models/Quiz');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -1401,5 +1402,259 @@ router.post('/recorded-classes/bulk', async (req, res) => {
   }
 });
 
+// ==========================================
+// QUIZZES & ASSESSMENTS ROUTES
+// ==========================================
+
+// @route   GET /api/admin/quizzes
+// @desc    Get all quizzes for course with questions summary and metadata
+router.get('/quizzes', async (req, res) => {
+  try {
+    const courseTitle = req.query.course || 'Digital Marketing';
+
+    // Fetch Course doc
+    const courseDoc = await Course.findOne({
+      courseTitle: new RegExp(`^${courseTitle}$`, 'i')
+    });
+
+    const courseInfo = {
+      title: courseDoc ? courseDoc.courseTitle : courseTitle,
+      duration: courseDoc ? courseDoc.duration : '4 Months',
+      fee: courseDoc ? (courseDoc.fee ? `₹${courseDoc.fee.toLocaleString('en-IN')}` : '₹40,000') : '₹40,000',
+      modules: courseDoc ? courseDoc.modulesCount || 8 : 8,
+      lessons: 42,
+      status: courseDoc ? courseDoc.status : 'Active',
+      thumbnail: courseDoc ? courseDoc.thumbnail : 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&auto=format&fit=crop&q=80'
+    };
+
+    const quizzes = await Quiz.find({
+      courseTitle: new RegExp(`^${courseTitle}$`, 'i')
+    }).sort({ moduleNumber: 1, createdAt: 1 });
+
+    const totalQuestions = quizzes.reduce((sum, q) => sum + (q.questions ? q.questions.length : 0), 0);
+    const publishedQuizzes = quizzes.filter(q => q.status === 'Published').length;
+
+    return res.status(200).json({
+      success: true,
+      courseInfo,
+      quizzes,
+      kpis: {
+        totalQuizzes: quizzes.length,
+        totalQuestions,
+        publishedQuizzes,
+        avgPassRate: '72%'
+      }
+    });
+  } catch (err) {
+    console.error('Fetch Quizzes Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/quizzes/:id
+// @desc    Get single quiz by id
+router.get('/quizzes/:id', async (req, res) => {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+    if (!quiz) {
+      return res.status(404).json({ success: false, message: 'Quiz not found' });
+    }
+    return res.status(200).json({ success: true, quiz });
+  } catch (err) {
+    console.error('Get Quiz Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/quizzes
+// @desc    Create a new quiz
+router.post('/quizzes', async (req, res) => {
+  try {
+    const {
+      courseTitle,
+      moduleNumber,
+      moduleName,
+      title,
+      description,
+      durationMinutes,
+      passingPercentage,
+      status,
+      questions
+    } = req.body;
+
+    const newQuiz = new Quiz({
+      courseTitle: courseTitle || 'Digital Marketing',
+      moduleNumber: parseInt(moduleNumber) || 1,
+      moduleName: moduleName || `Module ${moduleNumber || 1}`,
+      title: title || 'New Quiz Assessment',
+      description: description || 'Add quiz details and create questions for this quiz.',
+      durationMinutes: parseInt(durationMinutes) || 30,
+      passingPercentage: parseInt(passingPercentage) || 70,
+      status: status || 'Published',
+      questions: questions || []
+    });
+
+    if (newQuiz.questions && newQuiz.questions.length > 0) {
+      newQuiz.totalMarks = newQuiz.questions.reduce((sum, q) => sum + (q.marks || 1), 0);
+    }
+
+    await newQuiz.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Quiz created successfully',
+      quiz: newQuiz
+    });
+  } catch (err) {
+    console.error('Create Quiz Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/quizzes/:id
+// @desc    Update a quiz
+router.put('/quizzes/:id', async (req, res) => {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+    if (!quiz) {
+      return res.status(404).json({ success: false, message: 'Quiz not found' });
+    }
+
+    const fields = ['title', 'description', 'durationMinutes', 'passingPercentage', 'status', 'moduleNumber', 'moduleName', 'attemptsAllowed', 'questions'];
+    fields.forEach(f => {
+      if (req.body[f] !== undefined) quiz[f] = req.body[f];
+    });
+
+    if (quiz.questions && quiz.questions.length > 0) {
+      quiz.totalMarks = quiz.questions.reduce((sum, q) => sum + (q.marks || 1), 0);
+    }
+
+    await quiz.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Quiz updated successfully',
+      quiz
+    });
+  } catch (err) {
+    console.error('Update Quiz Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/quizzes/:id
+// @desc    Delete a quiz
+router.delete('/quizzes/:id', async (req, res) => {
+  try {
+    const quiz = await Quiz.findByIdAndDelete(req.params.id);
+    if (!quiz) {
+      return res.status(404).json({ success: false, message: 'Quiz not found' });
+    }
+    return res.status(200).json({ success: true, message: 'Quiz deleted successfully' });
+  } catch (err) {
+    console.error('Delete Quiz Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/quizzes/:id/questions
+// @desc    Add question to quiz
+router.post('/quizzes/:id/questions', async (req, res) => {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+    if (!quiz) {
+      return res.status(404).json({ success: false, message: 'Quiz not found' });
+    }
+
+    const { questionType, questionText, options, correctAnswer, marks, explanation } = req.body;
+    const nextQNum = (quiz.questions ? quiz.questions.length : 0) + 1;
+
+    quiz.questions.push({
+      questionNumber: nextQNum,
+      questionType: questionType || 'Multiple Choice',
+      questionText: questionText || 'Untitled Question',
+      options: options || [],
+      correctAnswer: correctAnswer || '',
+      marks: parseInt(marks) || 1,
+      explanation: explanation || ''
+    });
+
+    quiz.totalMarks = quiz.questions.reduce((sum, q) => sum + (q.marks || 1), 0);
+    await quiz.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Question added successfully',
+      quiz
+    });
+  } catch (err) {
+    console.error('Add Question Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/quizzes/:id/questions/:qId
+// @desc    Update question in quiz
+router.put('/quizzes/:id/questions/:qId', async (req, res) => {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+    if (!quiz) {
+      return res.status(404).json({ success: false, message: 'Quiz not found' });
+    }
+
+    const q = quiz.questions.id(req.params.qId);
+    if (!q) {
+      return res.status(404).json({ success: false, message: 'Question not found' });
+    }
+
+    const fields = ['questionType', 'questionText', 'options', 'correctAnswer', 'marks', 'explanation'];
+    fields.forEach(f => {
+      if (req.body[f] !== undefined) q[f] = req.body[f];
+    });
+
+    quiz.totalMarks = quiz.questions.reduce((sum, qItem) => sum + (qItem.marks || 1), 0);
+    await quiz.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Question updated successfully',
+      quiz
+    });
+  } catch (err) {
+    console.error('Update Question Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/quizzes/:id/questions/:qId
+// @desc    Delete question from quiz
+router.delete('/api/admin/quizzes/:id/questions/:qId', async (req, res) => {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+    if (!quiz) {
+      return res.status(404).json({ success: false, message: 'Quiz not found' });
+    }
+
+    quiz.questions = quiz.questions.filter(q => q._id.toString() !== req.params.qId);
+    // Re-index questionNumber
+    quiz.questions.forEach((q, idx) => {
+      q.questionNumber = idx + 1;
+    });
+
+    quiz.totalMarks = quiz.questions.reduce((sum, qItem) => sum + (qItem.marks || 1), 0);
+    await quiz.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Question deleted successfully',
+      quiz
+    });
+  } catch (err) {
+    console.error('Delete Question Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;
+
 
