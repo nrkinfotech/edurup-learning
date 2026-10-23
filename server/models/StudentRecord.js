@@ -158,6 +158,31 @@ const studentRecordSchema = new mongoose.Schema({
   avatar: {
     type: String,
     default: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'
+  },
+  attendance: {
+    type: Number,
+    default: 90
+  },
+  status: {
+    type: String,
+    enum: ['Active', 'Dropped', 'Completed'],
+    default: 'Active'
+  },
+  dropoutReason: {
+    type: String,
+    default: ''
+  },
+  droppedDate: {
+    type: String,
+    default: ''
+  },
+  rejoined: {
+    type: Boolean,
+    default: false
+  },
+  rejoinedDate: {
+    type: String,
+    default: ''
   }
 }, {
   timestamps: true
