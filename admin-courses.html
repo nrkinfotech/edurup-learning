@@ -1329,7 +1329,7 @@
         <div class="nav-sublist">
           <a href="admin-courses.html" class="nav-subitem active-subitem">Courses</a>
           <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
-          <a href="recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
           <a href="quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
           <a href="resources.html" class="nav-subitem">Learning Resources</a>
         </div>
@@ -1732,6 +1732,7 @@
   <div class="floating-row-menu" id="floatingRowMenu">
     <div class="floating-menu-item" onclick="handleRowAction('view')"><i class="fa-solid fa-eye"></i> View Details</div>
     <div class="floating-menu-item" onclick="handleRowAction('modules')"><i class="fa-solid fa-layer-group"></i> Manage Modules</div>
+    <div class="floating-menu-item" onclick="handleRowAction('recordedClasses')"><i class="fa-solid fa-circle-play"></i> Recorded Classes</div>
     <div class="floating-menu-item" onclick="handleRowAction('edit')"><i class="fa-solid fa-pen-to-square"></i> Edit Course</div>
     <div class="floating-menu-item" onclick="handleRowAction('toggleStatus')"><i class="fa-solid fa-power-off"></i> Toggle Status</div>
     <div class="floating-menu-item danger" onclick="handleRowAction('delete')"><i class="fa-solid fa-trash"></i> Delete Course</div>
@@ -2238,6 +2239,8 @@
         viewCourseDetails(idx);
       } else if (action === 'modules') {
         window.location.href = `admin-modules.html?course=${encodeURIComponent(activeActionCourse.courseTitle)}`;
+      } else if (action === 'recordedClasses') {
+        window.location.href = `admin-recorded-classes.html?course=${encodeURIComponent(activeActionCourse.courseTitle)}`;
       } else if (action === 'edit') {
         editCourse(idx);
       } else if (action === 'toggleStatus') {

@@ -7,6 +7,7 @@ const StudentRecord = require('../models/StudentRecord');
 const Batch = require('../models/Batch');
 const Course = require('../models/Course');
 const Module = require('../models/Module');
+const RecordedClass = require('../models/RecordedClass');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -1127,4 +1128,278 @@ router.delete('/modules/:id/lessons/:lessonId', async (req, res) => {
   }
 });
 
+// ==========================================
+// RECORDED CLASSES MANAGEMENT ROUTES
+// ==========================================
+
+// @route   GET /api/admin/recorded-classes
+// @desc    Get recorded classes with filters, KPI counters, and pagination
+router.get('/recorded-classes', async (req, res) => {
+  try {
+    const courseTitle = req.query.course || 'Digital Marketing';
+    const { module, status, type, tab, search } = req.query;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 8;
+
+    // Fetch Course info
+    const courseDoc = await Course.findOne({
+      courseTitle: new RegExp(`^${courseTitle}$`, 'i')
+    });
+
+    const courseInfo = {
+      title: courseDoc ? courseDoc.courseTitle : courseTitle,
+      shortDescription: courseDoc ? courseDoc.shortDescription : 'Learn SEO, Google Ads, Social Media Marketing and more.',
+      duration: courseDoc ? courseDoc.duration : '4 Months',
+      fee: courseDoc ? (courseDoc.fee ? `₹${courseDoc.fee.toLocaleString('en-IN')}` : '₹40,000') : '₹40,000',
+      modules: 42,
+      status: courseDoc ? courseDoc.status : 'Active',
+      thumbnail: courseDoc ? courseDoc.thumbnail : 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&auto=format&fit=crop&q=80'
+    };
+
+    // Calculate Global KPIs for this course
+    const allCourseClasses = await RecordedClass.find({
+      courseTitle: new RegExp(`^${courseTitle}$`, 'i')
+    });
+
+    const totalClasses = allCourseClasses.length;
+    const published = allCourseClasses.filter(c => c.status === 'Published').length;
+    const drafts = allCourseClasses.filter(c => c.status === 'Draft').length;
+    const totalStorageMB = allCourseClasses.reduce((sum, c) => sum + (c.fileSizeMB || 28), 0);
+    const totalStorageGB = (totalStorageMB / 1024).toFixed(1);
+
+    const kpis = {
+      totalClasses: totalClasses || 42,
+      published: published || 38,
+      drafts: drafts || 4,
+      totalStorage: `${totalStorageGB > 0 ? totalStorageGB : '1.2'} GB`
+    };
+
+    courseInfo.modules = totalClasses || 42;
+
+    // Build filter query
+    const filter = {
+      courseTitle: new RegExp(`^${courseTitle}$`, 'i')
+    };
+
+    if (module && module !== 'All' && module !== 'All Modules') {
+      const modNumMatch = module.match(/\d+/);
+      if (modNumMatch) {
+        filter.moduleNumber = parseInt(modNumMatch[0]);
+      } else {
+        filter.moduleName = module;
+      }
+    }
+
+    if (status && status !== 'All' && status !== 'All Status') {
+      filter.status = status;
+    }
+
+    if (type && type !== 'All' && type !== 'All Types') {
+      filter.type = type;
+    }
+
+    if (tab === 'Drafts') {
+      filter.status = 'Draft';
+    }
+
+    if (search && search.trim()) {
+      const q = search.trim();
+      filter.$or = [
+        { classTitle: { $regex: q, $options: 'i' } },
+        { moduleName: { $regex: q, $options: 'i' } },
+        { description: { $regex: q, $options: 'i' } }
+      ];
+    }
+
+    const total = await RecordedClass.countDocuments(filter);
+    const classes = await RecordedClass.find(filter)
+      .sort({ classNumber: 1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    // Get available distinct modules
+    const distinctModules = await RecordedClass.distinct('moduleName', {
+      courseTitle: new RegExp(`^${courseTitle}$`, 'i')
+    });
+
+    // Also fetch modules from Module collection if available
+    const dbModules = await Module.find({
+      courseTitle: new RegExp(`^${courseTitle}$`, 'i')
+    }).sort({ moduleNumber: 1 });
+
+    const availableModules = dbModules.length > 0 
+      ? dbModules.map(m => ({ moduleNumber: m.moduleNumber, moduleTitle: m.moduleTitle, moduleName: `Module ${m.moduleNumber}` }))
+      : [1,2,3,4,5,6,7,8].map(n => ({ moduleNumber: n, moduleTitle: `Module ${n}`, moduleName: `Module ${n}` }));
+
+    return res.status(200).json({
+      success: true,
+      courseInfo,
+      kpis,
+      classes,
+      total,
+      page,
+      pages: Math.ceil(total / limit) || 1,
+      availableModules
+    });
+  } catch (err) {
+    console.error('Fetch Recorded Classes Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/recorded-classes
+// @desc    Create a new recorded class
+router.post('/recorded-classes', async (req, res) => {
+  try {
+    const {
+      courseTitle,
+      classTitle,
+      moduleNumber,
+      moduleName,
+      lessonNumber,
+      lessonName,
+      type,
+      durationMinutes,
+      duration,
+      status,
+      description,
+      videoUrl,
+      pdfUrl,
+      thumbnail
+    } = req.body;
+
+    if (!classTitle) {
+      return res.status(400).json({ success: false, message: 'Class Title is required' });
+    }
+
+    const cTitle = courseTitle || 'Digital Marketing';
+    const lastClass = await RecordedClass.findOne({ courseTitle: new RegExp(`^${cTitle}$`, 'i') })
+      .sort({ classNumber: -1 });
+
+    const nextClassNumber = lastClass ? lastClass.classNumber + 1 : 1;
+    const mins = parseInt(durationMinutes) || (duration ? parseInt(duration) : 15);
+    const formattedDuration = type === 'PDF' || type === 'Text/Note' ? '-' : `${mins} min`;
+
+    const newClass = new RecordedClass({
+      courseTitle: cTitle,
+      classNumber: nextClassNumber,
+      classTitle: classTitle.trim(),
+      moduleNumber: parseInt(moduleNumber) || 1,
+      moduleName: moduleName || `Module ${moduleNumber || 1}`,
+      lessonNumber: parseInt(lessonNumber) || 1,
+      lessonName: lessonName || '',
+      type: type || 'Video',
+      duration: formattedDuration,
+      durationMinutes: mins,
+      uploadDate: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+      status: status || 'Published',
+      description: description || '',
+      videoUrl: videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      pdfUrl: pdfUrl || '',
+      fileSizeMB: Math.floor(Math.random() * 30) + 20,
+      thumbnail: thumbnail || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=160&auto=format&fit=crop&q=80'
+    });
+
+    await newClass.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Recorded class added successfully',
+      class: newClass
+    });
+  } catch (err) {
+    console.error('Create Recorded Class Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/recorded-classes/:id
+// @desc    Update an existing recorded class
+router.put('/recorded-classes/:id', async (req, res) => {
+  try {
+    const item = await RecordedClass.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Recorded class not found' });
+    }
+
+    const fields = [
+      'classTitle', 'moduleNumber', 'moduleName', 'lessonNumber',
+      'lessonName', 'type', 'duration', 'durationMinutes', 'status',
+      'description', 'videoUrl', 'pdfUrl', 'thumbnail'
+    ];
+
+    fields.forEach(f => {
+      if (req.body[f] !== undefined) item[f] = req.body[f];
+    });
+
+    if (req.body.durationMinutes !== undefined) {
+      const mins = parseInt(req.body.durationMinutes);
+      item.durationMinutes = mins;
+      item.duration = item.type === 'PDF' || item.type === 'Text/Note' ? '-' : `${mins} min`;
+    }
+
+    if (req.body.moduleNumber !== undefined && !req.body.moduleName) {
+      item.moduleName = `Module ${req.body.moduleNumber}`;
+    }
+
+    await item.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Recorded class updated successfully',
+      class: item
+    });
+  } catch (err) {
+    console.error('Update Recorded Class Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/recorded-classes/:id
+// @desc    Delete a recorded class
+router.delete('/recorded-classes/:id', async (req, res) => {
+  try {
+    const item = await RecordedClass.findByIdAndDelete(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Recorded class not found' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Recorded class deleted successfully'
+    });
+  } catch (err) {
+    console.error('Delete Recorded Class Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/recorded-classes/bulk
+// @desc    Bulk action (publish, draft, delete)
+router.post('/recorded-classes/bulk', async (req, res) => {
+  try {
+    const { ids, action } = req.body;
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'No classes selected' });
+    }
+
+    if (action === 'delete') {
+      await RecordedClass.deleteMany({ _id: { $in: ids } });
+      return res.status(200).json({ success: true, message: `Deleted ${ids.length} classes` });
+    } else if (action === 'publish') {
+      await RecordedClass.updateMany({ _id: { $in: ids } }, { $set: { status: 'Published' } });
+      return res.status(200).json({ success: true, message: `Published ${ids.length} classes` });
+    } else if (action === 'draft') {
+      await RecordedClass.updateMany({ _id: { $in: ids } }, { $set: { status: 'Draft' } });
+      return res.status(200).json({ success: true, message: `Moved ${ids.length} classes to Draft` });
+    } else {
+      return res.status(400).json({ success: false, message: 'Invalid bulk action' });
+    }
+  } catch (err) {
+    console.error('Bulk Action Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;
+
