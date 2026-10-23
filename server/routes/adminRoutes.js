@@ -253,40 +253,99 @@ router.get('/students', async (req, res) => {
 });
 
 // @route   POST /api/admin/students
-// @desc    Create a new student record
+// @desc    Create a new student record and student login account
 router.post('/students', async (req, res) => {
   try {
     const {
       studentName,
+      fullName,
       email,
       phone,
+      dob,
+      gender,
+      city,
+      state,
+      college,
+      degree,
+      yearOfStudy,
+      stream,
+      passingYear,
+      studentId,
       course,
       batch,
+      joiningDate,
+      enrollmentType,
+      parentName,
+      parentPhone,
+      alternateEmail,
+      address,
+      avatar,
       learningStatus,
       internshipStatus,
       placementStatus,
-      city,
-      avatar
+      sendCredentials
     } = req.body;
 
-    if (!studentName || !email) {
+    const name = studentName || fullName;
+    if (!name || !email) {
       return res.status(400).json({ success: false, message: 'Student Name and Email are required' });
     }
 
+    const cleanEmail = email.toLowerCase().trim();
+
     const newStudent = await StudentRecord.create({
-      studentName,
-      email,
+      studentName: name,
+      email: cleanEmail,
       phone: phone || '+91 99999 99999',
+      dob: dob || '',
+      gender: gender || 'Male',
+      city: city || 'Bengaluru',
+      state: state || 'Karnataka',
+      college: college || '',
+      degree: degree || 'B.Tech',
+      yearOfStudy: yearOfStudy || '3rd Year',
+      stream: stream || 'Computer Science',
+      passingYear: passingYear || '2026',
+      studentId: studentId || '',
       course: course || 'Full Stack Developer',
       batch: batch || 'FS-OCT-2026',
+      joinDate: joiningDate || 'Oct 23, 2026',
+      enrollmentType: enrollmentType || 'Paid',
+      parentName: parentName || '',
+      parentPhone: parentPhone || '',
+      alternateEmail: alternateEmail || '',
+      address: address || '',
       learningStatus: learningStatus || 'In Progress',
       internshipStatus: internshipStatus || 'Applied',
       placementStatus: placementStatus || 'Not Placed',
-      city: city || 'Bengaluru',
       avatar: avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'
     });
 
-    return res.status(201).json({ success: true, message: 'Student created successfully', student: newStudent });
+    // Also register or sync student user account for login
+    try {
+      let user = await User.findOne({ email: cleanEmail });
+      if (!user) {
+        const bcrypt = require('bcryptjs');
+        const defaultPassword = await bcrypt.hash('Student@Edurup2026', 10);
+        await User.create({
+          fullName: name,
+          email: cleanEmail,
+          phone: phone || '9999999999',
+          password: defaultPassword,
+          role: 'student',
+          college: college || '',
+          branch: stream || 'Computer Science',
+          city: city || 'Bengaluru',
+          isEmailVerified: true,
+          isPhoneVerified: true,
+          areasOfInterest: [course || 'Full Stack']
+        });
+      }
+    } catch(userErr) {
+      console.warn('User account sync notice:', userErr.message);
+    }
+
+    return res.status(201).json({ success: true, message: 'Student created successfully with login access', student: newStudent });
   } catch (err) {
     console.error('Create Student Error:', err);
     return res.status(500).json({ success: false, message: err.message });

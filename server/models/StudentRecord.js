@@ -54,6 +54,62 @@ const studentRecordSchema = new mongoose.Schema({
     type: String,
     default: 'Bengaluru'
   },
+  state: {
+    type: String,
+    default: 'Karnataka'
+  },
+  dob: {
+    type: String,
+    default: ''
+  },
+  gender: {
+    type: String,
+    default: 'Male'
+  },
+  college: {
+    type: String,
+    default: ''
+  },
+  degree: {
+    type: String,
+    default: 'B.Tech'
+  },
+  yearOfStudy: {
+    type: String,
+    default: '3rd Year'
+  },
+  stream: {
+    type: String,
+    default: 'Computer Science'
+  },
+  passingYear: {
+    type: String,
+    default: '2026'
+  },
+  studentId: {
+    type: String,
+    default: ''
+  },
+  enrollmentType: {
+    type: String,
+    default: 'Paid'
+  },
+  parentName: {
+    type: String,
+    default: ''
+  },
+  parentPhone: {
+    type: String,
+    default: ''
+  },
+  alternateEmail: {
+    type: String,
+    default: ''
+  },
+  address: {
+    type: String,
+    default: ''
+  },
   avatar: {
     type: String,
     default: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'

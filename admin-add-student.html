@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Student | Students Management | Edurup Learning</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-body: #f8fafc;
+      --bg-sidebar: #0b132b;
+      --sidebar-hover: #1c2541;
+      --sidebar-active: #2563eb;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-light: #fffbeb;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --purple: #8b5cf6;
+      --purple-light: #f5f3ff;
+      --teal: #06b6d4;
+      --teal-light: #ecfeff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      background: var(--sidebar-hover);
+      color: #ffffff;
+    }
+
+    .nav-item-btn.active-category {
+      background: var(--sidebar-active);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #cbd5e1;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      padding: 4px 0 6px 36px;
+      gap: 2px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before,
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Bar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .search-box {
+      position: relative;
+      width: 440px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 40px;
+      background: #f1f5f9;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      padding: 0 16px 0 40px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notif-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .notif-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .notif-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .admin-profile-menu {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px 4px 4px;
+      border-radius: 30px;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+    }
+
+    .admin-profile-menu:hover {
+      background: #f1f5f9;
+    }
+
+    .admin-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
+    }
+
+    .admin-meta {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .admin-meta-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .admin-meta-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .profile-dropdown-content {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      width: 200px;
+      display: none;
+      flex-direction: column;
+      padding: 6px 0;
+      z-index: 100;
+    }
+
+    .profile-dropdown-content.show {
+      display: flex;
+    }
+
+    .dropdown-link {
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #334155;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s;
+    }
+
+    .dropdown-link:hover {
+      background: #f8fafc;
+      color: var(--primary);
+    }
+
+    /* Page Body */
+    .page-body {
+      padding: 24px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+
+    .breadcrumbs a {
+      color: #64748b;
+      text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumbs i {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    /* Page Header */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title-wrap h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.4px;
+    }
+
+    .header-title-wrap p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: #334155;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      transition: all 0.2s;
+    }
+
+    .btn-back:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    /* ---------------- TWO COLUMN FORM LAYOUT ---------------- */
+    .add-student-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 1200px) {
+      .add-student-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Form Container */
+    .form-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card-section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-icon-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #eff6ff;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .section-header-text h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .section-header-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Form Fields Grid */
+    .fields-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-col-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-col-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 900px) {
+      .grid-col-3, .grid-col-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-label .req {
+      color: #ef4444;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap i.field-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 40px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-input.has-icon {
+      padding-left: 36px;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-select {
+      width: 100%;
+      height: 40px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .form-select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Phone Input Wrap */
+    .phone-input-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .country-code-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    .phone-input-group input {
+      flex: 1;
+    }
+
+    /* Character Counter */
+    .char-counter {
+      text-align: right;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* Checkbox & Bottom Actions */
+    .bottom-checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .bottom-checkbox-wrap input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .bottom-actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn-cancel {
+      padding: 10px 20px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel:hover {
+      background: #f8fafc;
+    }
+
+    .btn-submit-student {
+      padding: 10px 24px;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-submit-student:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ---------------- RIGHT COLUMN: PREVIEW CARD ---------------- */
+    .preview-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 20px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: sticky;
+      top: 90px;
+    }
+
+    .preview-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .preview-avatar-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .preview-avatar-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      overflow: hidden;
+    }
+
+    .preview-avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .btn-upload-photo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-upload-photo:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    /* Preview Details List */
+    .preview-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12.5px;
+    }
+
+    .preview-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1px 0;
+    }
+
+    .preview-label {
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .preview-val {
+      color: var(--text-main);
+      font-weight: 700;
+      text-align: right;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .preview-divider {
+      height: 1px;
+      background: var(--border-light);
+      margin: 4px 0;
+    }
+
+    /* What Happens Next Card */
+    .what-next-box {
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .what-next-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e40af;
+    }
+
+    .what-next-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .what-next-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: #1e3a8a;
+      line-height: 1.35;
+    }
+
+    .what-next-item i {
+      color: #10b981;
+      font-size: 13px;
+      margin-top: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management (Open & Active) -->
+      <div class="nav-group open" id="navGroupStudents">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem active-subitem">Add Student</a>
+          <a href="admin-students.html?filter=batches" class="nav-subitem">Student Batches</a>
+          <a href="admin-students.html?filter=progress" class="nav-subitem">Student Progress</a>
+          <a href="admin-students.html?filter=inactive" class="nav-subitem">Inactive / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="courses.html" class="nav-subitem">Courses</a>
+          <a href="recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="live-classes.html" class="nav-subitem">Live Classes</a>
+          <a href="quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html#ongoingCard" class="nav-subitem">Internship Programs</a>
+          <a href="explore-internships.html" class="nav-subitem">Internship Jobs</a>
+          <a href="admin-dashboard.html#applicationsCard" class="nav-subitem">Applications</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Shortlisting</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Interviews</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Selections</a>
+          <a href="admin-dashboard.html" class="nav-subitem">My Internship / Onboarding</a>
+        </div>
+      </div>
+
+      <!-- Tasks & Projects -->
+      <div class="nav-group" id="navGroupTasks">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupTasks')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks & Projects</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Task Management</a>
+          <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+        </div>
+      </div>
+
+      <!-- Companies & Mentors -->
+      <div class="nav-group" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building"></i>
+            <span>Companies & Mentors</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Partner Companies</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Mentors</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Mentor Assignments</a>
+        </div>
+      </div>
+
+      <!-- Attendance & Reports -->
+      <div class="nav-group" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance & Reports</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Attendance</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Weekly Reports</a>
+        </div>
+      </div>
+
+      <!-- Certificates & LOR -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & LOR</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Generate Certificate</a>
+          <a href="admin-dashboard.html" class="nav-subitem">Letter of Recommendation</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Reports Console</a>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="nav-group" id="navGroupFinance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupFinance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Payments & Revenue</a>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="nav-group" id="navGroupComms">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupComms')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Announcements</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search students, companies, applications, reports...">
+      </div>
+
+      <div class="topbar-actions">
+        <!-- Notification Bell -->
+        <button type="button" class="notif-btn" onclick="alert('No new notifications.')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge"></span>
+        </button>
+
+        <!-- Profile Menu -->
+        <div class="admin-profile-menu" onclick="toggleProfileDropdown(event)">
+          <div class="admin-avatar">AD</div>
+          <div class="admin-meta">
+            <span class="admin-meta-name" id="adminNameDisplay">Admin</span>
+            <span class="admin-meta-role">Super Admin</span>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #94a3b8; margin-left: 4px;"></i>
+
+          <!-- Dropdown -->
+          <div class="profile-dropdown-content" id="profileDropdown">
+            <a href="admin-dashboard.html" class="dropdown-link"><i class="fa-solid fa-house"></i> Admin Dashboard</a>
+            <a href="admin-students.html" class="dropdown-link"><i class="fa-solid fa-users"></i> All Students</a>
+            <div style="height: 1px; background: #e2e8f0; margin: 4px 0;"></div>
+            <a href="#" class="dropdown-link" onclick="handleLogout();return false;" style="color: #ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+      <!-- Breadcrumbs -->
+      <div class="breadcrumbs">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <a href="admin-students.html">Students Management</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span style="color: #0f172a; font-weight: 700;">Add Student</span>
+      </div>
+
+      <!-- Header Row -->
+      <div class="page-header">
+        <div class="header-title-wrap">
+          <h1>Add Student</h1>
+          <p>Create a new student account and enroll them in a course.</p>
+        </div>
+
+        <a href="admin-students.html" class="btn-back">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to All Students</span>
+        </a>
+      </div>
+
+      <!-- Form & Preview 2-Column Layout -->
+      <form id="addStudentForm" onsubmit="handleCreateStudent(event)">
+        <div class="add-student-layout">
+
+          <!-- Left Column: 4 Cards -->
+          <div class="form-column">
+
+            <!-- CARD 1: Basic Information -->
+            <div class="form-card">
+              <div class="card-section-header">
+                <div class="section-icon-badge">
+                  <i class="fa-regular fa-user"></i>
+                </div>
+                <div class="section-header-text">
+                  <h3>Basic Information</h3>
+                  <p>Enter the student's basic and contact details.</p>
+                </div>
+              </div>
+
+              <!-- Row 1: Full Name, Email, Phone -->
+              <div class="fields-grid grid-col-3">
+                <div class="form-group">
+                  <label class="form-label">Full Name <span class="req">*</span></label>
+                  <input type="text" id="inputFullName" class="form-input" placeholder="Enter full name" required oninput="updateLivePreview()">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Email Address <span class="req">*</span></label>
+                  <input type="email" id="inputEmail" class="form-input" placeholder="Enter email address" required oninput="updateLivePreview()">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Phone Number <span class="req">*</span></label>
+                  <div class="phone-input-group">
+                    <div class="country-code-btn">
+                      <span>🇮🇳 +91</span>
+                      <i class="fa-solid fa-chevron-down" style="font-size: 9px; color: #94a3b8;"></i>
+                    </div>
+                    <input type="tel" id="inputPhone" class="form-input" placeholder="Enter phone number" required oninput="updateLivePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 2: DOB, Gender, City, State -->
+              <div class="fields-grid grid-col-4">
+                <div class="form-group">
+                  <label class="form-label">Date of Birth</label>
+                  <div class="input-wrap">
+                    <i class="fa-regular fa-calendar field-icon"></i>
+                    <input type="text" id="inputDob" class="form-input has-icon" placeholder="Select date" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'" onchange="updateLivePreview()">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Gender</label>
+                  <select id="inputGender" class="form-select" onchange="updateLivePreview()">
+                    <option value="">Select gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">City <span class="req">*</span></label>
+                  <input type="text" id="inputCity" class="form-input" placeholder="Enter city" required oninput="updateLivePreview()">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">State <span class="req">*</span></label>
+                  <select id="inputState" class="form-select" required onchange="updateLivePreview()">
+                    <option value="">Select state</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 2: Education Details -->
+            <div class="form-card">
+              <div class="card-section-header">
+                <div class="section-icon-badge">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="section-header-text">
+                  <h3>Education Details</h3>
+                  <p>Enter the student's college and education details.</p>
+                </div>
+              </div>
+
+              <!-- Row 1: College, Degree, Year of Study -->
+              <div class="fields-grid grid-col-3">
+                <div class="form-group">
+                  <label class="form-label">College / University <span class="req">*</span></label>
+                  <input type="text" id="inputCollege" class="form-input" placeholder="Enter college or university name" required oninput="updateLivePreview()">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Degree / Course <span class="req">*</span></label>
+                  <select id="inputDegree" class="form-select" required onchange="updateLivePreview()">
+                    <option value="">Select degree</option>
+                    <option value="B.Tech">B.Tech</option>
+                    <option value="B.E.">B.E.</option>
+                    <option value="BCA">BCA</option>
+                    <option value="MCA">MCA</option>
+                    <option value="B.Sc">B.Sc</option>
+                    <option value="M.Sc">M.Sc</option>
+                    <option value="B.Com">B.Com</option>
+                    <option value="MBA">MBA</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Year of Study</label>
+                  <select id="inputYearOfStudy" class="form-select" onchange="updateLivePreview()">
+                    <option value="">Select year</option>
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                    <option value="Graduated">Graduated</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Row 2: Stream, Passing Year, Student ID -->
+              <div class="fields-grid grid-col-3">
+                <div class="form-group">
+                  <label class="form-label">Stream / Specialization</label>
+                  <input type="text" id="inputStream" class="form-input" placeholder="Enter specialization (e.g., CSE, ECE)" oninput="updateLivePreview()">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Passing Year</label>
+                  <select id="inputPassingYear" class="form-select" onchange="updateLivePreview()">
+                    <option value="">Select year</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Student ID / Roll Number (Optional)</label>
+                  <input type="text" id="inputStudentId" class="form-input" placeholder="Enter student ID or roll number">
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 3: Course & Batch -->
+            <div class="form-card">
+              <div class="card-section-header">
+                <div class="section-icon-badge">
+                  <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div class="section-header-text">
+                  <h3>Course & Batch</h3>
+                  <p>Select the course and batch to enroll the student.</p>
+                </div>
+              </div>
+
+              <!-- Row 1: Course, Batch, Joining Date, Enrollment Type -->
+              <div class="fields-grid grid-col-4">
+                <div class="form-group">
+                  <label class="form-label">Course <span class="req">*</span></label>
+                  <select id="inputCourse" class="form-select" required onchange="handleCourseChange()">
+                    <option value="">Select course</option>
+                    <option value="Full Stack Developer">Full Stack Developer</option>
+                    <option value="Data Analytics">Data Analytics</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Digital Marketing">Digital Marketing</option>
+                    <option value="AI / ML">AI / ML</option>
+                    <option value="HR Management">HR Management</option>
+                    <option value="Finance Analyst">Finance Analyst</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Batch <span class="req">*</span></label>
+                  <select id="inputBatch" class="form-select" required onchange="updateLivePreview()">
+                    <option value="">Select batch</option>
+                    <option value="FS-OCT-2026">FS-OCT-2026</option>
+                    <option value="DA-OCT-2026">DA-OCT-2026</option>
+                    <option value="DS-OCT-2026">DS-OCT-2026</option>
+                    <option value="DM-OCT-2026">DM-OCT-2026</option>
+                    <option value="AI-OCT-2026">AI-OCT-2026</option>
+                    <option value="HR-OCT-2026">HR-OCT-2026</option>
+                    <option value="FA-OCT-2026">FA-OCT-2026</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Joining Date <span class="req">*</span></label>
+                  <div class="input-wrap">
+                    <i class="fa-regular fa-calendar field-icon"></i>
+                    <input type="text" id="inputJoiningDate" class="form-input has-icon" placeholder="Select date" required onfocus="this.type='date'" onblur="if(!this.value)this.type='text'" onchange="updateLivePreview()">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Enrollment Type</label>
+                  <select id="inputEnrollmentType" class="form-select" onchange="updateLivePreview()">
+                    <option value="Paid">Paid</option>
+                    <option value="Scholarship">Scholarship</option>
+                    <option value="Sponsored">Sponsored</option>
+                    <option value="Free Trial">Free Trial</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 4: Additional Details (Optional) -->
+            <div class="form-card">
+              <div class="card-section-header">
+                <div class="section-icon-badge">
+                  <i class="fa-regular fa-file-lines"></i>
+                </div>
+                <div class="section-header-text">
+                  <h3>Additional Details (Optional)</h3>
+                  <p>Additional information for internal reference.</p>
+                </div>
+              </div>
+
+              <!-- Row 1: Parent Name, Parent Phone, Alternate Email -->
+              <div class="fields-grid grid-col-3">
+                <div class="form-group">
+                  <label class="form-label">Parent / Guardian Name</label>
+                  <input type="text" id="inputParentName" class="form-input" placeholder="Enter parent/guardian name">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Parent / Guardian Phone</label>
+                  <div class="phone-input-group">
+                    <div class="country-code-btn">
+                      <span>🇮🇳 +91</span>
+                      <i class="fa-solid fa-chevron-down" style="font-size: 9px; color: #94a3b8;"></i>
+                    </div>
+                    <input type="tel" id="inputParentPhone" class="form-input" placeholder="Enter phone number">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Alternate Email (Optional)</label>
+                  <input type="email" id="inputAltEmail" class="form-input" placeholder="Enter alternate email">
+                </div>
+              </div>
+
+              <!-- Row 2: Address -->
+              <div class="form-group">
+                <label class="form-label">Address (Optional)</label>
+                <input type="text" id="inputAddress" class="form-input" placeholder="Enter complete address" maxlength="300" oninput="document.getElementById('addressCounter').innerText = this.value.length + '/300'">
+                <div class="char-counter" id="addressCounter">0/300</div>
+              </div>
+            </div>
+
+            <!-- Bottom Checkbox -->
+            <label class="bottom-checkbox-wrap">
+              <input type="checkbox" id="sendCredentialsCheckbox" checked>
+              <span>Send login credentials to student via email</span>
+              <i class="fa-regular fa-circle-question" style="color: #94a3b8; font-size: 13px;" title="An automated onboarding email with login credentials will be delivered."></i>
+            </label>
+
+            <!-- Bottom Action Buttons -->
+            <div class="bottom-actions-row">
+              <button type="button" class="btn-cancel" onclick="if(confirm('Discard changes and return to students directory?')) window.location.href='admin-students.html'">Cancel</button>
+              <button type="submit" class="btn-submit-student" id="submitBtn">Create Student</button>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Student Preview Card -->
+          <aside class="preview-card">
+            <h3 class="preview-title">Student Preview</h3>
+
+            <div class="preview-avatar-section">
+              <div class="preview-avatar-circle" id="previewAvatarWrap">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <input type="file" id="photoFileInput" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)">
+              <button type="button" class="btn-upload-photo" onclick="document.getElementById('photoFileInput').click()">
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                <span>Upload Photo</span>
+              </button>
+            </div>
+
+            <!-- Preview Data List -->
+            <div class="preview-details-list">
+              <div class="preview-row">
+                <span class="preview-label">Full Name</span>
+                <span class="preview-val" id="prevName">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Email</span>
+                <span class="preview-val" id="prevEmail">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Phone</span>
+                <span class="preview-val" id="prevPhone">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Date of Birth</span>
+                <span class="preview-val" id="prevDob">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Gender</span>
+                <span class="preview-val" id="prevGender">-</span>
+              </div>
+
+              <div class="preview-divider"></div>
+
+              <div class="preview-row">
+                <span class="preview-label">College</span>
+                <span class="preview-val" id="prevCollege">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Degree</span>
+                <span class="preview-val" id="prevDegree">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Year of Study</span>
+                <span class="preview-val" id="prevYearOfStudy">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Stream</span>
+                <span class="preview-val" id="prevStream">-</span>
+              </div>
+
+              <div class="preview-divider"></div>
+
+              <div class="preview-row">
+                <span class="preview-label">Course</span>
+                <span class="preview-val" id="prevCourse">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Batch</span>
+                <span class="preview-val" id="prevBatch">-</span>
+              </div>
+              <div class="preview-row">
+                <span class="preview-label">Joining Date</span>
+                <span class="preview-val" id="prevJoiningDate">-</span>
+              </div>
+            </div>
+
+            <!-- What Happens Next Box -->
+            <div class="what-next-box">
+              <div class="what-next-head">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>What happens next?</span>
+              </div>
+              <ul class="what-next-list">
+                <li class="what-next-item">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Student will be created with login access</span>
+                </li>
+                <li class="what-next-item">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Enrolled in selected course and batch</span>
+                </li>
+                <li class="what-next-item">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>You can update more details later</span>
+                </li>
+                <li class="what-next-item">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Student will appear in All Students list</span>
+                </li>
+              </ul>
+            </div>
+
+          </aside>
+
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    let uploadedAvatarUrl = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Admin session display
+      const userSessionStr = localStorage.getItem('edurup_user_session') || localStorage.getItem('edurup_admin_session');
+      if (userSessionStr) {
+        try {
+          const user = JSON.parse(userSessionStr);
+          if (user.fullName) {
+            document.getElementById('adminNameDisplay').innerText = user.fullName;
+          }
+        } catch(e) {}
+      }
+
+      // Default today's date in joining date
+      const d = new Date();
+      const todayStr = d.toISOString().split('T')[0];
+      const joinInput = document.getElementById('inputJoiningDate');
+      joinInput.value = todayStr;
+      updateLivePreview();
+    });
+
+    function toggleNavGroup(id) {
+      const g = document.getElementById(id);
+      if (g) g.classList.toggle('open');
+    }
+
+    function toggleProfileDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('profileDropdown').classList.toggle('show');
+    }
+
+    document.addEventListener('click', () => {
+      const dd = document.getElementById('profileDropdown');
+      if (dd && dd.classList.contains('show')) dd.classList.remove('show');
+    });
+
+    function handleLogout() {
+      localStorage.removeItem('edurup_jwt_token');
+      localStorage.removeItem('edurup_user_session');
+      localStorage.removeItem('edurup_admin_session');
+      alert('You have logged out from the admin panel.');
+      window.location.href = 'login.html';
+    }
+
+    // Auto-update batch code when course changes
+    function handleCourseChange() {
+      const course = document.getElementById('inputCourse').value;
+      const batchSelect = document.getElementById('inputBatch');
+
+      const batchMap = {
+        'Full Stack Developer': 'FS-OCT-2026',
+        'Data Analytics': 'DA-OCT-2026',
+        'Data Science': 'DS-OCT-2026',
+        'Digital Marketing': 'DM-OCT-2026',
+        'AI / ML': 'AI-OCT-2026',
+        'HR Management': 'HR-OCT-2026',
+        'Finance Analyst': 'FA-OCT-2026'
+      };
+
+      if (batchMap[course]) {
+        batchSelect.value = batchMap[course];
+      }
+      updateLivePreview();
+    }
+
+    // Live preview update
+    function updateLivePreview() {
+      const name = document.getElementById('inputFullName').value.trim();
+      const email = document.getElementById('inputEmail').value.trim();
+      const phone = document.getElementById('inputPhone').value.trim();
+      const dob = document.getElementById('inputDob').value;
+      const gender = document.getElementById('inputGender').value;
+
+      const college = document.getElementById('inputCollege').value.trim();
+      const degree = document.getElementById('inputDegree').value;
+      const yearOfStudy = document.getElementById('inputYearOfStudy').value;
+      const stream = document.getElementById('inputStream').value.trim();
+
+      const course = document.getElementById('inputCourse').value;
+      const batch = document.getElementById('inputBatch').value;
+      const joiningDate = document.getElementById('inputJoiningDate').value;
+
+      document.getElementById('prevName').innerText = name || '-';
+      document.getElementById('prevEmail').innerText = email || '-';
+      document.getElementById('prevPhone').innerText = phone ? `+91 ${phone}` : '-';
+      document.getElementById('prevDob').innerText = dob || '-';
+      document.getElementById('prevGender').innerText = gender || '-';
+
+      document.getElementById('prevCollege').innerText = college || '-';
+      document.getElementById('prevDegree').innerText = degree || '-';
+      document.getElementById('prevYearOfStudy').innerText = yearOfStudy || '-';
+      document.getElementById('prevStream').innerText = stream || '-';
+
+      document.getElementById('prevCourse').innerText = course || '-';
+      document.getElementById('prevBatch').innerText = batch || '-';
+      document.getElementById('prevJoiningDate').innerText = joiningDate || '-';
+    }
+
+    // Photo Upload Preview
+    function handlePhotoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        uploadedAvatarUrl = evt.target.result;
+        const wrap = document.getElementById('previewAvatarWrap');
+        wrap.innerHTML = `<img src="${uploadedAvatarUrl}" alt="Avatar">`;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Form Submission & MongoDB Integration
+    async function handleCreateStudent(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Student...';
+
+      const studentName = document.getElementById('inputFullName').value.trim();
+      const email = document.getElementById('inputEmail').value.trim();
+      const rawPhone = document.getElementById('inputPhone').value.trim();
+      const phone = rawPhone.startsWith('+91') ? rawPhone : `+91 ${rawPhone}`;
+
+      const payload = {
+        studentName,
+        email,
+        phone,
+        dob: document.getElementById('inputDob').value,
+        gender: document.getElementById('inputGender').value || 'Male',
+        city: document.getElementById('inputCity').value.trim(),
+        state: document.getElementById('inputState').value,
+        college: document.getElementById('inputCollege').value.trim(),
+        degree: document.getElementById('inputDegree').value,
+        yearOfStudy: document.getElementById('inputYearOfStudy').value,
+        stream: document.getElementById('inputStream').value.trim(),
+        passingYear: document.getElementById('inputPassingYear').value,
+        studentId: document.getElementById('inputStudentId').value.trim(),
+        course: document.getElementById('inputCourse').value,
+        batch: document.getElementById('inputBatch').value,
+        joiningDate: document.getElementById('inputJoiningDate').value,
+        enrollmentType: document.getElementById('inputEnrollmentType').value,
+        parentName: document.getElementById('inputParentName').value.trim(),
+        parentPhone: document.getElementById('inputParentPhone').value.trim(),
+        alternateEmail: document.getElementById('inputAltEmail').value.trim(),
+        address: document.getElementById('inputAddress').value.trim(),
+        sendCredentials: document.getElementById('sendCredentialsCheckbox').checked,
+        avatar: uploadedAvatarUrl
+      };
+
+      try {
+        const res = await fetch('/api/admin/students', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          alert(`🎉 Success! Student "${studentName}" has been enrolled and created in MongoDB with login access.`);
+          window.location.href = 'admin-students.html';
+        } else {
+          alert('❌ Creation Failed: ' + (data.message || 'Please check input fields.'));
+          btn.disabled = false;
+          btn.innerText = 'Create Student';
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Server Connection Error: Could not reach backend server.');
+        btn.disabled = false;
+        btn.innerText = 'Create Student';
+      }
+    }
+  </script>
+</body>
+</html>
