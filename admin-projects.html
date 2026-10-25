@@ -1,0 +1,2499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Internship Management | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F4F7FC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #ECFDF5;
+      --success-badge-bg: #DCFCE7;
+      --success-badge-text: #166534;
+      --warning: #F59E0B;
+      --warning-light: #FFFBEB;
+      --warning-badge-bg: #FEF3C7;
+      --warning-badge-text: #92400E;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --danger-badge-text: #B91C1C;
+      --purple: #8B5CF6;
+      --purple-light: #F3E8FF;
+      --purple-text: #7E22CE;
+
+      /* Track Badges */
+      --track-da-bg: #EFF6FF;
+      --track-da-text: #1D4ED8;
+      --track-ds-bg: #F5F3FF;
+      --track-ds-text: #6D28D9;
+      --track-dm-bg: #FAF5FF;
+      --track-dm-text: #7E22CE;
+      --track-fs-bg: #FFF7ED;
+      --track-fs-text: #C2410C;
+      --track-hr-bg: #F0F9FF;
+      --track-hr-text: #0369A1;
+      --track-cloud-bg: #ECFEFF;
+      --track-cloud-text: #0E7490;
+      --track-aiml-bg: #FDF2F8;
+      --track-aiml-text: #BE185D;
+      --track-sm-bg: #FFFBEB;
+      --track-sm-text: #B45309;
+      --track-biz-bg: #ECFDF5;
+      --track-biz-text: #047857;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff;
+      background: rgba(37, 99, 235, 0.12);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 15px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 38px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff;
+      font-weight: 700;
+      background: #2563eb;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before {
+      color: #ffffff;
+    }
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Bar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .top-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 16px;
+      width: 480px;
+      transition: all 0.2s;
+    }
+
+    .top-search-wrap:focus-within {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .top-search-wrap i {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .top-search-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13.5px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-notif {
+      position: relative;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 18px;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .btn-notif:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .notif-badge-dot {
+      position: absolute;
+      top: 8px;
+      right: 9px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .user-profile-badge:hover {
+      background: #f1f5f9;
+    }
+
+    .avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #7e22ce;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .user-role {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* Page Body */
+    .page-layout-wrap {
+      display: flex;
+      flex: 1;
+      position: relative;
+    }
+
+    .page-main-area {
+      flex: 1;
+      padding: 28px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-width: 0;
+    }
+
+    /* Header & Breadcrumb */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .breadcrumb-row a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+    .breadcrumb-row span.current {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .header-text-block h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .header-text-block p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-primary-action {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary-action:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- 4 KPI CARDS ---------------- */
+    .kpi-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    .kpi-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-box.purple {
+      background: var(--purple-light);
+      color: var(--purple-text);
+    }
+
+    .kpi-icon-box.green {
+      background: var(--success-badge-bg);
+      color: var(--success-badge-text);
+    }
+
+    .kpi-icon-box.yellow {
+      background: var(--warning-badge-bg);
+      color: var(--warning-badge-text);
+    }
+
+    .kpi-icon-box.red {
+      background: var(--danger-light);
+      color: var(--danger-badge-text);
+    }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .kpi-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .kpi-desc {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* ---------------- FILTERS & SEARCH ROW ---------------- */
+    .filters-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 14px;
+      width: 260px;
+      transition: border 0.2s;
+    }
+
+    .search-input-wrap:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .search-input-wrap i {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .search-input-wrap input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      outline: none;
+      cursor: pointer;
+      transition: border 0.15s;
+    }
+
+    .filter-select:hover {
+      border-color: #cbd5e1;
+    }
+
+    .btn-reset {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-reset:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+      border-color: #cbd5e1;
+    }
+
+    /* ---------------- TABLE CARD ---------------- */
+    .table-container-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #f8fafc;
+      padding: 13px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      text-transform: capitalize;
+    }
+
+    table.data-table td {
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: middle;
+    }
+
+    table.data-table tbody tr {
+      transition: background 0.15s;
+    }
+
+    table.data-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    /* Custom Checkbox */
+    .custom-chk {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .row-index-num {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 12.5px;
+    }
+
+    .project-title-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      max-width: 280px;
+    }
+
+    .project-name {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 13.5px;
+    }
+
+    .project-desc-snippet {
+      font-size: 12px;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Track Badges */
+    .track-badge {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .track-badge.track-da { background: var(--track-da-bg); color: var(--track-da-text); }
+    .track-badge.track-ds { background: var(--track-ds-bg); color: var(--track-ds-text); }
+    .track-badge.track-dm { background: var(--track-dm-bg); color: var(--track-dm-text); }
+    .track-badge.track-fs { background: var(--track-fs-bg); color: var(--track-fs-text); }
+    .track-badge.track-hr { background: var(--track-hr-bg); color: var(--track-hr-text); }
+    .track-badge.track-cloud { background: var(--track-cloud-bg); color: var(--track-cloud-text); }
+    .track-badge.track-aiml { background: var(--track-aiml-bg); color: var(--track-aiml-text); }
+    .track-badge.track-sm { background: var(--track-sm-bg); color: var(--track-sm-text); }
+    .track-badge.track-biz { background: var(--track-biz-bg); color: var(--track-biz-text); }
+
+    /* Difficulty Badges */
+    .diff-badge {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .diff-badge.beginner {
+      background: var(--success-badge-bg);
+      color: var(--success-badge-text);
+    }
+    .diff-badge.intermediate {
+      background: var(--warning-badge-bg);
+      color: var(--warning-badge-text);
+    }
+    .diff-badge.advanced {
+      background: var(--danger-light);
+      color: var(--danger-badge-text);
+    }
+
+    /* Type column */
+    .type-text {
+      font-size: 12.5px;
+      color: #475569;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Status Pill Badges */
+    .status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .status-badge.published {
+      background: var(--success-badge-bg);
+      color: var(--success-badge-text);
+    }
+
+    .status-badge.draft {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+
+    .status-badge.archived {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    /* Row Action Buttons */
+    .row-actions-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-act {
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+
+    .btn-act:hover {
+      background: #dbeafe;
+      transform: translateY(-1px);
+    }
+
+    .btn-act.btn-act-del {
+      background: #fee2e2;
+      color: #ef4444;
+    }
+
+    .btn-act.btn-act-del:hover {
+      background: #fecaca;
+    }
+
+    /* Table Footer / Pagination */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .pagination-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-page {
+      min-width: 30px;
+      height: 30px;
+      padding: 0 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-page:hover:not(:disabled) {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .btn-page.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    .btn-page:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ---------------- RIGHT SIDE FORM PANEL (DRAWER) ---------------- */
+    .form-panel-side {
+      width: 440px;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      height: calc(100vh - 70px);
+      overflow-y: auto;
+      z-index: 80;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease;
+    }
+
+    .form-panel-side::-webkit-scrollbar {
+      width: 5px;
+    }
+    .form-panel-side::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .panel-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    .panel-header-info h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .panel-header-info p {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .btn-close-panel {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      color: #94a3b8;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-close-panel:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .panel-body-form {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      flex: 1;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-label span.req {
+      color: #ef4444;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.15s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Rich Editor Box */
+    .rich-editor-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+      transition: border-color 0.15s;
+    }
+
+    .rich-editor-box:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .editor-toolbar {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tool-btn {
+      background: transparent;
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: background 0.15s;
+    }
+
+    .tool-btn:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .editor-textarea {
+      border: none;
+      outline: none;
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      resize: vertical;
+      min-height: 85px;
+      line-height: 1.5;
+    }
+
+    .char-counter {
+      text-align: right;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+      padding: 4px 10px 6px;
+      background: #ffffff;
+    }
+
+    /* Resources List in Drawer */
+    .resources-list-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .resource-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 12.5px;
+      transition: border-color 0.15s;
+    }
+
+    .resource-item-row:hover {
+      border-color: #cbd5e1;
+    }
+
+    .resource-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .resource-item-left i {
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .resource-item-title {
+      font-weight: 600;
+      color: #1e293b;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .btn-res-del {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 4px;
+      border-radius: 4px;
+      transition: opacity 0.15s;
+    }
+
+    .btn-res-del:hover {
+      opacity: 0.7;
+    }
+
+    .btn-add-resource {
+      background: #ffffff;
+      border: 1px dashed #bfdbfe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+      margin-top: 4px;
+    }
+
+    .btn-add-resource:hover {
+      background: #eff6ff;
+      border-color: var(--primary);
+    }
+
+    /* Switch toggle for Used in Internship */
+    .switch-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .switch-toggle {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .switch-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .switch-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .switch-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .switch-slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .switch-slider:before {
+      transform: translateX(20px);
+    }
+
+    .switch-label-text {
+      font-size: 12px;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    /* Drawer Footer Buttons */
+    .panel-footer-actions {
+      padding: 18px 24px;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn-panel-del {
+      background: transparent;
+      border: 1px solid #fee2e2;
+      color: #ef4444;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-right: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-panel-del:hover {
+      background: #fee2e2;
+    }
+
+    .btn-panel-cancel {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-panel-cancel:hover {
+      background: #f1f5f9;
+    }
+
+    .btn-panel-save {
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.15s;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-panel-save:hover {
+      background: var(--primary-hover);
+    }
+
+    /* ---------------- PREVIEW MODAL ---------------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 620px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h4 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    /* Add Resource Popup Modal */
+    .res-modal-card {
+      max-width: 440px;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 1280px) {
+      .page-layout-wrap {
+        flex-direction: column;
+      }
+      .form-panel-side {
+        width: 100%;
+        position: static;
+        height: auto;
+      }
+      .kpi-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem">Courses</a>
+          <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="admin-quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management (Active Category) -->
+      <div class="nav-group open" id="navGroupInternships">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
+          <a href="admin-projects.html" class="nav-subitem active-subitem">Projects</a>
+          <a href="javascript:void(0)" onclick="showToast('Mentors section opening soon')" class="nav-subitem">Mentors</a>
+          <a href="admin-applications.html" class="nav-subitem">Applications</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-certificates.html" class="nav-subitem">Certificates</a>
+        </div>
+      </div>
+
+      <!-- Placement Management -->
+      <div class="nav-group" id="navGroupPlacements">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupPlacements')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building-user"></i>
+            <span>Placement Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Job Openings coming soon')" class="nav-subitem">Job Openings</a>
+          <a href="javascript:void(0)" onclick="showToast('Companies coming soon')" class="nav-subitem">Companies</a>
+          <a href="javascript:void(0)" onclick="showToast('Drives coming soon')" class="nav-subitem">Drives</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Overview Analytics</a>
+          <a href="javascript:void(0)" onclick="showToast('Student Performance coming soon')" class="nav-subitem">Student Performance</a>
+          <a href="javascript:void(0)" onclick="showToast('Revenue Reports coming soon')" class="nav-subitem">Revenue Reports</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Admin Settings coming soon')" class="nav-subitem">General Settings</a>
+          <a href="javascript:void(0)" onclick="showToast('Role permissions coming soon')" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTENT AREA ================= -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="top-search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalSearchInput" placeholder="Search students, courses, projects...">
+      </div>
+
+      <div class="top-right-actions">
+        <button type="button" class="btn-notif" title="Notifications" onclick="showToast('No new notifications')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge-dot"></span>
+        </button>
+
+        <div class="user-profile-badge" title="Super Admin Profile">
+          <div class="avatar-circle">AD</div>
+          <div class="user-meta">
+            <span class="user-name">Admin</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #94a3b8; margin-left: 4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Body Wrap (Main Content + Right Side Panel) -->
+    <div class="page-layout-wrap">
+
+      <div class="page-main-area">
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-row">
+          <a href="admin-dashboard.html"><i class="fa-solid fa-house" style="font-size: 11px;"></i> Dashboard</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: #cbd5e1;"></i>
+          <a href="javascript:void(0)">Projects Management</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: #cbd5e1;"></i>
+          <span class="current">Projects</span>
+        </div>
+
+        <!-- Header Title & Action -->
+        <div class="page-header-row">
+          <div class="header-text-block">
+            <h1>Projects</h1>
+            <p>Create and manage real-world projects for your courses and internship programs.</p>
+          </div>
+          <button type="button" class="btn-primary-action" onclick="openAddProjectDrawer()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add Project</span>
+          </button>
+        </div>
+
+        <!-- 4 KPI Cards -->
+        <div class="kpi-stats-grid">
+          <!-- Card 1: Total Projects -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box purple">
+              <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiTotalProjects">48</span>
+              <span class="kpi-desc">Total Projects</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Published -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box green">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiPublished">36</span>
+              <span class="kpi-desc">Published</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Drafts -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box yellow">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiDrafts">8</span>
+              <span class="kpi-desc">Drafts</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Used in Internships -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box red">
+              <i class="fa-solid fa-file-invoice"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiUsedInInternships">12</span>
+              <span class="kpi-desc">Used in Internships</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filters-row">
+          <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="projectSearchInput" placeholder="Search projects..." oninput="handleSearchInput()">
+          </div>
+
+          <select class="filter-select" id="filterCourse" onchange="applyFilters()">
+            <option value="All Courses">All Courses</option>
+            <option value="Data Analytics">Data Analytics</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Full Stack">Full Stack</option>
+            <option value="HR Management">HR Management</option>
+            <option value="Cloud / DevOps">Cloud / DevOps</option>
+            <option value="AI/ML">AI/ML</option>
+          </select>
+
+          <select class="filter-select" id="filterTrack" onchange="applyFilters()">
+            <option value="All Tracks">All Tracks</option>
+            <option value="Data Analytics">Data Analytics</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Full Stack">Full Stack</option>
+            <option value="HR Management">HR Management</option>
+            <option value="Cloud / DevOps">Cloud / DevOps</option>
+            <option value="AI/ML">AI/ML</option>
+            <option value="Sales & Marketing">Sales & Marketing</option>
+            <option value="Business & Innovation">Business & Innovation</option>
+          </select>
+
+          <select class="filter-select" id="filterDifficulty" onchange="applyFilters()">
+            <option value="All Difficulty Levels">All Difficulty Levels</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+
+          <button type="button" class="btn-reset" onclick="resetFilters()">Reset</button>
+        </div>
+
+        <!-- Projects Table Card -->
+        <div class="table-container-card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 38px;">
+                    <input type="checkbox" class="custom-chk" id="selectAllCheckbox" onchange="toggleSelectAll(this)">
+                  </th>
+                  <th style="width: 36px;">#</th>
+                  <th>Project Title</th>
+                  <th>Course / Track</th>
+                  <th>Difficulty</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th style="text-align: right; padding-right: 24px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="projectsTableBody">
+                <!-- Dynamically populated from API -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer -->
+          <div class="table-footer">
+            <span id="showingCountLabel">Showing 1 to 10 of 48 projects</span>
+            <div class="pagination-wrap" id="paginationControls">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= RIGHT SIDE FORM PANEL (DRAWER) ================= -->
+      <aside class="form-panel-side" id="projectDrawer">
+        <div class="panel-header">
+          <div class="panel-header-info">
+            <h3 id="drawerTitle">Edit Project</h3>
+            <p id="drawerSubtitle">Update project details, instructions, files and settings.</p>
+          </div>
+          <button type="button" class="btn-close-panel" onclick="closeDrawer()" title="Close Panel">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form class="panel-body-form" id="projectForm" onsubmit="handleFormSubmit(event)">
+          <input type="hidden" id="formProjectId" value="">
+
+          <!-- Project Title -->
+          <div class="form-group">
+            <label class="form-label">Project Title <span class="req">*</span></label>
+            <input type="text" class="form-input" id="formTitle" placeholder="e.g. E-commerce Sales Analysis" required>
+          </div>
+
+          <!-- Course / Track -->
+          <div class="form-group">
+            <label class="form-label">Course / Track <span class="req">*</span></label>
+            <select class="form-select" id="formTrack" required>
+              <option value="Data Analytics">Data Analytics</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+              <option value="Full Stack">Full Stack</option>
+              <option value="HR Management">HR Management</option>
+              <option value="Cloud / DevOps">Cloud / DevOps</option>
+              <option value="AI/ML">AI/ML</option>
+              <option value="Sales & Marketing">Sales & Marketing</option>
+              <option value="Business & Innovation">Business & Innovation</option>
+            </select>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label class="form-label">Description <span class="req">*</span></label>
+            <div class="rich-editor-box">
+              <div class="editor-toolbar">
+                <button type="button" class="tool-btn" onclick="insertFormatting('formDescription', '**', '**')" title="Bold">B</button>
+                <button type="button" class="tool-btn" onclick="insertFormatting('formDescription', '*', '*')" title="Italic"><i>I</i></button>
+                <button type="button" class="tool-btn" onclick="insertFormatting('formDescription', '<u>', '</u>')" title="Underline"><u>U</u></button>
+                <button type="button" class="tool-btn" onclick="insertPrefix('formDescription', '• ')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+                <button type="button" class="tool-btn" onclick="insertPrefix('formDescription', '1. ')" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+                <button type="button" class="tool-btn" onclick="insertLink('formDescription')" title="Link"><i class="fa-solid fa-link"></i></button>
+              </div>
+              <textarea class="editor-textarea" id="formDescription" rows="3" placeholder="Analyze e-commerce data and create insights..." oninput="updateCharCount('formDescription', 'descCharCount', 1000)" required></textarea>
+              <div class="char-counter" id="descCharCount">0/1000 characters</div>
+            </div>
+          </div>
+
+          <!-- Difficulty Level & Project Type Row -->
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">Difficulty Level <span class="req">*</span></label>
+              <select class="form-select" id="formDifficulty" required>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Project Type <span class="req">*</span></label>
+              <select class="form-select" id="formProjectType" required>
+                <option value="Analytics">Analytics</option>
+                <option value="ML">ML</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Web Development">Web Development</option>
+                <option value="DevOps">DevOps</option>
+                <option value="AI Application">AI Application</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Project Objectives -->
+          <div class="form-group">
+            <label class="form-label">Project Objectives</label>
+            <div class="rich-editor-box">
+              <textarea class="editor-textarea" id="formObjectives" rows="4" placeholder="• Understand requirements&#10;• Clean dataset&#10;• Build dashboard&#10;• Present insights" oninput="updateCharCount('formObjectives', 'objCharCount', 1000)"></textarea>
+              <div class="char-counter" id="objCharCount">0/1000 characters</div>
+            </div>
+          </div>
+
+          <!-- Project Resources -->
+          <div class="form-group">
+            <label class="form-label">Project Resources</label>
+            <div class="resources-list-wrap" id="formResourcesList">
+              <!-- Dynamically populated resource items -->
+            </div>
+            <button type="button" class="btn-add-resource" onclick="openAddResourceModal()">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Resource</span>
+            </button>
+          </div>
+
+          <!-- Instructions (Optional) -->
+          <div class="form-group">
+            <label class="form-label">Instructions (Optional)</label>
+            <div class="rich-editor-box">
+              <div class="editor-toolbar">
+                <button type="button" class="tool-btn" onclick="insertFormatting('formInstructions', '**', '**')" title="Bold">B</button>
+                <button type="button" class="tool-btn" onclick="insertFormatting('formInstructions', '*', '*')" title="Italic"><i>I</i></button>
+                <button type="button" class="tool-btn" onclick="insertFormatting('formInstructions', '<u>', '</u>')" title="Underline"><u>U</u></button>
+                <button type="button" class="tool-btn" onclick="insertPrefix('formInstructions', '• ')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+                <button type="button" class="tool-btn" onclick="insertPrefix('formInstructions', '1. ')" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
+                <button type="button" class="tool-btn" onclick="insertLink('formInstructions')" title="Link"><i class="fa-solid fa-link"></i></button>
+              </div>
+              <textarea class="editor-textarea" id="formInstructions" rows="3" placeholder="Follow the steps in the project brief..." oninput="updateCharCount('formInstructions', 'instCharCount', 1000)"></textarea>
+              <div class="char-counter" id="instCharCount">0/1000 characters</div>
+            </div>
+          </div>
+
+          <!-- Status & Used in Internship Row -->
+          <div class="form-row-2" style="align-items: center;">
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="formStatus">
+                <option value="Published">Published</option>
+                <option value="Draft">Draft</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Used in Internship</label>
+              <div class="switch-container">
+                <label class="switch-toggle">
+                  <input type="checkbox" id="formUsedInInternship" checked>
+                  <span class="switch-slider"></span>
+                </label>
+                <span class="switch-label-text">Yes, include in internship program</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel Footer Actions -->
+          <div class="panel-footer-actions">
+            <button type="button" class="btn-panel-del" id="btnDrawerDelete" onclick="deleteCurrentEditingProject()" style="display: none;">
+              <i class="fa-regular fa-trash-can"></i>
+              <span>Delete</span>
+            </button>
+            <button type="button" class="btn-panel-cancel" onclick="closeDrawer()">Cancel</button>
+            <button type="submit" class="btn-panel-save" id="btnDrawerSubmit">Update Project</button>
+          </div>
+        </form>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ================= PREVIEW DETAILS MODAL ================= -->
+  <div class="modal-backdrop" id="previewModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4 id="prevModalTitle">Project Details</h4>
+        <button type="button" class="modal-close-btn" onclick="closePreviewModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="prevModalBody">
+        <!-- Rendered project details -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ADD RESOURCE MODAL ================= -->
+  <div class="modal-backdrop" id="addResourceModal">
+    <div class="modal-card res-modal-card">
+      <div class="modal-header">
+        <h4>Add Project Resource</h4>
+        <button type="button" class="modal-close-btn" onclick="closeAddResourceModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Resource Title <span class="req">*</span></label>
+          <input type="text" class="form-input" id="newResTitle" placeholder="e.g. Project Brief.pdf">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Resource Type <span class="req">*</span></label>
+          <select class="form-select" id="newResType">
+            <option value="pdf">PDF Document (.pdf)</option>
+            <option value="excel">Excel / Spreadsheet (.xlsx, .csv)</option>
+            <option value="link">Web Article / Link (URL)</option>
+            <option value="doc">Source Code / Archive (.zip, .doc)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">URL or File Path (Optional)</label>
+          <input type="text" class="form-input" id="newResUrl" placeholder="https://... or #" value="#">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+          <button type="button" class="btn-panel-cancel" onclick="closeAddResourceModal()">Cancel</button>
+          <button type="button" class="btn-panel-save" onclick="saveNewResource()">Add to Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toastMsg">
+    <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+    <span id="toastText">Action completed successfully</span>
+  </div>
+
+  <!-- ================= SCRIPT & LOGIC ================= -->
+  <script>
+    let currentProjects = [];
+    let currentPage = 1;
+    let totalPages = 1;
+    let searchDebounceTimer = null;
+    let activeDrawerMode = 'edit'; // 'edit' or 'add'
+    let currentEditingResources = [];
+
+    // On Load
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchProjects(1);
+    });
+
+    // Nav Group Toggle
+    function toggleNavGroup(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.toggle('open');
+      }
+    }
+
+    // Toast Notification
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toastMsg');
+      const text = document.getElementById('toastText');
+      if (!toast || !text) return;
+
+      text.textContent = msg;
+      const icon = toast.querySelector('i');
+      if (icon) {
+        icon.className = isError ? 'fa-solid fa-circle-exclamation' : 'fa-solid fa-circle-check';
+        icon.style.color = isError ? '#ef4444' : '#10b981';
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Fetch Projects from API
+    async function fetchProjects(page = 1) {
+      currentPage = page;
+      const search = document.getElementById('projectSearchInput').value.trim();
+      const course = document.getElementById('filterCourse').value;
+      const track = document.getElementById('filterTrack').value;
+      const difficulty = document.getElementById('filterDifficulty').value;
+
+      const params = new URLSearchParams({
+        page: page,
+        limit: 10
+      });
+
+      if (search) params.append('search', search);
+      if (course && course !== 'All Courses') params.append('course', course);
+      if (track && track !== 'All Tracks') params.append('track', track);
+      if (difficulty && difficulty !== 'All Difficulty Levels') params.append('difficulty', difficulty);
+
+      try {
+        const res = await fetch(`/api/admin/projects?${params.toString()}`);
+        const data = await res.json();
+
+        if (data.success) {
+          currentProjects = data.projects || [];
+          totalPages = data.totalPages || 1;
+
+          // Update KPIs
+          if (data.kpis) {
+            document.getElementById('kpiTotalProjects').textContent = data.kpis.totalProjects || 48;
+            document.getElementById('kpiPublished').textContent = data.kpis.published || 36;
+            document.getElementById('kpiDrafts').textContent = data.kpis.drafts || 8;
+            document.getElementById('kpiUsedInInternships').textContent = data.kpis.usedInInternships || 12;
+          }
+
+          // Render Table
+          renderProjectsTable(currentProjects, data.total, page, data.limit);
+
+          // If first item exists and drawer is open in edit mode with no selection, populate first item
+          if (currentProjects.length > 0 && activeDrawerMode === 'edit' && !document.getElementById('formProjectId').value) {
+            populateDrawerWithProject(currentProjects[0]);
+          }
+        }
+      } catch (err) {
+        console.error('Fetch Projects Failed:', err);
+        showToast('Error loading projects data', true);
+      }
+    }
+
+    // Render Table Rows
+    function renderProjectsTable(projects, totalCount, page, limit) {
+      const tbody = document.getElementById('projectsTableBody');
+      tbody.innerHTML = '';
+
+      if (!projects || projects.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 40px; color: #94a3b8;">
+              <i class="fa-solid fa-folder-open" style="font-size: 32px; margin-bottom: 8px; display: block; color: #cbd5e1;"></i>
+              No projects found matching the criteria.
+            </td>
+          </tr>
+        `;
+        document.getElementById('showingCountLabel').textContent = 'Showing 0 of 0 projects';
+        document.getElementById('paginationControls').innerHTML = '';
+        return;
+      }
+
+      const startIndex = (page - 1) * limit + 1;
+      const endIndex = Math.min(startIndex + projects.length - 1, totalCount);
+      document.getElementById('showingCountLabel').textContent = `Showing ${startIndex} to ${endIndex} of ${totalCount} projects`;
+
+      projects.forEach((proj, idx) => {
+        const rowNum = (page - 1) * limit + idx + 1;
+        const tr = document.createElement('tr');
+
+        // Track badge class
+        const trackClass = getTrackClass(proj.track);
+        // Difficulty badge class
+        const diffClass = (proj.difficulty || 'Beginner').toLowerCase();
+        // Status badge class
+        const statusClass = (proj.status || 'Published').toLowerCase();
+
+        tr.innerHTML = `
+          <td>
+            <input type="checkbox" class="custom-chk row-chk" data-id="${proj._id}">
+          </td>
+          <td><span class="row-index-num">${rowNum}</span></td>
+          <td>
+            <div class="project-title-cell">
+              <span class="project-name">${escapeHtml(proj.title)}</span>
+              <span class="project-desc-snippet">${escapeHtml(proj.subtitle || proj.description || '')}</span>
+            </div>
+          </td>
+          <td>
+            <span class="track-badge ${trackClass}">${escapeHtml(proj.track)}</span>
+          </td>
+          <td>
+            <span class="diff-badge ${diffClass}">${escapeHtml(proj.difficulty || 'Beginner')}</span>
+          </td>
+          <td>
+            <span class="type-text">${escapeHtml(proj.projectType || 'Analytics')}</span>
+          </td>
+          <td>
+            <span class="status-badge ${statusClass}">${escapeHtml(proj.status || 'Published')}</span>
+          </td>
+          <td style="text-align: right; padding-right: 20px;">
+            <div class="row-actions-wrap" style="justify-content: flex-end;">
+              <button type="button" class="btn-act" onclick="viewProjectDetails('${proj._id}')" title="View Project Details">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+              <button type="button" class="btn-act" onclick="editProject('${proj._id}')" title="Edit Project">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button type="button" class="btn-act" onclick="duplicateProject('${proj._id}')" title="Duplicate Project">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+              <button type="button" class="btn-act btn-act-del" onclick="deleteProject('${proj._id}')" title="Delete Project">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      renderPagination(page, totalPages);
+    }
+
+    // Track badge class helper
+    function getTrackClass(track) {
+      if (!track) return 'track-da';
+      const t = track.toLowerCase();
+      if (t.includes('analytics')) return 'track-da';
+      if (t.includes('science')) return 'track-ds';
+      if (t.includes('marketing') && !t.includes('sales')) return 'track-dm';
+      if (t.includes('full stack') || t.includes('web')) return 'track-fs';
+      if (t.includes('hr') || t.includes('management')) return 'track-hr';
+      if (t.includes('cloud') || t.includes('devops')) return 'track-cloud';
+      if (t.includes('ai') || t.includes('ml')) return 'track-aiml';
+      if (t.includes('sales')) return 'track-sm';
+      if (t.includes('business') || t.includes('entrepreneur')) return 'track-biz';
+      return 'track-da';
+    }
+
+    // Pagination
+    function renderPagination(current, total) {
+      const container = document.getElementById('paginationControls');
+      container.innerHTML = '';
+
+      if (total <= 1) return;
+
+      // Prev Button
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'btn-page';
+      prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+      prevBtn.disabled = current <= 1;
+      prevBtn.onclick = () => fetchProjects(current - 1);
+      container.appendChild(prevBtn);
+
+      // Page numbers
+      for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - 1 && i <= current + 1)) {
+          const btn = document.createElement('button');
+          btn.className = `btn-page ${i === current ? 'active' : ''}`;
+          btn.textContent = i;
+          btn.onclick = () => fetchProjects(i);
+          container.appendChild(btn);
+        } else if (i === current - 2 || i === current + 2) {
+          const dots = document.createElement('span');
+          dots.style.padding = '0 4px';
+          dots.style.color = '#94a3b8';
+          dots.textContent = '...';
+          container.appendChild(dots);
+        }
+      }
+
+      // Next Button
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'btn-page';
+      nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+      nextBtn.disabled = current >= total;
+      nextBtn.onclick = () => fetchProjects(current + 1);
+      container.appendChild(nextBtn);
+    }
+
+    // Filter Handlers
+    function handleSearchInput() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        fetchProjects(1);
+      }, 300);
+    }
+
+    function applyFilters() {
+      fetchProjects(1);
+    }
+
+    function resetFilters() {
+      document.getElementById('projectSearchInput').value = '';
+      document.getElementById('filterCourse').value = 'All Courses';
+      document.getElementById('filterTrack').value = 'All Tracks';
+      document.getElementById('filterDifficulty').value = 'All Difficulty Levels';
+      fetchProjects(1);
+      showToast('Filters reset to default');
+    }
+
+    // Select All Checkbox
+    function toggleSelectAll(master) {
+      const chks = document.querySelectorAll('.row-chk');
+      chks.forEach(c => c.checked = master.checked);
+    }
+
+    // ---------------- DRAWER POPULATION & HANDLING ----------------
+    function populateDrawerWithProject(proj) {
+      activeDrawerMode = 'edit';
+      document.getElementById('drawerTitle').textContent = 'Edit Project';
+      document.getElementById('drawerSubtitle').textContent = 'Update project details, instructions, files and settings.';
+      document.getElementById('btnDrawerSubmit').textContent = 'Update Project';
+      document.getElementById('btnDrawerDelete').style.display = 'inline-flex';
+
+      document.getElementById('formProjectId').value = proj._id;
+      document.getElementById('formTitle').value = proj.title || '';
+      document.getElementById('formTrack').value = proj.track || 'Data Analytics';
+      document.getElementById('formDescription').value = proj.description || '';
+      document.getElementById('formDifficulty').value = proj.difficulty || 'Beginner';
+      document.getElementById('formProjectType').value = proj.projectType || 'Analytics';
+      document.getElementById('formObjectives').value = proj.objectives || '';
+      document.getElementById('formInstructions').value = proj.instructions || '';
+      document.getElementById('formStatus').value = proj.status || 'Published';
+      document.getElementById('formUsedInInternship').checked = proj.usedInInternship !== false;
+
+      currentEditingResources = Array.isArray(proj.resources) ? JSON.parse(JSON.stringify(proj.resources)) : [];
+      renderDrawerResources();
+
+      updateCharCount('formDescription', 'descCharCount', 1000);
+      updateCharCount('formObjectives', 'objCharCount', 1000);
+      updateCharCount('formInstructions', 'instCharCount', 1000);
+    }
+
+    function openAddProjectDrawer() {
+      activeDrawerMode = 'add';
+      document.getElementById('drawerTitle').textContent = 'Add Project';
+      document.getElementById('drawerSubtitle').textContent = 'Create a new real-world project for courses & internships.';
+      document.getElementById('btnDrawerSubmit').textContent = 'Create Project';
+      document.getElementById('btnDrawerDelete').style.display = 'none';
+
+      document.getElementById('formProjectId').value = '';
+      document.getElementById('formTitle').value = '';
+      document.getElementById('formTrack').value = 'Data Analytics';
+      document.getElementById('formDescription').value = '';
+      document.getElementById('formDifficulty').value = 'Beginner';
+      document.getElementById('formProjectType').value = 'Analytics';
+      document.getElementById('formObjectives').value = '• Understand project requirements\n• Perform data cleaning and modeling\n• Design interactive dashboard\n• Present actionable insights';
+      document.getElementById('formInstructions').value = 'Follow the steps in the project brief. Review attached resources before beginning.';
+      document.getElementById('formStatus').value = 'Published';
+      document.getElementById('formUsedInInternship').checked = true;
+
+      currentEditingResources = [
+        { title: 'Project Brief.pdf', type: 'pdf', url: '#' },
+        { title: 'Sample Dataset.xlsx', type: 'excel', url: '#' },
+        { title: 'Reference Article', type: 'link', url: '#' }
+      ];
+      renderDrawerResources();
+
+      updateCharCount('formDescription', 'descCharCount', 1000);
+      updateCharCount('formObjectives', 'objCharCount', 1000);
+      updateCharCount('formInstructions', 'instCharCount', 1000);
+
+      document.getElementById('formTitle').focus();
+    }
+
+    function editProject(id) {
+      const proj = currentProjects.find(p => p._id === id);
+      if (proj) {
+        populateDrawerWithProject(proj);
+      } else {
+        fetch(`/api/admin/projects/${id}`)
+          .then(r => r.json())
+          .then(data => {
+            if (data.success && data.project) {
+              populateDrawerWithProject(data.project);
+            }
+          });
+      }
+    }
+
+    function closeDrawer() {
+      // Clear or keep minimized
+      if (currentProjects.length > 0) {
+        populateDrawerWithProject(currentProjects[0]);
+      }
+    }
+
+    // Render Resources list inside drawer
+    function renderDrawerResources() {
+      const wrap = document.getElementById('formResourcesList');
+      wrap.innerHTML = '';
+
+      if (!currentEditingResources || currentEditingResources.length === 0) {
+        wrap.innerHTML = `<span style="font-size: 12px; color: #94a3b8; font-style: italic;">No resources attached yet.</span>`;
+        return;
+      }
+
+      currentEditingResources.forEach((res, idx) => {
+        const item = document.createElement('div');
+        item.className = 'resource-item-row';
+
+        let iconHtml = '<i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i>';
+        if (res.type === 'excel') iconHtml = '<i class="fa-solid fa-file-excel" style="color: #10b981;"></i>';
+        else if (res.type === 'link') iconHtml = '<i class="fa-solid fa-link" style="color: #2563eb;"></i>';
+        else if (res.type === 'doc') iconHtml = '<i class="fa-solid fa-file-word" style="color: #8b5cf6;"></i>';
+
+        item.innerHTML = `
+          <div class="resource-item-left">
+            ${iconHtml}
+            <span class="resource-item-title" title="${escapeHtml(res.title)}">${escapeHtml(res.title)}</span>
+          </div>
+          <button type="button" class="btn-res-del" onclick="deleteResourceItem(${idx})" title="Remove Resource">
+            <i class="fa-regular fa-trash-can"></i>
+          </button>
+        `;
+        wrap.appendChild(item);
+      });
+    }
+
+    function deleteResourceItem(idx) {
+      currentEditingResources.splice(idx, 1);
+      renderDrawerResources();
+    }
+
+    // Add Resource Modal
+    function openAddResourceModal() {
+      document.getElementById('newResTitle').value = '';
+      document.getElementById('newResType').value = 'pdf';
+      document.getElementById('newResUrl').value = '#';
+      document.getElementById('addResourceModal').classList.add('show');
+      setTimeout(() => document.getElementById('newResTitle').focus(), 100);
+    }
+
+    function closeAddResourceModal() {
+      document.getElementById('addResourceModal').classList.remove('show');
+    }
+
+    function saveNewResource() {
+      const title = document.getElementById('newResTitle').value.trim();
+      const type = document.getElementById('newResType').value;
+      const url = document.getElementById('newResUrl').value.trim() || '#';
+
+      if (!title) {
+        alert('Please enter a resource title');
+        return;
+      }
+
+      currentEditingResources.push({ title, type, url });
+      renderDrawerResources();
+      closeAddResourceModal();
+      showToast(`Added resource "${title}"`);
+    }
+
+    // Form Submit (Save / Create)
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const id = document.getElementById('formProjectId').value;
+      const title = document.getElementById('formTitle').value.trim();
+      const track = document.getElementById('formTrack').value;
+      const description = document.getElementById('formDescription').value.trim();
+      const difficulty = document.getElementById('formDifficulty').value;
+      const projectType = document.getElementById('formProjectType').value;
+      const objectives = document.getElementById('formObjectives').value.trim();
+      const instructions = document.getElementById('formInstructions').value.trim();
+      const status = document.getElementById('formStatus').value;
+      const usedInInternship = document.getElementById('formUsedInInternship').checked;
+
+      const payload = {
+        title,
+        track,
+        description,
+        difficulty,
+        projectType,
+        objectives,
+        resources: currentEditingResources,
+        instructions,
+        status,
+        usedInInternship
+      };
+
+      try {
+        let res;
+        if (id && activeDrawerMode === 'edit') {
+          res = await fetch(`/api/admin/projects/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          res = await fetch(`/api/admin/projects`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+
+        const data = await res.json();
+        if (data.success) {
+          showToast(data.message || 'Project saved successfully');
+          fetchProjects(currentPage);
+        } else {
+          showToast(data.message || 'Failed to save project', true);
+        }
+      } catch (err) {
+        console.error('Save Project Error:', err);
+        showToast('Error saving project to database', true);
+      }
+    }
+
+    // Duplicate Project
+    async function duplicateProject(id) {
+      try {
+        const res = await fetch(`/api/admin/projects/${id}/duplicate`, {
+          method: 'POST'
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Project duplicated successfully');
+          fetchProjects(currentPage);
+        } else {
+          showToast(data.message || 'Failed to duplicate project', true);
+        }
+      } catch (err) {
+        console.error('Duplicate error:', err);
+        showToast('Error duplicating project', true);
+      }
+    }
+
+    // Delete Project
+    async function deleteProject(id) {
+      const proj = currentProjects.find(p => p._id === id);
+      const name = proj ? proj.title : 'this project';
+
+      if (!confirm(`Are you sure you want to delete "${name}"? This action cannot be undone.`)) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/admin/projects/${id}`, {
+          method: 'DELETE'
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Project deleted successfully');
+          fetchProjects(currentPage);
+        } else {
+          showToast(data.message || 'Failed to delete project', true);
+        }
+      } catch (err) {
+        console.error('Delete error:', err);
+        showToast('Error deleting project', true);
+      }
+    }
+
+    function deleteCurrentEditingProject() {
+      const id = document.getElementById('formProjectId').value;
+      if (id) {
+        deleteProject(id);
+      }
+    }
+
+    // View Project Details Preview Modal
+    async function viewProjectDetails(id) {
+      let proj = currentProjects.find(p => p._id === id);
+      if (!proj) {
+        try {
+          const res = await fetch(`/api/admin/projects/${id}`);
+          const data = await res.json();
+          if (data.success) proj = data.project;
+        } catch (e) {}
+      }
+
+      if (!proj) return;
+
+      document.getElementById('prevModalTitle').textContent = proj.title;
+
+      const trackClass = getTrackClass(proj.track);
+      const diffClass = (proj.difficulty || 'Beginner').toLowerCase();
+      const statusClass = (proj.status || 'Published').toLowerCase();
+
+      let resListHtml = '';
+      if (proj.resources && proj.resources.length > 0) {
+        resListHtml = proj.resources.map(r => {
+          let icon = '<i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i>';
+          if (r.type === 'excel') icon = '<i class="fa-solid fa-file-excel" style="color: #10b981;"></i>';
+          else if (r.type === 'link') icon = '<i class="fa-solid fa-link" style="color: #2563eb;"></i>';
+          else if (r.type === 'doc') icon = '<i class="fa-solid fa-file-word" style="color: #8b5cf6;"></i>';
+          return `
+            <div style="display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12.5px;">
+              ${icon} <span>${escapeHtml(r.title)}</span>
+            </div>
+          `;
+        }).join('');
+      } else {
+        resListHtml = '<span style="font-size: 12px; color: #94a3b8;">No attached resources.</span>';
+      }
+
+      document.getElementById('prevModalBody').innerHTML = `
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span class="track-badge ${trackClass}">${escapeHtml(proj.track)}</span>
+          <span class="diff-badge ${diffClass}">${escapeHtml(proj.difficulty || 'Beginner')}</span>
+          <span class="status-badge ${statusClass}">${escapeHtml(proj.status || 'Published')}</span>
+          <span style="font-size: 12px; color: #64748b; font-weight: 600;">Type: ${escapeHtml(proj.projectType || 'Analytics')}</span>
+          <span style="font-size: 12px; color: #64748b; font-weight: 600;">• ${proj.usedInInternship ? 'Used in Internship Program' : 'Standalone Project'}</span>
+        </div>
+
+        <div>
+          <h5 style="font-size: 12.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Description</h5>
+          <p style="font-size: 13.5px; line-height: 1.6; color: #1e293b; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            ${escapeHtml(proj.description || 'No description provided.')}
+          </p>
+        </div>
+
+        <div>
+          <h5 style="font-size: 12.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Objectives</h5>
+          <div style="font-size: 13px; line-height: 1.6; color: #334155; white-space: pre-line; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            ${escapeHtml(proj.objectives || 'No objectives specified.')}
+          </div>
+        </div>
+
+        <div>
+          <h5 style="font-size: 12.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Resources</h5>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            ${resListHtml}
+          </div>
+        </div>
+
+        <div>
+          <h5 style="font-size: 12.5px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Instructions</h5>
+          <div style="font-size: 13px; line-height: 1.6; color: #334155; white-space: pre-line; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            ${escapeHtml(proj.instructions || 'Follow instructions provided in the project brief.')}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('previewModal').classList.add('show');
+    }
+
+    function closePreviewModal() {
+      document.getElementById('previewModal').classList.remove('show');
+    }
+
+    // Rich Editor Utilities
+    function updateCharCount(inputId, countId, max) {
+      const val = document.getElementById(inputId).value || '';
+      document.getElementById(countId).textContent = `${val.length}/${max} characters`;
+    }
+
+    function insertFormatting(inputId, startTag, endTag) {
+      const area = document.getElementById(inputId);
+      const start = area.selectionStart;
+      const end = area.selectionEnd;
+      const text = area.value;
+      const selected = text.substring(start, end);
+
+      area.value = text.substring(0, start) + startTag + selected + endTag + text.substring(end);
+      area.selectionStart = start + startTag.length;
+      area.selectionEnd = end + startTag.length;
+      area.focus();
+    }
+
+    function insertPrefix(inputId, prefix) {
+      const area = document.getElementById(inputId);
+      const start = area.selectionStart;
+      const text = area.value;
+      area.value = text.substring(0, start) + '\n' + prefix + text.substring(start);
+      area.focus();
+    }
+
+    function insertLink(inputId) {
+      const url = prompt('Enter link URL (e.g. https://example.com):', 'https://');
+      if (url) {
+        insertFormatting(inputId, `[link](${url})`, '');
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>

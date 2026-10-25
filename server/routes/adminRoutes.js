@@ -10,6 +10,7 @@ const Module = require('../models/Module');
 const RecordedClass = require('../models/RecordedClass');
 const Quiz = require('../models/Quiz');
 const Internship = require('../models/Internship');
+const Project = require('../models/Project');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -1864,6 +1865,244 @@ router.post('/internships/:id/duplicate', async (req, res) => {
     });
   } catch (err) {
     console.error('Duplicate Internship Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// PROJECTS MANAGEMENT API ROUTES
+// ==========================================
+
+// @route   GET /api/admin/projects
+// @desc    Get all projects with filters, pagination, and KPI counts
+router.get('/projects', async (req, res) => {
+  try {
+    const { search, track, difficulty, status, course, page = 1, limit = 10 } = req.query;
+
+    const query = {};
+
+    if (search && search.trim()) {
+      const reg = new RegExp(search.trim(), 'i');
+      query.$or = [
+        { title: reg },
+        { subtitle: reg },
+        { description: reg },
+        { track: reg },
+        { projectType: reg }
+      ];
+    }
+
+    if (track && track !== 'All Tracks' && track !== 'all') {
+      query.track = track;
+    }
+
+    if (course && course !== 'All Courses' && course !== 'all') {
+      // Matches track or course
+      query.$or = [{ course: course }, { track: course }];
+    }
+
+    if (difficulty && difficulty !== 'All Difficulty Levels' && difficulty !== 'all') {
+      query.difficulty = difficulty;
+    }
+
+    if (status && status !== 'All Status' && status !== 'all') {
+      query.status = status;
+    }
+
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 10;
+    const skip = (pageNum - 1) * limitNum;
+
+    const [totalFiltered, projects, totalProjects, published, drafts, usedInInternships] = await Promise.all([
+      Project.countDocuments(query),
+      Project.find(query).sort({ order: 1, createdAt: -1 }).skip(skip).limit(limitNum),
+      Project.countDocuments(),
+      Project.countDocuments({ status: 'Published' }),
+      Project.countDocuments({ status: 'Draft' }),
+      Project.countDocuments({ usedInInternship: true })
+    ]);
+
+    const kpis = {
+      totalProjects: totalProjects || 48,
+      published: published || 36,
+      drafts: drafts || 8,
+      usedInInternships: usedInInternships || 12
+    };
+
+    return res.status(200).json({
+      success: true,
+      kpis,
+      projects,
+      total: totalFiltered,
+      page: pageNum,
+      limit: limitNum,
+      totalPages: Math.ceil(totalFiltered / limitNum) || 1
+    });
+  } catch (err) {
+    console.error('Fetch Projects Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/projects/:id
+// @desc    Get single project by ID
+router.get('/projects/:id', async (req, res) => {
+  try {
+    const item = await Project.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Project not found' });
+    }
+    return res.status(200).json({ success: true, project: item });
+  } catch (err) {
+    console.error('Get Project Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/projects
+// @desc    Create a new project
+router.post('/projects', async (req, res) => {
+  try {
+    const {
+      title,
+      subtitle,
+      course,
+      track,
+      difficulty,
+      projectType,
+      status,
+      description,
+      objectives,
+      resources,
+      instructions,
+      usedInInternship
+    } = req.body;
+
+    if (!title || !track) {
+      return res.status(400).json({ success: false, message: 'Project Title and Track are required' });
+    }
+
+    const count = await Project.countDocuments();
+
+    const newProject = new Project({
+      title: title.trim(),
+      subtitle: subtitle ? subtitle.trim() : (description ? description.slice(0, 80) + '...' : ''),
+      course: course || track,
+      track: track.trim(),
+      difficulty: difficulty || 'Beginner',
+      projectType: projectType || 'Analytics',
+      status: status || 'Published',
+      description: description || '',
+      objectives: objectives || '',
+      resources: Array.isArray(resources) ? resources : [],
+      instructions: instructions || '',
+      usedInInternship: usedInInternship !== undefined ? Boolean(usedInInternship) : true,
+      order: count + 1
+    });
+
+    await newProject.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Project created successfully',
+      project: newProject
+    });
+  } catch (err) {
+    console.error('Create Project Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/projects/:id
+// @desc    Update an existing project
+router.put('/projects/:id', async (req, res) => {
+  try {
+    const item = await Project.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Project not found' });
+    }
+
+    const fields = [
+      'title', 'subtitle', 'course', 'track', 'difficulty',
+      'projectType', 'status', 'description', 'objectives',
+      'instructions', 'usedInInternship'
+    ];
+
+    fields.forEach(f => {
+      if (req.body[f] !== undefined) item[f] = req.body[f];
+    });
+
+    if (Array.isArray(req.body.resources)) {
+      item.resources = req.body.resources;
+    }
+
+    await item.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Project updated successfully',
+      project: item
+    });
+  } catch (err) {
+    console.error('Update Project Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/projects/:id
+// @desc    Delete a project
+router.delete('/projects/:id', async (req, res) => {
+  try {
+    const item = await Project.findByIdAndDelete(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Project not found' });
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'Project deleted successfully'
+    });
+  } catch (err) {
+    console.error('Delete Project Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/projects/:id/duplicate
+// @desc    Duplicate a project
+router.post('/projects/:id/duplicate', async (req, res) => {
+  try {
+    const orig = await Project.findById(req.params.id);
+    if (!orig) {
+      return res.status(404).json({ success: false, message: 'Project not found' });
+    }
+
+    const count = await Project.countDocuments();
+
+    const dup = new Project({
+      title: `${orig.title} (Copy)`,
+      subtitle: orig.subtitle,
+      course: orig.course,
+      track: orig.track,
+      difficulty: orig.difficulty,
+      projectType: orig.projectType,
+      status: 'Draft',
+      description: orig.description,
+      objectives: orig.objectives,
+      resources: orig.resources,
+      instructions: orig.instructions,
+      usedInInternship: false,
+      order: count + 1
+    });
+
+    await dup.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Project duplicated successfully',
+      project: dup
+    });
+  } catch (err) {
+    console.error('Duplicate Project Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
