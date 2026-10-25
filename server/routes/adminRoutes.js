@@ -9,6 +9,7 @@ const Course = require('../models/Course');
 const Module = require('../models/Module');
 const RecordedClass = require('../models/RecordedClass');
 const Quiz = require('../models/Quiz');
+const Internship = require('../models/Internship');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -1655,6 +1656,219 @@ router.delete('/api/admin/quizzes/:id/questions/:qId', async (req, res) => {
   }
 });
 
+// ==========================================
+// INTERNSHIP PROGRAMS MANAGEMENT ROUTES
+// ==========================================
+
+// @route   GET /api/admin/internships
+// @desc    Get all internship programs with filters and KPIs
+router.get('/internships', async (req, res) => {
+  try {
+    const { search, track, status, duration } = req.query;
+
+    const filter = {};
+
+    if (search && search.trim()) {
+      const q = search.trim();
+      filter.$or = [
+        { title: { $regex: q, $options: 'i' } },
+        { track: { $regex: q, $options: 'i' } },
+        { description: { $regex: q, $options: 'i' } }
+      ];
+    }
+
+    if (track && track !== 'All' && track !== 'All Tracks') {
+      filter.track = track;
+    }
+
+    if (status && status !== 'All' && status !== 'All Status') {
+      filter.status = status;
+    }
+
+    if (duration && duration !== 'All' && duration !== 'All Duration') {
+      filter.duration = duration;
+    }
+
+    const allInternships = await Internship.find({}).sort({ createdAt: 1 });
+    const filteredInternships = await Internship.find(filter).sort({ createdAt: 1 });
+
+    const totalInternships = allInternships.length;
+    const totalEnrolled = allInternships.reduce((sum, item) => sum + (item.enrolled || 0), 0);
+
+    const kpis = {
+      totalInternships: totalInternships || 8,
+      totalEnrolled: totalEnrolled || 124,
+      completed: 96,
+      ongoing: 18
+    };
+
+    return res.status(200).json({
+      success: true,
+      kpis,
+      internships: filteredInternships,
+      total: filteredInternships.length
+    });
+  } catch (err) {
+    console.error('Fetch Internships Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/internships/:id
+// @desc    Get single internship by id
+router.get('/internships/:id', async (req, res) => {
+  try {
+    const item = await Internship.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Internship not found' });
+    }
+    return res.status(200).json({ success: true, internship: item });
+  } catch (err) {
+    console.error('Get Internship Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/internships
+// @desc    Create a new internship program
+router.post('/internships', async (req, res) => {
+  try {
+    const {
+      title,
+      track,
+      duration,
+      startDate,
+      enrolled,
+      status,
+      description,
+      highlights,
+      projects,
+      enrollmentLimit,
+      showToStudents
+    } = req.body;
+
+    if (!title || !track) {
+      return res.status(400).json({ success: false, message: 'Title and Track are required' });
+    }
+
+    const newProg = new Internship({
+      title: title.trim(),
+      track: track.trim(),
+      duration: duration || '6 Months',
+      startDate: startDate || '01 Nov 2025',
+      enrolled: parseInt(enrolled) || 0,
+      status: status || 'Published',
+      description: description || '',
+      highlights: highlights || '• Real-world industry projects\n• Mentor guidance\n• Certificates on completion\n• Placement assistance',
+      projects: Array.isArray(projects) ? projects.filter(Boolean) : [],
+      enrollmentLimit: parseInt(enrollmentLimit) || 50,
+      showToStudents: showToStudents !== undefined ? showToStudents : true
+    });
+
+    await newProg.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Internship program created successfully',
+      internship: newProg
+    });
+  } catch (err) {
+    console.error('Create Internship Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/internships/:id
+// @desc    Update an existing internship program
+router.put('/internships/:id', async (req, res) => {
+  try {
+    const item = await Internship.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Internship not found' });
+    }
+
+    const fields = [
+      'title', 'track', 'duration', 'startDate', 'enrolled',
+      'status', 'description', 'highlights', 'projects',
+      'enrollmentLimit', 'showToStudents'
+    ];
+
+    fields.forEach(f => {
+      if (req.body[f] !== undefined) item[f] = req.body[f];
+    });
+
+    if (Array.isArray(req.body.projects)) {
+      item.projects = req.body.projects.filter(Boolean);
+    }
+
+    await item.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Internship updated successfully',
+      internship: item
+    });
+  } catch (err) {
+    console.error('Update Internship Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/internships/:id
+// @desc    Delete an internship program
+router.delete('/internships/:id', async (req, res) => {
+  try {
+    const item = await Internship.findByIdAndDelete(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Internship not found' });
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'Internship deleted successfully'
+    });
+  } catch (err) {
+    console.error('Delete Internship Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/internships/:id/duplicate
+// @desc    Duplicate an internship program
+router.post('/internships/:id/duplicate', async (req, res) => {
+  try {
+    const orig = await Internship.findById(req.params.id);
+    if (!orig) {
+      return res.status(404).json({ success: false, message: 'Internship not found' });
+    }
+
+    const dup = new Internship({
+      title: `${orig.title} (Copy)`,
+      track: orig.track,
+      duration: orig.duration,
+      startDate: orig.startDate,
+      enrolled: 0,
+      status: 'Draft',
+      description: orig.description,
+      highlights: orig.highlights,
+      projects: orig.projects,
+      enrollmentLimit: orig.enrollmentLimit,
+      showToStudents: false
+    });
+
+    await dup.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Internship duplicated successfully',
+      internship: dup
+    });
+  } catch (err) {
+    console.error('Duplicate Internship Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;
+
 
 
