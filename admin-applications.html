@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Applications | Internship Management | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F4F7FC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #ECFDF5;
+      --success-badge-bg: #DCFCE7;
+      --success-badge-text: #166534;
+      --warning: #F59E0B;
+      --warning-light: #FFFBEB;
+      --warning-badge-bg: #FEF3C7;
+      --warning-badge-text: #92400E;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --danger-badge-text: #B91C1C;
+      --purple: #8B5CF6;
+      --purple-light: #F3E8FF;
+      --purple-text: #7E22CE;
+      --info: #0284C7;
+      --info-light: #E0F2FE;
+      --info-badge-bg: #E0F2FE;
+      --info-badge-text: #0369A1;
+
+      /* Track Program Badges */
+      --track-da-bg: #EFF6FF;
+      --track-da-text: #1D4ED8;
+      --track-ds-bg: #F5F3FF;
+      --track-ds-text: #6D28D9;
+      --track-aiml-bg: #EFF6FF;
+      --track-aiml-text: #0284C7;
+      --track-dm-bg: #FAF5FF;
+      --track-dm-text: #7E22CE;
+      --track-fs-bg: #F5F3FF;
+      --track-fs-text: #6D28D9;
+      --track-hr-bg: #EFF6FF;
+      --track-hr-text: #1D4ED8;
+      --track-sm-bg: #EFF6FF;
+      --track-sm-text: #1D4ED8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff;
+      background: rgba(37, 99, 235, 0.12);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 15px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 38px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff;
+      font-weight: 700;
+      background: #2563eb;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before {
+      color: #ffffff;
+    }
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* Sidebar Footer Promo */
+    .sidebar-promo-card {
+      margin: auto 12px 16px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(28, 37, 65, 0.6));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .promo-crown {
+      color: #fbbf24;
+      font-size: 18px;
+    }
+
+    .promo-text h5 {
+      font-size: 12.5px;
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .promo-text p {
+      font-size: 10.5px;
+      color: #94a3b8;
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Bar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .top-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 16px;
+      width: 480px;
+      transition: all 0.2s;
+    }
+
+    .top-search-wrap:focus-within {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .top-search-wrap i {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .top-search-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13.5px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-notif {
+      position: relative;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 18px;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .btn-notif:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .notif-badge-dot {
+      position: absolute;
+      top: 8px;
+      right: 9px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .user-profile-badge:hover {
+      background: #f1f5f9;
+    }
+
+    .avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #7e22ce;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .user-role {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* Page Layout Wrap (Main Area + Right Side Panel) */
+    .page-layout-wrap {
+      display: flex;
+      flex: 1;
+      position: relative;
+    }
+
+    .page-main-area {
+      flex: 1;
+      padding: 28px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      min-width: 0;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .breadcrumb-row a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+    .breadcrumb-row span.current {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* Page Title & Export Action */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .header-text-block h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .header-text-block p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-export-action {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .btn-export-action:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- 5 KPI CARDS ---------------- */
+    .kpi-stats-grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    .kpi-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-box.purple { background: var(--purple-light); color: var(--purple-text); }
+    .kpi-icon-box.green { background: var(--success-badge-bg); color: var(--success-badge-text); }
+    .kpi-icon-box.yellow { background: var(--warning-badge-bg); color: var(--warning-badge-text); }
+    .kpi-icon-box.red { background: var(--danger-light); color: var(--danger-badge-text); }
+    .kpi-icon-box.blue { background: var(--info-light); color: var(--info-badge-text); }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .kpi-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .kpi-desc {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    .kpi-badge-pct {
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .kpi-badge-pct.green { color: #166534; }
+    .kpi-badge-pct.yellow { color: #92400e; }
+    .kpi-badge-pct.red { color: #b91c1c; }
+    .kpi-badge-pct.blue { color: #2563eb; }
+
+    /* ---------------- FILTERS & SEARCH ROW ---------------- */
+    .filters-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 14px;
+      width: 270px;
+      transition: border 0.2s;
+    }
+
+    .search-input-wrap:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .search-input-wrap i {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .search-input-wrap input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      outline: none;
+      cursor: pointer;
+      transition: border 0.15s;
+    }
+
+    .filter-select:hover {
+      border-color: #cbd5e1;
+    }
+
+    .btn-date-range {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.15s;
+    }
+
+    .btn-date-range:hover {
+      border-color: #cbd5e1;
+    }
+
+    /* ---------------- APPLICATIONS TABLE CARD ---------------- */
+    .table-container-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #f8fafc;
+      padding: 13px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      text-transform: capitalize;
+    }
+
+    table.data-table td {
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: middle;
+    }
+
+    table.data-table tbody tr {
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    table.data-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    table.data-table tbody tr.row-selected {
+      background: #eff6ff;
+    }
+
+    .custom-chk {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .row-index-num {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 12.5px;
+    }
+
+    /* Applicant Cell */
+    .applicant-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .applicant-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 11.5px;
+      flex-shrink: 0;
+    }
+
+    .applicant-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .applicant-name {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 13.5px;
+    }
+
+    .applicant-email {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    /* Program Cell */
+    .program-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .program-badge {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .program-sub {
+      font-size: 11.5px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .applied-date {
+      font-size: 12.5px;
+      color: #475569;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Resume Button */
+    .btn-resume-view {
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #2563eb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-resume-view:hover {
+      background: #eff6ff;
+      border-color: #2563eb;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .status-badge.shortlisted { background: var(--success-badge-bg); color: var(--success-badge-text); }
+    .status-badge.under-review { background: var(--warning-badge-bg); color: var(--warning-badge-text); }
+    .status-badge.rejected { background: var(--danger-light); color: var(--danger-badge-text); }
+    .status-badge.waitlisted { background: #e0f2fe; color: #0369a1; }
+
+    /* Actions Column */
+    .row-actions-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-act {
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+
+    .btn-act:hover {
+      background: #dbeafe;
+      transform: translateY(-1px);
+    }
+
+    /* Pagination */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .pagination-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-page {
+      min-width: 30px;
+      height: 30px;
+      padding: 0 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-page:hover:not(:disabled) {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .btn-page.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    .btn-page:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ---------------- RIGHT SIDE APPLICATION DETAILS PANEL ---------------- */
+    .drawer-panel-side {
+      width: 440px;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      height: calc(100vh - 70px);
+      overflow-y: auto;
+      z-index: 80;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .drawer-panel-side::-webkit-scrollbar {
+      width: 5px;
+    }
+    .drawer-panel-side::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .drawer-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    .drawer-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .btn-close-drawer {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      color: #94a3b8;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-close-drawer:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    /* Applicant Overview Header inside Drawer */
+    .drawer-applicant-top {
+      padding: 20px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .drawer-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #2563EB;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .drawer-applicant-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .drawer-applicant-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .drawer-applicant-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .drawer-contact-line {
+      font-size: 12px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Navigation Tabs */
+    .drawer-tabs-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      background: #ffffff;
+    }
+
+    .drawer-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.15s;
+    }
+
+    .drawer-tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .drawer-tab-btn.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .drawer-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* Tab Content Body */
+    .drawer-body-content {
+      padding: 20px 24px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .drawer-section-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 2-Column Info Grid */
+    .info-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 16px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .info-icon {
+      color: #64748b;
+      font-size: 13px;
+      margin-top: 3px;
+      width: 14px;
+      text-align: center;
+    }
+
+    .info-text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .info-val {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    .select-status-inline {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    /* Statement Block */
+    .statement-block {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #334155;
+      font-style: italic;
+    }
+
+    /* Resume Document Box */
+    .resume-doc-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
+
+    .resume-doc-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .resume-doc-left i {
+      font-size: 18px;
+      color: #ef4444;
+    }
+
+    .resume-doc-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .resume-doc-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-doc-view {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-doc-view:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .btn-doc-dl {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-doc-dl:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+
+    /* Skills Badges List */
+    .skills-pills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-pill {
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid #dbeafe;
+    }
+
+    /* Admin Notes Box */
+    .admin-notes-textarea {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      outline: none;
+      resize: vertical;
+      min-height: 75px;
+      line-height: 1.5;
+    }
+
+    .admin-notes-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .notes-counter {
+      text-align: right;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* Drawer Footer Action Buttons */
+    .drawer-footer-actions {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .btn-footer-reject {
+      background: transparent;
+      border: 1px solid #fee2e2;
+      color: #ef4444;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-footer-reject:hover {
+      background: #fee2e2;
+    }
+
+    .btn-footer-waitlist {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+
+    .btn-footer-waitlist:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .btn-footer-schedule {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+      transition: background 0.15s;
+    }
+
+    .btn-footer-schedule:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 1280px) {
+      .page-layout-wrap {
+        flex-direction: column;
+      }
+      .drawer-panel-side {
+        width: 100%;
+        position: static;
+        height: auto;
+      }
+      .kpi-stats-grid-5 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem">Courses</a>
+          <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="admin-quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management (Active Category) -->
+      <div class="nav-group open" id="navGroupInternships">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
+          <a href="admin-projects.html" class="nav-subitem">Projects</a>
+          <a href="javascript:void(0)" onclick="showToast('Mentors section opening soon')" class="nav-subitem">Mentors</a>
+          <a href="admin-applications.html" class="nav-subitem active-subitem">Applications</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-certificates.html" class="nav-subitem">Certificates</a>
+        </div>
+      </div>
+
+      <!-- Placement Management -->
+      <div class="nav-group" id="navGroupPlacements">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupPlacements')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building-user"></i>
+            <span>Placement Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Job Openings coming soon')" class="nav-subitem">Job Openings</a>
+          <a href="javascript:void(0)" onclick="showToast('Companies coming soon')" class="nav-subitem">Companies</a>
+          <a href="javascript:void(0)" onclick="showToast('Drives coming soon')" class="nav-subitem">Drives</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Overview Analytics</a>
+          <a href="javascript:void(0)" onclick="showToast('Student Performance coming soon')" class="nav-subitem">Student Performance</a>
+          <a href="javascript:void(0)" onclick="showToast('Revenue Reports coming soon')" class="nav-subitem">Revenue Reports</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Admin Settings coming soon')" class="nav-subitem">General Settings</a>
+          <a href="javascript:void(0)" onclick="showToast('Role permissions coming soon')" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promo Card at Bottom -->
+    <div class="sidebar-promo-card">
+      <i class="fa-solid fa-crown promo-crown"></i>
+      <div class="promo-text">
+        <h5>Edurup Learning</h5>
+        <p>Learn • Practice • Internship</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="top-search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalSearchInput" placeholder="Search students, courses, applications...">
+      </div>
+
+      <div class="top-right-actions">
+        <button type="button" class="btn-notif" title="Notifications" onclick="showToast('No new notifications')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge-dot"></span>
+        </button>
+
+        <div class="user-profile-badge" title="Super Admin Profile">
+          <div class="avatar-circle">AD</div>
+          <div class="user-meta">
+            <span class="user-name">Admin</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #94a3b8; margin-left: 4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Body Wrap -->
+    <div class="page-layout-wrap">
+
+      <div class="page-main-area">
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-row">
+          <a href="admin-dashboard.html"><i class="fa-solid fa-house" style="font-size: 11px;"></i> Dashboard</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: #cbd5e1;"></i>
+          <a href="javascript:void(0)">Internship Management</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: #cbd5e1;"></i>
+          <span class="current">Applications</span>
+        </div>
+
+        <!-- Header Title & Export Button -->
+        <div class="page-header-row">
+          <div class="header-text-block">
+            <h1>Internship Applications</h1>
+            <p>Review and manage student applications for internship programs.</p>
+          </div>
+          <button type="button" class="btn-export-action" onclick="exportApplicationsToCSV()">
+            <i class="fa-solid fa-download"></i>
+            <span>Export Applications</span>
+          </button>
+        </div>
+
+        <!-- 5 KPI Cards Grid -->
+        <div class="kpi-stats-grid-5">
+          <!-- Card 1: Total Applications -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box purple">
+              <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiTotal">125</span>
+              <span class="kpi-desc">Total Applications</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Shortlisted -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box green">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiShortlisted">68</span>
+              <span class="kpi-desc">Shortlisted</span>
+              <span class="kpi-badge-pct green" id="kpiShortlistedPct">54%</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Under Review -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box yellow">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiUnderReview">32</span>
+              <span class="kpi-desc">Under Review</span>
+              <span class="kpi-badge-pct yellow" id="kpiUnderReviewPct">26%</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Rejected -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box red">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiRejected">18</span>
+              <span class="kpi-desc">Rejected</span>
+              <span class="kpi-badge-pct red" id="kpiRejectedPct">14%</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Waitlisted -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box blue">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiWaitlisted">7</span>
+              <span class="kpi-desc">Waitlisted</span>
+              <span class="kpi-badge-pct blue" id="kpiWaitlistedPct">6%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filters-row">
+          <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="appSearchInput" placeholder="Search by name, email, or phone..." oninput="handleSearchInput()">
+          </div>
+
+          <select class="filter-select" id="filterInternship" onchange="applyFilters()">
+            <option value="All Internships">All Internships</option>
+            <option value="Data Analytics Internship">Data Analytics</option>
+            <option value="Data Science Internship">Data Science</option>
+            <option value="AI & ML Internship">AI & ML</option>
+            <option value="Digital Marketing Internship">Digital Marketing</option>
+            <option value="Full Stack Internship">Full Stack</option>
+            <option value="HR Management Internship">HR Management</option>
+            <option value="Sales & Marketing Internship">Sales & Marketing</option>
+          </select>
+
+          <select class="filter-select" id="filterStatus" onchange="applyFilters()">
+            <option value="All Status">All Status</option>
+            <option value="Shortlisted">Shortlisted</option>
+            <option value="Under Review">Under Review</option>
+            <option value="Waitlisted">Waitlisted</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+
+          <select class="filter-select" id="filterBatch" onchange="applyFilters()">
+            <option value="All Batches">All Batches</option>
+            <option value="Nov 2025">Nov 2025</option>
+            <option value="Dec 2025">Dec 2025</option>
+            <option value="Jan 2026">Jan 2026</option>
+          </select>
+
+          <button type="button" class="btn-date-range" onclick="showToast('Date range filter active (Oct - Dec 2025)')">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Select Date Range</span>
+          </button>
+        </div>
+
+        <!-- Table Card -->
+        <div class="table-container-card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 36px;">
+                    <input type="checkbox" class="custom-chk" id="selectAllCheckbox" onchange="toggleSelectAll(this)">
+                  </th>
+                  <th style="width: 34px;">#</th>
+                  <th>Applicant</th>
+                  <th>Internship Program</th>
+                  <th>Applied On</th>
+                  <th>Resume</th>
+                  <th>Status</th>
+                  <th style="text-align: right; padding-right: 24px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="applicationsTableBody">
+                <!-- Dynamically populated from API -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer -->
+          <div class="table-footer">
+            <span id="showingCountLabel">Showing 1 to 10 of 125 applications</span>
+            <div class="pagination-wrap" id="paginationControls">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= RIGHT SIDE APPLICATION DETAILS DRAWER ================= -->
+      <aside class="drawer-panel-side" id="applicationDrawer">
+        <!-- Header -->
+        <div class="drawer-header">
+          <h3>Application Details</h3>
+          <button type="button" class="btn-close-drawer" onclick="closeDrawer()" title="Close Details">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Top Applicant Info -->
+        <div class="drawer-applicant-top">
+          <div class="drawer-avatar" id="drawerAvatar">RS</div>
+          <div class="drawer-applicant-info">
+            <div class="drawer-applicant-title-row">
+              <span class="drawer-applicant-name" id="drawerName">Rahul Sharma</span>
+              <span class="status-badge shortlisted" id="drawerTopStatusBadge">Shortlisted</span>
+            </div>
+            <div class="drawer-contact-line">
+              <span id="drawerEmail">rahul.sharma@gmail.com</span>
+              <span id="drawerPhone">+91 98765 43210</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="drawer-tabs-bar">
+          <button type="button" class="drawer-tab-btn active" onclick="switchDrawerTab('details', this)">Details</button>
+          <button type="button" class="drawer-tab-btn" onclick="switchDrawerTab('resume', this)">Resume</button>
+          <button type="button" class="drawer-tab-btn" onclick="switchDrawerTab('notes', this)">Notes</button>
+          <button type="button" class="drawer-tab-btn" onclick="switchDrawerTab('history', this)">History</button>
+        </div>
+
+        <!-- Tab Body Content -->
+        <div class="drawer-body-content" id="drawerTabDetails">
+
+          <!-- Section 1: Personal Information -->
+          <div>
+            <div class="drawer-section-title">
+              <i class="fa-regular fa-user" style="color: #64748b;"></i>
+              <span>Personal Information</span>
+            </div>
+            <div class="info-grid-2">
+              <div class="info-item">
+                <i class="fa-solid fa-user info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Full Name</span>
+                  <span class="info-val" id="drawerFullName">Rahul Sharma</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="fa-regular fa-envelope info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Email</span>
+                  <span class="info-val" id="drawerEmailInfo">rahul.sharma@gmail.com</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="fa-solid fa-phone info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Phone Number</span>
+                  <span class="info-val" id="drawerPhoneInfo">+91 98765 43210</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="fa-solid fa-location-dot info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Location</span>
+                  <span class="info-val" id="drawerLocation">Bengaluru, Karnataka</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="fa-solid fa-graduation-cap info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Current Education</span>
+                  <span class="info-val" id="drawerEducation">B.Tech Computer Science</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="fa-regular fa-calendar info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Graduation Year</span>
+                  <span class="info-val" id="drawerGradYear">2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Application Details -->
+          <div>
+            <div class="drawer-section-title">
+              <i class="fa-regular fa-file-lines" style="color: #64748b;"></i>
+              <span>Application Details</span>
+            </div>
+            <div class="info-grid-2">
+              <div class="info-item">
+                <i class="fa-solid fa-laptop-code info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Internship Program</span>
+                  <span class="info-val" id="drawerProgramName">Data Analytics Internship</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="fa-regular fa-calendar-check info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Batch</span>
+                  <span class="info-val" id="drawerBatch">Nov 2025</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="fa-regular fa-clock info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Applied On</span>
+                  <span class="info-val" id="drawerAppliedOnFull">12 Oct 2025, 10:24 AM</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <i class="fa-solid fa-shield-halved info-icon"></i>
+                <div class="info-text-block">
+                  <span class="info-label">Status</span>
+                  <select class="select-status-inline" id="drawerStatusSelect" onchange="updateCurrentAppStatus(this.value)">
+                    <option value="Shortlisted">Shortlisted</option>
+                    <option value="Under Review">Under Review</option>
+                    <option value="Waitlisted">Waitlisted</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Why do you want to join? -->
+          <div>
+            <div class="drawer-section-title">Why do you want to join?</div>
+            <div class="statement-block" id="drawerWhyJoin">
+              "I am passionate about data analytics and want to gain practical experience through real-world projects and mentorship."
+            </div>
+          </div>
+
+          <!-- Section 4: Resume -->
+          <div>
+            <div class="drawer-section-title">Resume</div>
+            <div class="resume-doc-card">
+              <div class="resume-doc-left">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span class="resume-doc-title" id="drawerResumeName">Rahul_Sharma_Resume.pdf</span>
+              </div>
+              <div class="resume-doc-actions">
+                <button type="button" class="btn-doc-view" onclick="openResumeModal()">View</button>
+                <button type="button" class="btn-doc-dl" onclick="downloadResume()" title="Download Resume">
+                  <i class="fa-solid fa-download"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Skills -->
+          <div>
+            <div class="drawer-section-title">Skills</div>
+            <div class="skills-pills-wrap" id="drawerSkillsWrap">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">SQL</span>
+              <span class="skill-pill">Excel</span>
+              <span class="skill-pill">Power BI</span>
+              <span class="skill-pill">Data Analysis</span>
+            </div>
+          </div>
+
+          <!-- Section 6: Admin Notes -->
+          <div>
+            <div class="drawer-section-title">Admin Notes</div>
+            <textarea class="admin-notes-textarea" id="drawerNotesTextarea" placeholder="Add private reviewer notes..." oninput="handleNotesInput()"></textarea>
+            <div class="notes-counter" id="notesCharCounter">50/500 characters</div>
+          </div>
+
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="drawer-footer-actions">
+          <button type="button" class="btn-footer-reject" onclick="changeStatusFromFooter('Rejected')">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span>Reject</span>
+          </button>
+          <button type="button" class="btn-footer-waitlist" onclick="changeStatusFromFooter('Waitlisted')">
+            <i class="fa-regular fa-clock"></i>
+            <span>Move to Waitlist</span>
+          </button>
+          <button type="button" class="btn-footer-schedule" onclick="openScheduleModal()">
+            <i class="fa-regular fa-calendar-check"></i>
+            <span>Schedule Interview</span>
+          </button>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ================= RESUME PREVIEW MODAL ================= -->
+  <div class="modal-backdrop" id="resumeModal">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <h4 id="resModalTitle">Resume Preview</h4>
+        <button type="button" class="modal-close-btn" onclick="closeResumeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 40px 20px; text-align: center;">
+          <i class="fa-solid fa-file-pdf" style="font-size: 48px; color: #ef4444; margin-bottom: 12px; display: block;"></i>
+          <h4 id="resPreviewFilename" style="font-size: 15px; font-weight: 700; color: #1e293b;">Rahul_Sharma_Resume.pdf</h4>
+          <p style="font-size: 12px; color: #64748b; margin-top: 4px;">Verified candidate document uploaded during internship application.</p>
+          <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+            <button type="button" class="btn-export-action" onclick="showToast('Simulated: Resume downloaded'); closeResumeModal();">
+              <i class="fa-solid fa-download"></i>
+              <span>Download PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SCHEDULE INTERVIEW MODAL ================= -->
+  <div class="modal-backdrop" id="scheduleModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4>Schedule Candidate Interview</h4>
+        <button type="button" class="modal-close-btn" onclick="closeScheduleModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Candidate Name</label>
+          <input type="text" class="form-input" id="schedCandidateName" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Interview Date</label>
+          <input type="date" class="form-input" id="schedDate" value="2025-10-30">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Interview Time Slot</label>
+          <input type="time" class="form-input" id="schedTime" value="11:00">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Interviewer / Mentor</label>
+          <select class="form-select" id="schedInterviewer">
+            <option value="Dr. Arjun Mehta (Lead Mentor)">Dr. Arjun Mehta (Lead Mentor)</option>
+            <option value="Sarah Jenkins (Head of Analytics)">Sarah Jenkins (Head of Analytics)</option>
+            <option value="Rohit Verma (Technical Lead)">Rohit Verma (Technical Lead)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Meeting Platform / Link</label>
+          <input type="text" class="form-input" id="schedLink" value="https://meet.google.com/edu-intr-rnd1">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+          <button type="button" class="btn-footer-waitlist" onclick="closeScheduleModal()">Cancel</button>
+          <button type="button" class="btn-footer-schedule" onclick="confirmScheduleInterview()">Confirm & Send Invite</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toastMsg">
+    <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+    <span id="toastText">Action completed successfully</span>
+  </div>
+
+  <!-- ================= LOGIC & SCRIPT ================= -->
+  <script>
+    let currentApplications = [];
+    let currentSelectedApp = null;
+    let currentPage = 1;
+    let totalPages = 1;
+    let searchDebounceTimer = null;
+    let notesSaveDebounceTimer = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchApplications(1);
+    });
+
+    // Nav Group Collapsible
+    function toggleNavGroup(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('open');
+    }
+
+    // Toast Alert
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toastMsg');
+      const text = document.getElementById('toastText');
+      if (!toast || !text) return;
+
+      text.textContent = msg;
+      const icon = toast.querySelector('i');
+      if (icon) {
+        icon.className = isError ? 'fa-solid fa-circle-exclamation' : 'fa-solid fa-circle-check';
+        icon.style.color = isError ? '#ef4444' : '#10b981';
+      }
+
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Fetch Applications from Express API
+    async function fetchApplications(page = 1) {
+      currentPage = page;
+      const search = document.getElementById('appSearchInput').value.trim();
+      const internship = document.getElementById('filterInternship').value;
+      const status = document.getElementById('filterStatus').value;
+      const batch = document.getElementById('filterBatch').value;
+
+      const params = new URLSearchParams({
+        page: page,
+        limit: 10
+      });
+
+      if (search) params.append('search', search);
+      if (internship && internship !== 'All Internships') params.append('internship', internship);
+      if (status && status !== 'All Status') params.append('status', status);
+      if (batch && batch !== 'All Batches') params.append('batch', batch);
+
+      try {
+        const res = await fetch(`/api/admin/applications?${params.toString()}`);
+        const data = await res.json();
+
+        if (data.success) {
+          currentApplications = data.applications || [];
+          totalPages = data.totalPages || 1;
+
+          // Update KPI Counters & Percentages
+          if (data.kpis) {
+            document.getElementById('kpiTotal').textContent = data.kpis.totalApplications;
+            document.getElementById('kpiShortlisted').textContent = data.kpis.shortlisted;
+            document.getElementById('kpiShortlistedPct').textContent = `${data.kpis.shortlistedPct}%`;
+
+            document.getElementById('kpiUnderReview').textContent = data.kpis.underReview;
+            document.getElementById('kpiUnderReviewPct').textContent = `${data.kpis.underReviewPct}%`;
+
+            document.getElementById('kpiRejected').textContent = data.kpis.rejected;
+            document.getElementById('kpiRejectedPct').textContent = `${data.kpis.rejectedPct}%`;
+
+            document.getElementById('kpiWaitlisted').textContent = data.kpis.waitlisted;
+            document.getElementById('kpiWaitlistedPct').textContent = `${data.kpis.waitlistedPct}%`;
+          }
+
+          // Render Table
+          renderTable(currentApplications, data.total, page, data.limit);
+
+          // Populate Drawer with First Item by default
+          if (currentApplications.length > 0) {
+            if (!currentSelectedApp) {
+              populateDrawer(currentApplications[0]);
+            } else {
+              const fresh = currentApplications.find(a => a._id === currentSelectedApp._id);
+              populateDrawer(fresh || currentApplications[0]);
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Fetch Applications Error:', err);
+        showToast('Error loading applications', true);
+      }
+    }
+
+    // Render Table Rows
+    function renderTable(apps, totalCount, page, limit) {
+      const tbody = document.getElementById('applicationsTableBody');
+      tbody.innerHTML = '';
+
+      if (!apps || apps.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 40px; color: #94a3b8;">
+              <i class="fa-solid fa-inbox" style="font-size: 32px; margin-bottom: 8px; display: block; color: #cbd5e1;"></i>
+              No applications found matching the search criteria.
+            </td>
+          </tr>
+        `;
+        document.getElementById('showingCountLabel').textContent = 'Showing 0 of 0 applications';
+        document.getElementById('paginationControls').innerHTML = '';
+        return;
+      }
+
+      const startIndex = (page - 1) * limit + 1;
+      const endIndex = Math.min(startIndex + apps.length - 1, totalCount);
+      document.getElementById('showingCountLabel').textContent = `Showing ${startIndex} to ${endIndex} of ${totalCount} applications`;
+
+      apps.forEach((app, idx) => {
+        const rowNum = (page - 1) * limit + idx + 1;
+        const tr = document.createElement('tr');
+        if (currentSelectedApp && currentSelectedApp._id === app._id) {
+          tr.classList.add('row-selected');
+        }
+
+        tr.onclick = (e) => {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+          selectApplicationRow(app);
+        };
+
+        const statusClass = (app.status || 'Under Review').toLowerCase().replace(' ', '-');
+        const initials = app.avatarInitials || getInitials(app.studentName);
+        const avatarColor = app.avatarColor || '#2563EB';
+
+        tr.innerHTML = `
+          <td>
+            <input type="checkbox" class="custom-chk row-chk" data-id="${app._id}" onclick="e.stopPropagation()">
+          </td>
+          <td><span class="row-index-num">${rowNum}</span></td>
+          <td>
+            <div class="applicant-cell">
+              <div class="applicant-avatar" style="background: ${avatarColor};">${initials}</div>
+              <div class="applicant-meta">
+                <span class="applicant-name">${escapeHtml(app.studentName)}</span>
+                <span class="applicant-email">${escapeHtml(app.studentEmail)}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="program-cell">
+              <span class="program-badge">${escapeHtml(app.internshipProgram)}</span>
+              <span class="program-sub">${escapeHtml(app.duration || '6 Months')} | ${escapeHtml(app.batch || 'Nov 2025')}</span>
+            </div>
+          </td>
+          <td>
+            <span class="applied-date">${escapeHtml(app.appliedOn || '12 Oct 2025')}</span>
+          </td>
+          <td>
+            <button type="button" class="btn-resume-view" onclick="openResumeModal('${escapeHtml(app.resume ? app.resume.name : 'Resume.pdf')}')">
+              <i class="fa-regular fa-file-lines"></i>
+              <span>View</span>
+            </button>
+          </td>
+          <td>
+            <span class="status-badge ${statusClass}">${escapeHtml(app.status || 'Under Review')}</span>
+          </td>
+          <td style="text-align: right; padding-right: 20px;">
+            <div class="row-actions-wrap" style="justify-content: flex-end;">
+              <button type="button" class="btn-act" onclick="selectApplicationRowById('${app._id}')" title="View Application">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+              <button type="button" class="btn-act" onclick="editApplicationRow('${app._id}')" title="Edit Application">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button type="button" class="btn-act" onclick="openMoreOptions('${app._id}')" title="More Options">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      renderPagination(page, totalPages);
+    }
+
+    function getInitials(name) {
+      if (!name) return 'ED';
+      const parts = name.trim().split(' ');
+      if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    // Pagination Controls
+    function renderPagination(current, total) {
+      const container = document.getElementById('paginationControls');
+      container.innerHTML = '';
+
+      if (total <= 1) return;
+
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'btn-page';
+      prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+      prevBtn.disabled = current <= 1;
+      prevBtn.onclick = () => fetchApplications(current - 1);
+      container.appendChild(prevBtn);
+
+      for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - 1 && i <= current + 1)) {
+          const btn = document.createElement('button');
+          btn.className = `btn-page ${i === current ? 'active' : ''}`;
+          btn.textContent = i;
+          btn.onclick = () => fetchApplications(i);
+          container.appendChild(btn);
+        } else if (i === current - 2 || i === current + 2) {
+          const dots = document.createElement('span');
+          dots.style.padding = '0 4px';
+          dots.style.color = '#94a3b8';
+          dots.textContent = '...';
+          container.appendChild(dots);
+        }
+      }
+
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'btn-page';
+      nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+      nextBtn.disabled = current >= total;
+      nextBtn.onclick = () => fetchApplications(current + 1);
+      container.appendChild(nextBtn);
+    }
+
+    // Filters & Search
+    function handleSearchInput() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        fetchApplications(1);
+      }, 300);
+    }
+
+    function applyFilters() {
+      fetchApplications(1);
+    }
+
+    function toggleSelectAll(master) {
+      const chks = document.querySelectorAll('.row-chk');
+      chks.forEach(c => c.checked = master.checked);
+    }
+
+    // Populate Right Drawer with Applicant Data
+    function populateDrawer(app) {
+      if (!app) return;
+      currentSelectedApp = app;
+
+      // Update selected row visual state
+      document.querySelectorAll('#applicationsTableBody tr').forEach(r => r.classList.remove('row-selected'));
+
+      // Header
+      const initials = app.avatarInitials || getInitials(app.studentName);
+      const color = app.avatarColor || '#2563EB';
+      const drawerAvatar = document.getElementById('drawerAvatar');
+      drawerAvatar.textContent = initials;
+      drawerAvatar.style.background = color;
+
+      document.getElementById('drawerName').textContent = app.studentName || 'Applicant';
+      document.getElementById('drawerEmail').textContent = app.studentEmail || '';
+      document.getElementById('drawerPhone').textContent = app.phone || '+91 98765 43210';
+
+      const topStatus = document.getElementById('drawerTopStatusBadge');
+      topStatus.textContent = app.status || 'Under Review';
+      topStatus.className = `status-badge ${(app.status || 'Under Review').toLowerCase().replace(' ', '-')}`;
+
+      // Personal Information
+      document.getElementById('drawerFullName').textContent = app.studentName || '';
+      document.getElementById('drawerEmailInfo').textContent = app.studentEmail || '';
+      document.getElementById('drawerPhoneInfo').textContent = app.phone || '+91 98765 43210';
+      document.getElementById('drawerLocation').textContent = app.location || 'Bengaluru, Karnataka';
+      document.getElementById('drawerEducation').textContent = app.currentEducation || 'B.Tech Computer Science';
+      document.getElementById('drawerGradYear').textContent = app.graduationYear || '2026';
+
+      // Application Details
+      document.getElementById('drawerProgramName').textContent = app.internshipProgram || 'Data Analytics Internship';
+      document.getElementById('drawerBatch').textContent = app.batch || 'Nov 2025';
+      document.getElementById('drawerAppliedOnFull').textContent = app.appliedOnFull || `${app.appliedOn}, 10:24 AM`;
+      document.getElementById('drawerStatusSelect').value = app.status || 'Shortlisted';
+
+      // Statement
+      document.getElementById('drawerWhyJoin').textContent = `"${app.whyJoin || 'I am passionate about this domain and want to gain practical experience through real-world projects and mentorship.'}"`;
+
+      // Resume
+      const resName = app.resume ? app.resume.name : `${app.studentName.replace(/\s+/g, '_')}_Resume.pdf`;
+      document.getElementById('drawerResumeName').textContent = resName;
+
+      // Skills
+      const skillsWrap = document.getElementById('drawerSkillsWrap');
+      skillsWrap.innerHTML = '';
+      const skills = app.skills && app.skills.length > 0 ? app.skills : ['Python', 'SQL', 'Excel', 'Power BI', 'Data Analysis'];
+      skills.forEach(s => {
+        const span = document.createElement('span');
+        span.className = 'skill-pill';
+        span.textContent = s;
+        skillsWrap.appendChild(span);
+      });
+
+      // Notes
+      const notes = app.adminNotes || '';
+      const notesArea = document.getElementById('drawerNotesTextarea');
+      notesArea.value = notes;
+      document.getElementById('notesCharCounter').textContent = `${notes.length}/500 characters`;
+    }
+
+    function selectApplicationRow(app) {
+      populateDrawer(app);
+    }
+
+    function selectApplicationRowById(id) {
+      const app = currentApplications.find(a => a._id === id);
+      if (app) populateDrawer(app);
+    }
+
+    function editApplicationRow(id) {
+      selectApplicationRowById(id);
+      document.getElementById('drawerNotesTextarea').focus();
+    }
+
+    function closeDrawer() {
+      // Keep first application active or clear
+      if (currentApplications.length > 0) {
+        populateDrawer(currentApplications[0]);
+      }
+    }
+
+    // Update Status from Dropdown inside Drawer
+    async function updateCurrentAppStatus(newStatus) {
+      if (!currentSelectedApp) return;
+
+      try {
+        const res = await fetch(`/api/admin/applications/${currentSelectedApp._id}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`Status updated to ${newStatus}`);
+          currentSelectedApp.status = newStatus;
+          fetchApplications(currentPage);
+        } else {
+          showToast('Failed to update status', true);
+        }
+      } catch (err) {
+        console.error('Status update failed:', err);
+        showToast('Error updating status', true);
+      }
+    }
+
+    // Change Status via Footer Buttons (Reject, Move to Waitlist)
+    async function changeStatusFromFooter(status) {
+      if (!currentSelectedApp) return;
+      await updateCurrentAppStatus(status);
+    }
+
+    // Auto-save Admin Notes
+    function handleNotesInput() {
+      const notesArea = document.getElementById('drawerNotesTextarea');
+      const val = notesArea.value;
+      document.getElementById('notesCharCounter').textContent = `${val.length}/500 characters`;
+
+      clearTimeout(notesSaveDebounceTimer);
+      notesSaveDebounceTimer = setTimeout(async () => {
+        if (!currentSelectedApp) return;
+        try {
+          await fetch(`/api/admin/applications/${currentSelectedApp._id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ adminNotes: val })
+          });
+          currentSelectedApp.adminNotes = val;
+          showToast('Admin notes saved');
+        } catch (e) {
+          console.error('Notes save error:', e);
+        }
+      }, 700);
+    }
+
+    // Tab Switch inside Drawer
+    function switchDrawerTab(tabName, btn) {
+      document.querySelectorAll('.drawer-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (tabName === 'resume') {
+        openResumeModal();
+      } else if (tabName === 'notes') {
+        document.getElementById('drawerNotesTextarea').focus();
+      } else if (tabName === 'history') {
+        showToast('Application audit history: Applied -> Under Review -> Evaluated');
+      }
+    }
+
+    // Schedule Interview Modal
+    function openScheduleModal() {
+      if (!currentSelectedApp) return;
+      document.getElementById('schedCandidateName').value = `${currentSelectedApp.studentName} (${currentSelectedApp.studentEmail})`;
+      document.getElementById('scheduleModal').classList.add('show');
+    }
+
+    function closeScheduleModal() {
+      document.getElementById('scheduleModal').classList.remove('show');
+    }
+
+    async function confirmScheduleInterview() {
+      if (!currentSelectedApp) return;
+      const date = document.getElementById('schedDate').value;
+      const time = document.getElementById('schedTime').value;
+      const interviewer = document.getElementById('schedInterviewer').value;
+
+      try {
+        await updateCurrentAppStatus('Shortlisted');
+        await fetch(`/api/admin/applications/${currentSelectedApp._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            interviewSchedule: { scheduled: true, date, time },
+            adminNotes: `Interview scheduled on ${date} at ${time} with ${interviewer}.`
+          })
+        });
+
+        closeScheduleModal();
+        showToast(`Interview scheduled for ${currentSelectedApp.studentName}`);
+        fetchApplications(currentPage);
+      } catch (err) {
+        console.error('Schedule interview error:', err);
+        showToast('Failed to schedule interview', true);
+      }
+    }
+
+    // Resume Modal
+    function openResumeModal(name) {
+      const fileName = name || (currentSelectedApp ? (currentSelectedApp.resume ? currentSelectedApp.resume.name : 'Resume.pdf') : 'Candidate_Resume.pdf');
+      document.getElementById('resPreviewFilename').textContent = fileName;
+      document.getElementById('resumeModal').classList.add('show');
+    }
+
+    function closeResumeModal() {
+      document.getElementById('resumeModal').classList.remove('show');
+    }
+
+    function downloadResume() {
+      const fileName = currentSelectedApp ? (currentSelectedApp.resume ? currentSelectedApp.resume.name : 'Resume.pdf') : 'Resume.pdf';
+      showToast(`Downloading ${fileName}...`);
+    }
+
+    // More Options Menu
+    function openMoreOptions(id) {
+      selectApplicationRowById(id);
+      const action = prompt('Select Action:\n1: Schedule Interview\n2: Delete Application\n3: Send Email\nEnter 1, 2, or 3:', '1');
+      if (action === '1') {
+        openScheduleModal();
+      } else if (action === '2') {
+        if (confirm(`Are you sure you want to delete application for ${currentSelectedApp.studentName}?`)) {
+          fetch(`/api/admin/applications/${id}`, { method: 'DELETE' })
+            .then(r => r.json())
+            .then(data => {
+              if (data.success) {
+                showToast('Application deleted');
+                fetchApplications(currentPage);
+              }
+            });
+        }
+      } else if (action === '3') {
+        window.location.href = `mailto:${currentSelectedApp.studentEmail}?subject=Edurup Learning Internship Application Update`;
+      }
+    }
+
+    // Export Applications to CSV
+    function exportApplicationsToCSV() {
+      if (!currentApplications || currentApplications.length === 0) {
+        showToast('No applications to export', true);
+        return;
+      }
+
+      let csv = 'Student Name,Email,Phone,Location,Education,Graduation Year,Program,Duration,Batch,Applied On,Status,Skills,Notes\n';
+
+      currentApplications.forEach(a => {
+        const skillsStr = (a.skills || []).join('; ');
+        const row = [
+          `"${a.studentName}"`,
+          `"${a.studentEmail}"`,
+          `"${a.phone}"`,
+          `"${a.location}"`,
+          `"${a.currentEducation}"`,
+          `"${a.graduationYear}"`,
+          `"${a.internshipProgram}"`,
+          `"${a.duration}"`,
+          `"${a.batch}"`,
+          `"${a.appliedOn}"`,
+          `"${a.status}"`,
+          `"${skillsStr}"`,
+          `"${(a.adminNotes || '').replace(/"/g, '""')}"`
+        ];
+        csv += row.join(',') + '\n';
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `Edurup_Internship_Applications_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Exported applications to CSV');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>

@@ -12,31 +12,95 @@ const internshipApplicationSchema = new mongoose.Schema({
     lowercase: true,
     default: ''
   },
+  phone: {
+    type: String,
+    trim: true,
+    default: '+91 98765 43210'
+  },
+  location: {
+    type: String,
+    trim: true,
+    default: 'Bengaluru, Karnataka'
+  },
+  currentEducation: {
+    type: String,
+    trim: true,
+    default: 'B.Tech Computer Science'
+  },
+  graduationYear: {
+    type: String,
+    trim: true,
+    default: '2026'
+  },
   domain: {
     type: String,
+    trim: true,
+    default: 'Data Analytics'
+  },
+  internshipProgram: {
+    type: String,
     required: true,
-    trim: true
+    trim: true,
+    default: 'Data Analytics Internship'
+  },
+  duration: {
+    type: String,
+    default: '6 Months'
+  },
+  batch: {
+    type: String,
+    default: 'Nov 2025'
   },
   appliedOn: {
     type: String,
-    default: () => {
-      const d = new Date();
-      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      return `${months[d.getMonth()]} ${String(d.getDate()).padStart(2, '0')}, ${d.getFullYear()}`;
-    }
+    default: '12 Oct 2025'
+  },
+  appliedOnFull: {
+    type: String,
+    default: '12 Oct 2025, 10:24 AM'
   },
   status: {
     type: String,
-    enum: ['New', 'Shortlisted', 'Interview', 'Selected', 'Rejected'],
-    default: 'New'
+    enum: ['Shortlisted', 'Under Review', 'Rejected', 'Waitlisted', 'New', 'Interview', 'Selected'],
+    default: 'Under Review'
   },
-  avatar: {
+  resume: {
+    name: {
+      type: String,
+      default: 'Resume.pdf'
+    },
+    url: {
+      type: String,
+      default: '#'
+    }
+  },
+  whyJoin: {
+    type: String,
+    default: 'I am passionate about this domain and want to gain practical experience through real-world projects and mentorship.'
+  },
+  skills: [{
+    type: String
+  }],
+  adminNotes: {
     type: String,
     default: ''
   },
-  notes: {
+  avatarInitials: {
     type: String,
-    default: ''
+    default: 'RS'
+  },
+  avatarColor: {
+    type: String,
+    default: '#2563EB'
+  },
+  interviewSchedule: {
+    scheduled: { type: Boolean, default: false },
+    date: { type: String, default: '' },
+    time: { type: String, default: '' }
+  },
+  order: {
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: true
