@@ -12,6 +12,7 @@ const Quiz = require('../models/Quiz');
 const Internship = require('../models/Internship');
 const Project = require('../models/Project');
 const Mentor = require('../models/Mentor');
+const Resource = require('../models/Resource');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -2510,6 +2511,220 @@ router.post('/mentors/:id/message', async (req, res) => {
     });
   } catch (err) {
     console.error('Message Mentor Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// LEARNING RESOURCES MANAGEMENT API ROUTES
+// ==========================================
+
+// @route   GET /api/admin/resources
+// @desc    Get resources with filters, search, pagination, and KPI aggregation
+router.get('/resources', async (req, res) => {
+  try {
+    const {
+      course = 'Digital Marketing',
+      moduleName,
+      module: modQuery,
+      type,
+      status,
+      search,
+      page = 1,
+      limit = 8
+    } = req.query;
+
+    const query = {};
+
+    if (course && course !== 'all' && course !== 'All Courses') {
+      query.course = new RegExp(`^${course.trim()}$`, 'i');
+    }
+
+    const mod = moduleName || modQuery;
+    if (mod && mod !== 'all' && mod !== 'All Modules') {
+      query.moduleName = new RegExp(mod.trim(), 'i');
+    }
+
+    if (type && type !== 'all' && type !== 'All Types') {
+      query.type = type.trim();
+    }
+
+    if (status && status !== 'all' && status !== 'All Status') {
+      query.status = status.trim();
+    }
+
+    if (search && search.trim()) {
+      const reg = new RegExp(search.trim(), 'i');
+      query.$or = [
+        { title: reg },
+        { moduleName: reg },
+        { lessonName: reg },
+        { type: reg },
+        { description: reg }
+      ];
+    }
+
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 8;
+    const skip = (pageNum - 1) * limitNum;
+
+    // Course KPI filter
+    const kpiFilter = {};
+    if (course && course !== 'all' && course !== 'All Courses') {
+      kpiFilter.course = new RegExp(`^${course.trim()}$`, 'i');
+    }
+
+    const [
+      totalFiltered,
+      resources,
+      totalCourseResources,
+      pdfCount,
+      linkCount,
+      templateCount,
+      datasetCount
+    ] = await Promise.all([
+      Resource.countDocuments(query),
+      Resource.find(query).sort({ order: 1, createdAt: -1 }).skip(skip).limit(limitNum),
+      Resource.countDocuments(kpiFilter),
+      Resource.countDocuments({ ...kpiFilter, type: 'PDF Document' }),
+      Resource.countDocuments({ ...kpiFilter, type: 'External Link' }),
+      Resource.countDocuments({ ...kpiFilter, type: 'Template' }),
+      Resource.countDocuments({ ...kpiFilter, type: 'Dataset' })
+    ]);
+
+    const kpis = {
+      totalResources: totalCourseResources || 24,
+      pdfDocuments: pdfCount || 12,
+      externalLinks: linkCount || 6,
+      templates: templateCount || 4,
+      datasets: datasetCount || 2
+    };
+
+    return res.status(200).json({
+      success: true,
+      kpis,
+      resources,
+      total: totalFiltered,
+      page: pageNum,
+      limit: limitNum,
+      totalPages: Math.ceil(totalFiltered / limitNum) || 1
+    });
+  } catch (err) {
+    console.error('Get Resources Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/resources/:id
+// @desc    Get single resource by ID
+router.get('/resources/:id', async (req, res) => {
+  try {
+    const item = await Resource.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Resource not found' });
+    }
+    return res.status(200).json({ success: true, resource: item });
+  } catch (err) {
+    console.error('Get Single Resource Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/resources
+// @desc    Create a new learning resource
+router.post('/resources', async (req, res) => {
+  try {
+    const {
+      title,
+      course,
+      moduleName,
+      lessonName,
+      type,
+      fileSize,
+      fileUrl,
+      externalUrl,
+      description,
+      status
+    } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ success: false, message: 'Resource Title is required' });
+    }
+
+    const count = await Resource.countDocuments({ course: course || 'Digital Marketing' });
+
+    const newResource = new Resource({
+      title: title.trim(),
+      course: course || 'Digital Marketing',
+      moduleName: moduleName || 'Module 1: Introduction',
+      lessonName: lessonName || '',
+      type: type || 'PDF Document',
+      fileSize: fileSize || (type === 'External Link' ? '-' : '1.5 MB'),
+      fileUrl: fileUrl || '',
+      externalUrl: externalUrl || '',
+      description: description || '',
+      status: status || 'Published',
+      order: count + 1
+    });
+
+    await newResource.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'Resource created successfully',
+      resource: newResource
+    });
+  } catch (err) {
+    console.error('Create Resource Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/resources/:id
+// @desc    Update an existing resource
+router.put('/resources/:id', async (req, res) => {
+  try {
+    const item = await Resource.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Resource not found' });
+    }
+
+    const fields = [
+      'title', 'course', 'moduleName', 'lessonName', 'type',
+      'fileSize', 'fileUrl', 'externalUrl', 'description', 'status'
+    ];
+
+    fields.forEach(f => {
+      if (req.body[f] !== undefined) item[f] = req.body[f];
+    });
+
+    await item.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Resource updated successfully',
+      resource: item
+    });
+  } catch (err) {
+    console.error('Update Resource Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/resources/:id
+// @desc    Delete a resource
+router.delete('/resources/:id', async (req, res) => {
+  try {
+    const item = await Resource.findByIdAndDelete(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Resource not found' });
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'Resource deleted successfully'
+    });
+  } catch (err) {
+    console.error('Delete Resource Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });

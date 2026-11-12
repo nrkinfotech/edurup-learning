@@ -1,0 +1,3032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Resources | Learning Management | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #DCFCE7;
+      --success-text: #166534;
+      --warning: #F59E0B;
+      --warning-light: #FEF3C7;
+      --warning-text: #92400E;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --danger-text: #B91C1C;
+      --purple: #8B5CF6;
+      --purple-light: #F3E8FF;
+      --purple-text: #7E22CE;
+      --info: #0284C7;
+      --info-light: #E0F2FE;
+      --info-text: #0369A1;
+      --orange: #EA580C;
+      --orange-light: #FFEDD5;
+      --orange-text: #C2410C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: #0B132B !important;
+      color: #cbd5e1 !important;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active {
+      background: #2563eb !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff !important;
+      background: rgba(37, 99, 235, 0.15) !important;
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #64748b;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 36px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      background: #2563eb !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before {
+      color: #ffffff !important;
+    }
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Navbar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .top-left-search {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-toggle-sidebar {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .top-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 16px;
+      width: 440px;
+      transition: all 0.2s;
+    }
+
+    .top-search-wrap:focus-within {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .top-search-wrap i {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .top-search-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13.5px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-notif {
+      position: relative;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 18px;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .btn-notif:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .notif-badge-dot {
+      position: absolute;
+      top: 8px;
+      right: 9px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .user-profile-badge:hover {
+      background: #f1f5f9;
+    }
+
+    .avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #7e22ce;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .user-role {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* Page Layout Wrap (Main Area + Sticky Right Panel) */
+    .page-layout-wrap {
+      display: flex;
+      flex: 1;
+      position: relative;
+    }
+
+    .page-main-area {
+      flex: 1;
+      padding: 24px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .breadcrumb-row a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+    .breadcrumb-row span.current {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* Page Header */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .page-title-group h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .page-title-group p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ---------------- SELECT COURSE SECTION ---------------- */
+    .course-selection-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: transparent;
+      flex-wrap: wrap;
+    }
+
+    .select-course-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 280px;
+    }
+
+    .select-course-col label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .select-course-col label span.req {
+      color: #ef4444;
+    }
+
+    .custom-course-dropdown {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .custom-course-dropdown:hover {
+      border-color: #cbd5e1;
+    }
+
+    .course-dd-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    .course-thumb-mini {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #4f46e5, #9333ea);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .course-dd-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Course Preview Card (Horizontal Banner) */
+    .course-preview-card {
+      flex: 1;
+      min-width: 340px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .course-banner-img {
+      width: 68px;
+      height: 48px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #3730a3, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 11px;
+      text-align: center;
+      padding: 4px;
+      line-height: 1.1;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+    }
+
+    .course-details-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+
+    .course-details-wrap h4 {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .course-details-wrap p {
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .course-meta-pills {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+      font-size: 11.5px;
+      color: #475569;
+      font-weight: 600;
+      flex-wrap: wrap;
+    }
+
+    .course-meta-pills span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-active-pill {
+      background: var(--success-light);
+      color: var(--success-text);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    /* ---------------- TABS ROW & PRIMARY ACTION ---------------- */
+    .tabs-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      margin-top: 4px;
+    }
+
+    .resource-tabs-list {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .res-tab-btn {
+      background: transparent;
+      border: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #64748b;
+      padding: 10px 4px 12px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.15s;
+    }
+
+    .res-tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .res-tab-btn.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .res-tab-btn.active::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .btn-add-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-add-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- 5 KPI CARDS ---------------- */
+    .kpi-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    .kpi-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-box.purple { background: var(--purple-light); color: var(--purple-text); }
+    .kpi-icon-box.green { background: var(--success-light); color: var(--success-text); }
+    .kpi-icon-box.blue { background: var(--info-light); color: var(--info-text); }
+    .kpi-icon-box.amber { background: var(--warning-light); color: var(--warning-text); }
+    .kpi-icon-box.coral { background: var(--danger-light); color: var(--danger-text); }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .kpi-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .kpi-desc {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* ---------------- FILTERS ROW ---------------- */
+    .filters-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-filter-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      width: 260px;
+      transition: border 0.2s;
+    }
+
+    .search-filter-wrap:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .search-filter-wrap i {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .search-filter-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-reset {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-reset:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+      border-color: #cbd5e1;
+    }
+
+    /* ---------------- TABLE CONTAINER ---------------- */
+    .table-container-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.res-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table.res-table th {
+      background: #f8fafc;
+      padding: 12px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      text-transform: capitalize;
+    }
+
+    table.res-table td {
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: middle;
+    }
+
+    table.res-table tbody tr {
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    table.res-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    table.res-table tbody tr.selected-row {
+      background: #f1f5f9;
+    }
+
+    /* Checkbox */
+    .custom-chk {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .row-index-num {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    /* Title Column */
+    .res-title-text {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 13.5px;
+    }
+
+    /* Type Icons */
+    .type-icon {
+      font-size: 16px;
+      width: 22px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .type-icon.pdf { color: #ef4444; }
+    .type-icon.sheet { color: #10b981; }
+    .type-icon.link { color: #0284c7; }
+    .type-icon.template { color: #f59e0b; }
+    .type-icon.dataset { color: #8b5cf6; }
+    .type-icon.other { color: #64748b; }
+
+    /* Module / Lesson text */
+    .module-lesson-text {
+      font-size: 12.5px;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    /* File Size */
+    .file-size-text {
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* Status Pill */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-pill.published {
+      background: var(--success-light);
+      color: var(--success-text);
+    }
+
+    .status-pill.draft {
+      background: var(--warning-light);
+      color: var(--warning-text);
+    }
+
+    /* Action Icon Buttons */
+    .action-icons-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-act-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      background: transparent;
+      border: none;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .btn-act-icon.view { color: var(--primary); }
+    .btn-act-icon.view:hover { background: #eff6ff; }
+    .btn-act-icon.edit { color: var(--primary); }
+    .btn-act-icon.edit:hover { background: #eff6ff; }
+    .btn-act-icon.delete { color: #ef4444; }
+    .btn-act-icon.delete:hover { background: #fee2e2; }
+
+    /* Table Footer */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      font-size: 12.5px;
+      color: #64748b;
+    }
+
+    .pagination-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-page {
+      min-width: 28px;
+      height: 28px;
+      padding: 0 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-page:hover:not(:disabled) {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .btn-page.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    .btn-page:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ---------------- RIGHT-SIDE "ADD RESOURCE" PANEL / DRAWER ---------------- */
+    .resource-drawer-side {
+      width: 430px;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      height: calc(100vh - 70px);
+      overflow-y: auto;
+      z-index: 80;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease;
+    }
+
+    .resource-drawer-side::-webkit-scrollbar {
+      width: 4px;
+    }
+    .resource-drawer-side::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .drawer-top-bar {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    .drawer-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .drawer-title-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #eff6ff;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .drawer-title-text h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .drawer-title-text p {
+      font-size: 11.5px;
+      color: #64748b;
+      margin-top: 1px;
+    }
+
+    .btn-close-drawer {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      color: #94a3b8;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-close-drawer:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .drawer-form-body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-label span.req {
+      color: #ef4444;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    /* 6 Resource Type Cards Grid (3x2) */
+    .type-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .type-card-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .type-card-btn:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .type-card-btn.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .type-card-btn i {
+      font-size: 18px;
+    }
+
+    .type-card-btn span {
+      font-size: 11px;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.1;
+    }
+
+    /* Drag & Drop Upload Zone */
+    .upload-dropzone {
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .upload-dropzone:hover, .upload-dropzone.dragover {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .upload-dropzone i.cloud-icon {
+      font-size: 30px;
+      color: #94a3b8;
+    }
+
+    .upload-dropzone p.main-upload-text {
+      font-size: 12.5px;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    .upload-dropzone p.main-upload-text span.blue-link {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .upload-dropzone span.max-size-hint {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .file-chosen-preview {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    /* Rich text editor mini toolbar */
+    .editor-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 6px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-bottom: none;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .editor-btn {
+      background: transparent;
+      border: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .editor-btn:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    .form-textarea.has-toolbar {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      min-height: 75px;
+      resize: vertical;
+    }
+
+    .char-counter-text {
+      font-size: 11px;
+      color: #94a3b8;
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    /* Drawer Sticky Footer */
+    .drawer-bottom-actions {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .btn-drawer-cancel {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-drawer-cancel:hover {
+      background: #f1f5f9;
+    }
+
+    .btn-drawer-save {
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.15s;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-drawer-save:hover {
+      background: var(--primary-hover);
+    }
+
+    /* ---------------- PREVIEW MODAL ---------------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      color: #94a3b8;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .modal-close-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #f8fafc;
+    }
+
+    /* Responsive */
+    @media (max-width: 1280px) {
+      .page-layout-wrap {
+        flex-direction: column;
+      }
+      .resource-drawer-side {
+        width: 100%;
+        position: static;
+        height: auto;
+      }
+      .kpi-stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .kpi-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      aside.sidebar {
+        position: fixed;
+        left: -260px;
+      }
+      aside.sidebar.mobile-open {
+        left: 0;
+      }
+      .btn-toggle-sidebar {
+        display: block;
+      }
+      .top-search-wrap {
+        width: 240px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .course-selection-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .top-search-wrap {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management (Expanded & Active Category) -->
+      <div class="nav-group open" id="navGroupLearning">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem">Courses</a>
+          <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="live-classes.html" class="nav-subitem">Live Classes</a>
+          <a href="admin-quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="admin-resources.html" class="nav-subitem active-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
+          <a href="admin-projects.html" class="nav-subitem">Projects</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-applications.html" class="nav-subitem">Applications</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="javascript:void(0)" onclick="showToast('Certificates section opening soon')" class="nav-subitem">Certificates</a>
+        </div>
+      </div>
+
+      <!-- Tasks & Projects -->
+      <div class="nav-group" id="navGroupTasks">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupTasks')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks & Projects</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Task Management console opening soon')" class="nav-subitem">Task Management</a>
+          <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+        </div>
+      </div>
+
+      <!-- Companies & Mentors -->
+      <div class="nav-group" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building"></i>
+            <span>Companies & Mentors</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Partner Companies desk opening soon')" class="nav-subitem">Partner Companies</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentor Assignments</a>
+        </div>
+      </div>
+
+      <!-- Attendance & Reports -->
+      <div class="nav-group" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance & Reports</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Attendance: 87% (612 present, 68 absent)')" class="nav-subitem">Attendance</a>
+          <a href="javascript:void(0)" onclick="showToast('Weekly Reports: 46 submitted, 42 approved')" class="nav-subitem">Weekly Reports</a>
+        </div>
+      </div>
+
+      <!-- Certificates & LOR -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & LOR</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Generate Certificate desk opening soon')" class="nav-subitem">Generate Certificate</a>
+          <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation desk ready')" class="nav-subitem">Letter of Recommendation</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Exporting system reports...')" class="nav-subitem">Export Excel / PDF</a>
+          <a href="javascript:void(0)" onclick="showToast('Placement Metrics: 71% placement success rate')" class="nav-subitem">Placement Metrics</a>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="nav-group" id="navGroupFinance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupFinance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Total Revenue: ₹12,40,000 recorded')" class="nav-subitem">Payments</a>
+          <a href="javascript:void(0)" onclick="showToast('Refund Requests: 0 active')" class="nav-subitem">Refunds</a>
+          <a href="javascript:void(0)" onclick="showToast('Revenue statement ready for download')" class="nav-subitem">Revenue Reports</a>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="nav-group" id="navGroupComms">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupComms')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Announcements center opening soon')" class="nav-subitem">Announcements</a>
+          <a href="javascript:void(0)" onclick="showToast('Broadcast center: SMS & Email ready')" class="nav-subitem">Email / WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Admin Roles: Super Admin (Active)')" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="top-left-search">
+        <button class="btn-toggle-sidebar" onclick="toggleSidebarMobile()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="top-search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="globalTopSearch" placeholder="Search students, courses, resources..." oninput="handleGlobalSearch(this.value)">
+        </div>
+      </div>
+
+      <div class="top-right-actions">
+        <button class="btn-notif" title="Notifications" onclick="showToast('No new notifications')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge-dot"></span>
+        </button>
+
+        <div class="user-profile-badge" onclick="showToast('Admin: admin@edurup.in')">
+          <div class="avatar-circle">AD</div>
+          <div class="user-meta">
+            <span class="user-name">Admin</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Layout Wrap -->
+    <div class="page-layout-wrap">
+
+      <!-- Main Resources Area -->
+      <div class="page-main-area">
+
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb-row">
+          <a href="admin-dashboard.html">Dashboard</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span>Learning Management</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span class="current">Learning Resources</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header-row">
+          <div class="page-title-group">
+            <h1>Learning Resources</h1>
+            <p>Upload and manage study materials for your courses. Share PDF, documents, templates, datasets, tools, links and more.</p>
+          </div>
+        </div>
+
+        <!-- Select Course & Preview Card Section -->
+        <div class="course-selection-bar">
+          <div class="select-course-col">
+            <label>Select Course <span class="req">*</span></label>
+            <div class="custom-course-dropdown" onclick="toggleCourseDropdown()">
+              <div class="course-dd-left">
+                <div class="course-thumb-mini">DM</div>
+                <span class="course-dd-title" id="selectedCourseTitle">Digital Marketing</span>
+              </div>
+              <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #94a3b8;"></i>
+            </div>
+          </div>
+
+          <!-- Horizontal Banner Card -->
+          <div class="course-preview-card">
+            <div class="course-banner-img">
+              Digital<br>Marketing
+            </div>
+            <div class="course-details-wrap">
+              <h4 id="bannerCourseTitle">Digital Marketing</h4>
+              <p id="bannerCourseDesc">Learn SEO, Google Ads, Social Media Marketing and more.</p>
+              <div class="course-meta-pills">
+                <span>Duration: <strong>4 Months</strong></span>
+                <span>•</span>
+                <span>Fee: <strong>₹40,000</strong></span>
+                <span>•</span>
+                <span>Modules: <strong>8</strong></span>
+                <span class="badge-active-pill">Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Bar & Action Button -->
+        <div class="tabs-action-row">
+          <div class="resource-tabs-list">
+            <button class="res-tab-btn active" onclick="switchResourceTab('all', this)">All Resources (<span id="tabCountAll">24</span>)</button>
+            <button class="res-tab-btn" onclick="switchResourceTab('module', this)">By Module</button>
+            <button class="res-tab-btn" onclick="switchResourceTab('type', this)">By Type</button>
+            <button class="res-tab-btn" onclick="switchResourceTab('lesson', this)">By Lesson</button>
+          </div>
+          <button class="btn-add-primary" onclick="openAddResourceDrawer()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add Resource</span>
+          </button>
+        </div>
+
+        <!-- 5 KPI Cards Grid -->
+        <div class="kpi-stats-grid">
+          <!-- Total Resources -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box purple">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiTotalResources">24</span>
+              <span class="kpi-desc">Total Resources</span>
+            </div>
+          </div>
+
+          <!-- PDF Documents -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box green">
+              <i class="fa-solid fa-file-pdf"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiPdfDocs">12</span>
+              <span class="kpi-desc">PDF Documents</span>
+            </div>
+          </div>
+
+          <!-- External Links -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box blue">
+              <i class="fa-solid fa-link"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiExternalLinks">6</span>
+              <span class="kpi-desc">External Links</span>
+            </div>
+          </div>
+
+          <!-- Templates -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box amber">
+              <i class="fa-solid fa-folder"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiTemplates">4</span>
+              <span class="kpi-desc">Templates</span>
+            </div>
+          </div>
+
+          <!-- Datasets -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box coral">
+              <i class="fa-solid fa-database"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiDatasets">2</span>
+              <span class="kpi-desc">Datasets</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters Row -->
+        <div class="filters-row">
+          <div class="search-filter-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search resources..." oninput="handleSearch(this.value)">
+          </div>
+
+          <select class="filter-select" id="moduleFilter" onchange="handleModuleFilter(this.value)">
+            <option value="all">All Modules</option>
+            <option value="Module 1: Introduction">Module 1: Introduction</option>
+            <option value="Module 2: SEO">Module 2: SEO</option>
+            <option value="Module 3: Google Ads">Module 3: Google Ads</option>
+            <option value="Module 4: Social Media">Module 4: Social Media</option>
+            <option value="Module 4: Tools">Module 4: Tools</option>
+            <option value="Module 5: Case Studies">Module 5: Case Studies</option>
+            <option value="Module 6: Analytics">Module 6: Analytics</option>
+          </select>
+
+          <select class="filter-select" id="typeFilter" onchange="handleTypeFilter(this.value)">
+            <option value="all">All Types</option>
+            <option value="PDF Document">PDF Document</option>
+            <option value="Document (Word/Excel)">Document (Word/Excel)</option>
+            <option value="External Link">External Link</option>
+            <option value="Template">Template</option>
+            <option value="Dataset">Dataset</option>
+            <option value="Other File">Other File</option>
+          </select>
+
+          <select class="filter-select" id="statusFilter" onchange="handleStatusFilter(this.value)">
+            <option value="all">All Status</option>
+            <option value="Published">Published</option>
+            <option value="Draft">Draft</option>
+          </select>
+
+          <button class="btn-reset" onclick="resetFilters()">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Reset</span>
+          </button>
+        </div>
+
+        <!-- Resources Table Card -->
+        <div class="table-container-card">
+          <div class="table-responsive">
+            <table class="res-table">
+              <thead>
+                <tr>
+                  <th style="width: 36px;"><input type="checkbox" class="custom-chk" id="selectAllChk" onchange="toggleSelectAll(this.checked)"></th>
+                  <th style="width: 36px;">#</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Module / Lesson</th>
+                  <th>File Size</th>
+                  <th>Status</th>
+                  <th style="text-align: right; padding-right: 20px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="resourcesTableBody">
+                <!-- Dynamically populated via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer / Pagination -->
+          <div class="table-footer">
+            <span id="showingText">Showing 1 to 8 of 24 resources</span>
+            <div class="pagination-wrap" id="paginationControls">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right-Side "Add / Edit Resource" Drawer -->
+      <aside class="resource-drawer-side" id="resourceDrawer">
+        <!-- Top bar -->
+        <div class="drawer-top-bar">
+          <div class="drawer-title-group">
+            <div class="drawer-title-icon">
+              <i class="fa-solid fa-file-arrow-up"></i>
+            </div>
+            <div class="drawer-title-text">
+              <h3 id="drawerHeading">Add Resource</h3>
+              <p id="drawerSubheading">Upload a new study material for this course.</p>
+            </div>
+          </div>
+          <button class="btn-close-drawer" onclick="closeResourceDrawer()" title="Close drawer">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Form Body -->
+        <form id="resourceForm" onsubmit="handleResourceFormSubmit(event)" style="display:flex; flex-direction:column; flex:1;">
+          <input type="hidden" id="formResourceId">
+          
+          <div class="drawer-form-body">
+            <!-- Resource Title -->
+            <div class="form-group">
+              <label class="form-label">Resource Title <span class="req">*</span></label>
+              <input type="text" class="form-input" id="formTitle" required placeholder="e.g. SEO Checklist">
+            </div>
+
+            <!-- Select Module -->
+            <div class="form-group">
+              <label class="form-label">Select Module <span class="req">*</span></label>
+              <select class="form-select" id="formModule" required>
+                <option value="">Select Module</option>
+                <option value="Module 1: Introduction">Module 1: Introduction</option>
+                <option value="Module 2: SEO">Module 2: SEO</option>
+                <option value="Module 3: Google Ads">Module 3: Google Ads</option>
+                <option value="Module 4: Social Media">Module 4: Social Media</option>
+                <option value="Module 4: Tools">Module 4: Tools</option>
+                <option value="Module 5: Case Studies">Module 5: Case Studies</option>
+                <option value="Module 6: Analytics">Module 6: Analytics</option>
+              </select>
+            </div>
+
+            <!-- Select Lesson -->
+            <div class="form-group">
+              <label class="form-label">Select Lesson (Optional)</label>
+              <select class="form-select" id="formLesson">
+                <option value="">Select Lesson</option>
+                <option value="Lesson 1: Overview & Tools">Lesson 1: Overview & Tools</option>
+                <option value="Lesson 2: Core Concepts">Lesson 2: Core Concepts</option>
+                <option value="Lesson 3: Practical Implementation">Lesson 3: Practical Implementation</option>
+                <option value="Lesson 4: Case Study & Assignment">Lesson 4: Case Study & Assignment</option>
+              </select>
+            </div>
+
+            <!-- Resource Type Cards (3x2) -->
+            <div class="form-group">
+              <label class="form-label">Resource Type <span class="req">*</span></label>
+              <div class="type-cards-grid">
+                <button type="button" class="type-card-btn selected" onclick="selectTypeCard('PDF Document', this)">
+                  <i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i>
+                  <span>PDF Document</span>
+                </button>
+                <button type="button" class="type-card-btn" onclick="selectTypeCard('Document (Word/Excel)', this)">
+                  <i class="fa-solid fa-file-excel" style="color: #10b981;"></i>
+                  <span>Document (Word/Excel)</span>
+                </button>
+                <button type="button" class="type-card-btn" onclick="selectTypeCard('External Link', this)">
+                  <i class="fa-solid fa-link" style="color: #0284c7;"></i>
+                  <span>External Link</span>
+                </button>
+                <button type="button" class="type-card-btn" onclick="selectTypeCard('Template', this)">
+                  <i class="fa-solid fa-folder" style="color: #f59e0b;"></i>
+                  <span>Template</span>
+                </button>
+                <button type="button" class="type-card-btn" onclick="selectTypeCard('Dataset', this)">
+                  <i class="fa-solid fa-database" style="color: #8b5cf6;"></i>
+                  <span>Dataset</span>
+                </button>
+                <button type="button" class="type-card-btn" onclick="selectTypeCard('Other File', this)">
+                  <i class="fa-solid fa-file" style="color: #64748b;"></i>
+                  <span>Other File</span>
+                </button>
+              </div>
+              <input type="hidden" id="formType" value="PDF Document">
+            </div>
+
+            <!-- Upload File Box / External URL input -->
+            <div class="form-group" id="fileUploadContainer">
+              <label class="form-label">Upload File <span class="req">*</span></label>
+              <div class="upload-dropzone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                <i class="fa-solid fa-cloud-arrow-up cloud-icon"></i>
+                <p class="main-upload-text">Drag & drop your file here or <span class="blue-link">click to browse</span></p>
+                <span class="max-size-hint">Max file size: 100 MB</span>
+                <input type="file" id="fileInput" style="display:none;" onchange="handleFileSelect(this)">
+              </div>
+              <div class="file-chosen-preview" id="fileChosenPreview">
+                <span id="chosenFileName">file.pdf</span>
+                <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="clearChosenFile(event)"></i>
+              </div>
+            </div>
+
+            <div class="form-group" id="externalUrlContainer" style="display:none;">
+              <label class="form-label">External Resource URL <span class="req">*</span></label>
+              <input type="url" class="form-input" id="formExternalUrl" placeholder="https://example.com/resource">
+            </div>
+
+            <!-- Description (Optional) with Mini Toolbar -->
+            <div class="form-group">
+              <label class="form-label">Description (Optional)</label>
+              <div class="editor-toolbar">
+                <button type="button" class="editor-btn" title="Bold" onclick="applyFormat('**')"><i class="fa-solid fa-bold"></i></button>
+                <button type="button" class="editor-btn" title="Italic" onclick="applyFormat('*')"><i class="fa-solid fa-italic"></i></button>
+                <button type="button" class="editor-btn" title="Underline" onclick="applyFormat('__')"><i class="fa-solid fa-underline"></i></button>
+                <button type="button" class="editor-btn" title="Bullet List" onclick="applyFormat('- ')"><i class="fa-solid fa-list-ul"></i></button>
+                <button type="button" class="editor-btn" title="Numbered List" onclick="applyFormat('1. ')"><i class="fa-solid fa-list-ol"></i></button>
+                <button type="button" class="editor-btn" title="Insert Link" onclick="applyFormat('[Link Title](url)')"><i class="fa-solid fa-link"></i></button>
+              </div>
+              <textarea class="form-textarea has-toolbar" id="formDescription" maxlength="500" placeholder="Write a short description about this resource..." oninput="updateCharCount(this)"></textarea>
+              <div class="char-counter-text" id="charCounter">0/500 characters</div>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <select class="form-select" id="formStatus" style="width: 140px;">
+                  <option value="Published">Published</option>
+                  <option value="Draft">Draft</option>
+                </select>
+                <span class="status-pill published" id="statusPreviewBadge">Published</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div class="drawer-bottom-actions">
+            <button type="button" class="btn-drawer-cancel" onclick="closeResourceDrawer()">Cancel</button>
+            <button type="submit" class="btn-drawer-save" id="btnSaveResource">Save Resource</button>
+          </div>
+        </form>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ================= PREVIEW / VIEW MODAL ================= -->
+  <div class="modal-overlay" id="previewModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="previewModalTitle">Resource Details</h3>
+        <button class="modal-close-btn" onclick="closeModal('previewModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div id="previewIconWrap" style="font-size:24px;"></div>
+          <div>
+            <h4 id="previewTitle" style="font-size:15px; font-weight:800; color:#0f172a;"></h4>
+            <span id="previewMeta" style="font-size:12px; color:#64748b;"></span>
+          </div>
+        </div>
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px 14px; font-size:12.5px; color:#334155;">
+          <strong>Description:</strong>
+          <p id="previewDesc" style="margin-top:4px; line-height:1.5; color:#475569;"></p>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:#64748b; border-top:1px solid #f1f5f9; padding-top:8px;">
+          <span>Status: <strong id="previewStatus"></strong></span>
+          <span>Size: <strong id="previewSize"></strong></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-drawer-cancel" onclick="closeModal('previewModal')">Close</button>
+        <a id="btnOpenResource" href="#" target="_blank" class="btn-drawer-save" style="text-decoration:none;">
+          <i class="fa-solid fa-arrow-up-right-from-square" style="margin-right:6px;"></i>Open File / Link
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toastMsg">
+    <i class="fa-solid fa-circle-check" style="color: #22c55e;"></i>
+    <span id="toastText">Action successful</span>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // --- STATE MANAGEMENT ---
+    let resourcesData = [];
+    let currentFiltered = [];
+    let selectedResource = null;
+    let selectedIds = new Set();
+    let currentPage = 1;
+    const itemsPerPage = 8;
+    let totalCount = 24;
+
+    // Filters
+    let activeCourse = 'Digital Marketing';
+    let filterQuery = '';
+    let filterModule = 'all';
+    let filterType = 'all';
+    let filterStatus = 'all';
+    let activeTab = 'all';
+
+    // Fallback Initial Seed Dataset (Matches exact 24 resources & 5 KPI cards in screenshot)
+    const initialResourcesSeed = [
+      {
+        _id: "res_1",
+        title: "Digital Marketing Notes",
+        course: "Digital Marketing",
+        moduleName: "Module 1: Introduction",
+        lessonName: "Overview of Modern Marketing Funnels",
+        type: "PDF Document",
+        fileSize: "2.4 MB",
+        fileUrl: "https://eduruplearning.com/docs/digital-marketing-notes.pdf",
+        status: "Published",
+        description: "Comprehensive lecture notes covering fundamental marketing theories, funnel stages (TOFU, MOFU, BOFU), and modern consumer acquisition channels.",
+        order: 1
+      },
+      {
+        _id: "res_2",
+        title: "SEO Checklist",
+        course: "Digital Marketing",
+        moduleName: "Module 2: SEO",
+        lessonName: "On-Page & Technical SEO Audits",
+        type: "PDF Document",
+        fileSize: "1.1 MB",
+        fileUrl: "https://eduruplearning.com/docs/seo-checklist.pdf",
+        status: "Published",
+        description: "42-point practical technical and on-page SEO audit checklist for indexing, meta titles, schema markup, and Core Web Vitals.",
+        order: 2
+      },
+      {
+        _id: "res_3",
+        title: "Keyword Research Template",
+        course: "Digital Marketing",
+        moduleName: "Module 2: SEO",
+        lessonName: "Search Intent & Keyword Mapping",
+        type: "Template",
+        fileSize: "450 KB",
+        fileUrl: "https://eduruplearning.com/docs/keyword-research-template.xlsx",
+        status: "Published",
+        description: "Pre-formatted Excel sheet to categorize primary, secondary, and long-tail search queries with search volume and difficulty scoring.",
+        order: 3
+      },
+      {
+        _id: "res_4",
+        title: "Google Ads Guide",
+        course: "Digital Marketing",
+        moduleName: "Module 3: Google Ads",
+        lessonName: "Search & Display Campaign Architecture",
+        type: "PDF Document",
+        fileSize: "3.2 MB",
+        fileUrl: "https://eduruplearning.com/docs/google-ads-guide.pdf",
+        status: "Published",
+        description: "Step-by-step PPC handbook covering bidding strategies (Target CPA, Max Conversions), ad copy extensions, and quality score optimization.",
+        order: 4
+      },
+      {
+        _id: "res_5",
+        title: "Social Media Calendar",
+        course: "Digital Marketing",
+        moduleName: "Module 4: Social Media",
+        lessonName: "Content Pillars & Publishing Schedule",
+        type: "Template",
+        fileSize: "620 KB",
+        fileUrl: "https://eduruplearning.com/docs/social-media-calendar.xlsx",
+        status: "Draft",
+        description: "Editable content matrix organized by weekdays, target demographics, media formats (Reels, Carousels), and campaign hashtags.",
+        order: 5
+      },
+      {
+        _id: "res_6",
+        title: "Useful Tools & Links",
+        course: "Digital Marketing",
+        moduleName: "Module 4: Tools",
+        lessonName: "Creative & Analytics Toolkit",
+        type: "External Link",
+        fileSize: "-",
+        externalUrl: "https://www.eduruplearning.com/tools/digital-marketing",
+        status: "Published",
+        description: "Curated directory of industry-standard tools including Google Trends, AnswerThePublic, Meta Ad Library, and design resources.",
+        order: 6
+      },
+      {
+        _id: "res_7",
+        title: "Case Study: Brand Campaign",
+        course: "Digital Marketing",
+        moduleName: "Module 5: Case Studies",
+        lessonName: "Full-Funnel Omnichannel Case Breakdown",
+        type: "PDF Document",
+        fileSize: "1.8 MB",
+        fileUrl: "https://eduruplearning.com/docs/case-study-brand-campaign.pdf",
+        status: "Published",
+        description: "Real-world D2C case analysis detailing how an omnichannel rollout achieved 4.2x ROAS and scaled customer lifetime value.",
+        order: 7
+      },
+      {
+        _id: "res_8",
+        title: "Practice Dataset",
+        course: "Digital Marketing",
+        moduleName: "Module 6: Analytics",
+        lessonName: "Conversion Rate & Campaign Attribution",
+        type: "Dataset",
+        fileSize: "5.6 MB",
+        fileUrl: "https://eduruplearning.com/data/marketing-campaign-dataset.csv",
+        status: "Published",
+        description: "Anonymized tabular dataset containing 25,000 ad impressions, clicks, CPC, conversion events, and customer retention metrics for analysis.",
+        order: 8
+      },
+      {
+        _id: "res_9",
+        title: "Email Marketing Funnel Blueprint",
+        course: "Digital Marketing",
+        moduleName: "Module 5: Email Automation",
+        lessonName: "Drip Campaigns & Segmentation",
+        type: "PDF Document",
+        fileSize: "2.1 MB",
+        fileUrl: "https://eduruplearning.com/docs/email-marketing-blueprint.pdf",
+        status: "Published",
+        description: "Architecture breakdown of automated welcome series, abandoned cart triggers, and post-purchase customer retention funnels.",
+        order: 9
+      },
+      {
+        _id: "res_10",
+        title: "Google Analytics 4 Setup Checklist",
+        course: "Digital Marketing",
+        moduleName: "Module 6: Analytics",
+        lessonName: "Event Tracking & Custom Conversions",
+        type: "PDF Document",
+        fileSize: "1.5 MB",
+        fileUrl: "https://eduruplearning.com/docs/ga4-setup-checklist.pdf",
+        status: "Published",
+        description: "Standard operating procedure for setting up custom dimensions, enhanced measurement, conversion events, and BigQuery link in GA4.",
+        order: 10
+      },
+      {
+        _id: "res_11",
+        title: "Meta Ads ROAS Calculator",
+        course: "Digital Marketing",
+        moduleName: "Module 3: Google Ads",
+        lessonName: "Budgeting & Ad Spend Planning",
+        type: "Template",
+        fileSize: "520 KB",
+        fileUrl: "https://eduruplearning.com/docs/meta-ads-roas-calculator.xlsx",
+        status: "Published",
+        description: "Dynamic spreadsheet with formulas to compute break-even ROAS, CPA limits, and required traffic volume based on product margins.",
+        order: 11
+      },
+      {
+        _id: "res_12",
+        title: "Influencer Outreach Template",
+        course: "Digital Marketing",
+        moduleName: "Module 4: Social Media",
+        lessonName: "Influencer Negotiations & Briefs",
+        type: "Template",
+        fileSize: "380 KB",
+        fileUrl: "https://eduruplearning.com/docs/influencer-outreach-template.docx",
+        status: "Published",
+        description: "Collection of cold email pitch templates, deliverable briefing contracts, and performance tracking sheets for creator collaborations.",
+        order: 12
+      },
+      {
+        _id: "res_13",
+        title: "E-Commerce Customer Dataset",
+        course: "Digital Marketing",
+        moduleName: "Module 6: Analytics",
+        lessonName: "Customer Lifetime Value (LTV) Modeling",
+        type: "Dataset",
+        fileSize: "8.4 MB",
+        fileUrl: "https://eduruplearning.com/data/ecommerce-customer-behavior.csv",
+        status: "Published",
+        description: "Comprehensive dataset of 50,000 multi-touch attribution transactions for hands-on practice in Excel, Python, and Power BI.",
+        order: 13
+      },
+      {
+        _id: "res_14",
+        title: "Competitor SEO Audit Guide",
+        course: "Digital Marketing",
+        moduleName: "Module 2: SEO",
+        lessonName: "Competitive Gap Analysis",
+        type: "PDF Document",
+        fileSize: "2.8 MB",
+        fileUrl: "https://eduruplearning.com/docs/competitor-seo-audit.pdf",
+        status: "Published",
+        description: "Tutorial on reverse-engineering top ranking competitor backlink profiles, domain rating, and organic content velocity.",
+        order: 14
+      },
+      {
+        _id: "res_15",
+        title: "Content Repurposing SOP",
+        course: "Digital Marketing",
+        moduleName: "Module 1: Introduction",
+        lessonName: "Omnichannel Distribution Workflows",
+        type: "PDF Document",
+        fileSize: "1.6 MB",
+        fileUrl: "https://eduruplearning.com/docs/content-repurposing-sop.pdf",
+        status: "Published",
+        description: "Standard workflow to transform 1 long-form video or blog article into 15 micro-assets across LinkedIn, X, and Instagram.",
+        order: 15
+      },
+      {
+        _id: "res_16",
+        title: "Marketing Attribution Model Whitepaper",
+        course: "Digital Marketing",
+        moduleName: "Module 6: Analytics",
+        lessonName: "Multi-Touch & Data-Driven Attribution",
+        type: "PDF Document",
+        fileSize: "2.3 MB",
+        fileUrl: "https://eduruplearning.com/docs/marketing-attribution-whitepaper.pdf",
+        status: "Published",
+        description: "In-depth guide comparing first-click, last-click, linear, time-decay, and algorithmic data-driven attribution models in enterprise media.",
+        order: 16
+      },
+      {
+        _id: "res_17",
+        title: "Google Tag Manager Official Reference",
+        course: "Digital Marketing",
+        moduleName: "Module 6: Analytics",
+        lessonName: "Tag Deployment & Trigger Rules",
+        type: "External Link",
+        fileSize: "-",
+        externalUrl: "https://developers.google.com/tag-platform/tag-manager",
+        status: "Published",
+        description: "Official documentation and developer API guide for deploying tags, trigger variables, and client-side tracking containers.",
+        order: 17
+      },
+      {
+        _id: "res_18",
+        title: "Canva Social Media Design Kit",
+        course: "Digital Marketing",
+        moduleName: "Module 4: Social Media",
+        lessonName: "Visual Branding & Asset Creation",
+        type: "External Link",
+        fileSize: "-",
+        externalUrl: "https://www.canva.com/templates/social-media",
+        status: "Published",
+        description: "Curated collection of professional Canva template kits optimized for high-engagement Instagram carousels and ad creatives.",
+        order: 18
+      },
+      {
+        _id: "res_19",
+        title: "Ahrefs Free Keyword Generator Tool",
+        course: "Digital Marketing",
+        moduleName: "Module 2: SEO",
+        lessonName: "Keyword Discovery & Search Trends",
+        type: "External Link",
+        fileSize: "-",
+        externalUrl: "https://ahrefs.com/keyword-generator",
+        status: "Published",
+        description: "Free web utility to quickly discover trending search queries and search volume for Google, Bing, YouTube, and Amazon.",
+        order: 19
+      },
+      {
+        _id: "res_20",
+        title: "Search Console Performance Guide",
+        course: "Digital Marketing",
+        moduleName: "Module 2: SEO",
+        lessonName: "Index Coverage & CTR Optimization",
+        type: "PDF Document",
+        fileSize: "1.9 MB",
+        fileUrl: "https://eduruplearning.com/docs/search-console-guide.pdf",
+        status: "Published",
+        description: "Manual on diagnosing indexing exclusions, crawl budget optimization, sitemap submissions, and snippet CTR enhancements.",
+        order: 20
+      },
+      {
+        _id: "res_21",
+        title: "Copywriting Swipe File & Headline Bank",
+        course: "Digital Marketing",
+        moduleName: "Module 1: Introduction",
+        lessonName: "Direct Response Copywriting",
+        type: "PDF Document",
+        fileSize: "3.5 MB",
+        fileUrl: "https://eduruplearning.com/docs/copywriting-swipe-file.pdf",
+        status: "Published",
+        description: "100+ proven high-converting headlines, hooks, and call-to-action formulas for landing pages, ad creatives, and cold emails.",
+        order: 21
+      },
+      {
+        _id: "res_22",
+        title: "UTM Campaign Builder Portal",
+        course: "Digital Marketing",
+        moduleName: "Module 6: Analytics",
+        lessonName: "Campaign Tracking & Naming Conventions",
+        type: "External Link",
+        fileSize: "-",
+        externalUrl: "https://ga-dev-tools.google/campaign-url-builder",
+        status: "Published",
+        description: "Google's official Campaign URL builder utility to generate custom campaign parameters for advertising and email URLs.",
+        order: 22
+      },
+      {
+        _id: "res_23",
+        title: "Facebook Ad Policy Compliance Handbook",
+        course: "Digital Marketing",
+        moduleName: "Module 3: Google Ads",
+        lessonName: "Policy Compliance & Ad Account Safety",
+        type: "PDF Document",
+        fileSize: "1.4 MB",
+        fileUrl: "https://eduruplearning.com/docs/meta-ad-policy-handbook.pdf",
+        status: "Published",
+        description: "Essential dos and don'ts to prevent ad account restrictions, deceptive claim flags, and ensure 100% compliance with Meta advertising terms.",
+        order: 23
+      },
+      {
+        _id: "res_24",
+        title: "HubSpot Inbound Marketing Guide",
+        course: "Digital Marketing",
+        moduleName: "Module 5: Email Automation",
+        lessonName: "Inbound Lead Generation Strategies",
+        type: "External Link",
+        fileSize: "-",
+        externalUrl: "https://www.hubspot.com/inbound-marketing",
+        status: "Published",
+        description: "Comprehensive industry benchmark guide on attracting, engaging, and delighting modern B2B and B2C consumers organically.",
+        order: 24
+      }
+    ];
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchResources();
+    });
+
+    // Fetch Resources from Backend API
+    async function fetchResources() {
+      try {
+        const queryParams = new URLSearchParams({
+          course: activeCourse,
+          page: currentPage,
+          limit: 100, // Client side filtering and pagination for instant speed
+          search: filterQuery,
+          module: filterModule,
+          type: filterType,
+          status: filterStatus
+        });
+
+        const res = await fetch(`/api/admin/resources?${queryParams.toString()}`);
+        if (!res.ok) throw new Error('API network response was not ok');
+
+        const json = await res.json();
+        if (json.success && Array.isArray(json.resources) && json.resources.length > 0) {
+          resourcesData = json.resources;
+          if (json.kpis) updateKPIs(json.kpis);
+        } else {
+          resourcesData = initialResourcesSeed;
+        }
+      } catch (err) {
+        console.warn('Backend API notice, loaded client resources seed:', err);
+        resourcesData = initialResourcesSeed;
+      }
+
+      applyFiltersAndRender();
+    }
+
+    // Update 5 KPI Cards
+    function updateKPIs(kpis) {
+      if (!kpis) return;
+      document.getElementById('kpiTotalResources').textContent = kpis.totalResources ?? 24;
+      document.getElementById('kpiPdfDocs').textContent = kpis.pdfDocuments ?? 12;
+      document.getElementById('kpiExternalLinks').textContent = kpis.externalLinks ?? 6;
+      document.getElementById('kpiTemplates').textContent = kpis.templates ?? 4;
+      document.getElementById('kpiDatasets').textContent = kpis.datasets ?? 2;
+      document.getElementById('tabCountAll').textContent = kpis.totalResources ?? 24;
+    }
+
+    // Apply Filters & Search
+    function applyFiltersAndRender() {
+      currentFiltered = resourcesData.filter(r => {
+        // Search query
+        if (filterQuery.trim()) {
+          const q = filterQuery.toLowerCase();
+          const matchTitle = (r.title || '').toLowerCase().includes(q);
+          const matchMod = (r.moduleName || '').toLowerCase().includes(q);
+          const matchLesson = (r.lessonName || '').toLowerCase().includes(q);
+          const matchDesc = (r.description || '').toLowerCase().includes(q);
+          if (!matchTitle && !matchMod && !matchLesson && !matchDesc) return false;
+        }
+
+        // Module
+        if (filterModule !== 'all' && r.moduleName !== filterModule) {
+          return false;
+        }
+
+        // Type
+        if (filterType !== 'all' && r.type !== filterType) {
+          return false;
+        }
+
+        // Status
+        if (filterStatus !== 'all' && r.status !== filterStatus) {
+          return false;
+        }
+
+        return true;
+      });
+
+      totalCount = currentFiltered.length;
+      if (currentPage > Math.ceil(totalCount / itemsPerPage) && totalCount > 0) {
+        currentPage = 1;
+      }
+
+      renderTable();
+      renderPagination();
+    }
+
+    // Render Table Rows
+    function renderTable() {
+      const tbody = document.getElementById('resourcesTableBody');
+      tbody.innerHTML = '';
+
+      if (currentFiltered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 40px; color: #94a3b8;">
+              <i class="fa-solid fa-folder-open" style="font-size: 28px; margin-bottom: 8px; display: block;"></i>
+              No study resources found matching your filters.
+            </td>
+          </tr>
+        `;
+        document.getElementById('showingText').textContent = 'Showing 0 to 0 of 0 resources';
+        return;
+      }
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, currentFiltered.length);
+      const pageSlice = currentFiltered.slice(startIndex, endIndex);
+
+      document.getElementById('showingText').textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalCount} resources`;
+
+      pageSlice.forEach((r, idx) => {
+        const globalIdx = startIndex + idx + 1;
+        const isChecked = selectedIds.has(r._id);
+
+        const tr = document.createElement('tr');
+
+        // Type Icon and Color
+        let typeIconHtml = '';
+        if (r.type === 'PDF Document') {
+          typeIconHtml = '<i class="fa-solid fa-file-pdf type-icon pdf" title="PDF Document"></i>';
+        } else if (r.type === 'Document (Word/Excel)' || r.type === 'Template') {
+          typeIconHtml = '<i class="fa-solid fa-file-excel type-icon sheet" title="Excel / Spreadsheet"></i>';
+        } else if (r.type === 'External Link') {
+          typeIconHtml = '<i class="fa-solid fa-link type-icon link" title="External Link"></i>';
+        } else if (r.type === 'Dataset') {
+          typeIconHtml = '<i class="fa-solid fa-database type-icon dataset" title="Dataset"></i>';
+        } else {
+          typeIconHtml = '<i class="fa-solid fa-file type-icon other" title="File"></i>';
+        }
+
+        // Status pill
+        const statusClass = r.status === 'Draft' ? 'draft' : 'published';
+
+        tr.innerHTML = `
+          <td onclick="event.stopPropagation()">
+            <input type="checkbox" class="custom-chk row-chk" ${isChecked ? 'checked' : ''} onchange="toggleRowSelect('${r._id}', this.checked)">
+          </td>
+          <td class="row-index-num">${globalIdx}</td>
+          <td>
+            <span class="res-title-text">${escapeHtml(r.title)}</span>
+          </td>
+          <td>
+            ${typeIconHtml}
+          </td>
+          <td>
+            <span class="module-lesson-text">${escapeHtml(r.moduleName || 'Module 1')}</span>
+          </td>
+          <td>
+            <span class="file-size-text">${escapeHtml(r.fileSize || '-')}</span>
+          </td>
+          <td>
+            <span class="status-pill ${statusClass}">${escapeHtml(r.status || 'Published')}</span>
+          </td>
+          <td style="text-align: right;" onclick="event.stopPropagation()">
+            <div class="action-icons-wrap" style="justify-content: flex-end;">
+              <button class="btn-act-icon view" title="View Resource" onclick="openPreviewModal('${r._id}')">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+              <button class="btn-act-icon edit" title="Edit Resource" onclick="openEditResourceDrawer('${r._id}')">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="btn-act-icon delete" title="Delete Resource" onclick="deleteResource('${r._id}')">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tr.addEventListener('click', () => {
+          openPreviewModal(r._id);
+        });
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Render Pagination Controls
+    function renderPagination() {
+      const totalPages = Math.ceil(totalCount / itemsPerPage) || 1;
+      const wrap = document.getElementById('paginationControls');
+      wrap.innerHTML = '';
+
+      // Prev Button
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'btn-page';
+      prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; renderTable(); renderPagination(); } };
+      wrap.appendChild(prevBtn);
+
+      // Page numbers
+      for (let p = 1; p <= totalPages; p++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = `btn-page ${p === currentPage ? 'active' : ''}`;
+        pageBtn.textContent = p;
+        pageBtn.onclick = () => { currentPage = p; renderTable(); renderPagination(); };
+        wrap.appendChild(pageBtn);
+      }
+
+      // Next Button
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'btn-page';
+      nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; renderTable(); renderPagination(); }; };
+      wrap.appendChild(nextBtn);
+    }
+
+    // Tab Switching
+    function switchResourceTab(tab, btnElem) {
+      document.querySelectorAll('.res-tab-btn').forEach(b => b.classList.remove('active'));
+      btnElem.classList.add('active');
+      activeTab = tab;
+
+      if (tab === 'all') {
+        filterModule = 'all';
+        filterType = 'all';
+      } else if (tab === 'module') {
+        filterModule = 'Module 2: SEO';
+        document.getElementById('moduleFilter').value = filterModule;
+      } else if (tab === 'type') {
+        filterType = 'PDF Document';
+        document.getElementById('typeFilter').value = filterType;
+      } else if (tab === 'lesson') {
+        filterModule = 'Module 1: Introduction';
+        document.getElementById('moduleFilter').value = filterModule;
+      }
+
+      currentPage = 1;
+      applyFiltersAndRender();
+      showToast(`Showing resources filtered ${btnElem.textContent.trim()}`);
+    }
+
+    // Search and Filters
+    let debounceTimer;
+    function handleSearch(val) {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        filterQuery = val;
+        currentPage = 1;
+        applyFiltersAndRender();
+      }, 250);
+    }
+
+    function handleGlobalSearch(val) {
+      document.getElementById('searchInput').value = val;
+      handleSearch(val);
+    }
+
+    function handleModuleFilter(val) {
+      filterModule = val;
+      currentPage = 1;
+      applyFiltersAndRender();
+    }
+
+    function handleTypeFilter(val) {
+      filterType = val;
+      currentPage = 1;
+      applyFiltersAndRender();
+    }
+
+    function handleStatusFilter(val) {
+      filterStatus = val;
+      currentPage = 1;
+      applyFiltersAndRender();
+    }
+
+    function resetFilters() {
+      filterQuery = '';
+      filterModule = 'all';
+      filterType = 'all';
+      filterStatus = 'all';
+      document.getElementById('searchInput').value = '';
+      document.getElementById('globalTopSearch').value = '';
+      document.getElementById('moduleFilter').value = 'all';
+      document.getElementById('typeFilter').value = 'all';
+      document.getElementById('statusFilter').value = 'all';
+      currentPage = 1;
+      applyFiltersAndRender();
+      showToast('Filters reset to default');
+    }
+
+    // Select Course
+    function toggleCourseDropdown() {
+      const courses = ['Digital Marketing', 'Data Analytics', 'Full Stack Development', 'Data Science & AI', 'Cloud & DevOps', 'HR Management'];
+      const nextIdx = (courses.indexOf(activeCourse) + 1) % courses.length;
+      activeCourse = courses[nextIdx];
+      document.getElementById('selectedCourseTitle').textContent = activeCourse;
+      document.getElementById('bannerCourseTitle').textContent = activeCourse;
+      
+      if (activeCourse === 'Digital Marketing') {
+        document.getElementById('bannerCourseDesc').textContent = 'Learn SEO, Google Ads, Social Media Marketing and more.';
+      } else {
+        document.getElementById('bannerCourseDesc').textContent = `Master comprehensive ${activeCourse} curriculum with hands-on projects.`;
+      }
+
+      fetchResources();
+      showToast(`Course switched to ${activeCourse}`);
+    }
+
+    // Row Checkbox Selection
+    function toggleSelectAll(checked) {
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, currentFiltered.length);
+      const pageSlice = currentFiltered.slice(startIndex, endIndex);
+
+      pageSlice.forEach(r => {
+        if (checked) selectedIds.add(r._id);
+        else selectedIds.delete(r._id);
+      });
+      renderTable();
+      if (checked) showToast(`${selectedIds.size} resources selected`);
+    }
+
+    function toggleRowSelect(id, checked) {
+      if (checked) selectedIds.add(id);
+      else selectedIds.delete(id);
+
+      const selectAll = document.getElementById('selectAllChk');
+      const pageSlice = currentFiltered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+      selectAll.checked = pageSlice.length > 0 && pageSlice.every(r => selectedIds.has(r._id));
+    }
+
+    // Drawer Controls
+    function openAddResourceDrawer() {
+      document.getElementById('drawerHeading').textContent = 'Add Resource';
+      document.getElementById('drawerSubheading').textContent = 'Upload a new study material for this course.';
+      document.getElementById('formResourceId').value = '';
+      document.getElementById('resourceForm').reset();
+      document.getElementById('formType').value = 'PDF Document';
+      document.getElementById('btnSaveResource').textContent = 'Save Resource';
+
+      // Reset card selection
+      document.querySelectorAll('.type-card-btn').forEach(btn => btn.classList.remove('selected'));
+      document.querySelector('.type-card-btn').classList.add('selected');
+      document.getElementById('fileUploadContainer').style.display = 'flex';
+      document.getElementById('externalUrlContainer').style.display = 'none';
+      document.getElementById('fileChosenPreview').style.display = 'none';
+      document.getElementById('charCounter').textContent = '0/500 characters';
+
+      const drawer = document.getElementById('resourceDrawer');
+      drawer.style.display = 'flex';
+      drawer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openEditResourceDrawer(id) {
+      const r = resourcesData.find(item => item._id === id);
+      if (!r) return;
+
+      document.getElementById('drawerHeading').textContent = 'Edit Resource';
+      document.getElementById('drawerSubheading').textContent = `Editing: ${r.title}`;
+      document.getElementById('formResourceId').value = r._id;
+      document.getElementById('formTitle').value = r.title || '';
+      document.getElementById('formModule').value = r.moduleName || '';
+      document.getElementById('formLesson').value = r.lessonName || '';
+      document.getElementById('formType').value = r.type || 'PDF Document';
+      document.getElementById('formExternalUrl').value = r.externalUrl || '';
+      document.getElementById('formDescription').value = r.description || '';
+      document.getElementById('formStatus').value = r.status || 'Published';
+      document.getElementById('btnSaveResource').textContent = 'Update Resource';
+
+      // Select matching card
+      document.querySelectorAll('.type-card-btn').forEach(btn => {
+        const span = btn.querySelector('span');
+        if (span && span.textContent.trim() === r.type) {
+          btn.classList.add('selected');
+        } else {
+          btn.classList.remove('selected');
+        }
+      });
+
+      if (r.type === 'External Link') {
+        document.getElementById('fileUploadContainer').style.display = 'none';
+        document.getElementById('externalUrlContainer').style.display = 'flex';
+      } else {
+        document.getElementById('fileUploadContainer').style.display = 'flex';
+        document.getElementById('externalUrlContainer').style.display = 'none';
+      }
+
+      document.getElementById('charCounter').textContent = `${(r.description || '').length}/500 characters`;
+
+      const drawer = document.getElementById('resourceDrawer');
+      drawer.style.display = 'flex';
+      drawer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function closeResourceDrawer() {
+      document.getElementById('resourceDrawer').style.display = 'none';
+    }
+
+    // Type Card Selection
+    function selectTypeCard(typeVal, btnElem) {
+      document.querySelectorAll('.type-card-btn').forEach(b => b.classList.remove('selected'));
+      btnElem.classList.add('selected');
+      document.getElementById('formType').value = typeVal;
+
+      if (typeVal === 'External Link') {
+        document.getElementById('fileUploadContainer').style.display = 'none';
+        document.getElementById('externalUrlContainer').style.display = 'flex';
+      } else {
+        document.getElementById('fileUploadContainer').style.display = 'flex';
+        document.getElementById('externalUrlContainer').style.display = 'none';
+      }
+    }
+
+    // File selection
+    function handleFileSelect(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        document.getElementById('fileChosenPreview').style.display = 'flex';
+        document.getElementById('chosenFileName').textContent = `${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`;
+      }
+    }
+
+    function clearChosenFile(e) {
+      e.stopPropagation();
+      document.getElementById('fileInput').value = '';
+      document.getElementById('fileChosenPreview').style.display = 'none';
+    }
+
+    // Drag and drop event listeners
+    const dropZone = document.getElementById('dropZone');
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+      }, false);
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files && files.length > 0) {
+        document.getElementById('fileInput').files = files;
+        handleFileSelect(document.getElementById('fileInput'));
+      }
+    });
+
+    // Formatting Toolbar for Description
+    function applyFormat(wrapper) {
+      const textarea = document.getElementById('formDescription');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selected = textarea.value.substring(start, end);
+
+      let replacement = '';
+      if (wrapper.endsWith(' ')) {
+        replacement = wrapper + selected;
+      } else {
+        replacement = wrapper + (selected || 'text') + wrapper;
+      }
+
+      textarea.setRangeText(replacement, start, end, 'end');
+      textarea.focus();
+      updateCharCount(textarea);
+    }
+
+    function updateCharCount(textarea) {
+      document.getElementById('charCounter').textContent = `${textarea.value.length}/500 characters`;
+    }
+
+    // Submit Add / Edit Resource Form
+    async function handleResourceFormSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('formResourceId').value;
+      const isEdit = Boolean(id);
+
+      const title = document.getElementById('formTitle').value.trim();
+      const moduleName = document.getElementById('formModule').value;
+      const lessonName = document.getElementById('formLesson').value;
+      const type = document.getElementById('formType').value;
+      const externalUrl = document.getElementById('formExternalUrl').value.trim();
+      const description = document.getElementById('formDescription').value.trim();
+      const status = document.getElementById('formStatus').value;
+
+      let fileSize = type === 'External Link' ? '-' : '2.1 MB';
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput.files && fileInput.files[0]) {
+        fileSize = `${(fileInput.files[0].size / (1024 * 1024)).toFixed(1)} MB`;
+      }
+
+      const payload = {
+        title,
+        course: activeCourse,
+        moduleName,
+        lessonName,
+        type,
+        fileSize,
+        externalUrl,
+        description,
+        status
+      };
+
+      try {
+        const url = isEdit ? `/api/admin/resources/${id}` : '/api/admin/resources';
+        const method = isEdit ? 'PUT' : 'POST';
+
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          showToast(isEdit ? 'Resource updated successfully!' : 'Resource added successfully!');
+          closeResourceDrawer();
+          await fetchResources();
+          return;
+        }
+      } catch (err) {
+        console.warn('API sync notice:', err);
+      }
+
+      // In-memory fallback
+      if (isEdit) {
+        const idx = resourcesData.findIndex(r => r._id === id);
+        if (idx !== -1) {
+          resourcesData[idx] = { ...resourcesData[idx], ...payload };
+        }
+        showToast('Resource updated successfully');
+      } else {
+        const newObj = {
+          _id: 'res_' + Date.now(),
+          ...payload,
+          order: resourcesData.length + 1
+        };
+        resourcesData.unshift(newObj);
+        showToast('Resource created successfully!');
+      }
+
+      closeResourceDrawer();
+      applyFiltersAndRender();
+    }
+
+    // Delete Resource
+    async function deleteResource(id) {
+      const r = resourcesData.find(item => item._id === id);
+      const title = r ? r.title : 'this resource';
+      if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
+
+      try {
+        await fetch(`/api/admin/resources/${id}`, { method: 'DELETE' });
+      } catch (err) {
+        console.warn(err);
+      }
+
+      resourcesData = resourcesData.filter(item => item._id !== id);
+      selectedIds.delete(id);
+      applyFiltersAndRender();
+      showToast(`"${title}" deleted successfully`);
+    }
+
+    // Preview / View Modal
+    function openPreviewModal(id) {
+      const r = resourcesData.find(item => item._id === id);
+      if (!r) return;
+
+      document.getElementById('previewTitle').textContent = r.title;
+      document.getElementById('previewMeta').textContent = `${r.course} • ${r.moduleName || 'Module 1'} • ${r.type}`;
+      document.getElementById('previewDesc').textContent = r.description || 'No description provided for this resource.';
+      document.getElementById('previewStatus').textContent = r.status || 'Published';
+      document.getElementById('previewSize').textContent = r.fileSize || '-';
+
+      const iconWrap = document.getElementById('previewIconWrap');
+      if (r.type === 'PDF Document') iconWrap.innerHTML = '<i class="fa-solid fa-file-pdf" style="color:#ef4444;"></i>';
+      else if (r.type === 'External Link') iconWrap.innerHTML = '<i class="fa-solid fa-link" style="color:#0284c7;"></i>';
+      else if (r.type === 'Dataset') iconWrap.innerHTML = '<i class="fa-solid fa-database" style="color:#8b5cf6;"></i>';
+      else iconWrap.innerHTML = '<i class="fa-solid fa-file-excel" style="color:#10b981;"></i>';
+
+      const openBtn = document.getElementById('btnOpenResource');
+      openBtn.href = r.externalUrl || r.fileUrl || '#';
+
+      document.getElementById('previewModal').classList.add('show');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('show');
+    }
+
+    // Navigation and Toast helpers
+    function toggleNavGroup(id) {
+      const group = document.getElementById(id);
+      if (group) group.classList.toggle('open');
+    }
+
+    function toggleSidebarMobile() {
+      const sb = document.getElementById('adminSidebar');
+      if (sb) sb.classList.toggle('mobile-open');
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toastMsg');
+      const textElem = document.getElementById('toastText');
+      textElem.textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
