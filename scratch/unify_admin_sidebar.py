@@ -18,6 +18,7 @@ PAGES_CONFIG = {
     'admin-mentors.html': 'internships-mentors',
     'admin-applications.html': 'internships-applications',
     'admin-tasks.html': 'tasks-all',
+    'admin-assign-tasks.html': 'tasks-assign',
 }
 
 SIDEBAR_CSS = """
@@ -275,6 +276,7 @@ def build_sidebar_html(page_key):
     tasks_cat_active = ' active-category' if is_tasks else ''
     tasks_all_active = ' active-subitem' if page_key == 'tasks-all' else ''
     tasks_projects_active = ' active-subitem' if page_key == 'tasks-projects' else ''
+    tasks_assign_active = ' active-subitem' if page_key == 'tasks-assign' else ''
 
     return f"""  <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="adminSidebar">
@@ -366,7 +368,7 @@ def build_sidebar_html(page_key):
           <a href="javascript:void(0)" onclick="showToast('My Tasks panel opening soon')" class="nav-subitem">My Tasks</a>
           <a href="javascript:void(0)" onclick="showToast('Task Submissions panel opening soon')" class="nav-subitem">Task Submissions</a>
           <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
-          <a href="javascript:void(0)" onclick="showToast('Assign Tasks module opening soon')" class="nav-subitem">Assign Tasks</a>
+          <a href="admin-assign-tasks.html" class="nav-subitem{tasks_assign_active}">Assign Tasks</a>
           <a href="javascript:void(0)" onclick="showToast('Task Templates library opening soon')" class="nav-subitem">Task Templates</a>
           <a href="javascript:void(0)" onclick="showToast('Recurring Tasks schedule opening soon')" class="nav-subitem">Recurring Tasks</a>
         </div>

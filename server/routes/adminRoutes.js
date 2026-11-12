@@ -14,6 +14,7 @@ const Project = require('../models/Project');
 const Mentor = require('../models/Mentor');
 const Resource = require('../models/Resource');
 const Task = require('../models/Task');
+const SubscriptionStudent = require('../models/SubscriptionStudent');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -2989,6 +2990,209 @@ router.post('/tasks/bulk-action', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Invalid bulk action requested' });
   } catch (err) {
     console.error('Bulk Action Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// ASSIGN TASKS & PROJECTS ENDPOINTS
+// ==========================================
+
+// @route   GET /api/admin/assign-tasks/students
+// @desc    Get students filtered by subscription month, course, batch, status for task assignment
+router.get('/assign-tasks/students', async (req, res) => {
+  try {
+    const {
+      course = 'Data Analytics Internship',
+      month = 'October 2026',
+      batch,
+      status,
+      search,
+      page = 1,
+      limit = 10
+    } = req.query;
+
+    const query = {};
+
+    if (course && course !== 'all') {
+      query.course = course;
+    }
+
+    if (month && month !== 'all') {
+      query.subscriptionMonth = month;
+    }
+
+    if (batch && batch !== 'all' && batch !== 'All Batches') {
+      query.batch = batch;
+    }
+
+    if (status && status !== 'all' && status !== 'All Students') {
+      if (status === 'Active Students' || status === 'Active') {
+        query.status = 'Active';
+      } else {
+        query.status = status;
+      }
+    }
+
+    if (search && search.trim()) {
+      const s = search.trim();
+      query.$or = [
+        { studentName: { $regex: s, $options: 'i' } },
+        { email: { $regex: s, $options: 'i' } },
+        { batch: { $regex: s, $options: 'i' } }
+      ];
+    }
+
+    const currentPage = parseInt(page, 10) || 1;
+    const itemsPerPage = parseInt(limit, 10) || 10;
+    const skip = (currentPage - 1) * itemsPerPage;
+
+    // Base query for KPI cards (filtered strictly by selected course & month)
+    const kpiBaseQuery = {};
+    if (course && course !== 'all') kpiBaseQuery.course = course;
+    if (month && month !== 'all') kpiBaseQuery.subscriptionMonth = month;
+
+    const [
+      students,
+      totalMatching,
+      totalStudents,
+      activeStudents,
+      pausedStudents,
+      completedStudents,
+      distinctCourses,
+      distinctMonths,
+      distinctBatches
+    ] = await Promise.all([
+      SubscriptionStudent.find(query).sort({ order: 1, createdAt: 1 }).skip(skip).limit(itemsPerPage),
+      SubscriptionStudent.countDocuments(query),
+      SubscriptionStudent.countDocuments(kpiBaseQuery),
+      SubscriptionStudent.countDocuments({ ...kpiBaseQuery, status: 'Active' }),
+      SubscriptionStudent.countDocuments({ ...kpiBaseQuery, status: 'Paused / On Hold' }),
+      SubscriptionStudent.countDocuments({ ...kpiBaseQuery, status: 'Completed' }),
+      SubscriptionStudent.distinct('course'),
+      SubscriptionStudent.distinct('subscriptionMonth'),
+      SubscriptionStudent.distinct('batch', kpiBaseQuery)
+    ]);
+
+    const totalKPI = totalStudents || 1;
+    const kpis = {
+      total: totalStudents,
+      active: activeStudents,
+      activePercent: Math.round((activeStudents / totalKPI) * 100),
+      paused: pausedStudents,
+      pausedPercent: Math.round((pausedStudents / totalKPI) * 100),
+      completed: completedStudents,
+      completedPercent: Math.round((completedStudents / totalKPI) * 100)
+    };
+
+    return res.status(200).json({
+      success: true,
+      students,
+      pagination: {
+        total: totalMatching,
+        page: currentPage,
+        limit: itemsPerPage,
+        totalPages: Math.ceil(totalMatching / itemsPerPage) || 1
+      },
+      kpis,
+      filters: {
+        courses: distinctCourses.length ? distinctCourses : ['Data Analytics Internship', 'Digital Marketing Internship', 'Full Stack Development', 'Data Science Internship'],
+        months: distinctMonths.length ? distinctMonths : ['October 2026', 'September 2026', 'November 2026'],
+        batches: distinctBatches.length ? distinctBatches : ['Oct 2026 - Batch 1', 'Oct 2026 - Batch 2', 'Oct 2026 - Batch 3']
+      }
+    });
+  } catch (err) {
+    console.error('Get Assign Tasks Students Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/tasks/assign-bulk
+// @desc    Assign task/project to selected or bulk students
+router.post('/tasks/assign-bulk', async (req, res) => {
+  try {
+    const {
+      title,
+      description,
+      type = 'Assignment',
+      course = 'Data Analytics Internship',
+      month = 'October 2026',
+      dueDate = '31 Oct 2026',
+      points = 10,
+      attachments = [],
+      targetGroup = 'selected', // 'selected' | 'all' | 'batch'
+      assignedStudentIds = [],
+      selectedBatch,
+      sendNotification = true,
+      notificationMessage = ''
+    } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ success: false, message: 'Task Title is required' });
+    }
+
+    let targetStudents = [];
+
+    if (targetGroup === 'selected') {
+      if (!assignedStudentIds || assignedStudentIds.length === 0) {
+        return res.status(400).json({ success: false, message: 'Please select at least one student' });
+      }
+      targetStudents = await SubscriptionStudent.find({ _id: { $in: assignedStudentIds } });
+    } else if (targetGroup === 'all') {
+      targetStudents = await SubscriptionStudent.find({
+        course,
+        subscriptionMonth: month
+      });
+    } else if (targetGroup === 'batch') {
+      targetStudents = await SubscriptionStudent.find({
+        course,
+        subscriptionMonth: month,
+        batch: selectedBatch
+      });
+    }
+
+    if (targetStudents.length === 0) {
+      return res.status(400).json({ success: false, message: 'No matching students found for assignment' });
+    }
+
+    // Get current max order
+    const lastTask = await Task.findOne().sort({ order: -1 });
+    let nextOrder = (lastTask && lastTask.order ? lastTask.order : 0) + 1;
+
+    const taskTypeMapped = type === 'Project Milestone' ? 'Project' : (type === 'Quiz' ? 'Assessment' : 'Assignment');
+
+    const tasksToInsert = targetStudents.map(student => ({
+      title,
+      subtitle: (description || '').slice(0, 60),
+      type: taskTypeMapped,
+      course: student.course || course,
+      batch: student.batch,
+      assignedTo: {
+        name: student.studentName,
+        email: student.email,
+        avatarInitials: student.avatarInitials,
+        avatarColor: student.avatarColor
+      },
+      dueDate,
+      status: 'Not Started',
+      points: Number(points) || 10,
+      priority: 'Medium',
+      description,
+      attachments: attachments.length ? attachments : [
+        { name: 'sales_data.csv', size: '1.2 MB', type: 'csv', url: '#' }
+      ],
+      order: nextOrder++
+    }));
+
+    await Task.insertMany(tasksToInsert);
+
+    return res.status(201).json({
+      success: true,
+      assignedCount: tasksToInsert.length,
+      message: `Task "${title}" successfully assigned to ${tasksToInsert.length} students`
+    });
+  } catch (err) {
+    console.error('Assign Bulk Tasks Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
