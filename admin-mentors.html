@@ -1,0 +1,3388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentors Management | Internship Management | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #DCFCE7;
+      --success-text: #166534;
+      --warning: #F59E0B;
+      --warning-light: #FEF3C7;
+      --warning-text: #92400E;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --danger-text: #B91C1C;
+      --purple: #8B5CF6;
+      --purple-light: #F3E8FF;
+      --purple-text: #7E22CE;
+      --info: #0284C7;
+      --info-light: #E0F2FE;
+      --info-text: #0369A1;
+      --orange: #EA580C;
+      --orange-light: #FFEDD5;
+      --orange-text: #C2410C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: var(--bg-sidebar);
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff;
+      background: rgba(37, 99, 235, 0.12);
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 15px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 38px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff;
+      font-weight: 700;
+      background: #2563eb;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before {
+      color: #ffffff;
+    }
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Navbar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .top-left-search {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-toggle-sidebar {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .top-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 16px;
+      width: 440px;
+      transition: all 0.2s;
+    }
+
+    .top-search-wrap:focus-within {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .top-search-wrap i {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .top-search-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13.5px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-notif {
+      position: relative;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 18px;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .btn-notif:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .notif-badge-dot {
+      position: absolute;
+      top: 8px;
+      right: 9px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+    }
+
+    .user-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .user-profile-badge:hover {
+      background: #f1f5f9;
+    }
+
+    .avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #7e22ce;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .user-role {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* Page Layout Wrap (Main Area + Sticky/Slide-in Right Panel) */
+    .page-layout-wrap {
+      display: flex;
+      flex: 1;
+      position: relative;
+    }
+
+    .page-main-area {
+      flex: 1;
+      padding: 24px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .breadcrumb-row a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+    .breadcrumb-row span.current {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* Page Header */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .page-title-group h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .page-title-group p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .btn-add-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-add-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- 5 KPI CARDS ---------------- */
+    .kpi-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    .kpi-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-box.purple {
+      background: var(--purple-light);
+      color: var(--purple-text);
+    }
+
+    .kpi-icon-box.green {
+      background: var(--success-light);
+      color: var(--success-text);
+    }
+
+    .kpi-icon-box.amber {
+      background: var(--warning-light);
+      color: var(--warning-text);
+    }
+
+    .kpi-icon-box.blue {
+      background: var(--info-light);
+      color: var(--info-text);
+    }
+
+    .kpi-icon-box.orange {
+      background: var(--orange-light);
+      color: var(--orange-text);
+    }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .kpi-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .kpi-desc {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* ---------------- FILTERS & SEARCH ROW ---------------- */
+    .filters-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-filter-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      width: 280px;
+      transition: border 0.2s;
+    }
+
+    .search-filter-wrap:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .search-filter-wrap i {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .search-filter-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-reset {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-reset:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+      border-color: #cbd5e1;
+    }
+
+    /* ---------------- TABLE CONTAINER ---------------- */
+    .table-container-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.mentors-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table.mentors-table th {
+      background: #f8fafc;
+      padding: 12px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      text-transform: capitalize;
+    }
+
+    table.mentors-table td {
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: middle;
+    }
+
+    table.mentors-table tbody tr {
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    table.mentors-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    table.mentors-table tbody tr.selected-row {
+      background: #f1f5f9;
+    }
+
+    /* Checkbox */
+    .custom-chk {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .row-index-num {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    /* Mentor info cell */
+    .mentor-profile-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 190px;
+    }
+
+    .mentor-table-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      font-weight: 700;
+      font-size: 12px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+
+    .mentor-meta-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .mentor-name {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 13px;
+    }
+
+    .mentor-email {
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    /* Skills badges */
+    .skills-pill-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      max-width: 260px;
+    }
+
+    .skill-pill {
+      font-size: 11px;
+      font-weight: 600;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .skill-pill.more-pill {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    /* Bold Counts */
+    .count-bold {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 13px;
+    }
+
+    /* Rating Star */
+    .rating-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #0f172a;
+    }
+
+    .rating-wrap i {
+      color: #f59e0b;
+      font-size: 12px;
+    }
+
+    /* Status Pill */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-pill.status-active {
+      background: var(--success-light);
+      color: var(--success-text);
+    }
+    .status-pill.status-active::before {
+      background: #16a34a;
+    }
+
+    .status-pill.status-on-leave {
+      background: var(--warning-light);
+      color: var(--warning-text);
+    }
+    .status-pill.status-on-leave::before {
+      background: #d97706;
+    }
+
+    .status-pill.status-inactive {
+      background: var(--danger-light);
+      color: var(--danger-text);
+    }
+    .status-pill.status-inactive::before {
+      background: #dc2626;
+    }
+
+    /* Action Buttons */
+    .action-icons-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-act {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .btn-act:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+
+    /* Table Footer */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      font-size: 12.5px;
+      color: #64748b;
+    }
+
+    .pagination-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-page {
+      min-width: 28px;
+      height: 28px;
+      padding: 0 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-page:hover:not(:disabled) {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .btn-page.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    .btn-page:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ---------------- RIGHT SIDE PANEL ("Mentor Details") ---------------- */
+    .details-panel-side {
+      width: 420px;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      height: calc(100vh - 70px);
+      overflow-y: auto;
+      z-index: 80;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease;
+    }
+
+    .details-panel-side::-webkit-scrollbar {
+      width: 4px;
+    }
+    .details-panel-side::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    .panel-top-bar {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    .panel-top-bar h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .btn-close-panel {
+      background: transparent;
+      border: none;
+      font-size: 15px;
+      color: #94a3b8;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-close-panel:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .panel-scroll-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    /* Mentor Profile Header inside panel */
+    .mentor-profile-card {
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+    }
+
+    .mentor-large-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      background: #2563eb;
+    }
+
+    .panel-mentor-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .panel-mentor-role {
+      font-size: 12.5px;
+      color: #64748b;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .panel-mentor-status-badge {
+      margin-top: 8px;
+    }
+
+    .mentor-contacts-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      color: #475569;
+      width: 100%;
+      background: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+      text-align: left;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .contact-item i {
+      color: #94a3b8;
+      font-size: 12px;
+      width: 14px;
+      text-align: center;
+    }
+
+    .btn-edit-mentor-outline {
+      margin-top: 12px;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-edit-mentor-outline:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: var(--text-main);
+    }
+
+    /* Panel Tabs */
+    .panel-tabs-row {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      gap: 4px;
+    }
+
+    .panel-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 8px 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .panel-tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .panel-tab-btn.active {
+      color: var(--primary);
+      font-weight: 700;
+      border-bottom-color: var(--primary);
+    }
+
+    /* Tab Content Sections */
+    .tab-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-label-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+    }
+
+    /* Skills Pill Cloud */
+    .skills-cloud-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .cloud-pill {
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+
+    /* 4 Mini Stat Cards inside panel (2x2) */
+    .panel-stats-2x2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .mini-stat-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mini-stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mini-stat-num {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .mini-stat-icon {
+      font-size: 13px;
+    }
+    .mini-stat-icon.blue { color: #2563eb; }
+    .mini-stat-icon.green { color: #16a34a; }
+    .mini-stat-icon.orange { color: #ea580c; }
+    .mini-stat-icon.purple { color: #8b5cf6; }
+
+    .mini-stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    /* List items in panel (Programs & Sessions) */
+    .panel-list-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .panel-list-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .panel-list-row:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .panel-list-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+      padding-right: 8px;
+    }
+
+    .panel-list-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .panel-list-sub {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .panel-list-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .badge-count-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: #334155;
+      padding: 2px 7px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+
+    .panel-list-right i {
+      color: #94a3b8;
+      font-size: 11px;
+    }
+
+    /* Panel Sticky Bottom Actions */
+    .panel-bottom-actions {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .btn-schedule-session {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-schedule-session:hover {
+      background: var(--primary-light);
+    }
+
+    .btn-message-mentor {
+      flex: 1;
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+      transition: all 0.15s;
+    }
+
+    .btn-message-mentor:hover {
+      background: var(--primary-hover);
+    }
+
+    /* ---------------- MODALS ---------------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      color: #94a3b8;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .modal-close-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-label span.req {
+      color: #ef4444;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #ffffff;
+    }
+
+    .btn-modal-cancel {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-modal-cancel:hover {
+      background: #f1f5f9;
+    }
+
+    .btn-modal-submit {
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.15s;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-modal-submit:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Dropdown menu for 3-dots */
+    .menu-dropdown {
+      position: absolute;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 6px;
+      z-index: 50;
+      display: none;
+      min-width: 150px;
+    }
+
+    .menu-dropdown.show {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-dropdown-item {
+      padding: 8px 12px;
+      font-size: 12.5px;
+      color: #334155;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s;
+    }
+
+    .menu-dropdown-item:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+
+    .menu-dropdown-item.del:hover {
+      background: #fee2e2;
+      color: #ef4444;
+    }
+
+    /* Responsive */
+    @media (max-width: 1280px) {
+      .page-layout-wrap {
+        flex-direction: column;
+      }
+      .details-panel-side {
+        width: 100%;
+        position: static;
+        height: auto;
+      }
+      .kpi-stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .kpi-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      aside.sidebar {
+        position: fixed;
+        left: -260px;
+      }
+      aside.sidebar.mobile-open {
+        left: 0;
+      }
+      .btn-toggle-sidebar {
+        display: block;
+      }
+      .top-search-wrap {
+        width: 240px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .page-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .top-search-wrap {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem">Courses</a>
+          <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="admin-quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management (Expanded & Active) -->
+      <div class="nav-group open" id="navGroupInternships">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
+          <a href="admin-projects.html" class="nav-subitem">Projects</a>
+          <a href="admin-mentors.html" class="nav-subitem active-subitem">Mentors</a>
+          <a href="admin-applications.html" class="nav-subitem">Applications</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-certificates.html" class="nav-subitem">Certificates</a>
+        </div>
+      </div>
+
+      <!-- Placement Management -->
+      <div class="nav-group" id="navGroupPlacements">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupPlacements')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building-user"></i>
+            <span>Placement Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Job Openings coming soon')" class="nav-subitem">Job Openings</a>
+          <a href="javascript:void(0)" onclick="showToast('Companies coming soon')" class="nav-subitem">Companies</a>
+          <a href="javascript:void(0)" onclick="showToast('Drives coming soon')" class="nav-subitem">Drives</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-dashboard.html" class="nav-subitem">Overview Analytics</a>
+          <a href="javascript:void(0)" onclick="showToast('Student Performance coming soon')" class="nav-subitem">Student Performance</a>
+          <a href="javascript:void(0)" onclick="showToast('Attendance Reports coming soon')" class="nav-subitem">Attendance Reports</a>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <a href="javascript:void(0)" onclick="showToast('Settings opened')" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </div>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="top-left-search">
+        <button class="btn-toggle-sidebar" onclick="toggleSidebarMobile()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="top-search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="globalTopSearch" placeholder="Search mentors, interns, sessions..." oninput="handleGlobalSearch(this.value)">
+        </div>
+      </div>
+
+      <div class="top-right-actions">
+        <button class="btn-notif" title="Notifications" onclick="showToast('No new notifications')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge-dot"></span>
+        </button>
+
+        <div class="user-profile-badge" onclick="showToast('Admin Profile: admin@edurup.in')">
+          <div class="avatar-circle">AU</div>
+          <div class="user-meta">
+            <span class="user-name">Admin User</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Layout Wrap -->
+    <div class="page-layout-wrap">
+
+      <!-- Left / Main Mentors Area -->
+      <div class="page-main-area">
+
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb-row">
+          <a href="admin-dashboard.html">Dashboard</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span>Internship Management</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span class="current">Mentors</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header-row">
+          <div class="page-title-group">
+            <h1>Mentors Management</h1>
+            <p>Manage mentors, assign interns, track sessions and performance.</p>
+          </div>
+          <button class="btn-add-primary" onclick="openAddMentorModal()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add Mentor</span>
+          </button>
+        </div>
+
+        <!-- 5 KPI Cards -->
+        <div class="kpi-stats-grid">
+          <!-- Total Mentors -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box purple">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiTotalMentors">28</span>
+              <span class="kpi-desc">Total Mentors</span>
+            </div>
+          </div>
+
+          <!-- Active Mentors -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box green">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiActiveMentors">24</span>
+              <span class="kpi-desc">Active Mentors</span>
+            </div>
+          </div>
+
+          <!-- Students Assigned -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box amber">
+              <i class="fa-solid fa-user-group"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiAssignedStudents">326</span>
+              <span class="kpi-desc">Students Assigned</span>
+            </div>
+          </div>
+
+          <!-- Ongoing Sessions -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box blue">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiOngoingSessions">48</span>
+              <span class="kpi-desc">Ongoing Sessions</span>
+            </div>
+          </div>
+
+          <!-- Average Rating -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box orange">
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-num" id="kpiAvgRating">4.8</span>
+              <span class="kpi-desc">Average Rating</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters Row -->
+        <div class="filters-row">
+          <div class="search-filter-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search by name, email, skills..." oninput="handleSearch(this.value)">
+          </div>
+
+          <select class="filter-select" id="departmentFilter" onchange="handleDepartmentFilter(this.value)">
+            <option value="all">All Departments</option>
+            <option value="Data Analytics">Data Analytics</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Full Stack Development">Full Stack Development</option>
+            <option value="Cloud & DevOps">Cloud & DevOps</option>
+            <option value="HR Management">HR Management</option>
+            <option value="Business Analysis">Business Analysis</option>
+            <option value="Sales & Marketing">Sales & Marketing</option>
+            <option value="Entrepreneurship">Entrepreneurship</option>
+            <option value="UI/UX Design">UI/UX Design</option>
+          </select>
+
+          <select class="filter-select" id="statusFilter" onchange="handleStatusFilter(this.value)">
+            <option value="all">All Status</option>
+            <option value="Active">Active</option>
+            <option value="On Leave">On Leave</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+
+          <select class="filter-select" id="programFilter" onchange="handleProgramFilter(this.value)">
+            <option value="all">All Internship Programs</option>
+            <option value="Data Analytics Internship">Data Analytics Internship</option>
+            <option value="Data Science Internship">Data Science Internship</option>
+            <option value="Full Stack Internship">Full Stack Internship</option>
+            <option value="Digital Marketing Internship">Digital Marketing Internship</option>
+            <option value="Cloud & DevOps Internship">Cloud & DevOps Internship</option>
+            <option value="HR Internship">HR Internship</option>
+            <option value="Business Analytics Internship">Business Analytics Internship</option>
+          </select>
+
+          <button class="btn-reset" onclick="resetFilters()">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Reset</span>
+          </button>
+        </div>
+
+        <!-- Mentors Table Card -->
+        <div class="table-container-card">
+          <div class="table-responsive">
+            <table class="mentors-table">
+              <thead>
+                <tr>
+                  <th style="width: 36px;"><input type="checkbox" class="custom-chk" id="selectAllChk" onchange="toggleSelectAll(this.checked)"></th>
+                  <th style="width: 40px;">#</th>
+                  <th>Mentor</th>
+                  <th>Skills / Expertise</th>
+                  <th>Assigned Students</th>
+                  <th>Ongoing Sessions</th>
+                  <th>Rating</th>
+                  <th>Status</th>
+                  <th style="text-align: right; padding-right: 20px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="mentorsTableBody">
+                <!-- Dynamically populated via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer / Pagination -->
+          <div class="table-footer">
+            <span id="showingText">Showing 1 to 10 of 28 mentors</span>
+            <div class="pagination-wrap" id="paginationControls">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Side Panel ("Mentor Details") -->
+      <aside class="details-panel-side" id="mentorDetailsPanel">
+        <!-- Top bar -->
+        <div class="panel-top-bar">
+          <h3>Mentor Details</h3>
+          <button class="btn-close-panel" onclick="closeDetailsPanel()" title="Close details">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Scrollable Profile Body -->
+        <div class="panel-scroll-content" id="panelScrollContent">
+          <!-- Top Profile Card -->
+          <div class="mentor-profile-card">
+            <div class="mentor-large-avatar" id="panelAvatarContainer">PV</div>
+            <h4 class="panel-mentor-name" id="panelMentorName">Priya Verma</h4>
+            <p class="panel-mentor-role" id="panelMentorRole">Senior Data Analyst & Mentor</p>
+            <div class="panel-mentor-status-badge" id="panelMentorStatusBadge">
+              <span class="status-pill status-active">Active</span>
+            </div>
+
+            <div class="mentor-contacts-list">
+              <div class="contact-item">
+                <i class="fa-regular fa-envelope"></i>
+                <span id="panelMentorEmail">priya.verma@edurup.in</span>
+              </div>
+              <div class="contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <span id="panelMentorPhone">+91 98765 43210</span>
+              </div>
+              <div class="contact-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span id="panelMentorLocation">Bengaluru, Karnataka</span>
+              </div>
+            </div>
+
+            <button class="btn-edit-mentor-outline" onclick="openEditSelectedMentorModal()">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Edit Mentor</span>
+            </button>
+          </div>
+
+          <!-- 4 Tabs -->
+          <div class="panel-tabs-row">
+            <button class="panel-tab-btn active" onclick="switchPanelTab('overview', this)">Overview</button>
+            <button class="panel-tab-btn" onclick="switchPanelTab('students', this)">Assigned Students</button>
+            <button class="panel-tab-btn" onclick="switchPanelTab('sessions', this)">Sessions</button>
+            <button class="panel-tab-btn" onclick="switchPanelTab('feedback', this)">Feedback</button>
+          </div>
+
+          <!-- Tab Content Container -->
+          <div id="tabContentArea">
+
+            <!-- Overview Tab (Default) -->
+            <div class="tab-section" id="tabOverview">
+              <!-- Expertise & Skills -->
+              <div>
+                <span class="section-label-title">Expertise & Skills</span>
+                <div class="skills-cloud-wrap" id="panelSkillsCloud" style="margin-top: 8px;">
+                  <span class="cloud-pill">Data Analytics</span>
+                  <span class="cloud-pill">Power BI</span>
+                  <span class="cloud-pill">SQL</span>
+                  <span class="cloud-pill">Excel</span>
+                  <span class="cloud-pill">Python</span>
+                  <span class="cloud-pill">Data Visualization</span>
+                  <span class="cloud-pill">Business Intelligence</span>
+                </div>
+              </div>
+
+              <!-- 4 Stat Mini Cards (2x2) -->
+              <div class="panel-stats-2x2">
+                <div class="mini-stat-card">
+                  <div class="mini-stat-top">
+                    <span class="mini-stat-num" id="panelStatAssigned">48</span>
+                    <i class="fa-solid fa-users mini-stat-icon blue"></i>
+                  </div>
+                  <span class="mini-stat-label">Assigned Students</span>
+                </div>
+
+                <div class="mini-stat-card">
+                  <div class="mini-stat-top">
+                    <span class="mini-stat-num" id="panelStatSessions">8</span>
+                    <i class="fa-solid fa-video mini-stat-icon green"></i>
+                  </div>
+                  <span class="mini-stat-label">Ongoing Sessions</span>
+                </div>
+
+                <div class="mini-stat-card">
+                  <div class="mini-stat-top">
+                    <span class="mini-stat-num" id="panelStatRating">4.9</span>
+                    <i class="fa-solid fa-star mini-stat-icon orange"></i>
+                  </div>
+                  <span class="mini-stat-label" id="panelStatReviews">Rating (126 reviews)</span>
+                </div>
+
+                <div class="mini-stat-card">
+                  <div class="mini-stat-top">
+                    <span class="mini-stat-num" id="panelStatCompletion">92%</span>
+                    <i class="fa-solid fa-chart-pie mini-stat-icon purple"></i>
+                  </div>
+                  <span class="mini-stat-label">Session Completion</span>
+                </div>
+              </div>
+
+              <!-- Current Internship Programs -->
+              <div>
+                <span class="section-label-title">Current Internship Programs</span>
+                <div class="panel-list-items" id="panelProgramsList" style="margin-top: 8px;">
+                  <!-- Populated via JS -->
+                </div>
+              </div>
+
+              <!-- Recent Sessions -->
+              <div>
+                <span class="section-label-title">Recent Sessions</span>
+                <div class="panel-list-items" id="panelRecentSessionsList" style="margin-top: 8px;">
+                  <!-- Populated via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Assigned Students Tab -->
+            <div class="tab-section" id="tabStudents" style="display: none;">
+              <span class="section-label-title">Active Interns Mentored</span>
+              <div class="panel-list-items" id="panelAssignedStudentsList" style="margin-top: 8px;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <!-- Sessions Tab -->
+            <div class="tab-section" id="tabSessions" style="display: none;">
+              <span class="section-label-title">Scheduled & Completed Sessions</span>
+              <div class="panel-list-items" id="panelAllSessionsList" style="margin-top: 8px;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <!-- Feedback Tab -->
+            <div class="tab-section" id="tabFeedback" style="display: none;">
+              <span class="section-label-title">Student Reviews & Ratings</span>
+              <div class="panel-list-items" id="panelFeedbackList" style="margin-top: 8px;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Sticky Footer Buttons -->
+        <div class="panel-bottom-actions">
+          <button class="btn-schedule-session" onclick="openScheduleSessionModal()">
+            <i class="fa-regular fa-calendar-plus"></i>
+            <span>Schedule Session</span>
+          </button>
+          <button class="btn-message-mentor" onclick="openMessageMentorModal()">
+            <i class="fa-regular fa-paper-plane"></i>
+            <span>Message Mentor</span>
+          </button>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ================= ADD / EDIT MENTOR MODAL ================= -->
+  <div class="modal-overlay" id="mentorModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="mentorModalTitle">Add New Mentor</h3>
+        <button class="modal-close-btn" onclick="closeModal('mentorModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="mentorForm" onsubmit="handleMentorFormSubmit(event)">
+        <input type="hidden" id="formMentorId">
+        <div class="modal-body">
+          <div class="form-group-row">
+            <div class="form-group">
+              <label class="form-label">Full Name <span class="req">*</span></label>
+              <input type="text" class="form-input" id="formName" required placeholder="e.g. Priya Verma">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address <span class="req">*</span></label>
+              <input type="email" class="form-input" id="formEmail" required placeholder="e.g. priya.verma@edurup.in">
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="text" class="form-input" id="formPhone" placeholder="+91 98765 43210">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" class="form-input" id="formLocation" placeholder="Bengaluru, Karnataka">
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label class="form-label">Department / Domain</label>
+              <select class="form-select" id="formDepartment">
+                <option value="Data Analytics">Data Analytics</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+                <option value="Full Stack Development">Full Stack Development</option>
+                <option value="Cloud & DevOps">Cloud & DevOps</option>
+                <option value="HR Management">HR Management</option>
+                <option value="Business Analysis">Business Analysis</option>
+                <option value="Sales & Marketing">Sales & Marketing</option>
+                <option value="Entrepreneurship">Entrepreneurship</option>
+                <option value="UI/UX Design">UI/UX Design</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Designation / Role</label>
+              <input type="text" class="form-input" id="formRole" placeholder="Senior Data Analyst & Mentor">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Skills / Expertise (Comma separated)</label>
+            <input type="text" class="form-input" id="formSkills" placeholder="Power BI, SQL, Python, Excel, Business Intelligence">
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="formStatus">
+                <option value="Active">Active</option>
+                <option value="On Leave">On Leave</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Avatar Image URL (Optional)</label>
+              <input type="url" class="form-input" id="formAvatar" placeholder="https://images.unsplash.com/...">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Professional Bio / Summary</label>
+            <textarea class="form-textarea" id="formBio" placeholder="Brief background, industry experience and mentorship focus..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-cancel" onclick="closeModal('mentorModal')">Cancel</button>
+          <button type="submit" class="btn-modal-submit" id="btnSaveMentor">Save Mentor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SCHEDULE SESSION MODAL ================= -->
+  <div class="modal-overlay" id="scheduleModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Schedule Mentorship Session</h3>
+        <button class="modal-close-btn" onclick="closeModal('scheduleModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="scheduleForm" onsubmit="handleScheduleFormSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Mentor</label>
+            <input type="text" class="form-input" id="scheduleMentorName" readonly style="background: #f1f5f9;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Session Topic / Title <span class="req">*</span></label>
+            <input type="text" class="form-input" id="scheduleTitle" required placeholder="e.g. Weekly Mentorship - Data Cleaning & EDA">
+          </div>
+          <div class="form-group-row">
+            <div class="form-group">
+              <label class="form-label">Session Date <span class="req">*</span></label>
+              <input type="date" class="form-input" id="scheduleDate" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Session Time <span class="req">*</span></label>
+              <input type="time" class="form-input" id="scheduleTime" required value="17:00">
+            </div>
+          </div>
+          <div class="form-group-row">
+            <div class="form-group">
+              <label class="form-label">Students Expected</label>
+              <input type="number" class="form-input" id="scheduleStudentsCount" value="15" min="1" max="100">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Platform / Link</label>
+              <input type="text" class="form-input" id="scheduleLink" placeholder="Google Meet / Zoom link">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-cancel" onclick="closeModal('scheduleModal')">Cancel</button>
+          <button type="submit" class="btn-modal-submit">Schedule Session</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MESSAGE MENTOR MODAL ================= -->
+  <div class="modal-overlay" id="messageModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Send Direct Message to Mentor</h3>
+        <button class="modal-close-btn" onclick="closeModal('messageModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="messageForm" onsubmit="handleMessageFormSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Recipient</label>
+            <input type="text" class="form-input" id="messageRecipient" readonly style="background: #f1f5f9;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject <span class="req">*</span></label>
+            <input type="text" class="form-input" id="messageSubject" required placeholder="e.g. Batch Assignment & Monthly Review Notice">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message Content <span class="req">*</span></label>
+            <textarea class="form-textarea" id="messageBody" rows="4" required placeholder="Write your message here..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-cancel" onclick="closeModal('messageModal')">Cancel</button>
+          <button type="submit" class="btn-modal-submit">
+            <i class="fa-regular fa-paper-plane" style="margin-right: 4px;"></i> Send Message
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Row Context Dropdown Menu -->
+  <div class="menu-dropdown" id="rowActionMenu">
+    <button class="menu-dropdown-item" onclick="triggerMenuAction('view')">
+      <i class="fa-regular fa-eye"></i> View Profile
+    </button>
+    <button class="menu-dropdown-item" onclick="triggerMenuAction('edit')">
+      <i class="fa-solid fa-pen-to-square"></i> Edit Mentor
+    </button>
+    <button class="menu-dropdown-item" onclick="triggerMenuAction('schedule')">
+      <i class="fa-regular fa-calendar-plus"></i> Schedule Session
+    </button>
+    <button class="menu-dropdown-item" onclick="triggerMenuAction('message')">
+      <i class="fa-regular fa-envelope"></i> Send Message
+    </button>
+    <button class="menu-dropdown-item del" onclick="triggerMenuAction('delete')">
+      <i class="fa-regular fa-trash-can"></i> Delete Mentor
+    </button>
+  </div>
+
+  <!-- Toast Element -->
+  <div class="toast-msg" id="toastMsg">
+    <i class="fa-solid fa-circle-check" style="color: #22c55e;"></i>
+    <span id="toastText">Action successful</span>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // --- STATE MANAGEMENT ---
+    let mentorsData = [];
+    let currentFilteredMentors = [];
+    let selectedMentor = null;
+    let selectedMentorIds = new Set();
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let totalMentorsCount = 28;
+    let menuTargetMentor = null;
+
+    // Filters
+    let filterQuery = '';
+    let filterDept = 'all';
+    let filterStatus = 'all';
+    let filterProgram = 'all';
+
+    // Fallback Initial Seed Dataset (Matches Exact Screenshot & MongoDB Atlas seed)
+    const initialSeed = [
+      {
+        _id: "6af55a0ef58c4130b69f9555",
+        name: "Priya Verma",
+        email: "priya.verma@edurup.in",
+        phone: "+91 98765 43210",
+        location: "Bengaluru, Karnataka",
+        role: "Senior Data Analyst & Mentor",
+        department: "Data Analytics",
+        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "PV",
+        avatarColor: "#2563EB",
+        skills: ["Data Analytics", "Power BI", "SQL", "Excel", "Python", "Data Visualization", "Business Intelligence"],
+        assignedStudents: 48,
+        ongoingSessions: 8,
+        rating: 4.9,
+        reviewsCount: 126,
+        sessionCompletion: 92,
+        status: "Active",
+        currentPrograms: [
+          { programName: "Data Analytics Internship", studentsCount: 22 },
+          { programName: "Business Analytics Internship", studentsCount: 16 },
+          { programName: "Data Science Internship", studentsCount: 10 }
+        ],
+        recentSessions: [
+          { title: "Weekly Mentorship - Data Cleaning", date: "28 Nov 2025", studentsCount: 12 },
+          { title: "Project Review - Power BI Dashboard", date: "25 Nov 2025", studentsCount: 8 },
+          { title: "Career Guidance Session", date: "22 Nov 2025", studentsCount: 15 }
+        ],
+        bio: "Experienced data strategist with 7+ years mentoring 500+ students in BI architectures and predictive models."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f955c",
+        name: "Rohit Singh",
+        email: "rohit.singh@edurup.in",
+        phone: "+91 98112 34567",
+        location: "Bengaluru, Karnataka",
+        role: "Lead Data Scientist & AI Specialist",
+        department: "Data Science",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "RS",
+        avatarColor: "#8B5CF6",
+        skills: ["Python", "Data Science", "AI/ML", "TensorFlow", "Machine Learning"],
+        assignedStudents: 42,
+        ongoingSessions: 6,
+        rating: 4.8,
+        reviewsCount: 98,
+        sessionCompletion: 95,
+        status: "Active",
+        currentPrograms: [
+          { programName: "Data Science Internship", studentsCount: 24 },
+          { programName: "AI & ML Internship", studentsCount: 18 }
+        ],
+        recentSessions: [
+          { title: "Deep Learning & Computer Vision Workshop", date: "27 Nov 2025", studentsCount: 14 },
+          { title: "Model Deployment on Cloud", date: "23 Nov 2025", studentsCount: 10 }
+        ],
+        bio: "Ex-Amazon ML researcher specializing in production transformers and recommendation systems."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f9561",
+        name: "Sneha Reddy",
+        email: "sneha.reddy@edurup.in",
+        phone: "+91 97401 23456",
+        location: "Hyderabad, Telangana",
+        role: "Digital Growth & Performance Marketer",
+        department: "Digital Marketing",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "SR",
+        avatarColor: "#EC4899",
+        skills: ["Digital Marketing", "SEO", "Social Media", "Google Ads", "Content Strategy"],
+        assignedStudents: 36,
+        ongoingSessions: 5,
+        rating: 4.7,
+        reviewsCount: 84,
+        sessionCompletion: 90,
+        status: "Active",
+        currentPrograms: [
+          { programName: "Digital Marketing Internship", studentsCount: 36 }
+        ],
+        recentSessions: [
+          { title: "SEO Audit & Strategy Masterclass", date: "26 Nov 2025", studentsCount: 16 }
+        ],
+        bio: "Growth strategist with campaigns driving 10M+ in pipeline across SaaS and E-Commerce."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f9565",
+        name: "Amit Kumar",
+        email: "amit.kumar@edurup.in",
+        phone: "+91 99001 88776",
+        location: "Pune, Maharashtra",
+        role: "Full Stack Lead Architect",
+        department: "Full Stack Development",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "AK",
+        avatarColor: "#0284C7",
+        skills: ["Full Stack", "MERN", "Web Development", "Node.js", "React"],
+        assignedStudents: 40,
+        ongoingSessions: 7,
+        rating: 4.8,
+        reviewsCount: 112,
+        sessionCompletion: 94,
+        status: "Active",
+        currentPrograms: [
+          { programName: "Full Stack Internship", studentsCount: 40 }
+        ],
+        recentSessions: [
+          { title: "Microservices Architecture in Node.js", date: "24 Nov 2025", studentsCount: 20 }
+        ],
+        bio: "Senior full stack engineer mentoring developers in production architectures and scalable APIs."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f9569",
+        name: "Karthik V",
+        email: "karthik.v@edurup.in",
+        phone: "+91 98450 11223",
+        location: "Chennai, Tamil Nadu",
+        role: "Cloud DevOps & SRE Consultant",
+        department: "Cloud & DevOps",
+        avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "KV",
+        avatarColor: "#0D9488",
+        skills: ["Cloud", "AWS", "DevOps", "Kubernetes", "Docker", "CI/CD"],
+        assignedStudents: 28,
+        ongoingSessions: 4,
+        rating: 4.6,
+        reviewsCount: 65,
+        sessionCompletion: 89,
+        status: "Active",
+        currentPrograms: [
+          { programName: "Cloud & DevOps Internship", studentsCount: 28 }
+        ],
+        recentSessions: [
+          { title: "Kubernetes Cluster Setup Hands-on", date: "21 Nov 2025", studentsCount: 14 }
+        ],
+        bio: "DevOps specialist with AWS & CKA certifications helping learners master cloud pipelines."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f956d",
+        name: "Meera Joshi",
+        email: "meera.joshi@edurup.in",
+        phone: "+91 97654 33211",
+        location: "Mumbai, Maharashtra",
+        role: "Senior HR Business Partner & Coach",
+        department: "HR Management",
+        avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "MJ",
+        avatarColor: "#D97706",
+        skills: ["HR Management", "Recruitment", "Career Guidance", "Talent Acquisition"],
+        assignedStudents: 22,
+        ongoingSessions: 3,
+        rating: 4.7,
+        reviewsCount: 58,
+        sessionCompletion: 91,
+        status: "Active",
+        currentPrograms: [
+          { programName: "HR Internship", studentsCount: 22 }
+        ],
+        recentSessions: [
+          { title: "HR Analytics & Strategic Hiring", date: "20 Nov 2025", studentsCount: 11 }
+        ],
+        bio: "HR leader mentoring students in corporate recruitment, compliance, and mock interviews."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f9571",
+        name: "Aditya Patel",
+        email: "aditya.patel@edurup.in",
+        phone: "+91 98234 55667",
+        location: "Ahmedabad, Gujarat",
+        role: "Senior Business & Financial Analyst",
+        department: "Business Analysis",
+        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "AP",
+        avatarColor: "#4F46E5",
+        skills: ["Business Analysis", "Excel", "Finance", "Tableau", "Financial Modeling"],
+        assignedStudents: 25,
+        ongoingSessions: 5,
+        rating: 4.5,
+        reviewsCount: 72,
+        sessionCompletion: 88,
+        status: "Active",
+        currentPrograms: [
+          { programName: "Business Analytics Internship", studentsCount: 25 }
+        ],
+        recentSessions: [
+          { title: "Financial Valuation & Budgeting", date: "19 Nov 2025", studentsCount: 12 }
+        ],
+        bio: "CFA charterholder guiding interns through financial modeling and corporate dashboards."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f9575",
+        name: "Divya Singh",
+        email: "divya.singh@edurup.in",
+        phone: "+91 98989 12345",
+        location: "Delhi NCR",
+        role: "Sales Director & Growth Advisor",
+        department: "Sales & Marketing",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "DS",
+        avatarColor: "#EA580C",
+        skills: ["Sales & Marketing", "Growth", "Strategy", "B2B Sales", "Negotiation"],
+        assignedStudents: 18,
+        ongoingSessions: 2,
+        rating: 4.6,
+        reviewsCount: 44,
+        sessionCompletion: 87,
+        status: "On Leave",
+        currentPrograms: [
+          { programName: "Sales & Marketing Internship", studentsCount: 18 }
+        ],
+        recentSessions: [
+          { title: "B2B Sales Pipeline Optimization", date: "15 Nov 2025", studentsCount: 9 }
+        ],
+        bio: "Enterprise sales coach training high-performing SDRs and account executives."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f9579",
+        name: "Manoj Gupta",
+        email: "manoj.gupta@edurup.in",
+        phone: "+91 98190 66778",
+        location: "Gurugram, Haryana",
+        role: "Startup Founder & Venture Mentor",
+        department: "Entrepreneurship",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "MG",
+        avatarColor: "#059669",
+        skills: ["Entrepreneurship", "Startup", "Business Model", "Fundraising", "Pitching"],
+        assignedStudents: 20,
+        ongoingSessions: 3,
+        rating: 4.8,
+        reviewsCount: 51,
+        sessionCompletion: 93,
+        status: "Active",
+        currentPrograms: [
+          { programName: "Entrepreneurship Internship", studentsCount: 20 }
+        ],
+        recentSessions: [
+          { title: "Pitch Deck & Seed Funding Strategy", date: "18 Nov 2025", studentsCount: 10 }
+        ],
+        bio: "Serial founder mentoring university interns on 0-to-1 product development and funding."
+      },
+      {
+        _id: "6af55a0ef58c4130b69f957d",
+        name: "Ishita Verma",
+        email: "ishita.verma@edurup.in",
+        phone: "+91 97112 88990",
+        location: "Bengaluru, Karnataka",
+        role: "Principal Product Designer",
+        department: "UI/UX Design",
+        avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=160&auto=format&fit=crop&q=80",
+        avatarInitials: "IV",
+        avatarColor: "#9333EA",
+        skills: ["UI/UX", "Product Design", "Figma", "Design Systems", "User Research"],
+        assignedStudents: 15,
+        ongoingSessions: 2,
+        rating: 4.7,
+        reviewsCount: 39,
+        sessionCompletion: 86,
+        status: "Inactive",
+        currentPrograms: [
+          { programName: "UI/UX Design Internship", studentsCount: 15 }
+        ],
+        recentSessions: [
+          { title: "Design Systems in Figma from Scratch", date: "10 Nov 2025", studentsCount: 8 }
+        ],
+        bio: "Design lead passionate about human-centered interfaces, usability heuristics, and Figma components."
+      }
+    ];
+
+    // Initialize application
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchMentors();
+      setupClickOutsideListener();
+    });
+
+    // Fetch Mentors from API with fallback
+    async function fetchMentors() {
+      try {
+        const queryParams = new URLSearchParams({
+          page: currentPage,
+          limit: 100, // Fetch all so client-side filter and sorting are super smooth
+          search: filterQuery,
+          department: filterDept,
+          status: filterStatus,
+          program: filterProgram
+        });
+
+        const res = await fetch(`/api/admin/mentors?${queryParams.toString()}`);
+        if (!res.ok) throw new Error('API network response was not ok');
+
+        const json = await res.json();
+        if (json.success && Array.isArray(json.mentors) && json.mentors.length > 0) {
+          mentorsData = json.mentors;
+          if (json.kpis) updateKPIs(json.kpis);
+        } else {
+          mentorsData = initialSeed;
+        }
+      } catch (err) {
+        console.warn('Backend API notice, loaded client dataset:', err);
+        mentorsData = initialSeed;
+      }
+
+      applyFiltersAndRender();
+    }
+
+    // Update KPI Card Numbers
+    function updateKPIs(kpis) {
+      if (!kpis) return;
+      if (document.getElementById('kpiTotalMentors')) document.getElementById('kpiTotalMentors').textContent = kpis.totalMentors ?? 28;
+      if (document.getElementById('kpiActiveMentors')) document.getElementById('kpiActiveMentors').textContent = kpis.activeMentors ?? 24;
+      if (document.getElementById('kpiAssignedStudents')) document.getElementById('kpiAssignedStudents').textContent = kpis.assignedStudents ?? 326;
+      if (document.getElementById('kpiOngoingSessions')) document.getElementById('kpiOngoingSessions').textContent = kpis.ongoingSessions ?? 48;
+      if (document.getElementById('kpiAvgRating')) document.getElementById('kpiAvgRating').textContent = (kpis.avgRating ?? 4.8).toFixed(1);
+    }
+
+    // Apply Client-Side Filters
+    function applyFiltersAndRender() {
+      currentFilteredMentors = mentorsData.filter(m => {
+        // Search query
+        if (filterQuery.trim()) {
+          const q = filterQuery.toLowerCase();
+          const matchName = (m.name || '').toLowerCase().includes(q);
+          const matchEmail = (m.email || '').toLowerCase().includes(q);
+          const matchSkills = (m.skills || []).some(s => s.toLowerCase().includes(q));
+          const matchDept = (m.department || '').toLowerCase().includes(q);
+          if (!matchName && !matchEmail && !matchSkills && !matchDept) return false;
+        }
+
+        // Department
+        if (filterDept !== 'all' && m.department !== filterDept) {
+          return false;
+        }
+
+        // Status
+        if (filterStatus !== 'all' && m.status !== filterStatus) {
+          return false;
+        }
+
+        // Program
+        if (filterProgram !== 'all') {
+          const hasProg = (m.currentPrograms || []).some(p => (p.programName || p).toLowerCase().includes(filterProgram.toLowerCase()));
+          if (!hasProg) return false;
+        }
+
+        return true;
+      });
+
+      totalMentorsCount = currentFilteredMentors.length;
+      if (currentPage > Math.ceil(totalMentorsCount / itemsPerPage) && totalMentorsCount > 0) {
+        currentPage = 1;
+      }
+
+      renderTable();
+      renderPagination();
+
+      // Ensure a mentor is selected in the side panel
+      if (!selectedMentor && currentFilteredMentors.length > 0) {
+        selectMentor(currentFilteredMentors[0]);
+      } else if (selectedMentor) {
+        // Keep selected mentor synced if still present
+        const refreshed = currentFilteredMentors.find(m => m._id === selectedMentor._id);
+        if (refreshed) {
+          selectMentor(refreshed);
+        } else if (currentFilteredMentors.length > 0) {
+          selectMentor(currentFilteredMentors[0]);
+        }
+      }
+    }
+
+    // Render Table Rows
+    function renderTable() {
+      const tbody = document.getElementById('mentorsTableBody');
+      tbody.innerHTML = '';
+
+      if (currentFilteredMentors.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 40px; color: #94a3b8;">
+              <i class="fa-solid fa-user-slash" style="font-size: 28px; margin-bottom: 8px; display: block;"></i>
+              No mentors found matching your filters.
+            </td>
+          </tr>
+        `;
+        document.getElementById('showingText').textContent = 'Showing 0 to 0 of 0 mentors';
+        return;
+      }
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, currentFilteredMentors.length);
+      const pageSlice = currentFilteredMentors.slice(startIndex, endIndex);
+
+      document.getElementById('showingText').textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalMentorsCount} mentors`;
+
+      pageSlice.forEach((m, idx) => {
+        const globalIdx = startIndex + idx + 1;
+        const isSelected = selectedMentor && selectedMentor._id === m._id;
+        const isChecked = selectedMentorIds.has(m._id);
+
+        const tr = document.createElement('tr');
+        if (isSelected) tr.classList.add('selected-row');
+
+        // Skills Pill markup (show max 3, then +N more)
+        const skills = Array.isArray(m.skills) ? m.skills : (m.skills ? m.skills.split(',') : []);
+        let skillsHtml = '';
+        if (skills.length > 0) {
+          const visibleSkills = skills.slice(0, 3);
+          skillsHtml = visibleSkills.map(s => `<span class="skill-pill">${escapeHtml(s.trim())}</span>`).join('');
+          if (skills.length > 3) {
+            skillsHtml += `<span class="skill-pill more-pill">+${skills.length - 3}</span>`;
+          }
+        } else {
+          skillsHtml = `<span style="color:#94a3b8; font-size:12px;">General</span>`;
+        }
+
+        // Status badge class
+        let statusClass = 'status-active';
+        if (m.status === 'On Leave') statusClass = 'status-on-leave';
+        if (m.status === 'Inactive') statusClass = 'status-inactive';
+
+        // Avatar
+        const avatarColor = m.avatarColor || '#2563EB';
+        const initials = m.avatarInitials || (m.name ? m.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase() : 'M');
+        const avatarHtml = m.avatar
+          ? `<img src="${m.avatar}" class="mentor-table-avatar" alt="${escapeHtml(m.name)}" onerror="this.outerHTML='<div class=\\'mentor-table-avatar\\' style=\\'background: ${avatarColor}\\'>${initials}</div>'">`
+          : `<div class="mentor-table-avatar" style="background: ${avatarColor};">${initials}</div>`;
+
+        tr.innerHTML = `
+          <td onclick="event.stopPropagation()">
+            <input type="checkbox" class="custom-chk row-chk" ${isChecked ? 'checked' : ''} onchange="toggleRowSelect('${m._id}', this.checked)">
+          </td>
+          <td class="row-index-num">${globalIdx}</td>
+          <td>
+            <div class="mentor-profile-cell">
+              ${avatarHtml}
+              <div class="mentor-meta-info">
+                <span class="mentor-name">${escapeHtml(m.name)}</span>
+                <span class="mentor-email">${escapeHtml(m.email)}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="skills-pill-wrap">
+              ${skillsHtml}
+            </div>
+          </td>
+          <td>
+            <span class="count-bold">${m.assignedStudents ?? 0}</span>
+          </td>
+          <td>
+            <span class="count-bold">${m.ongoingSessions ?? 0}</span>
+          </td>
+          <td>
+            <div class="rating-wrap">
+              <i class="fa-solid fa-star"></i>
+              <span>${(m.rating ?? 4.8).toFixed(1)}</span>
+            </div>
+          </td>
+          <td>
+            <span class="status-pill ${statusClass}">${escapeHtml(m.status || 'Active')}</span>
+          </td>
+          <td style="text-align: right;" onclick="event.stopPropagation()">
+            <div class="action-icons-wrap" style="justify-content: flex-end;">
+              <button class="btn-act" title="View Details" onclick="selectMentorById('${m._id}')">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+              <button class="btn-act" title="Message Mentor" onclick="openMessageForMentor('${m._id}')">
+                <i class="fa-regular fa-comment-dots"></i>
+              </button>
+              <button class="btn-act" title="More Actions" onclick="openRowActionMenu(event, '${m._id}')">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tr.addEventListener('click', () => {
+          selectMentor(m);
+        });
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Render Pagination Controls
+    function renderPagination() {
+      const totalPages = Math.ceil(totalMentorsCount / itemsPerPage) || 1;
+      const wrap = document.getElementById('paginationControls');
+      wrap.innerHTML = '';
+
+      // Prev Button
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'btn-page';
+      prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; renderTable(); renderPagination(); } };
+      wrap.appendChild(prevBtn);
+
+      // Page numbers
+      for (let p = 1; p <= totalPages; p++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = `btn-page ${p === currentPage ? 'active' : ''}`;
+        pageBtn.textContent = p;
+        pageBtn.onclick = () => { currentPage = p; renderTable(); renderPagination(); };
+        wrap.appendChild(pageBtn);
+      }
+
+      // Next Button
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'btn-page';
+      nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; renderTable(); renderPagination(); } };
+      wrap.appendChild(nextBtn);
+    }
+
+    // Select Mentor and populate Side Panel
+    function selectMentor(mentor) {
+      if (!mentor) return;
+      selectedMentor = mentor;
+
+      // Update table row highlighting
+      document.querySelectorAll('#mentorsTableBody tr').forEach(r => r.classList.remove('selected-row'));
+      const activeIdx = currentFilteredMentors.findIndex(m => m._id === mentor._id);
+      if (activeIdx >= 0) {
+        const pageStart = (currentPage - 1) * itemsPerPage;
+        const rowInPage = activeIdx - pageStart;
+        const rows = document.querySelectorAll('#mentorsTableBody tr');
+        if (rows[rowInPage]) rows[rowInPage].classList.add('selected-row');
+      }
+
+      // Open side panel if closed on desktop
+      const panel = document.getElementById('mentorDetailsPanel');
+      panel.style.display = 'flex';
+
+      // Avatar
+      const avatarContainer = document.getElementById('panelAvatarContainer');
+      const initials = mentor.avatarInitials || (mentor.name ? mentor.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase() : 'M');
+      if (mentor.avatar) {
+        avatarContainer.innerHTML = `<img src="${mentor.avatar}" alt="${escapeHtml(mentor.name)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" onerror="this.outerHTML='${initials}'">`;
+      } else {
+        avatarContainer.textContent = initials;
+        avatarContainer.style.background = mentor.avatarColor || '#2563EB';
+      }
+
+      // Name, Role, Status
+      document.getElementById('panelMentorName').textContent = mentor.name;
+      document.getElementById('panelMentorRole').textContent = mentor.role || `${mentor.department} Mentor`;
+
+      let statusPillClass = 'status-active';
+      if (mentor.status === 'On Leave') statusPillClass = 'status-on-leave';
+      if (mentor.status === 'Inactive') statusPillClass = 'status-inactive';
+      document.getElementById('panelMentorStatusBadge').innerHTML = `<span class="status-pill ${statusPillClass}">${escapeHtml(mentor.status || 'Active')}</span>`;
+
+      // Contacts
+      document.getElementById('panelMentorEmail').textContent = mentor.email;
+      document.getElementById('panelMentorPhone').textContent = mentor.phone || '+91 98765 43210';
+      document.getElementById('panelMentorLocation').textContent = mentor.location || 'Bengaluru, Karnataka';
+
+      // Skills Cloud
+      const skillsWrap = document.getElementById('panelSkillsCloud');
+      skillsWrap.innerHTML = '';
+      const skills = Array.isArray(mentor.skills) ? mentor.skills : (mentor.skills ? mentor.skills.split(',') : []);
+      if (skills.length > 0) {
+        skills.forEach(s => {
+          const pill = document.createElement('span');
+          pill.className = 'cloud-pill';
+          pill.textContent = s.trim();
+          skillsWrap.appendChild(pill);
+        });
+      } else {
+        skillsWrap.innerHTML = '<span style="color:#94a3b8; font-size:12px;">No skills added yet.</span>';
+      }
+
+      // 4 Mini Stat Numbers
+      document.getElementById('panelStatAssigned').textContent = mentor.assignedStudents ?? 0;
+      document.getElementById('panelStatSessions').textContent = mentor.ongoingSessions ?? 0;
+      document.getElementById('panelStatRating').textContent = (mentor.rating ?? 4.8).toFixed(1);
+      document.getElementById('panelStatReviews').textContent = `Rating (${mentor.reviewsCount ?? 126} reviews)`;
+      document.getElementById('panelStatCompletion').textContent = `${mentor.sessionCompletion ?? 92}%`;
+
+      // Programs List
+      const programsList = document.getElementById('panelProgramsList');
+      programsList.innerHTML = '';
+      const programs = Array.isArray(mentor.currentPrograms) && mentor.currentPrograms.length > 0
+        ? mentor.currentPrograms
+        : [
+            { programName: `${mentor.department || 'Data Analytics'} Internship`, studentsCount: mentor.assignedStudents || 20 }
+          ];
+
+      programs.forEach(p => {
+        const pName = typeof p === 'string' ? p : p.programName;
+        const pCount = typeof p === 'object' && p.studentsCount ? `${p.studentsCount} students` : 'Active';
+        const row = document.createElement('div');
+        row.className = 'panel-list-row';
+        row.innerHTML = `
+          <div class="panel-list-left">
+            <span class="panel-list-title">${escapeHtml(pName)}</span>
+          </div>
+          <div class="panel-list-right">
+            <span class="badge-count-pill">${pCount}</span>
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+        `;
+        programsList.appendChild(row);
+      });
+
+      // Recent Sessions List
+      const sessionsList = document.getElementById('panelRecentSessionsList');
+      sessionsList.innerHTML = '';
+      const sessions = Array.isArray(mentor.recentSessions) && mentor.recentSessions.length > 0
+        ? mentor.recentSessions
+        : [
+            { title: "Weekly Mentorship - Foundation Review", date: "28 Nov 2025", studentsCount: 12 },
+            { title: "Industry Project Walkthrough", date: "25 Nov 2025", studentsCount: 8 },
+            { title: "1-on-1 Career Mentoring", date: "22 Nov 2025", studentsCount: 15 }
+          ];
+
+      sessions.forEach(s => {
+        const row = document.createElement('div');
+        row.className = 'panel-list-row';
+        row.innerHTML = `
+          <div class="panel-list-left">
+            <span class="panel-list-title">${escapeHtml(s.title)}</span>
+            <span class="panel-list-sub"><i class="fa-regular fa-calendar" style="margin-right: 4px;"></i>${escapeHtml(s.date)}</span>
+          </div>
+          <div class="panel-list-right">
+            <span class="badge-count-pill">${s.studentsCount || 10} students</span>
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+        `;
+        sessionsList.appendChild(row);
+      });
+
+      // Populate Other Tabs
+      populateStudentsTab(mentor);
+      populateSessionsTab(mentor);
+      populateFeedbackTab(mentor);
+    }
+
+    function selectMentorById(id) {
+      const found = mentorsData.find(m => m._id === id);
+      if (found) selectMentor(found);
+    }
+
+    // Tab switching inside side panel
+    function switchPanelTab(tabName, btnElem) {
+      document.querySelectorAll('.panel-tab-btn').forEach(b => b.classList.remove('active'));
+      btnElem.classList.add('active');
+
+      document.getElementById('tabOverview').style.display = tabName === 'overview' ? 'flex' : 'none';
+      document.getElementById('tabStudents').style.display = tabName === 'students' ? 'flex' : 'none';
+      document.getElementById('tabSessions').style.display = tabName === 'sessions' ? 'flex' : 'none';
+      document.getElementById('tabFeedback').style.display = tabName === 'feedback' ? 'flex' : 'none';
+    }
+
+    // Populate Assigned Students Tab
+    function populateStudentsTab(mentor) {
+      const container = document.getElementById('panelAssignedStudentsList');
+      container.innerHTML = `
+        <div class="panel-list-row">
+          <div class="panel-list-left">
+            <span class="panel-list-title">Aarav Sharma</span>
+            <span class="panel-list-sub">Batch: FS-OCT-2026 | Milestone 4 (92%)</span>
+          </div>
+          <span class="badge-count-pill" style="color:#16a34a; background:#dcfce7; border-color:#86efac;">Active</span>
+        </div>
+        <div class="panel-list-row">
+          <div class="panel-list-left">
+            <span class="panel-list-title">Bhavya Patel</span>
+            <span class="panel-list-sub">Batch: DA-NOV-2026 | Milestone 3 (80%)</span>
+          </div>
+          <span class="badge-count-pill" style="color:#16a34a; background:#dcfce7; border-color:#86efac;">Active</span>
+        </div>
+        <div class="panel-list-row">
+          <div class="panel-list-left">
+            <span class="panel-list-title">Chirag Nair</span>
+            <span class="panel-list-sub">Batch: DS-OCT-2026 | Milestone 5 (98%)</span>
+          </div>
+          <span class="badge-count-pill" style="color:#2563eb; background:#eff6ff; border-color:#bfdbfe;">Reviewing</span>
+        </div>
+        <div class="panel-list-row">
+          <div class="panel-list-left">
+            <span class="panel-list-title">Deepika Joshi</span>
+            <span class="panel-list-sub">Batch: AIML-NOV-2026 | Milestone 2 (65%)</span>
+          </div>
+          <span class="badge-count-pill" style="color:#d97706; background:#fef3c7; border-color:#fde68a;">Needs Help</span>
+        </div>
+      `;
+    }
+
+    // Populate Sessions Tab
+    function populateSessionsTab(mentor) {
+      const container = document.getElementById('panelAllSessionsList');
+      container.innerHTML = `
+        <div class="panel-list-row">
+          <div class="panel-list-left">
+            <span class="panel-list-title">Weekly Mentorship - Data Cleaning</span>
+            <span class="panel-list-sub">28 Nov 2025 • 05:00 PM • Google Meet</span>
+          </div>
+          <span class="badge-count-pill" style="color:#16a34a; background:#dcfce7;">Completed</span>
+        </div>
+        <div class="panel-list-row">
+          <div class="panel-list-left">
+            <span class="panel-list-title">Project Review - Power BI Dashboard</span>
+            <span class="panel-list-sub">25 Nov 2025 • 06:30 PM • Zoom</span>
+          </div>
+          <span class="badge-count-pill" style="color:#16a34a; background:#dcfce7;">Completed</span>
+        </div>
+        <div class="panel-list-row">
+          <div class="panel-list-left">
+            <span class="panel-list-title">Upcoming: Capstone Project Evaluation</span>
+            <span class="panel-list-sub">02 Dec 2025 • 05:00 PM • Google Meet</span>
+          </div>
+          <span class="badge-count-pill" style="color:#2563eb; background:#eff6ff;">Scheduled</span>
+        </div>
+      `;
+    }
+
+    // Populate Feedback Tab
+    function populateFeedbackTab(mentor) {
+      const container = document.getElementById('panelFeedbackList');
+      container.innerHTML = `
+        <div class="panel-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <strong style="font-size: 12.5px;">Bhavya Patel</strong>
+            <span style="color: #f59e0b; font-size: 11px;"><i class="fa-solid fa-star"></i> 5.0</span>
+          </div>
+          <p style="font-size: 12px; color: #475569; margin: 0;">"Very patient mentor! Explained SQL complex joins and window functions thoroughly. Highly recommended!"</p>
+          <span style="font-size: 10.5px; color: #94a3b8;">Nov 26, 2025</span>
+        </div>
+        <div class="panel-list-row" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <strong style="font-size: 12.5px;">Aarav Sharma</strong>
+            <span style="color: #f59e0b; font-size: 11px;"><i class="fa-solid fa-star"></i> 5.0</span>
+          </div>
+          <p style="font-size: 12px; color: #475569; margin: 0;">"Great insights into real-world business intelligence reporting and dashboard performance optimization."</p>
+          <span style="font-size: 10.5px; color: #94a3b8;">Nov 21, 2025</span>
+        </div>
+      `;
+    }
+
+    function closeDetailsPanel() {
+      const panel = document.getElementById('mentorDetailsPanel');
+      panel.style.display = 'none';
+    }
+
+    // Filter Handlers
+    let debounceTimer;
+    function handleSearch(val) {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        filterQuery = val;
+        currentPage = 1;
+        applyFiltersAndRender();
+      }, 250);
+    }
+
+    function handleGlobalSearch(val) {
+      document.getElementById('searchInput').value = val;
+      handleSearch(val);
+    }
+
+    function handleDepartmentFilter(val) {
+      filterDept = val;
+      currentPage = 1;
+      applyFiltersAndRender();
+    }
+
+    function handleStatusFilter(val) {
+      filterStatus = val;
+      currentPage = 1;
+      applyFiltersAndRender();
+    }
+
+    function handleProgramFilter(val) {
+      filterProgram = val;
+      currentPage = 1;
+      applyFiltersAndRender();
+    }
+
+    function resetFilters() {
+      filterQuery = '';
+      filterDept = 'all';
+      filterStatus = 'all';
+      filterProgram = 'all';
+      document.getElementById('searchInput').value = '';
+      document.getElementById('globalTopSearch').value = '';
+      document.getElementById('departmentFilter').value = 'all';
+      document.getElementById('statusFilter').value = 'all';
+      document.getElementById('programFilter').value = 'all';
+      currentPage = 1;
+      applyFiltersAndRender();
+      showToast('Filters reset to default');
+    }
+
+    // Checkbox bulk actions
+    function toggleSelectAll(checked) {
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, currentFilteredMentors.length);
+      const pageSlice = currentFilteredMentors.slice(startIndex, endIndex);
+
+      pageSlice.forEach(m => {
+        if (checked) {
+          selectedMentorIds.add(m._id);
+        } else {
+          selectedMentorIds.delete(m._id);
+        }
+      });
+      renderTable();
+      if (checked) showToast(`${selectedMentorIds.size} mentors selected`);
+    }
+
+    function toggleRowSelect(id, checked) {
+      if (checked) {
+        selectedMentorIds.add(id);
+      } else {
+        selectedMentorIds.delete(id);
+      }
+      const selectAll = document.getElementById('selectAllChk');
+      const pageSlice = currentFilteredMentors.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+      selectAll.checked = pageSlice.length > 0 && pageSlice.every(m => selectedMentorIds.has(m._id));
+    }
+
+    // Modal Controls
+    function openModal(id) {
+      document.getElementById(id).classList.add('show');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('show');
+    }
+
+    // Add Mentor Modal
+    function openAddMentorModal() {
+      document.getElementById('mentorModalTitle').textContent = 'Add New Mentor';
+      document.getElementById('formMentorId').value = '';
+      document.getElementById('mentorForm').reset();
+      document.getElementById('btnSaveMentor').textContent = 'Create Mentor';
+      openModal('mentorModal');
+    }
+
+    // Edit Selected Mentor
+    function openEditSelectedMentorModal() {
+      if (!selectedMentor) return;
+      openEditMentorModal(selectedMentor._id);
+    }
+
+    function openEditMentorModal(id) {
+      const m = mentorsData.find(item => item._id === id);
+      if (!m) return;
+
+      document.getElementById('mentorModalTitle').textContent = 'Edit Mentor Details';
+      document.getElementById('formMentorId').value = m._id;
+      document.getElementById('formName').value = m.name || '';
+      document.getElementById('formEmail').value = m.email || '';
+      document.getElementById('formPhone').value = m.phone || '';
+      document.getElementById('formLocation').value = m.location || '';
+      document.getElementById('formDepartment').value = m.department || 'Data Analytics';
+      document.getElementById('formRole').value = m.role || '';
+      document.getElementById('formSkills').value = Array.isArray(m.skills) ? m.skills.join(', ') : (m.skills || '');
+      document.getElementById('formStatus').value = m.status || 'Active';
+      document.getElementById('formAvatar').value = m.avatar || '';
+      document.getElementById('formBio').value = m.bio || '';
+      document.getElementById('btnSaveMentor').textContent = 'Update Mentor';
+
+      openModal('mentorModal');
+    }
+
+    // Submit Add / Edit Mentor
+    async function handleMentorFormSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('formMentorId').value;
+      const isEdit = Boolean(id);
+
+      const payload = {
+        name: document.getElementById('formName').value.trim(),
+        email: document.getElementById('formEmail').value.trim().toLowerCase(),
+        phone: document.getElementById('formPhone').value.trim(),
+        location: document.getElementById('formLocation').value.trim(),
+        department: document.getElementById('formDepartment').value,
+        role: document.getElementById('formRole').value.trim(),
+        skills: document.getElementById('formSkills').value.split(',').map(s => s.trim()).filter(Boolean),
+        status: document.getElementById('formStatus').value,
+        avatar: document.getElementById('formAvatar').value.trim(),
+        bio: document.getElementById('formBio').value.trim()
+      };
+
+      try {
+        const url = isEdit ? `/api/admin/mentors/${id}` : '/api/admin/mentors';
+        const method = isEdit ? 'PUT' : 'POST';
+
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          const resData = await res.json();
+          showToast(isEdit ? 'Mentor updated successfully!' : 'Mentor added successfully!');
+          closeModal('mentorModal');
+          await fetchMentors();
+          if (resData.mentor) selectMentor(resData.mentor);
+          return;
+        }
+      } catch (err) {
+        console.warn('API sync warning:', err);
+      }
+
+      // In-memory fallback
+      if (isEdit) {
+        const idx = mentorsData.findIndex(m => m._id === id);
+        if (idx !== -1) {
+          mentorsData[idx] = { ...mentorsData[idx], ...payload };
+          selectMentor(mentorsData[idx]);
+        }
+        showToast('Mentor updated in local state');
+      } else {
+        const newObj = {
+          _id: 'mentor_' + Date.now(),
+          ...payload,
+          avatarInitials: payload.name.slice(0, 2).toUpperCase(),
+          avatarColor: '#2563EB',
+          assignedStudents: 0,
+          ongoingSessions: 0,
+          rating: 4.8,
+          reviewsCount: 0,
+          sessionCompletion: 100,
+          currentPrograms: [{ programName: `${payload.department} Internship`, studentsCount: 0 }],
+          recentSessions: []
+        };
+        mentorsData.unshift(newObj);
+        selectMentor(newObj);
+        showToast('Mentor created successfully!');
+      }
+
+      closeModal('mentorModal');
+      applyFiltersAndRender();
+    }
+
+    // Schedule Session Modal
+    function openScheduleSessionModal(mentor = null) {
+      const target = mentor || selectedMentor;
+      if (!target) return;
+      document.getElementById('scheduleMentorName').value = `${target.name} (${target.department})`;
+      document.getElementById('scheduleDate').value = new Date().toISOString().slice(0, 10);
+      openModal('scheduleModal');
+    }
+
+    async function handleScheduleFormSubmit(e) {
+      e.preventDefault();
+      if (!selectedMentor) return;
+
+      const title = document.getElementById('scheduleTitle').value.trim();
+      const date = document.getElementById('scheduleDate').value;
+      const count = parseInt(document.getElementById('scheduleStudentsCount').value) || 12;
+
+      try {
+        await fetch(`/api/admin/mentors/${selectedMentor._id}/schedule`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, date, studentsCount: count })
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+
+      if (!selectedMentor.recentSessions) selectedMentor.recentSessions = [];
+      selectedMentor.recentSessions.unshift({ title, date, studentsCount: count });
+      selectedMentor.ongoingSessions = (selectedMentor.ongoingSessions || 0) + 1;
+
+      closeModal('scheduleModal');
+      selectMentor(selectedMentor);
+      applyFiltersAndRender();
+      showToast(`Session "${title}" scheduled with ${selectedMentor.name}!`);
+    }
+
+    // Message Mentor Modal
+    function openMessageForMentor(id) {
+      const m = mentorsData.find(item => item._id === id);
+      if (m) {
+        selectedMentor = m;
+        openMessageMentorModal();
+      }
+    }
+
+    function openMessageMentorModal() {
+      if (!selectedMentor) return;
+      document.getElementById('messageRecipient').value = `${selectedMentor.name} <${selectedMentor.email}>`;
+      document.getElementById('messageSubject').value = '';
+      document.getElementById('messageBody').value = '';
+      openModal('messageModal');
+    }
+
+    async function handleMessageFormSubmit(e) {
+      e.preventDefault();
+      if (!selectedMentor) return;
+      const subject = document.getElementById('messageSubject').value.trim();
+
+      try {
+        await fetch(`/api/admin/mentors/${selectedMentor._id}/message`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            subject,
+            message: document.getElementById('messageBody').value
+          })
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+
+      closeModal('messageModal');
+      showToast(`Direct message sent to ${selectedMentor.name}!`);
+    }
+
+    // Row Actions Dropdown Menu
+    function openRowActionMenu(e, mentorId) {
+      e.stopPropagation();
+      menuTargetMentor = mentorsData.find(m => m._id === mentorId);
+      const menu = document.getElementById('rowActionMenu');
+
+      const rect = e.currentTarget.getBoundingClientRect();
+      menu.style.top = `${rect.bottom + window.scrollY + 4}px`;
+      menu.style.left = `${rect.right + window.scrollX - 150}px`;
+      menu.classList.add('show');
+    }
+
+    function triggerMenuAction(action) {
+      const menu = document.getElementById('rowActionMenu');
+      menu.classList.remove('show');
+      if (!menuTargetMentor) return;
+
+      if (action === 'view') {
+        selectMentor(menuTargetMentor);
+      } else if (action === 'edit') {
+        openEditMentorModal(menuTargetMentor._id);
+      } else if (action === 'schedule') {
+        selectedMentor = menuTargetMentor;
+        openScheduleSessionModal(menuTargetMentor);
+      } else if (action === 'message') {
+        selectedMentor = menuTargetMentor;
+        openMessageMentorModal();
+      } else if (action === 'delete') {
+        deleteMentor(menuTargetMentor._id);
+      }
+    }
+
+    async function deleteMentor(id) {
+      const m = mentorsData.find(item => item._id === id);
+      const mentorName = m ? m.name : 'this mentor';
+      if (!confirm(`Are you sure you want to remove ${mentorName} from Mentors?`)) return;
+
+      try {
+        await fetch(`/api/admin/mentors/${id}`, { method: 'DELETE' });
+      } catch (err) {
+        console.warn(err);
+      }
+
+      mentorsData = mentorsData.filter(item => item._id !== id);
+      selectedMentorIds.delete(id);
+      if (selectedMentor && selectedMentor._id === id) {
+        selectedMentor = mentorsData[0] || null;
+      }
+
+      applyFiltersAndRender();
+      showToast(`${mentorName} deleted successfully`);
+    }
+
+    // Toast Notification helper
+    function showToast(text) {
+      const toast = document.getElementById('toastMsg');
+      const textElem = document.getElementById('toastText');
+      textElem.textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    // Sidebar navigation accordion toggle
+    function toggleNavGroup(id) {
+      const group = document.getElementById(id);
+      if (group) group.classList.toggle('open');
+    }
+
+    function toggleSidebarMobile() {
+      const sidebar = document.getElementById('adminSidebar');
+      sidebar.classList.toggle('mobile-open');
+    }
+
+    // Close action dropdown menu when clicking outside
+    function setupClickOutsideListener() {
+      document.addEventListener('click', (e) => {
+        const menu = document.getElementById('rowActionMenu');
+        if (menu && menu.classList.contains('show') && !menu.contains(e.target)) {
+          menu.classList.remove('show');
+        }
+      });
+    }
+
+    // XSS defense
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
