@@ -12,10 +12,12 @@ PAGES_CONFIG = {
     'admin-modules.html': 'learning-modules',
     'admin-recorded-classes.html': 'learning-recorded',
     'admin-quizzes.html': 'learning-quizzes',
+    'admin-resources.html': 'learning-resources',
     'admin-internships.html': 'internships-all',
     'admin-projects.html': 'internships-projects',
     'admin-mentors.html': 'internships-mentors',
     'admin-applications.html': 'internships-applications',
+    'admin-tasks.html': 'tasks-all',
 }
 
 SIDEBAR_CSS = """
@@ -237,6 +239,7 @@ def build_sidebar_html(page_key):
     is_students = page_key.startswith('students-')
     is_learning = page_key.startswith('learning-')
     is_internships = page_key.startswith('internships-')
+    is_tasks = page_key.startswith('tasks-')
 
     # Dashboard active class
     dashboard_active = ' active' if is_dashboard else ''
@@ -257,6 +260,7 @@ def build_sidebar_html(page_key):
     modules_active = ' active-subitem' if page_key == 'learning-modules' else ''
     recorded_active = ' active-subitem' if page_key == 'learning-recorded' else ''
     quizzes_active = ' active-subitem' if page_key == 'learning-quizzes' else ''
+    resources_active = ' active-subitem' if page_key == 'learning-resources' else ''
 
     # Internship Management classes
     internships_open = ' open' if is_internships else ''
@@ -265,6 +269,12 @@ def build_sidebar_html(page_key):
     projects_active = ' active-subitem' if page_key == 'internships-projects' else ''
     mentors_active = ' active-subitem' if page_key == 'internships-mentors' else ''
     applications_active = ' active-subitem' if page_key == 'internships-applications' else ''
+
+    # Tasks & Projects classes
+    tasks_open = ' open' if is_tasks else ''
+    tasks_cat_active = ' active-category' if is_tasks else ''
+    tasks_all_active = ' active-subitem' if page_key == 'tasks-all' else ''
+    tasks_projects_active = ' active-subitem' if page_key == 'tasks-projects' else ''
 
     return f"""  <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="adminSidebar">
@@ -318,7 +328,7 @@ def build_sidebar_html(page_key):
           <a href="admin-recorded-classes.html" class="nav-subitem{recorded_active}">Recorded Classes</a>
           <a href="live-classes.html" class="nav-subitem">Live Classes</a>
           <a href="admin-quizzes.html" class="nav-subitem{quizzes_active}">Quizzes & Assessments</a>
-          <a href="resources.html" class="nav-subitem">Learning Resources</a>
+          <a href="admin-resources.html" class="nav-subitem{resources_active}">Learning Resources</a>
         </div>
       </div>
 
@@ -342,8 +352,8 @@ def build_sidebar_html(page_key):
       </div>
 
       <!-- Tasks & Projects -->
-      <div class="nav-group" id="navGroupTasks">
-        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupTasks')">
+      <div class="nav-group{tasks_open}" id="navGroupTasks">
+        <button type="button" class="nav-item-btn{tasks_cat_active}" onclick="toggleNavGroup('navGroupTasks')">
           <div class="nav-item-left">
             <i class="fa-solid fa-list-check"></i>
             <span>Tasks & Projects</span>
@@ -351,8 +361,14 @@ def build_sidebar_html(page_key):
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="javascript:void(0)" onclick="showToast('Task Management console opening soon')" class="nav-subitem">Task Management</a>
+          <a href="admin-tasks.html" class="nav-subitem{tasks_all_active}">All Tasks</a>
+          <a href="admin-projects.html" class="nav-subitem{tasks_projects_active}">All Projects</a>
+          <a href="javascript:void(0)" onclick="showToast('My Tasks panel opening soon')" class="nav-subitem">My Tasks</a>
+          <a href="javascript:void(0)" onclick="showToast('Task Submissions panel opening soon')" class="nav-subitem">Task Submissions</a>
           <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+          <a href="javascript:void(0)" onclick="showToast('Assign Tasks module opening soon')" class="nav-subitem">Assign Tasks</a>
+          <a href="javascript:void(0)" onclick="showToast('Task Templates library opening soon')" class="nav-subitem">Task Templates</a>
+          <a href="javascript:void(0)" onclick="showToast('Recurring Tasks schedule opening soon')" class="nav-subitem">Recurring Tasks</a>
         </div>
       </div>
 

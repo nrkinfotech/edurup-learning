@@ -1,0 +1,3429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Tasks | Tasks & Projects | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #DCFCE7;
+      --success-text: #166534;
+      --warning: #F59E0B;
+      --warning-light: #FEF3C7;
+      --warning-text: #92400E;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --danger-text: #B91C1C;
+      --purple: #8B5CF6;
+      --purple-light: #F3E8FF;
+      --purple-text: #7E22CE;
+      --info: #0284C7;
+      --info-light: #E0F2FE;
+      --info-text: #0369A1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: #0B132B !important;
+      color: #cbd5e1 !important;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .nav-item-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+    }
+
+    .nav-item-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff;
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 15px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 11px;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 36px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      background: #2563eb !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before {
+      color: #ffffff !important;
+    }
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* ---------------- MAIN CONTENT WRAPPER ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #F8FAFC;
+    }
+
+    /* Topbar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .topbar-search {
+      position: relative;
+      width: 440px;
+    }
+
+    .topbar-search i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13.5px;
+    }
+
+    .topbar-search input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 16px 9px 38px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .topbar-search input:focus {
+      background: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .topbar-notification {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .topbar-notification:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 1.5px solid #ffffff;
+    }
+
+    .topbar-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .topbar-profile:hover {
+      background: #f1f5f9;
+    }
+
+    .profile-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #7c3aed;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .profile-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ---------------- TWO-COLUMN DOCKED LAYOUT ---------------- */
+    .dashboard-layout {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .content-area {
+      flex: 1;
+      padding: 24px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .breadcrumb-row a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumb-row span.current {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* Page Header */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .page-title-group h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .page-title-group p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+
+    .btn-create-primary {
+      background: #2563EB;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-create-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- 5 KPI CARDS ---------------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .kpi-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-purple {
+      background: #F3E8FF;
+      color: #9333EA;
+    }
+    .kpi-icon-green {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+    .kpi-icon-amber {
+      background: #FEF3C7;
+      color: #D97706;
+    }
+    .kpi-icon-red {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+    .kpi-icon-blue {
+      background: #E0F2FE;
+      color: #0284C7;
+    }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .kpi-content h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .kpi-content .kpi-label-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 3px;
+    }
+
+    .kpi-content p {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .kpi-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+
+    .kpi-badge-green {
+      background: #DCFCE7;
+      color: #166534;
+    }
+    .kpi-badge-amber {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+    .kpi-badge-red {
+      background: #FEE2E2;
+      color: #B91C1C;
+    }
+    .kpi-badge-blue {
+      background: #E0F2FE;
+      color: #0369A1;
+    }
+
+    /* ---------------- FILTER SECTION ---------------- */
+    .filter-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .filter-row-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-search-box {
+      position: relative;
+      flex: 1.4;
+      min-width: 220px;
+    }
+
+    .filter-search-box i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .filter-search-box input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px 8px 34px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .filter-search-box input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-width: 120px;
+    }
+
+    .filter-select:hover {
+      border-color: #94a3b8;
+    }
+
+    .filter-select:focus {
+      border-color: #2563eb;
+    }
+
+    .filter-date-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .filter-date-btn:hover {
+      border-color: #94a3b8;
+      background: #f8fafc;
+    }
+
+    /* Tab row */
+    .filter-tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 12px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 12px 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab-btn:hover {
+      color: #0f172a;
+    }
+
+    .tab-btn.active {
+      color: #2563EB;
+      border-bottom-color: #2563EB;
+    }
+
+    /* ---------------- TASKS TABLE ---------------- */
+    .table-container {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table.tasks-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12.5px;
+    }
+
+    table.tasks-table thead th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    table.tasks-table tbody tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    table.tasks-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    table.tasks-table tbody tr.selected-row {
+      background: #eff6ff !important;
+    }
+
+    table.tasks-table tbody td {
+      padding: 12px 14px;
+      color: #334155;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .cell-task-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 220px;
+    }
+
+    .cell-task-title strong {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .cell-task-title span {
+      font-size: 11.5px;
+      color: #64748b;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Pills */
+    .type-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .type-assignment {
+      background: #EFF6FF;
+      color: #2563EB;
+    }
+
+    .type-project {
+      background: #F3E8FF;
+      color: #7C3AED;
+    }
+
+    .type-other {
+      background: #F1F5F9;
+      color: #475569;
+    }
+
+    /* Assigned to user chip */
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-avatar-initials {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .user-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    /* Status Pills */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+
+    .status-completed {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .status-in-progress {
+      background: #EFF6FF;
+      color: #1D4ED8;
+    }
+
+    .status-overdue {
+      background: #FEE2E2;
+      color: #B91C1C;
+    }
+
+    .status-not-started {
+      background: #F1F5F9;
+      color: #475569;
+    }
+
+    /* Submissions badge */
+    .submissions-count {
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .submissions-count.zero {
+      color: #ef4444;
+    }
+    .submissions-count.done {
+      color: #16a34a;
+    }
+
+    /* Priority Pills */
+    .priority-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .priority-high {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .priority-medium {
+      background: #EFF6FF;
+      color: #2563EB;
+    }
+
+    .priority-low {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+
+    /* Table action buttons */
+    .action-icons-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-action-icon:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+
+    .btn-action-icon.view-btn:hover {
+      color: #2563eb;
+    }
+
+    /* Pagination footer */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-top: 1px solid #e2e8f0;
+      background: #ffffff;
+      font-size: 12.5px;
+      color: #64748b;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .page-btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .page-btn.active {
+      background: #2563EB;
+      color: #ffffff;
+      border-color: #2563EB;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ---------------- RIGHT SIDE DOCKED TASK DETAILS PANEL ---------------- */
+    .details-dock-panel {
+      width: 430px;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      overflow-y: auto;
+      transition: margin-right 0.3s ease, opacity 0.2s ease;
+      z-index: 80;
+    }
+
+    .details-dock-panel.closed {
+      display: none;
+    }
+
+    .panel-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 5;
+    }
+
+    .panel-header h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .btn-close-panel {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: #f1f5f9;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-close-panel:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .panel-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      flex: 1;
+    }
+
+    .task-title-banner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .task-title-banner h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.3;
+    }
+
+    /* Panel internal tabs */
+    .panel-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 2px;
+    }
+
+    .panel-tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 0 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .panel-tab-btn.active {
+      color: #2563EB;
+      border-bottom-color: #2563EB;
+    }
+
+    /* Section group */
+    .detail-section-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .detail-section-group h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .detail-section-group p.desc-text {
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    /* Meta Grid */
+    .meta-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #f1f5f9;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-item span.lbl {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .meta-item span.val {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f172a;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Assigned User Card */
+    .assigned-user-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #f1f5f9;
+    }
+
+    .assigned-user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #2563EB;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .assigned-user-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .assigned-user-details strong {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .assigned-user-details span {
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    /* Section header with right action link */
+    .section-header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-header-flex a.link-action {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #2563EB;
+      text-decoration: none;
+    }
+    .section-header-flex a.link-action:hover {
+      text-decoration: underline;
+    }
+
+    /* File Box */
+    .file-attachment-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: #ffffff;
+      transition: border-color 0.15s ease;
+    }
+
+    .file-attachment-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .file-attachment-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .file-badge-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .file-badge-blue {
+      background: #EFF6FF;
+      color: #2563EB;
+    }
+    .file-badge-red {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .file-info-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .file-info-text strong {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .file-info-text span {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .file-download-btn {
+      color: #64748b;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+
+    .file-download-btn:hover {
+      color: #2563EB;
+    }
+
+    /* Submission Card */
+    .submission-subtext-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .submission-subtext-row a {
+      color: #2563EB;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .submission-subtext-row a:hover {
+      text-decoration: underline;
+    }
+
+    /* Feedback Card */
+    .feedback-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feedback-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .feedback-author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feedback-author-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #7C3AED;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feedback-author-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .feedback-date {
+      font-size: 11px;
+      color: #64748b;
+      margin-left: 4px;
+    }
+
+    .feedback-score-pill {
+      background: #DCFCE7;
+      color: #166534;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .feedback-comment {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    /* Sticky Footer actions inside panel */
+    .panel-footer-sticky {
+      position: sticky;
+      bottom: 0;
+      background: #ffffff;
+      padding: 14px 20px;
+      border-top: 1px solid #e2e8f0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      z-index: 5;
+    }
+
+    .panel-btn-action {
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .panel-btn-edit {
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+    }
+    .panel-btn-edit:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+
+    .panel-btn-duplicate {
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+    }
+    .panel-btn-duplicate:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+
+    .panel-btn-delete {
+      border: 1px solid #FCA5A5;
+      background: #ffffff;
+      color: #DC2626;
+    }
+    .panel-btn-delete:hover {
+      background: #FEE2E2;
+    }
+
+    /* ---------------- MODALS ---------------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-dialog {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 580px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: 90vh;
+      animation: modalSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlide {
+      from { transform: translateY(20px) scale(0.97); }
+      to { transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .modal-body {
+      padding: 22px 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: #0f172a;
+      outline: none;
+      transition: all 0.15s ease;
+      background: #ffffff;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 1280px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .details-dock-panel {
+        width: 380px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .details-dock-panel {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+      }
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      aside.sidebar {
+        position: fixed;
+        left: -260px;
+      }
+      aside.sidebar.mobile-open {
+        left: 0;
+      }
+    }
+  
+    /* ---------------- UNIFIED ADMIN SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: #0B132B !important;
+      color: #cbd5e1 !important;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active {
+      background: #2563eb !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff !important;
+      background: rgba(37, 99, 235, 0.15) !important;
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #64748b;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 36px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      background: #2563eb !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before {
+      color: #ffffff !important;
+    }
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 900px) {
+      aside.sidebar {
+        position: fixed;
+        left: -260px;
+      }
+      aside.sidebar.mobile-open {
+        left: 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+    <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem">Courses</a>
+          <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="live-classes.html" class="nav-subitem">Live Classes</a>
+          <a href="admin-quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="admin-resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
+          <a href="admin-projects.html" class="nav-subitem">Projects</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-applications.html" class="nav-subitem">Applications</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="javascript:void(0)" onclick="showToast('Certificates section opening soon')" class="nav-subitem">Certificates</a>
+        </div>
+      </div>
+
+      <!-- Tasks & Projects -->
+      <div class="nav-group open" id="navGroupTasks">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupTasks')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks & Projects</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-tasks.html" class="nav-subitem active-subitem">All Tasks</a>
+          <a href="admin-projects.html" class="nav-subitem">All Projects</a>
+          <a href="javascript:void(0)" onclick="showToast('My Tasks panel opening soon')" class="nav-subitem">My Tasks</a>
+          <a href="javascript:void(0)" onclick="showToast('Task Submissions panel opening soon')" class="nav-subitem">Task Submissions</a>
+          <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+          <a href="javascript:void(0)" onclick="showToast('Assign Tasks module opening soon')" class="nav-subitem">Assign Tasks</a>
+          <a href="javascript:void(0)" onclick="showToast('Task Templates library opening soon')" class="nav-subitem">Task Templates</a>
+          <a href="javascript:void(0)" onclick="showToast('Recurring Tasks schedule opening soon')" class="nav-subitem">Recurring Tasks</a>
+        </div>
+      </div>
+
+      <!-- Companies & Mentors -->
+      <div class="nav-group" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building"></i>
+            <span>Companies & Mentors</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Partner Companies desk opening soon')" class="nav-subitem">Partner Companies</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentor Assignments</a>
+        </div>
+      </div>
+
+      <!-- Attendance & Reports -->
+      <div class="nav-group" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance & Reports</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Attendance: 87% (612 present, 68 absent)')" class="nav-subitem">Attendance</a>
+          <a href="javascript:void(0)" onclick="showToast('Weekly Reports: 46 submitted, 42 approved')" class="nav-subitem">Weekly Reports</a>
+        </div>
+      </div>
+
+      <!-- Certificates & LOR -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & LOR</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Generate Certificate desk opening soon')" class="nav-subitem">Generate Certificate</a>
+          <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation desk ready')" class="nav-subitem">Letter of Recommendation</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Exporting system reports...')" class="nav-subitem">Export Excel / PDF</a>
+          <a href="javascript:void(0)" onclick="showToast('Placement Metrics: 71% placement success rate')" class="nav-subitem">Placement Metrics</a>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="nav-group" id="navGroupFinance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupFinance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Total Revenue: ₹12,40,000 recorded')" class="nav-subitem">Payments</a>
+          <a href="javascript:void(0)" onclick="showToast('Refund Requests: 0 active')" class="nav-subitem">Refunds</a>
+          <a href="javascript:void(0)" onclick="showToast('Revenue statement ready for download')" class="nav-subitem">Revenue Reports</a>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="nav-group" id="navGroupComms">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupComms')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Announcements center opening soon')" class="nav-subitem">Announcements</a>
+          <a href="javascript:void(0)" onclick="showToast('Broadcast center: SMS & Email ready')" class="nav-subitem">Email / WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Admin Roles: Super Admin (Active)')" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="topSearchInput" placeholder="Search students, tasks, projects, courses...">
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-notification" onclick="showToast('You have 3 unread task notifications')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notification-dot"></span>
+        </div>
+        <div class="topbar-profile" onclick="showToast('Admin Profile: Super Admin')">
+          <div class="profile-avatar">AD</div>
+          <div class="profile-info">
+            <span class="profile-name">Admin</span>
+            <span class="profile-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Layout: Left (Dashboard content) + Right (Docked details panel) -->
+    <div class="dashboard-layout">
+      <!-- Left Content Area -->
+      <div class="content-area">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb-row">
+          <a href="admin-dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+          <span>›</span>
+          <a href="javascript:void(0)">Tasks & Projects</a>
+          <span>›</span>
+          <span class="current">All Tasks</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header-row">
+          <div class="page-title-group">
+            <h1>All Tasks</h1>
+            <p>View, manage and track all course and internship tasks in one place.</p>
+          </div>
+          <div class="header-actions-group">
+            <button class="btn-outline" onclick="exportTasksCSV()">
+              <i class="fa-solid fa-download"></i>
+              Export
+            </button>
+            <button class="btn-outline" onclick="openBulkActionModal()">
+              <i class="fa-solid fa-layer-group"></i>
+              Bulk Actions <i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 2px;"></i>
+            </button>
+            <button class="btn-create-primary" onclick="openCreateModal()">
+              <i class="fa-solid fa-plus"></i>
+              Create Task
+            </button>
+          </div>
+        </div>
+
+        <!-- 5 KPI Cards -->
+        <div class="kpi-grid">
+          <!-- Total Tasks -->
+          <div class="kpi-card" onclick="setTabFilter('all')">
+            <div class="kpi-icon-box kpi-icon-purple">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiTotalTasks">128</h3>
+              <p>Total Tasks</p>
+            </div>
+          </div>
+
+          <!-- Completed -->
+          <div class="kpi-card" onclick="setTabFilter('completed')">
+            <div class="kpi-icon-box kpi-icon-green">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiCompleted">68</h3>
+              <div class="kpi-label-row">
+                <p>Completed</p>
+                <span class="kpi-badge kpi-badge-green" id="kpiCompletedPct">53%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- In Progress -->
+          <div class="kpi-card" onclick="setTabFilter('in-progress')">
+            <div class="kpi-icon-box kpi-icon-amber">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiInProgress">32</h3>
+              <div class="kpi-label-row">
+                <p>In Progress</p>
+                <span class="kpi-badge kpi-badge-amber" id="kpiInProgressPct">25%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overdue -->
+          <div class="kpi-card" onclick="setTabFilter('overdue')">
+            <div class="kpi-icon-box kpi-icon-red">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiOverdue">18</h3>
+              <div class="kpi-label-row">
+                <p>Overdue</p>
+                <span class="kpi-badge kpi-badge-red" id="kpiOverduePct">14%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Not Started -->
+          <div class="kpi-card" onclick="setTabFilter('not-started')">
+            <div class="kpi-icon-box kpi-icon-blue">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiNotStarted">10</h3>
+              <div class="kpi-label-row">
+                <p>Not Started</p>
+                <span class="kpi-badge kpi-badge-blue" id="kpiNotStartedPct">8%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+          <!-- Row 1: Search + Selects -->
+          <div class="filter-row-top">
+            <div class="filter-search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="taskSearchInput" placeholder="Search task, student or course...">
+            </div>
+
+            <select class="filter-select" id="courseFilterSelect" onchange="applyFilters()">
+              <option value="all">All Courses</option>
+            </select>
+
+            <select class="filter-select" id="batchFilterSelect" onchange="applyFilters()">
+              <option value="all">All Batches</option>
+            </select>
+
+            <select class="filter-select" id="typeFilterSelect" onchange="applyFilters()">
+              <option value="all">All Task Types</option>
+              <option value="Assignment">Assignment</option>
+              <option value="Project">Project</option>
+              <option value="Assessment">Assessment</option>
+              <option value="Homework">Homework</option>
+              <option value="Case Study">Case Study</option>
+            </select>
+
+            <select class="filter-select" id="statusFilterSelect" onchange="applyFilters()">
+              <option value="all">All Status</option>
+              <option value="Completed">Completed</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Overdue">Overdue</option>
+              <option value="Not Started">Not Started</option>
+            </select>
+
+            <select class="filter-select" id="monthFilterSelect" onchange="applyFilters()">
+              <option value="all">All Months</option>
+              <option value="oct-2026">October 2026</option>
+              <option value="nov-2026">November 2026</option>
+            </select>
+
+            <button class="filter-date-btn" onclick="showToast('Date range filter picker opening')">
+              <i class="fa-regular fa-calendar"></i>
+              Select Date Range
+            </button>
+          </div>
+
+          <!-- Row 2: Status Tabs -->
+          <div class="filter-tabs-row">
+            <button class="tab-btn active" data-tab="all" onclick="setTabFilter('all')">
+              All (<span id="tabCountAll">128</span>)
+            </button>
+            <button class="tab-btn" data-tab="not-started" onclick="setTabFilter('not-started')">
+              Not Started (<span id="tabCountNotStarted">10</span>)
+            </button>
+            <button class="tab-btn" data-tab="in-progress" onclick="setTabFilter('in-progress')">
+              In Progress (<span id="tabCountInProgress">32</span>)
+            </button>
+            <button class="tab-btn" data-tab="completed" onclick="setTabFilter('completed')">
+              Completed (<span id="tabCountCompleted">68</span>)
+            </button>
+            <button class="tab-btn" data-tab="overdue" onclick="setTabFilter('overdue')">
+              Overdue (<span id="tabCountOverdue">18</span>)
+            </button>
+          </div>
+        </div>
+
+        <!-- Tasks Table -->
+        <div class="table-container">
+          <div class="table-responsive">
+            <table class="tasks-table">
+              <thead>
+                <tr>
+                  <th style="width: 38px;">
+                    <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this)">
+                  </th>
+                  <th style="width: 44px;">#</th>
+                  <th>Task Title</th>
+                  <th>Type</th>
+                  <th>Course / Program</th>
+                  <th>Assigned To</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Submissions</th>
+                  <th>Points</th>
+                  <th>Priority</th>
+                  <th style="text-align: right; width: 90px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tasksTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Footer Pagination -->
+          <div class="table-footer">
+            <div id="tableShowingInfo">Showing 1 to 10 of 128 tasks</div>
+            <div class="pagination-controls" id="paginationControls">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Docked Panel: Task Details -->
+      <aside class="details-dock-panel" id="taskDetailsPanel">
+        <div class="panel-header">
+          <h3>Task Details</h3>
+          <button class="btn-close-panel" onclick="closeDetailsPanel()" title="Close details">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="panel-body" id="panelBodyContent">
+          <!-- Dynamically populated with active task -->
+        </div>
+
+        <div class="panel-footer-sticky" id="panelFooterActions">
+          <button class="panel-btn-action panel-btn-edit" onclick="handlePanelEdit()">
+            <i class="fa-regular fa-pen-to-square"></i>
+            Edit Task
+          </button>
+          <button class="panel-btn-action panel-btn-duplicate" onclick="handlePanelDuplicate()">
+            <i class="fa-regular fa-copy"></i>
+            Duplicate
+          </button>
+          <button class="panel-btn-action panel-btn-delete" onclick="handlePanelDelete()">
+            <i class="fa-regular fa-trash-can"></i>
+            Delete Task
+          </button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ================= MODAL: CREATE TASK ================= -->
+  <div class="modal-backdrop" id="createTaskModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Create New Task</h3>
+        <button class="btn-close-panel" onclick="closeCreateModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="createTaskForm" onsubmit="handleCreateTask(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Task Title *</label>
+            <input type="text" id="createTitle" required placeholder="e.g. Data Cleaning Assignment">
+          </div>
+          <div class="form-group">
+            <label>Subtitle / Brief *</label>
+            <input type="text" id="createSubtitle" required placeholder="e.g. Clean and preprocess dataset">
+          </div>
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label>Task Type</label>
+              <select id="createType">
+                <option value="Assignment">Assignment</option>
+                <option value="Project">Project</option>
+                <option value="Assessment">Assessment</option>
+                <option value="Homework">Homework</option>
+                <option value="Case Study">Case Study</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Course / Program *</label>
+              <input type="text" id="createCourse" required placeholder="e.g. Data Analytics">
+            </div>
+          </div>
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label>Batch Code</label>
+              <input type="text" id="createBatch" value="DA-OCT-2026">
+            </div>
+            <div class="form-group">
+              <label>Due Date *</label>
+              <input type="text" id="createDueDate" value="30 Oct 2026" required>
+            </div>
+          </div>
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label>Assigned Student Name *</label>
+              <input type="text" id="createStudentName" required placeholder="e.g. Rahul Sharma">
+            </div>
+            <div class="form-group">
+              <label>Student Email</label>
+              <input type="email" id="createStudentEmail" placeholder="e.g. rahul.sharma@gmail.com">
+            </div>
+          </div>
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label>Points</label>
+              <input type="number" id="createPoints" value="10" min="0">
+            </div>
+            <div class="form-group">
+              <label>Priority</label>
+              <select id="createPriority">
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label>Initial Status</label>
+              <select id="createStatus">
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Overdue">Overdue</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="createDesc" rows="3" placeholder="Provide detailed instructions for the student..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-outline" onclick="closeCreateModal()">Cancel</button>
+          <button type="submit" class="btn-create-primary">Create Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: EDIT TASK ================= -->
+  <div class="modal-backdrop" id="editTaskModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Edit Task</h3>
+        <button class="btn-close-panel" onclick="closeEditModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="editTaskForm" onsubmit="handleSaveEdit(event)">
+        <input type="hidden" id="editTaskId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Task Title *</label>
+            <input type="text" id="editTitle" required>
+          </div>
+          <div class="form-group">
+            <label>Subtitle / Brief</label>
+            <input type="text" id="editSubtitle">
+          </div>
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label>Task Type</label>
+              <select id="editType">
+                <option value="Assignment">Assignment</option>
+                <option value="Project">Project</option>
+                <option value="Assessment">Assessment</option>
+                <option value="Homework">Homework</option>
+                <option value="Case Study">Case Study</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Course / Program</label>
+              <input type="text" id="editCourse" required>
+            </div>
+          </div>
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label>Due Date</label>
+              <input type="text" id="editDueDate" required>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select id="editStatus">
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Overdue">Overdue</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label>Points</label>
+              <input type="number" id="editPoints" min="0">
+            </div>
+            <div class="form-group">
+              <label>Priority</label>
+              <select id="editPriority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="editDesc" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-outline" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="btn-create-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: BULK ACTIONS ================= -->
+  <div class="modal-backdrop" id="bulkActionModal">
+    <div class="modal-dialog" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3>Bulk Actions</h3>
+        <button class="btn-close-panel" onclick="closeBulkActionModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569;">
+          Selected tasks: <strong id="bulkSelectedCount">0</strong>
+        </p>
+        <div class="form-group" style="margin-top: 10px;">
+          <label>Select Action</label>
+          <select id="bulkActionSelect">
+            <option value="mark-completed">Mark as Completed</option>
+            <option value="mark-in-progress">Mark as In Progress</option>
+            <option value="mark-overdue">Mark as Overdue</option>
+            <option value="mark-not-started">Mark as Not Started</option>
+            <option value="delete">Delete Selected Tasks</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-outline" onclick="closeBulkActionModal()">Cancel</button>
+        <button type="button" class="btn-create-primary" onclick="applyBulkAction()">Apply Action</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Element -->
+  <div class="toast-msg" id="toastMsg">
+    <i class="fa-solid fa-circle-check" style="color: #4ade80;"></i>
+    <span id="toastText">Action completed successfully</span>
+  </div>
+
+  <script>
+    // Global State
+    let currentTasks = [];
+    let activeTask = null;
+    let currentTab = 'all';
+    let currentPage = 1;
+    const limit = 10;
+    let selectedTaskIds = new Set();
+    let currentFilters = {
+      course: 'all',
+      batch: 'all',
+      type: 'all',
+      status: 'all',
+      month: 'all',
+      search: ''
+    };
+
+    // Sidebar navigation accordion
+    function toggleNavGroup(groupId) {
+      const group = document.getElementById(groupId);
+      if (group) {
+        group.classList.toggle('open');
+      }
+    }
+
+    // Toast notification
+    function showToast(msg) {
+      const toast = document.getElementById('toastMsg');
+      const text = document.getElementById('toastText');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Fetch tasks from API
+    async function loadTasks() {
+      try {
+        const params = new URLSearchParams();
+        params.append('page', currentPage);
+        params.append('limit', limit);
+
+        if (currentTab !== 'all') {
+          params.append('tab', currentTab);
+        }
+        if (currentFilters.search) {
+          params.append('search', currentFilters.search);
+        }
+        if (currentFilters.course !== 'all') {
+          params.append('course', currentFilters.course);
+        }
+        if (currentFilters.batch !== 'all') {
+          params.append('batch', currentFilters.batch);
+        }
+        if (currentFilters.type !== 'all') {
+          params.append('type', currentFilters.type);
+        }
+        if (currentFilters.status !== 'all') {
+          params.append('status', currentFilters.status);
+        }
+
+        const res = await fetch(`/api/admin/tasks?${params.toString()}`);
+        const data = await res.json();
+
+        if (data.success) {
+          currentTasks = data.tasks;
+          updateKPICards(data.kpis);
+          populateFilterOptions(data.filters);
+          renderTable(data.tasks, data.pagination);
+          renderPagination(data.pagination);
+
+          // Select first task if none selected or if previously active task is no longer present
+          if (currentTasks.length > 0) {
+            if (!activeTask || !currentTasks.some(t => t._id === activeTask._id)) {
+              selectTask(currentTasks[0]);
+            } else {
+              const freshActive = currentTasks.find(t => t._id === activeTask._id);
+              if (freshActive) selectTask(freshActive);
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load tasks:', err);
+      }
+    }
+
+    // Update KPI cards and tab badges
+    function updateKPICards(kpis) {
+      if (!kpis) return;
+      document.getElementById('kpiTotalTasks').textContent = kpis.totalTasks;
+      document.getElementById('kpiCompleted').textContent = kpis.completed;
+      document.getElementById('kpiCompletedPct').textContent = `${kpis.completedPercent}%`;
+      document.getElementById('kpiInProgress').textContent = kpis.inProgress;
+      document.getElementById('kpiInProgressPct').textContent = `${kpis.inProgressPercent}%`;
+      document.getElementById('kpiOverdue').textContent = kpis.overdue;
+      document.getElementById('kpiOverduePct').textContent = `${kpis.overduePercent}%`;
+      document.getElementById('kpiNotStarted').textContent = kpis.notStarted;
+      document.getElementById('kpiNotStartedPct').textContent = `${kpis.notStartedPercent}%`;
+
+      document.getElementById('tabCountAll').textContent = kpis.totalTasks;
+      document.getElementById('tabCountNotStarted').textContent = kpis.notStarted;
+      document.getElementById('tabCountInProgress').textContent = kpis.inProgress;
+      document.getElementById('tabCountCompleted').textContent = kpis.completed;
+      document.getElementById('tabCountOverdue').textContent = kpis.overdue;
+    }
+
+    // Populate Courses and Batches dropdowns if empty
+    function populateFilterOptions(filters) {
+      if (!filters) return;
+      const courseSelect = document.getElementById('courseFilterSelect');
+      const batchSelect = document.getElementById('batchFilterSelect');
+
+      if (courseSelect.options.length <= 1 && filters.courses) {
+        filters.courses.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = c;
+          courseSelect.appendChild(opt);
+        });
+      }
+
+      if (batchSelect.options.length <= 1 && filters.batches) {
+        filters.batches.forEach(b => {
+          const opt = document.createElement('option');
+          opt.value = b;
+          opt.textContent = b;
+          batchSelect.appendChild(opt);
+        });
+      }
+    }
+
+    // Render Table Rows
+    function renderTable(tasks, pagination) {
+      const tbody = document.getElementById('tasksTableBody');
+      tbody.innerHTML = '';
+
+      if (!tasks || tasks.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="12" style="text-align: center; padding: 40px; color: #94a3b8;">
+              <i class="fa-solid fa-list-check" style="font-size: 32px; margin-bottom: 10px; display: block;"></i>
+              No tasks match your current filters.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tasks.forEach((task, idx) => {
+        const rowNumber = (pagination.page - 1) * pagination.limit + (idx + 1);
+        const isSelected = selectedTaskIds.has(task._id);
+        const isActive = activeTask && activeTask._id === task._id;
+
+        const tr = document.createElement('tr');
+        if (isActive) tr.classList.add('selected-row');
+
+        // Type Pill
+        let typeClass = 'type-other';
+        if (task.type === 'Assignment') typeClass = 'type-assignment';
+        else if (task.type === 'Project') typeClass = 'type-project';
+
+        // Status Pill
+        let statusClass = 'status-not-started';
+        if (task.status === 'Completed') statusClass = 'status-completed';
+        else if (task.status === 'In Progress') statusClass = 'status-in-progress';
+        else if (task.status === 'Overdue') statusClass = 'status-overdue';
+
+        // Submissions count styling
+        const isZero = task.submissionsCount === 0;
+        const subClass = isZero ? 'zero' : 'done';
+
+        // Priority Pill
+        let prioClass = 'priority-medium';
+        if (task.priority === 'High') prioClass = 'priority-high';
+        else if (task.priority === 'Low') prioClass = 'priority-low';
+
+        // Avatar
+        const initials = task.assignedTo?.avatarInitials || 'ST';
+        const color = task.assignedTo?.avatarColor || '#2563EB';
+        const studentName = task.assignedTo?.name || 'Unassigned';
+
+        tr.innerHTML = `
+          <td onclick="event.stopPropagation()">
+            <input type="checkbox" class="task-row-checkbox" value="${task._id}" ${isSelected ? 'checked' : ''} onchange="toggleTaskSelect('${task._id}', this)">
+          </td>
+          <td style="color: #64748b; font-weight: 600;">${rowNumber}</td>
+          <td>
+            <div class="cell-task-title">
+              <strong title="${task.title}">${task.title}</strong>
+              <span title="${task.subtitle}">${task.subtitle || '—'}</span>
+            </div>
+          </td>
+          <td>
+            <span class="type-pill ${typeClass}">${task.type}</span>
+          </td>
+          <td>
+            <span style="font-weight: 600; color: #334155;">${task.course}</span>
+          </td>
+          <td>
+            <div class="user-chip">
+              <div class="user-avatar-initials" style="background: ${color};">${initials}</div>
+              <span class="user-name">${studentName}</span>
+            </div>
+          </td>
+          <td>
+            <span style="color: #475569; font-weight: 500;">${task.dueDate}</span>
+          </td>
+          <td>
+            <span class="status-pill ${statusClass}">${task.status}</span>
+          </td>
+          <td>
+            <span class="submissions-count ${subClass}">${task.submissionsCount}/${task.submissionsTotal || 1}</span>
+          </td>
+          <td>
+            <span style="font-weight: 700; color: #0f172a;">${task.points}</span>
+          </td>
+          <td>
+            <span class="priority-pill ${prioClass}">${task.priority}</span>
+          </td>
+          <td style="text-align: right;" onclick="event.stopPropagation()">
+            <div class="action-icons-row" style="justify-content: flex-end;">
+              <button class="btn-action-icon view-btn" title="View Details" onclick="selectTaskById('${task._id}')">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+              <button class="btn-action-icon" title="Edit Task" onclick="openEditModalById('${task._id}')">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </button>
+              <button class="btn-action-icon" title="Duplicate Task" onclick="duplicateTask('${task._id}')">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tr.addEventListener('click', () => {
+          selectTask(task);
+        });
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Render Pagination Controls
+    function renderPagination(pagination) {
+      const info = document.getElementById('tableShowingInfo');
+      const controls = document.getElementById('paginationControls');
+
+      const start = (pagination.page - 1) * pagination.limit + (pagination.total > 0 ? 1 : 0);
+      const end = Math.min(pagination.page * pagination.limit, pagination.total);
+      info.textContent = `Showing ${start} to ${end} of ${pagination.total} tasks`;
+
+      controls.innerHTML = '';
+
+      // Prev Button
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-btn';
+      prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+      prevBtn.disabled = pagination.page <= 1;
+      prevBtn.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          loadTasks();
+        }
+      };
+      controls.appendChild(prevBtn);
+
+      const totalPages = pagination.totalPages || 1;
+      let pages = [];
+
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        if (pagination.page > 3) pages.push('...');
+        
+        const startP = Math.max(2, pagination.page - 1);
+        const endP = Math.min(totalPages - 1, pagination.page + 1);
+        
+        for (let i = startP; i <= endP; i++) {
+          if (!pages.includes(i)) pages.push(i);
+        }
+        
+        if (pagination.page < totalPages - 2) pages.push('...');
+        if (!pages.includes(totalPages)) pages.push(totalPages);
+      }
+
+      pages.forEach(p => {
+        if (p === '...') {
+          const span = document.createElement('span');
+          span.textContent = '...';
+          span.style.padding = '0 6px';
+          span.style.color = '#94a3b8';
+          controls.appendChild(span);
+        } else {
+          const btn = document.createElement('button');
+          btn.className = `page-btn ${p === pagination.page ? 'active' : ''}`;
+          btn.textContent = p;
+          btn.onclick = () => {
+            currentPage = p;
+            loadTasks();
+          };
+          controls.appendChild(btn);
+        }
+      });
+
+      // Next Button
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-btn';
+      nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+      nextBtn.disabled = pagination.page >= totalPages;
+      nextBtn.onclick = () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          loadTasks();
+        }
+      };
+      controls.appendChild(nextBtn);
+    }
+
+    // Select a task to display in the Right Docked Panel
+    function selectTask(task) {
+      activeTask = task;
+      const panel = document.getElementById('taskDetailsPanel');
+      panel.classList.remove('closed');
+
+      // Update table row highlighting
+      document.querySelectorAll('#tasksTableBody tr').forEach(r => r.classList.remove('selected-row'));
+      const rows = document.querySelectorAll('#tasksTableBody tr');
+      currentTasks.forEach((t, i) => {
+        if (t._id === task._id && rows[i]) {
+          rows[i].classList.add('selected-row');
+        }
+      });
+
+      renderDockedDetails(task);
+    }
+
+    function selectTaskById(id) {
+      const task = currentTasks.find(t => t._id === id);
+      if (task) selectTask(task);
+    }
+
+    // Render details inside the right docked panel
+    function renderDockedDetails(task) {
+      const container = document.getElementById('panelBodyContent');
+
+      let statusPillClass = 'status-not-started';
+      if (task.status === 'Completed') statusPillClass = 'status-completed';
+      else if (task.status === 'In Progress') statusPillClass = 'status-in-progress';
+      else if (task.status === 'Overdue') statusPillClass = 'status-overdue';
+
+      // Attachments list
+      let attachmentsHtml = '';
+      if (task.attachments && task.attachments.length > 0) {
+        task.attachments.forEach(att => {
+          const isPdf = att.name.endsWith('.pdf');
+          const badgeClass = isPdf ? 'file-badge-red' : 'file-badge-blue';
+          const icon = isPdf ? 'fa-regular fa-file-pdf' : 'fa-regular fa-file-lines';
+          attachmentsHtml += `
+            <div class="file-attachment-card">
+              <div class="file-attachment-left">
+                <div class="file-badge-icon ${badgeClass}">
+                  <i class="${icon}"></i>
+                </div>
+                <div class="file-info-text">
+                  <strong>${att.name}</strong>
+                  <span>${att.size || '1.2 MB'}</span>
+                </div>
+              </div>
+              <div class="file-download-btn" title="Download" onclick="showToast('Downloading ${att.name}')">
+                <i class="fa-solid fa-arrow-down-to-bracket"></i>
+              </div>
+            </div>
+          `;
+        });
+      } else {
+        attachmentsHtml = `
+          <div class="file-attachment-card">
+            <div class="file-attachment-left">
+              <div class="file-badge-icon file-badge-blue">
+                <i class="fa-regular fa-file-lines"></i>
+              </div>
+              <div class="file-info-text">
+                <strong>dataset.csv</strong>
+                <span>2.4 MB</span>
+              </div>
+            </div>
+            <div class="file-download-btn" title="Download" onclick="showToast('Downloading dataset.csv')">
+              <i class="fa-solid fa-arrow-down-to-bracket"></i>
+            </div>
+          </div>
+          <div class="file-attachment-card">
+            <div class="file-attachment-left">
+              <div class="file-badge-icon file-badge-red">
+                <i class="fa-regular fa-file-pdf"></i>
+              </div>
+              <div class="file-info-text">
+                <strong>instructions.pdf</strong>
+                <span>520 KB</span>
+              </div>
+            </div>
+            <div class="file-download-btn" title="Download" onclick="showToast('Downloading instructions.pdf')">
+              <i class="fa-solid fa-arrow-down-to-bracket"></i>
+            </div>
+          </div>
+        `;
+      }
+
+      // Submission Block
+      let submissionHtml = '';
+      if (task.submission) {
+        submissionHtml = `
+          <div class="file-attachment-card">
+            <div class="file-attachment-left">
+              <div class="file-badge-icon file-badge-blue">
+                <i class="fa-regular fa-file-code"></i>
+              </div>
+              <div class="file-info-text">
+                <strong>${task.submission.fileName}</strong>
+                <span>${task.submission.fileSize || '1.8 MB'}</span>
+              </div>
+            </div>
+            <div class="file-download-btn" title="Download submission" onclick="showToast('Downloading ${task.submission.fileName}')">
+              <i class="fa-solid fa-arrow-down-to-bracket"></i>
+            </div>
+          </div>
+          <div class="submission-subtext-row">
+            <span>Submitted On: <strong style="color: #334155;">${task.submission.submittedAt}</strong></span>
+            <a href="javascript:void(0)" onclick="showToast('Opening submission review viewer...')">View Submission</a>
+          </div>
+        `;
+      } else if (task.status === 'Completed') {
+        submissionHtml = `
+          <div class="file-attachment-card">
+            <div class="file-attachment-left">
+              <div class="file-badge-icon file-badge-blue">
+                <i class="fa-regular fa-file-code"></i>
+              </div>
+              <div class="file-info-text">
+                <strong>solution_final.zip</strong>
+                <span>1.8 MB</span>
+              </div>
+            </div>
+            <div class="file-download-btn" title="Download submission" onclick="showToast('Downloading solution_final.zip')">
+              <i class="fa-solid fa-arrow-down-to-bracket"></i>
+            </div>
+          </div>
+          <div class="submission-subtext-row">
+            <span>Submitted On: <strong style="color: #334155;">${task.dueDate}, 04:30 PM</strong></span>
+            <a href="javascript:void(0)" onclick="showToast('Opening submission viewer...')">View Submission</a>
+          </div>
+        `;
+      } else {
+        submissionHtml = `
+          <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 14px; text-align: center; color: #64748b; font-size: 12px;">
+            <i class="fa-regular fa-folder-open" style="font-size: 20px; margin-bottom: 6px; display: block;"></i>
+            No submission submitted yet by student.
+          </div>
+        `;
+      }
+
+      // Feedback Block
+      let feedbackHtml = '';
+      if (task.feedback) {
+        feedbackHtml = `
+          <div class="feedback-card">
+            <div class="feedback-header">
+              <div class="feedback-author">
+                <div class="feedback-author-avatar">${task.feedback.mentorInitials || 'PV'}</div>
+                <span class="feedback-author-name">${task.feedback.mentorName}</span>
+                <span class="feedback-date">${task.feedback.date}</span>
+              </div>
+              <span class="feedback-score-pill">${task.feedback.score}</span>
+            </div>
+            <p class="feedback-comment">"${task.feedback.comment}"</p>
+          </div>
+        `;
+      } else if (task.status === 'Completed') {
+        feedbackHtml = `
+          <div class="feedback-card">
+            <div class="feedback-header">
+              <div class="feedback-author">
+                <div class="feedback-author-avatar">PV</div>
+                <span class="feedback-author-name">Priya Verma</span>
+                <span class="feedback-date">${task.dueDate}</span>
+              </div>
+              <span class="feedback-score-pill">${task.points} / ${task.points}</span>
+            </div>
+            <p class="feedback-comment">"Good work! Dataset is cleaned properly. Visualizations are clear."</p>
+          </div>
+        `;
+      } else {
+        feedbackHtml = `
+          <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 12px; text-align: center; color: #64748b; font-size: 12px;">
+            Awaiting student submission for mentor review & scoring.
+          </div>
+        `;
+      }
+
+      const assignedInitials = task.assignedTo?.avatarInitials || 'RS';
+      const assignedColor = task.assignedTo?.avatarColor || '#2563EB';
+      const assignedName = task.assignedTo?.name || 'Rahul Sharma';
+      const assignedEmail = task.assignedTo?.email || `${assignedName.toLowerCase().replace(/\s+/g, '.')}@gmail.com`;
+
+      container.innerHTML = `
+        <!-- Title & Status Banner -->
+        <div class="task-title-banner">
+          <h2>${task.title}</h2>
+          <span class="status-pill ${statusPillClass}">${task.status}</span>
+        </div>
+
+        <!-- Panel Tabs -->
+        <div class="panel-tabs-bar">
+          <button class="panel-tab-btn active" onclick="switchPanelTab(this, 'details')">Details</button>
+          <button class="panel-tab-btn" onclick="switchPanelTab(this, 'submissions')">Submissions (${task.submissionsCount})</button>
+          <button class="panel-tab-btn" onclick="switchPanelTab(this, 'reviews')">Reviews (${task.feedback || task.status === 'Completed' ? '1' : '0'})</button>
+          <button class="panel-tab-btn" onclick="switchPanelTab(this, 'activity')">Activity</button>
+        </div>
+
+        <!-- Details Tab Content -->
+        <div id="tabContentDetails" style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Description -->
+          <div class="detail-section-group">
+            <h4>Description</h4>
+            <p class="desc-text">${task.description || 'Clean and preprocess the given dataset. Handle missing values, outliers and prepare final dataset for analysis.'}</p>
+          </div>
+
+          <!-- Meta Grid -->
+          <div class="meta-grid-2col">
+            <div class="meta-item">
+              <span class="lbl">Course</span>
+              <span class="val">${task.course}</span>
+            </div>
+            <div class="meta-item">
+              <span class="lbl">Task Type</span>
+              <span class="val">${task.type}</span>
+            </div>
+            <div class="meta-item">
+              <span class="lbl">Due Date</span>
+              <span class="val"><i class="fa-regular fa-calendar" style="color: #64748b;"></i> ${task.dueDate}</span>
+            </div>
+            <div class="meta-item">
+              <span class="lbl">Points</span>
+              <span class="val">${task.points}</span>
+            </div>
+            <div class="meta-item">
+              <span class="lbl">Priority</span>
+              <span class="val" style="color: ${task.priority === 'High' ? '#DC2626' : (task.priority === 'Low' ? '#16A34A' : '#2563EB')};">${task.priority}</span>
+            </div>
+          </div>
+
+          <!-- Assigned To -->
+          <div class="detail-section-group">
+            <h4>Assigned To</h4>
+            <div class="assigned-user-box">
+              <div class="assigned-user-avatar" style="background: ${assignedColor};">${assignedInitials}</div>
+              <div class="assigned-user-details">
+                <strong>${assignedName}</strong>
+                <span>${assignedEmail}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attachments -->
+          <div class="detail-section-group">
+            <div class="section-header-flex">
+              <h4>Attachments (${task.attachments ? task.attachments.length : 2})</h4>
+              <a href="javascript:void(0)" class="link-action" onclick="showToast('Upload Attachment modal opening...')">+ Add File</a>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${attachmentsHtml}
+            </div>
+          </div>
+
+          <!-- Submission -->
+          <div class="detail-section-group">
+            <h4>Submission</h4>
+            ${submissionHtml}
+          </div>
+
+          <!-- Feedback -->
+          <div class="detail-section-group">
+            <h4>Feedback</h4>
+            ${feedbackHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    // Switch tabs within right panel
+    function switchPanelTab(btn, tabName) {
+      document.querySelectorAll('.panel-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      showToast(`Showing ${tabName} tab`);
+    }
+
+    // Close right details panel
+    function closeDetailsPanel() {
+      const panel = document.getElementById('taskDetailsPanel');
+      panel.classList.add('closed');
+      document.querySelectorAll('#tasksTableBody tr').forEach(r => r.classList.remove('selected-row'));
+      activeTask = null;
+    }
+
+    // Tab Filter change
+    function setTabFilter(tab) {
+      currentTab = tab;
+      currentPage = 1;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tab) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      loadTasks();
+    }
+
+    // Apply Filter dropdowns
+    function applyFilters() {
+      currentFilters.course = document.getElementById('courseFilterSelect').value;
+      currentFilters.batch = document.getElementById('batchFilterSelect').value;
+      currentFilters.type = document.getElementById('typeFilterSelect').value;
+      currentFilters.status = document.getElementById('statusFilterSelect').value;
+      currentPage = 1;
+      loadTasks();
+    }
+
+    // Search task listener
+    const searchInput = document.getElementById('taskSearchInput');
+    let searchTimeout = null;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        currentFilters.search = e.target.value.trim();
+        currentPage = 1;
+        loadTasks();
+      }, 300);
+    });
+
+    const topSearch = document.getElementById('topSearchInput');
+    topSearch.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        currentFilters.search = e.target.value.trim();
+        currentPage = 1;
+        loadTasks();
+      }, 300);
+    });
+
+    // Checkbox bulk select
+    function toggleSelectAll(master) {
+      const checked = master.checked;
+      selectedTaskIds.clear();
+      document.querySelectorAll('.task-row-checkbox').forEach(cb => {
+        cb.checked = checked;
+        if (checked) selectedTaskIds.add(cb.value);
+      });
+    }
+
+    function toggleTaskSelect(id, cb) {
+      if (cb.checked) {
+        selectedTaskIds.add(id);
+      } else {
+        selectedTaskIds.delete(id);
+      }
+      const selectAll = document.getElementById('selectAllCheckbox');
+      const allCbs = document.querySelectorAll('.task-row-checkbox');
+      selectAll.checked = allCbs.length > 0 && selectedTaskIds.size === allCbs.length;
+    }
+
+    // Export to CSV
+    function exportTasksCSV() {
+      if (currentTasks.length === 0) {
+        showToast('No tasks to export');
+        return;
+      }
+      let csv = 'ID,Title,Type,Course,Batch,AssignedTo,DueDate,Status,Submissions,Points,Priority\n';
+      currentTasks.forEach(t => {
+        const student = (t.assignedTo?.name || '').replace(/"/g, '""');
+        const title = (t.title || '').replace(/"/g, '""');
+        csv += `"${t._id}","${title}","${t.type}","${t.course}","${t.batch}","${student}","${t.dueDate}","${t.status}","${t.submissionsCount}/${t.submissionsTotal || 1}","${t.points}","${t.priority}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `edurup_tasks_export_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Exported tasks to CSV');
+    }
+
+    // Bulk actions
+    function openBulkActionModal() {
+      if (selectedTaskIds.size === 0) {
+        showToast('Please select one or more tasks from the table');
+        return;
+      }
+      document.getElementById('bulkSelectedCount').textContent = selectedTaskIds.size;
+      document.getElementById('bulkActionModal').classList.add('open');
+    }
+
+    function closeBulkActionModal() {
+      document.getElementById('bulkActionModal').classList.remove('open');
+    }
+
+    async function applyBulkAction() {
+      const action = document.getElementById('bulkActionSelect').value;
+      const ids = Array.from(selectedTaskIds);
+      try {
+        const res = await fetch('/api/admin/tasks/bulk-action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids, action })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(data.message || 'Bulk action applied');
+          selectedTaskIds.clear();
+          document.getElementById('selectAllCheckbox').checked = false;
+          closeBulkActionModal();
+          loadTasks();
+        } else {
+          showToast(data.message || 'Bulk action failed');
+        }
+      } catch (err) {
+        console.error('Bulk action error:', err);
+        showToast('Error executing bulk action');
+      }
+    }
+
+    // Create Modal
+    function openCreateModal() {
+      document.getElementById('createTaskModal').classList.add('open');
+    }
+
+    function closeCreateModal() {
+      document.getElementById('createTaskModal').classList.remove('open');
+    }
+
+    async function handleCreateTask(e) {
+      e.preventDefault();
+      const payload = {
+        title: document.getElementById('createTitle').value.trim(),
+        subtitle: document.getElementById('createSubtitle').value.trim(),
+        type: document.getElementById('createType').value,
+        course: document.getElementById('createCourse').value.trim(),
+        batch: document.getElementById('createBatch').value.trim(),
+        dueDate: document.getElementById('createDueDate').value.trim(),
+        points: parseInt(document.getElementById('createPoints').value, 10) || 10,
+        priority: document.getElementById('createPriority').value,
+        status: document.getElementById('createStatus').value,
+        description: document.getElementById('createDesc').value.trim(),
+        assignedTo: {
+          name: document.getElementById('createStudentName').value.trim(),
+          email: document.getElementById('createStudentEmail').value.trim()
+        }
+      };
+
+      try {
+        const res = await fetch('/api/admin/tasks', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Task created successfully');
+          closeCreateModal();
+          document.getElementById('createTaskForm').reset();
+          loadTasks();
+        } else {
+          showToast(data.message || 'Failed to create task');
+        }
+      } catch (err) {
+        console.error('Create task error:', err);
+        showToast('Network error while creating task');
+      }
+    }
+
+    // Edit Modal
+    function openEditModalById(id) {
+      const task = currentTasks.find(t => t._id === id);
+      if (!task) return;
+      document.getElementById('editTaskId').value = task._id;
+      document.getElementById('editTitle').value = task.title;
+      document.getElementById('editSubtitle').value = task.subtitle || '';
+      document.getElementById('editType').value = task.type;
+      document.getElementById('editCourse').value = task.course;
+      document.getElementById('editDueDate').value = task.dueDate;
+      document.getElementById('editStatus').value = task.status;
+      document.getElementById('editPoints').value = task.points;
+      document.getElementById('editPriority').value = task.priority;
+      document.getElementById('editDesc').value = task.description || '';
+
+      document.getElementById('editTaskModal').classList.add('open');
+    }
+
+    function handlePanelEdit() {
+      if (activeTask) openEditModalById(activeTask._id);
+    }
+
+    function closeEditModal() {
+      document.getElementById('editTaskModal').classList.remove('open');
+    }
+
+    async function handleSaveEdit(e) {
+      e.preventDefault();
+      const id = document.getElementById('editTaskId').value;
+      const payload = {
+        title: document.getElementById('editTitle').value.trim(),
+        subtitle: document.getElementById('editSubtitle').value.trim(),
+        type: document.getElementById('editType').value,
+        course: document.getElementById('editCourse').value.trim(),
+        dueDate: document.getElementById('editDueDate').value.trim(),
+        status: document.getElementById('editStatus').value,
+        points: parseInt(document.getElementById('editPoints').value, 10) || 10,
+        priority: document.getElementById('editPriority').value,
+        description: document.getElementById('editDesc').value.trim()
+      };
+
+      try {
+        const res = await fetch(`/api/admin/tasks/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Task updated successfully');
+          closeEditModal();
+          loadTasks();
+        } else {
+          showToast(data.message || 'Failed to update task');
+        }
+      } catch (err) {
+        console.error('Update task error:', err);
+        showToast('Error updating task');
+      }
+    }
+
+    // Duplicate Task
+    async function duplicateTask(id) {
+      try {
+        const res = await fetch(`/api/admin/tasks/${id}/duplicate`, {
+          method: 'POST'
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Task duplicated successfully');
+          loadTasks();
+        } else {
+          showToast(data.message || 'Failed to duplicate task');
+        }
+      } catch (err) {
+        console.error('Duplicate error:', err);
+        showToast('Error duplicating task');
+      }
+    }
+
+    function handlePanelDuplicate() {
+      if (activeTask) duplicateTask(activeTask._id);
+    }
+
+    // Delete Task
+    async function deleteTask(id) {
+      if (!confirm('Are you sure you want to delete this task?')) return;
+      try {
+        const res = await fetch(`/api/admin/tasks/${id}`, {
+          method: 'DELETE'
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Task deleted successfully');
+          if (activeTask && activeTask._id === id) {
+            closeDetailsPanel();
+          }
+          loadTasks();
+        } else {
+          showToast(data.message || 'Failed to delete task');
+        }
+      } catch (err) {
+        console.error('Delete error:', err);
+        showToast('Error deleting task');
+      }
+    }
+
+    function handlePanelDelete() {
+      if (activeTask) deleteTask(activeTask._id);
+    }
+
+    // Initial Load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTasks();
+    });
+  </script>
+
+  <!-- Standard Sidebar and Toast Helper Scripts -->
+  <script>
+    if (typeof toggleNavGroup !== 'function') {
+      window.toggleNavGroup = function(id) {
+        const group = document.getElementById(id);
+        if (group) group.classList.toggle('open');
+      };
+    }
+    if (typeof showToast !== 'function') {
+      window.showToast = function(text) {
+        let toast = document.getElementById('toastMsg');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'toastMsg';
+          toast.className = 'toast-msg';
+          toast.innerHTML = '<i class="fa-solid fa-circle-check" style="color: #22c55e;"></i><span id="toastText"></span>';
+          document.body.appendChild(toast);
+        }
+        const textElem = toast.querySelector('#toastText') || toast;
+        textElem.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      };
+    }
+    if (typeof toggleSidebarMobile !== 'function') {
+      window.toggleSidebarMobile = function() {
+        const sb = document.getElementById('adminSidebar');
+        if (sb) sb.classList.toggle('mobile-open');
+      };
+    }
+  </script>
+
+</body>
+</html>

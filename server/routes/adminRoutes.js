@@ -13,6 +13,7 @@ const Internship = require('../models/Internship');
 const Project = require('../models/Project');
 const Mentor = require('../models/Mentor');
 const Resource = require('../models/Resource');
+const Task = require('../models/Task');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -2725,6 +2726,269 @@ router.delete('/resources/:id', async (req, res) => {
     });
   } catch (err) {
     console.error('Delete Resource Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// TASKS & PROJECTS ENDPOINTS
+// ==========================================
+
+// @route   GET /api/admin/tasks
+// @desc    Get all tasks with filtering, search, pagination, and KPI counts
+router.get('/tasks', async (req, res) => {
+  try {
+    const {
+      search,
+      course,
+      batch,
+      type,
+      status,
+      tab,
+      page = 1,
+      limit = 10,
+      sortBy = 'order',
+      sortDir = 'asc'
+    } = req.query;
+
+    const query = {};
+
+    if (search && search.trim()) {
+      const s = search.trim();
+      query.$or = [
+        { title: { $regex: s, $options: 'i' } },
+        { subtitle: { $regex: s, $options: 'i' } },
+        { 'assignedTo.name': { $regex: s, $options: 'i' } },
+        { course: { $regex: s, $options: 'i' } },
+        { batch: { $regex: s, $options: 'i' } }
+      ];
+    }
+
+    if (course && course !== 'all' && course !== 'All Courses') {
+      query.course = course;
+    }
+
+    if (batch && batch !== 'all' && batch !== 'All Batches') {
+      query.batch = batch;
+    }
+
+    if (type && type !== 'all' && type !== 'All Task Types') {
+      query.type = type;
+    }
+
+    // Tab filter takes precedence or complements status
+    if (tab && tab !== 'all') {
+      if (tab === 'not-started') query.status = 'Not Started';
+      else if (tab === 'in-progress') query.status = 'In Progress';
+      else if (tab === 'completed') query.status = 'Completed';
+      else if (tab === 'overdue') query.status = 'Overdue';
+    } else if (status && status !== 'all' && status !== 'All Status') {
+      query.status = status;
+    }
+
+    const currentPage = parseInt(page, 10) || 1;
+    const itemsPerPage = parseInt(limit, 10) || 10;
+    const skip = (currentPage - 1) * itemsPerPage;
+
+    const sortObj = {};
+    sortObj[sortBy] = sortDir === 'desc' ? -1 : 1;
+
+    // Fetch tasks & counts
+    const [tasks, totalMatching, totalAll, completedCount, inProgressCount, overdueCount, notStartedCount, distinctCourses, distinctBatches] = await Promise.all([
+      Task.find(query).sort(sortObj).skip(skip).limit(itemsPerPage),
+      Task.countDocuments(query),
+      Task.countDocuments(),
+      Task.countDocuments({ status: 'Completed' }),
+      Task.countDocuments({ status: 'In Progress' }),
+      Task.countDocuments({ status: 'Overdue' }),
+      Task.countDocuments({ status: 'Not Started' }),
+      Task.distinct('course'),
+      Task.distinct('batch')
+    ]);
+
+    const totalKPI = totalAll || 1;
+    const kpis = {
+      totalTasks: totalAll,
+      completed: completedCount,
+      completedPercent: Math.round((completedCount / totalKPI) * 100),
+      inProgress: inProgressCount,
+      inProgressPercent: Math.round((inProgressCount / totalKPI) * 100),
+      overdue: overdueCount,
+      overduePercent: Math.round((overdueCount / totalKPI) * 100),
+      notStarted: notStartedCount,
+      notStartedPercent: Math.round((notStartedCount / totalKPI) * 100)
+    };
+
+    return res.status(200).json({
+      success: true,
+      tasks,
+      pagination: {
+        total: totalMatching,
+        page: currentPage,
+        limit: itemsPerPage,
+        totalPages: Math.ceil(totalMatching / itemsPerPage) || 1
+      },
+      kpis,
+      filters: {
+        courses: distinctCourses.sort(),
+        batches: distinctBatches.sort()
+      }
+    });
+  } catch (err) {
+    console.error('Get Tasks Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/tasks/:id
+// @desc    Get single task
+router.get('/tasks/:id', async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) {
+      return res.status(404).json({ success: false, message: 'Task not found' });
+    }
+    return res.status(200).json({ success: true, task });
+  } catch (err) {
+    console.error('Get Task Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/tasks
+// @desc    Create new task
+router.post('/tasks', async (req, res) => {
+  try {
+    const data = req.body;
+    if (!data.title) {
+      return res.status(400).json({ success: false, message: 'Task title is required' });
+    }
+
+    const lastTask = await Task.findOne().sort({ order: -1 });
+    const nextOrder = (lastTask && lastTask.order ? lastTask.order : 0) + 1;
+
+    const initials = data.assignedTo?.name
+      ? data.assignedTo.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+      : 'ST';
+
+    const colors = ['#2563EB', '#7C3AED', '#059669', '#DC2626', '#D97706', '#0284C7', '#E11D48'];
+    const assignedColor = data.assignedTo?.avatarColor || colors[Math.floor(Math.random() * colors.length)];
+
+    const newTask = new Task({
+      ...data,
+      order: nextOrder,
+      assignedTo: {
+        name: data.assignedTo?.name || 'Unassigned',
+        email: data.assignedTo?.email || '',
+        avatarInitials: data.assignedTo?.avatarInitials || initials,
+        avatarColor: assignedColor
+      }
+    });
+
+    await newTask.save();
+    return res.status(201).json({ success: true, message: 'Task created successfully', task: newTask });
+  } catch (err) {
+    console.error('Create Task Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/tasks/:id
+// @desc    Update task
+router.put('/tasks/:id', async (req, res) => {
+  try {
+    const updated = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    if (!updated) {
+      return res.status(404).json({ success: false, message: 'Task not found' });
+    }
+    return res.status(200).json({ success: true, message: 'Task updated successfully', task: updated });
+  } catch (err) {
+    console.error('Update Task Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/tasks/:id
+// @desc    Delete task
+router.delete('/tasks/:id', async (req, res) => {
+  try {
+    const deleted = await Task.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: 'Task not found' });
+    }
+    return res.status(200).json({ success: true, message: 'Task deleted successfully' });
+  } catch (err) {
+    console.error('Delete Task Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/tasks/:id/duplicate
+// @desc    Duplicate a task
+router.post('/tasks/:id/duplicate', async (req, res) => {
+  try {
+    const original = await Task.findById(req.params.id);
+    if (!original) {
+      return res.status(404).json({ success: false, message: 'Task not found' });
+    }
+
+    const lastTask = await Task.findOne().sort({ order: -1 });
+    const nextOrder = (lastTask && lastTask.order ? lastTask.order : 0) + 1;
+
+    const origObj = original.toObject();
+    delete origObj._id;
+    delete origObj.createdAt;
+    delete origObj.updatedAt;
+
+    const duplicate = new Task({
+      ...origObj,
+      title: `${origObj.title} (Copy)`,
+      status: 'Not Started',
+      submissionsCount: 0,
+      submission: null,
+      feedback: null,
+      order: nextOrder
+    });
+
+    await duplicate.save();
+    return res.status(201).json({ success: true, message: 'Task duplicated successfully', task: duplicate });
+  } catch (err) {
+    console.error('Duplicate Task Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/tasks/bulk-action
+// @desc    Bulk action on multiple tasks
+router.post('/tasks/bulk-action', async (req, res) => {
+  try {
+    const { ids, action } = req.body;
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'Task IDs array is required' });
+    }
+
+    if (action === 'delete') {
+      await Task.deleteMany({ _id: { $in: ids } });
+      return res.status(200).json({ success: true, message: `${ids.length} tasks deleted successfully` });
+    }
+
+    let statusUpdate = null;
+    if (action === 'mark-completed') statusUpdate = 'Completed';
+    else if (action === 'mark-in-progress') statusUpdate = 'In Progress';
+    else if (action === 'mark-overdue') statusUpdate = 'Overdue';
+    else if (action === 'mark-not-started') statusUpdate = 'Not Started';
+
+    if (statusUpdate) {
+      await Task.updateMany(
+        { _id: { $in: ids } },
+        { $set: { status: statusUpdate } }
+      );
+      return res.status(200).json({ success: true, message: `${ids.length} tasks updated to ${statusUpdate}` });
+    }
+
+    return res.status(400).json({ success: false, message: 'Invalid bulk action requested' });
+  } catch (err) {
+    console.error('Bulk Action Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
