@@ -1190,12 +1190,226 @@
       font-size: 13px;
       cursor: pointer;
     }
+  
+    /* ---------------- UNIFIED ADMIN SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: #0B132B !important;
+      color: #cbd5e1 !important;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-info h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active {
+      background: #2563eb !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff !important;
+      background: rgba(37, 99, 235, 0.15) !important;
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #64748b;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 36px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      background: #2563eb !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-subitem::before {
+      content: "•";
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .nav-subitem.active-subitem::before {
+      color: #ffffff !important;
+    }
+    .nav-subitem:hover::before {
+      color: #60a5fa;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 900px) {
+      aside.sidebar {
+        position: fixed;
+        left: -260px;
+      }
+      aside.sidebar.mobile-open {
+        left: 0;
+      }
+    }
+
   </style>
 </head>
 <body>
 
   <!-- ================= SIDEBAR ================= -->
-  <aside class="sidebar">
+    <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="adminSidebar">
     <div class="sidebar-header">
       <div class="brand-logo-badge">E</div>
       <div class="brand-info">
@@ -1205,7 +1419,7 @@
     </div>
 
     <nav class="sidebar-nav">
-      <!-- Active Dashboard Tab -->
+      <!-- Dashboard -->
       <a href="admin-dashboard.html" class="nav-item-btn active">
         <div class="nav-item-left">
           <i class="fa-solid fa-house"></i>
@@ -1251,7 +1465,7 @@
       </div>
 
       <!-- Internship Management -->
-      <div class="nav-group open" id="navGroupInternships">
+      <div class="nav-group" id="navGroupInternships">
         <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
           <div class="nav-item-left">
             <i class="fa-solid fa-briefcase"></i>
@@ -1265,7 +1479,7 @@
           <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
           <a href="admin-applications.html" class="nav-subitem">Applications</a>
           <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
-          <a href="admin-certificates.html" class="nav-subitem">Certificates</a>
+          <a href="javascript:void(0)" onclick="showToast('Certificates section opening soon')" class="nav-subitem">Certificates</a>
         </div>
       </div>
 
@@ -1279,7 +1493,7 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="#" class="nav-subitem" onclick="openQuickActionModal('assign-task');return false;">Task Management</a>
+          <a href="javascript:void(0)" onclick="showToast('Task Management console opening soon')" class="nav-subitem">Task Management</a>
           <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
         </div>
       </div>
@@ -1294,9 +1508,9 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="#" class="nav-subitem" onclick="openQuickActionModal('add-company');return false;">Partner Companies</a>
-          <a href="#" class="nav-subitem" onclick="alert('Mentors: 48 registered corporate mentors');return false;">Mentors</a>
-          <a href="#" class="nav-subitem" onclick="alert('Mentor Assignments: 120 students mapped');return false;">Mentor Assignments</a>
+          <a href="javascript:void(0)" onclick="showToast('Partner Companies desk opening soon')" class="nav-subitem">Partner Companies</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentor Assignments</a>
         </div>
       </div>
 
@@ -1310,8 +1524,8 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="#" class="nav-subitem" onclick="alert('Overall Attendance: 87% (612 present, 68 absent)');return false;">Attendance</a>
-          <a href="#" class="nav-subitem" onclick="alert('Weekly Reports: 46 submitted, 42 approved');return false;">Weekly Reports</a>
+          <a href="javascript:void(0)" onclick="showToast('Attendance: 87% (612 present, 68 absent)')" class="nav-subitem">Attendance</a>
+          <a href="javascript:void(0)" onclick="showToast('Weekly Reports: 46 submitted, 42 approved')" class="nav-subitem">Weekly Reports</a>
         </div>
       </div>
 
@@ -1325,8 +1539,8 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="#" class="nav-subitem" onclick="openQuickActionModal('generate-certificate');return false;">Generate Certificate</a>
-          <a href="#" class="nav-subitem" onclick="alert('LOR issuance desk opened');return false;">Letter of Recommendation</a>
+          <a href="javascript:void(0)" onclick="showToast('Generate Certificate desk opening soon')" class="nav-subitem">Generate Certificate</a>
+          <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation desk ready')" class="nav-subitem">Letter of Recommendation</a>
         </div>
       </div>
 
@@ -1340,8 +1554,8 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="#" class="nav-subitem" onclick="alert('Exporting system reports...');return false;">Export Excel / PDF</a>
-          <a href="#" class="nav-subitem" onclick="alert('Analytics console updated');return false;">Placement Metrics</a>
+          <a href="javascript:void(0)" onclick="showToast('Exporting system reports...')" class="nav-subitem">Export Excel / PDF</a>
+          <a href="javascript:void(0)" onclick="showToast('Placement Metrics: 71% placement success rate')" class="nav-subitem">Placement Metrics</a>
         </div>
       </div>
 
@@ -1355,9 +1569,9 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="#" class="nav-subitem" onclick="alert('Total Revenue: ₹12,40,000 recorded');return false;">Payments</a>
-          <a href="#" class="nav-subitem" onclick="alert('Refund Requests: 0 active');return false;">Refunds</a>
-          <a href="#" class="nav-subitem" onclick="alert('Revenue statement for Oct 2026');return false;">Revenue Reports</a>
+          <a href="javascript:void(0)" onclick="showToast('Total Revenue: ₹12,40,000 recorded')" class="nav-subitem">Payments</a>
+          <a href="javascript:void(0)" onclick="showToast('Refund Requests: 0 active')" class="nav-subitem">Refunds</a>
+          <a href="javascript:void(0)" onclick="showToast('Revenue statement ready for download')" class="nav-subitem">Revenue Reports</a>
         </div>
       </div>
 
@@ -1371,8 +1585,8 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="#" class="nav-subitem" onclick="openQuickActionModal('send-announcement');return false;">Announcements</a>
-          <a href="#" class="nav-subitem" onclick="alert('Broadcast center: SMS and Email ready');return false;">Email / WhatsApp</a>
+          <a href="javascript:void(0)" onclick="showToast('Announcements center opening soon')" class="nav-subitem">Announcements</a>
+          <a href="javascript:void(0)" onclick="showToast('Broadcast center: SMS & Email ready')" class="nav-subitem">Email / WhatsApp</a>
         </div>
       </div>
 
@@ -1386,7 +1600,7 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="#" class="nav-subitem" onclick="alert('Admin Roles: Super Admin (Active)');return false;">Roles & Permissions</a>
+          <a href="javascript:void(0)" onclick="showToast('Admin Roles: Super Admin (Active)')" class="nav-subitem">Roles & Permissions</a>
         </div>
       </div>
     </nav>
@@ -2615,5 +2829,41 @@
       });
     }
   </script>
+
+  <!-- Standard Sidebar and Toast Helper Scripts -->
+  <script>
+    if (typeof toggleNavGroup !== 'function') {
+      window.toggleNavGroup = function(id) {
+        const group = document.getElementById(id);
+        if (group) group.classList.toggle('open');
+      };
+    }
+    if (typeof showToast !== 'function') {
+      window.showToast = function(text) {
+        let toast = document.getElementById('toastMsg');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'toastMsg';
+          toast.className = 'toast-msg';
+          toast.innerHTML = '<i class="fa-solid fa-circle-check" style="color: #22c55e;"></i><span id="toastText"></span>';
+          document.body.appendChild(toast);
+        }
+        const textElem = toast.querySelector('#toastText') || toast;
+        textElem.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      };
+    }
+    if (typeof toggleSidebarMobile !== 'function') {
+      window.toggleSidebarMobile = function() {
+        const sb = document.getElementById('adminSidebar');
+        if (sb) sb.classList.toggle('mobile-open');
+      };
+    }
+  </script>
+
 </body>
 </html>
