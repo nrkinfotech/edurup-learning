@@ -1,0 +1,2951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Submissions | Tasks & Projects | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #DCFCE7;
+      --success-text: #166534;
+      --warning: #F59E0B;
+      --warning-light: #FEF3C7;
+      --warning-text: #92400E;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --danger-text: #B91C1C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- TOPBAR ---------------- */
+    .topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-mobile-sidebar {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 16px;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    .topbar-search-box {
+      position: relative;
+      width: 320px;
+    }
+
+    .topbar-search-box i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .topbar-search-box input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 12px 8px 36px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .topbar-search-box input:focus {
+      background: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar-notification {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .topbar-notification:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 1.5px solid #ffffff;
+    }
+
+    .topbar-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .topbar-profile:hover {
+      background: #f1f5f9;
+    }
+
+    .profile-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .profile-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ---------------- TWO-COLUMN PAGE LAYOUT ---------------- */
+    .dashboard-layout {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Left Area */
+    .content-area {
+      flex: 1;
+      padding: 24px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .breadcrumb-row a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumb-row span.current {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* Page Header */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .page-title-group h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .page-title-group p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+
+    .btn-primary-action {
+      background: #2563EB;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary-action:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- 5 KPI CARDS ---------------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .kpi-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-blue { background: #EFF6FF; color: #2563EB; }
+    .kpi-icon-green { background: #DCFCE7; color: #16A34A; }
+    .kpi-icon-amber { background: #FEF3C7; color: #D97706; }
+    .kpi-icon-red { background: #FEE2E2; color: #DC2626; }
+    .kpi-icon-gray { background: #F1F5F9; color: #64748B; }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .kpi-content h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .kpi-label-text {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 2px;
+    }
+
+    .kpi-subtext {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .kpi-percent-badge {
+      font-weight: 700;
+      font-size: 11px;
+    }
+    .kpi-percent-green { color: #16A34A; }
+    .kpi-percent-amber { color: #D97706; }
+    .kpi-percent-red { color: #DC2626; }
+    .kpi-percent-gray { color: #64748B; }
+
+    /* ---------------- FILTER PANEL ---------------- */
+    .filter-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .filter-row-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-search-box {
+      position: relative;
+      flex: 1.5;
+      min-width: 220px;
+    }
+
+    .filter-search-box i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .filter-search-box input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px 8px 34px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .filter-search-box input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-width: 140px;
+    }
+
+    .filter-select:hover {
+      border-color: #94a3b8;
+    }
+
+    .filter-select:focus {
+      border-color: #2563eb;
+    }
+
+    .filter-date-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .filter-date-btn:hover {
+      border-color: #94a3b8;
+      background: #f8fafc;
+    }
+
+    .btn-reset-filters {
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-reset-filters:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    /* Tabs Row */
+    .filter-tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 12px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 10px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab-btn:hover {
+      color: #0f172a;
+    }
+
+    .tab-btn.active {
+      color: #2563EB;
+      border-bottom-color: #2563EB;
+    }
+
+    .tab-count-pill {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 10px;
+    }
+
+    .tab-btn.active .tab-count-pill {
+      background: #EFF6FF;
+      color: #2563EB;
+    }
+
+    /* ---------------- SUBMISSIONS TABLE ---------------- */
+    .table-container {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table.submissions-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12.5px;
+    }
+
+    table.submissions-table thead th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    table.submissions-table tbody tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    table.submissions-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    table.submissions-table tbody tr.row-selected {
+      background: #EFF6FF !important;
+      position: relative;
+    }
+
+    table.submissions-table tbody tr.row-selected td:first-child {
+      border-left: 3px solid #2563EB;
+    }
+
+    table.submissions-table tbody td {
+      padding: 12px 14px;
+      vertical-align: middle;
+      color: #334155;
+    }
+
+    .cell-checkbox {
+      width: 36px;
+      text-align: center;
+    }
+
+    .cell-checkbox input[type="checkbox"] {
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+      accent-color: #2563eb;
+    }
+
+    .task-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 190px;
+    }
+
+    .task-cell-title {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 13px;
+    }
+
+    .task-cell-sub {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .student-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 180px;
+    }
+
+    .student-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .student-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .student-name {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 12.5px;
+    }
+
+    .student-email {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .course-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 600;
+      font-size: 11.5px;
+      white-space: nowrap;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-reviewed {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .status-pending {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .status-needs-revision {
+      background: #FEE2E2;
+      color: #B91C1C;
+    }
+
+    .status-not-submitted {
+      background: #F1F5F9;
+      color: #475569;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .status-reviewed .status-dot { background: #16A34A; }
+    .status-pending .status-dot { background: #D97706; }
+    .status-needs-revision .status-dot { background: #DC2626; }
+    .status-not-submitted .status-dot { background: #64748B; }
+
+    .marks-text {
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .marks-empty {
+      color: #94a3b8;
+    }
+
+    .action-icons-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-action-icon:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+
+    .btn-action-icon.view-btn:hover {
+      color: #2563eb;
+    }
+
+    /* Pagination Footer */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-top: 1px solid #e2e8f0;
+      background: #ffffff;
+      font-size: 12.5px;
+      color: #64748b;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .page-btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .page-btn.active {
+      background: #2563EB;
+      color: #ffffff;
+      border-color: #2563EB;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ---------------- RIGHT DOCKED DETAILS PANEL ---------------- */
+    .details-dock-panel {
+      width: 440px;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      overflow-y: auto;
+      transition: all 0.3s ease;
+      z-index: 80;
+    }
+
+    .details-dock-panel.closed {
+      display: none;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 5;
+    }
+
+    .panel-header h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .btn-close-panel {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: #f1f5f9;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-close-panel:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .panel-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      flex: 1;
+    }
+
+    /* Student info card */
+    .drawer-student-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .drawer-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .drawer-student-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .drawer-student-meta h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .drawer-student-meta .student-email-row {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .drawer-student-tags {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .drawer-timestamp {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* 2x2 Meta Grid */
+    .drawer-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .meta-box {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .meta-value {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* Section block */
+    .drawer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .drawer-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2563EB;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .drawer-link:hover {
+      text-decoration: underline;
+    }
+
+    .drawer-description-text {
+      font-size: 12.5px;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    /* Files List */
+    .files-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .file-item-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      transition: border-color 0.15s ease;
+    }
+
+    .file-item-card:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .file-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .file-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: #EFF6FF;
+      color: #2563EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .file-icon.pdf { background: #FEE2E2; color: #DC2626; }
+    .file-icon.csv { background: #DCFCE7; color: #16A34A; }
+    .file-icon.code { background: #F3E8FF; color: #9333EA; }
+
+    .file-details {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .file-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-size {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .btn-file-dl {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: all 0.15s;
+    }
+
+    .btn-file-dl:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* Code Preview Box */
+    .code-preview-container {
+      background: #0F172A;
+      border-radius: 8px;
+      padding: 12px 14px;
+      overflow-x: auto;
+    }
+
+    .code-preview-container pre {
+      margin: 0;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      color: #E2E8F0;
+      line-height: 1.5;
+    }
+
+    .code-kw { color: #F472B6; }
+    .code-var { color: #60A5FA; }
+    .code-str { color: #34D399; }
+    .code-comm { color: #64748B; font-style: italic; }
+
+    /* Feedback Card */
+    .feedback-review-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feedback-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reviewer-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #475569;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reviewer-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .reviewer-date {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .feedback-score-pill {
+      background: #DCFCE7;
+      color: #166534;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .feedback-comment {
+      font-size: 12.5px;
+      color: #334155;
+      line-height: 1.45;
+      font-style: italic;
+    }
+
+    .feedback-bottom-action {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-edit-feedback {
+      background: transparent;
+      border: none;
+      color: #2563EB;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-edit-feedback:hover {
+      text-decoration: underline;
+    }
+
+    /* Sticky Bottom Actions in Drawer */
+    .drawer-sticky-footer {
+      position: sticky;
+      bottom: 0;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .footer-btn-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-action-revision {
+      flex: 1;
+      background: #ffffff;
+      color: #DC2626;
+      border: 1px solid #DC2626;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-action-revision:hover {
+      background: #FEE2E2;
+    }
+
+    .btn-action-marks {
+      flex: 1;
+      background: #ffffff;
+      color: #2563EB;
+      border: 1px solid #2563EB;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-action-marks:hover {
+      background: #EFF6FF;
+    }
+
+    .btn-action-reviewed {
+      width: 100%;
+      background: #2563EB;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.15s;
+    }
+
+    .btn-action-reviewed:hover {
+      background: #1d4ed8;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- MODALS ---------------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 12px;
+      width: 500px;
+      max-width: 90vw;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .form-control {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: #0f172a;
+      outline: none;
+      transition: all 0.15s;
+    }
+
+    .form-control:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    textarea.form-control {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .details-dock-panel {
+        width: 380px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .btn-mobile-sidebar {
+        display: block;
+      }
+      .details-dock-panel {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .content-area {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+    <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem">Courses</a>
+          <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="live-classes.html" class="nav-subitem">Live Classes</a>
+          <a href="admin-quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="admin-resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
+          <a href="admin-projects.html" class="nav-subitem">Projects</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-applications.html" class="nav-subitem">Applications</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="javascript:void(0)" onclick="showToast('Certificates section opening soon')" class="nav-subitem">Certificates</a>
+        </div>
+      </div>
+
+      <!-- Tasks & Projects -->
+      <div class="nav-group open" id="navGroupTasks">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupTasks')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks & Projects</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-tasks.html" class="nav-subitem">All Tasks</a>
+          <a href="admin-all-projects.html" class="nav-subitem">All Projects</a>
+          <a href="admin-task-submissions.html" class="nav-subitem active-subitem">Task Submissions</a>
+          <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+          <a href="admin-assign-tasks.html" class="nav-subitem">Assign Tasks</a>
+          <a href="javascript:void(0)" onclick="showToast('Task Templates library opening soon')" class="nav-subitem">Task Templates</a>
+          <a href="javascript:void(0)" onclick="showToast('Recurring Tasks schedule opening soon')" class="nav-subitem">Recurring Tasks</a>
+        </div>
+      </div>
+
+      <!-- Companies & Mentors -->
+      <div class="nav-group" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building"></i>
+            <span>Companies & Mentors</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Partner Companies desk opening soon')" class="nav-subitem">Partner Companies</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentor Assignments</a>
+        </div>
+      </div>
+
+      <!-- Attendance & Reports -->
+      <div class="nav-group" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance & Reports</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Attendance: 87% (612 present, 68 absent)')" class="nav-subitem">Attendance</a>
+          <a href="javascript:void(0)" onclick="showToast('Weekly Reports: 46 submitted, 42 approved')" class="nav-subitem">Weekly Reports</a>
+        </div>
+      </div>
+
+      <!-- Certificates & LOR -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & LOR</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Generate Certificate desk opening soon')" class="nav-subitem">Generate Certificate</a>
+          <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation desk ready')" class="nav-subitem">Letter of Recommendation</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Exporting system reports...')" class="nav-subitem">Export Excel / PDF</a>
+          <a href="javascript:void(0)" onclick="showToast('Placement Metrics: 71% placement success rate')" class="nav-subitem">Placement Metrics</a>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="nav-group" id="navGroupFinance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupFinance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Total Revenue: ₹12,40,000 recorded')" class="nav-subitem">Payments</a>
+          <a href="javascript:void(0)" onclick="showToast('Refund Requests: 0 active')" class="nav-subitem">Refunds</a>
+          <a href="javascript:void(0)" onclick="showToast('Revenue statement ready for download')" class="nav-subitem">Revenue Reports</a>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="nav-group" id="navGroupComms">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupComms')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Announcements center opening soon')" class="nav-subitem">Announcements</a>
+          <a href="javascript:void(0)" onclick="showToast('Broadcast center: SMS & Email ready')" class="nav-subitem">Email / WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Admin Roles: Super Admin (Active)')" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN LAYOUT ================= -->
+  <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+    
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-mobile-sidebar" onclick="toggleSidebarMobile()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="topbar-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="topNavSearch" placeholder="Search across admin panel..." onkeyup="handleTopSearch(event)">
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-notification" onclick="showToast('You have 18 pending task reviews')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notification-dot"></span>
+        </div>
+
+        <div class="topbar-profile" onclick="window.location.href='admin-settings.html'">
+          <div class="profile-avatar">AD</div>
+          <div class="profile-info">
+            <span class="profile-name">Admin User</span>
+            <span class="profile-role">Administrator</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content + Right Dock -->
+    <div class="dashboard-layout">
+      
+      <!-- Content Area -->
+      <main class="content-area">
+        
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb-row">
+          <a href="admin-dashboard.html">Dashboard</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span>Tasks & Projects</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span class="current">Task Submissions</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header-row">
+          <div class="page-title-group">
+            <h1>Task Submissions</h1>
+            <p>Review and grade intern assignment submissions</p>
+          </div>
+          <div class="header-actions-group">
+            <button class="btn-outline" onclick="exportSubmissionsCSV()">
+              <i class="fa-solid fa-download"></i>
+              <span>Export Submissions</span>
+            </button>
+            <a href="admin-assign-tasks.html" class="btn-primary-action">
+              <i class="fa-solid fa-plus"></i>
+              <span>Assign New Task</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 KPI Metrics Cards -->
+        <div class="kpi-grid">
+          <!-- Card 1: Total Submissions -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-blue">
+              <i class="fa-solid fa-clipboard-check"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiTotal">86</h3>
+              <span class="kpi-label-text">Total Submissions</span>
+              <span class="kpi-subtext">All internship tasks</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Reviewed -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-green">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiReviewed">52</h3>
+              <span class="kpi-label-text">Reviewed</span>
+              <span class="kpi-subtext"><span class="kpi-percent-badge kpi-percent-green" id="kpiReviewedPercent">60%</span> of total</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Pending Review -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-amber">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiPending">18</h3>
+              <span class="kpi-label-text">Pending Review</span>
+              <span class="kpi-subtext"><span class="kpi-percent-badge kpi-percent-amber" id="kpiPendingPercent">21%</span> of total</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Needs Revision -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-red">
+              <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiNeedsRevision">8</h3>
+              <span class="kpi-label-text">Needs Revision</span>
+              <span class="kpi-subtext"><span class="kpi-percent-badge kpi-percent-red" id="kpiNeedsRevPercent">9%</span> of total</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Not Submitted -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-gray">
+              <i class="fa-solid fa-ban"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiNotSubmitted">6</h3>
+              <span class="kpi-label-text">Not Submitted</span>
+              <span class="kpi-subtext"><span class="kpi-percent-badge kpi-percent-gray" id="kpiNotSubPercent">7%</span> of total</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Panel + Tabs -->
+        <div class="filter-panel">
+          <div class="filter-row-top">
+            <div class="filter-search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="searchInput" placeholder="Search by student, task..." oninput="debounceSearch()">
+            </div>
+
+            <select class="filter-select" id="courseFilter" onchange="applyFilters()">
+              <option value="all">All Courses</option>
+            </select>
+
+            <select class="filter-select" id="taskFilter" onchange="applyFilters()">
+              <option value="all">All Tasks</option>
+            </select>
+
+            <button class="filter-date-btn" onclick="toggleDateFilterPrompt()">
+              <i class="fa-regular fa-calendar"></i>
+              <span id="dateFilterLabel">All Dates</span>
+            </button>
+
+            <button class="btn-reset-filters" onclick="resetFilters()">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+
+          <!-- Status Tabs -->
+          <div class="filter-tabs-row">
+            <button class="tab-btn active" data-status="all" onclick="switchTab(this, 'all')">
+              <span>All Submissions</span>
+              <span class="tab-count-pill" id="tabCountAll">86</span>
+            </button>
+            <button class="tab-btn" data-status="Pending" onclick="switchTab(this, 'Pending')">
+              <span>Pending Review</span>
+              <span class="tab-count-pill" id="tabCountPending">18</span>
+            </button>
+            <button class="tab-btn" data-status="Reviewed" onclick="switchTab(this, 'Reviewed')">
+              <span>Reviewed</span>
+              <span class="tab-count-pill" id="tabCountReviewed">52</span>
+            </button>
+            <button class="tab-btn" data-status="Needs Revision" onclick="switchTab(this, 'Needs Revision')">
+              <span>Needs Revision</span>
+              <span class="tab-count-pill" id="tabCountNeedsRev">8</span>
+            </button>
+            <button class="tab-btn" data-status="Not Submitted" onclick="switchTab(this, 'Not Submitted')">
+              <span>Not Submitted</span>
+              <span class="tab-count-pill" id="tabCountNotSub">6</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+          <div class="table-responsive">
+            <table class="submissions-table" id="submissionsTable">
+              <thead>
+                <tr>
+                  <th class="cell-checkbox">
+                    <input type="checkbox" id="selectAllCheckbox" onclick="toggleSelectAll(this)">
+                  </th>
+                  <th>TASK</th>
+                  <th>STUDENT</th>
+                  <th>COURSE</th>
+                  <th>SUBMITTED ON</th>
+                  <th>DUE DATE</th>
+                  <th>STATUS</th>
+                  <th>MARKS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody id="submissionsTableBody">
+                <!-- Dynamically rendered rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer / Pagination -->
+          <div class="table-footer">
+            <div id="paginationSummary">Showing 1 to 10 of 86 submissions</div>
+            <div class="pagination-controls" id="paginationControls">
+              <!-- Dynamically populated buttons -->
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- ================= RIGHT DOCKED DETAILS PANEL ================= -->
+      <aside class="details-dock-panel" id="detailsDockPanel">
+        <div class="panel-header">
+          <h3>Submission Details</h3>
+          <button class="btn-close-panel" onclick="closeDetailsPanel()" title="Close details">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="panel-body" id="drawerBody">
+          <!-- Dynamically populated drawer content -->
+        </div>
+
+        <!-- Sticky Footer Action Buttons -->
+        <div class="drawer-sticky-footer" id="drawerFooter">
+          <div class="footer-btn-row">
+            <button class="btn-action-revision" onclick="openRevisionModal()">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Request Revision</span>
+            </button>
+            <button class="btn-action-marks" onclick="openMarksModal()">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Update Marks</span>
+            </button>
+          </div>
+          <button class="btn-action-reviewed" onclick="markCurrentAsReviewed()">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Mark as Reviewed</span>
+          </button>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ================= UPDATE MARKS / REVIEW MODAL ================= -->
+  <div class="modal-overlay" id="marksModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Update Marks & Feedback</h3>
+        <button class="btn-close-panel" onclick="closeModal('marksModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="drawer-meta-grid" style="margin-bottom: 4px;">
+          <div class="meta-box">
+            <span class="meta-label">Student</span>
+            <span class="meta-value" id="modalStudentName">Rahul Sharma</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Task</span>
+            <span class="meta-value" id="modalTaskTitle">Data Cleaning Assignment</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Awarded Score</label>
+            <input type="number" class="form-control" id="modalScoreInput" min="0" max="100" placeholder="e.g. 9">
+          </div>
+          <div class="form-group">
+            <label>Max Score</label>
+            <input type="number" class="form-control" id="modalMaxScoreInput" min="1" max="100" placeholder="e.g. 10">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Submission Status</label>
+          <select class="form-control" id="modalStatusSelect">
+            <option value="Reviewed">Reviewed</option>
+            <option value="Needs Revision">Needs Revision</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Reviewer Feedback / Comments</label>
+          <textarea class="form-control" id="modalFeedbackInput" placeholder="Provide constructive comments, strengths, or suggestions for improvement..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeModal('marksModal')">Cancel</button>
+        <button class="btn-primary-action" onclick="submitReviewUpdate()">Save Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= REQUEST REVISION MODAL ================= -->
+  <div class="modal-overlay" id="revisionModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Request Revision</h3>
+        <button class="btn-close-panel" onclick="closeModal('revisionModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569;">
+          Specify the fixes required before this submission can be accepted. The student will be notified and given the option to re-submit.
+        </p>
+
+        <div class="form-group">
+          <label>Revision Notes / Instructions</label>
+          <textarea class="form-control" id="modalRevisionNotes" placeholder="e.g. Please address missing outlier analysis and re-upload the complete notebook."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeModal('revisionModal')">Cancel</button>
+        <button class="btn-action-revision" style="flex: unset; padding: 9px 18px;" onclick="submitRevisionRequest()">Send Request</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let submissionsData = [];
+    let activeSubmissionId = null;
+    let currentFilterStatus = 'all';
+    let currentCourse = 'all';
+    let currentTask = 'all';
+    let currentDate = 'all';
+    let currentSearch = '';
+    let currentPage = 1;
+    let limitPerPage = 10;
+    let totalItems = 86;
+    let searchDebounceTimer = null;
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchSubmissions();
+    });
+
+    // Fetch submissions from API
+    async function fetchSubmissions() {
+      try {
+        const queryParams = new URLSearchParams({
+          page: currentPage,
+          limit: limitPerPage,
+          status: currentFilterStatus,
+          course: currentCourse,
+          task: currentTask,
+          date: currentDate,
+          search: currentSearch
+        });
+
+        const res = await fetch(`/api/admin/task-submissions?${queryParams.toString()}`);
+        if (!res.ok) throw new Error('Failed to fetch task submissions');
+        const data = await res.json();
+
+        submissionsData = data.submissions || [];
+        totalItems = data.pagination ? data.pagination.total : submissionsData.length;
+
+        // Populate KPIs
+        if (data.kpis) {
+          document.getElementById('kpiTotal').textContent = data.kpis.total;
+          document.getElementById('kpiReviewed').textContent = data.kpis.reviewed;
+          document.getElementById('kpiReviewedPercent').textContent = `${data.kpis.reviewedPercent}%`;
+          document.getElementById('kpiPending').textContent = data.kpis.pending;
+          document.getElementById('kpiPendingPercent').textContent = `${data.kpis.pendingPercent}%`;
+          document.getElementById('kpiNeedsRevision').textContent = data.kpis.needsRevision;
+          document.getElementById('kpiNeedsRevPercent').textContent = `${data.kpis.needsRevisionPercent}%`;
+          document.getElementById('kpiNotSubmitted').textContent = data.kpis.notSubmitted;
+          document.getElementById('kpiNotSubPercent').textContent = `${data.kpis.notSubmittedPercent}%`;
+
+          // Tab count pills
+          document.getElementById('tabCountAll').textContent = data.kpis.total;
+          document.getElementById('tabCountPending').textContent = data.kpis.pending;
+          document.getElementById('tabCountReviewed').textContent = data.kpis.reviewed;
+          document.getElementById('tabCountNeedsRev').textContent = data.kpis.needsRevision;
+          document.getElementById('tabCountNotSub').textContent = data.kpis.notSubmitted;
+        }
+
+        // Populate dropdown options once
+        if (data.filters) {
+          populateDropdown('courseFilter', data.filters.courses, currentCourse, 'All Courses');
+          populateDropdown('taskFilter', data.filters.tasks, currentTask, 'All Tasks');
+        }
+
+        // Render Table
+        renderTable();
+
+        // Render Pagination
+        renderPagination(data.pagination);
+
+        // Select first row if not already selected or if active is lost
+        if (submissionsData.length > 0) {
+          const currentExists = submissionsData.some(s => s._id === activeSubmissionId);
+          if (!activeSubmissionId || !currentExists) {
+            selectSubmission(submissionsData[0]._id);
+          } else {
+            const activeSub = submissionsData.find(s => s._id === activeSubmissionId);
+            renderDetailsDrawer(activeSub);
+          }
+        } else {
+          renderEmptyDetails();
+        }
+
+      } catch (err) {
+        console.error('Error fetching submissions:', err);
+        showToast('Error loading submissions. Please retry.');
+      }
+    }
+
+    function populateDropdown(elemId, items, selectedValue, defaultLabel) {
+      const select = document.getElementById(elemId);
+      if (!select || select.children.length > 1) return; // Keep if already initialized
+
+      select.innerHTML = `<option value="all">${defaultLabel}</option>`;
+      (items || []).forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item;
+        opt.textContent = item;
+        if (item === selectedValue) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    // Render Table rows
+    function renderTable() {
+      const tbody = document.getElementById('submissionsTableBody');
+      tbody.innerHTML = '';
+
+      if (submissionsData.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 40px; color: #64748b;">
+              <i class="fa-solid fa-folder-open" style="font-size: 28px; margin-bottom: 8px; color: #cbd5e1; display: block;"></i>
+              No task submissions matching current filters.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      submissionsData.forEach(sub => {
+        const isSelected = (sub._id === activeSubmissionId);
+        const tr = document.createElement('tr');
+        tr.className = isSelected ? 'row-selected' : '';
+        tr.onclick = (e) => {
+          // If click was on checkbox, don't trigger row selection logic twice
+          if (e.target.type !== 'checkbox' && !e.target.closest('.action-icons-row')) {
+            selectSubmission(sub._id);
+          }
+        };
+
+        const statusClass = getStatusClass(sub.status);
+        const marksFormatted = sub.marks && sub.marks !== '-' ? sub.marks : '-';
+        const initials = sub.student?.avatarInitials || getInitials(sub.student?.name);
+        const avatarColor = sub.student?.avatarColor || '#2563EB';
+
+        tr.innerHTML = `
+          <td class="cell-checkbox" onclick="event.stopPropagation()">
+            <input type="checkbox" class="row-checkbox" value="${sub._id}">
+          </td>
+          <td>
+            <div class="task-cell">
+              <span class="task-cell-title">${escapeHTML(sub.taskTitle)}</span>
+              <span class="task-cell-sub">${escapeHTML(sub.taskSubtitle || '')}</span>
+            </div>
+          </td>
+          <td>
+            <div class="student-cell">
+              <div class="student-avatar" style="background: ${avatarColor};">${initials}</div>
+              <div class="student-info">
+                <span class="student-name">${escapeHTML(sub.student?.name || 'Student')}</span>
+                <span class="student-email">${escapeHTML(sub.student?.email || '')}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="course-badge">${escapeHTML(sub.course || 'Data Analytics')}</span>
+          </td>
+          <td>
+            <span style="font-size: 12px; color: #334155; font-weight: 500;">${sub.submittedOn || '-'}</span>
+          </td>
+          <td>
+            <span style="font-size: 12px; color: #64748b; font-weight: 500;">${sub.dueDate || '-'}</span>
+          </td>
+          <td>
+            <span class="status-pill ${statusClass}">
+              <span class="status-dot"></span>
+              <span>${sub.status}</span>
+            </span>
+          </td>
+          <td>
+            <span class="marks-text ${marksFormatted === '-' ? 'marks-empty' : ''}">${marksFormatted}</span>
+          </td>
+          <td onclick="event.stopPropagation()">
+            <div class="action-icons-row">
+              <button class="btn-action-icon view-btn" title="View Details" onclick="selectSubmission('${sub._id}')">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+              <button class="btn-action-icon" title="Grade / Feedback" onclick="quickEditMarks('${sub._id}')">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="btn-action-icon" title="More options" onclick="showToast('Submission #${sub.order || 1} selected')">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function getStatusClass(status) {
+      switch (status) {
+        case 'Reviewed': return 'status-reviewed';
+        case 'Pending': return 'status-pending';
+        case 'Needs Revision': return 'status-needs-revision';
+        case 'Not Submitted': return 'status-not-submitted';
+        default: return 'status-pending';
+      }
+    }
+
+    // Select row and render in right drawer
+    function selectSubmission(id) {
+      activeSubmissionId = id;
+      
+      // Update selected class in table
+      const rows = document.querySelectorAll('#submissionsTableBody tr');
+      rows.forEach(r => r.classList.remove('row-selected'));
+      
+      const sub = submissionsData.find(s => s._id === id);
+      if (sub) {
+        const targetRow = Array.from(rows).find(r => r.querySelector(`.row-checkbox[value="${id}"]`));
+        if (targetRow) targetRow.classList.add('row-selected');
+        renderDetailsDrawer(sub);
+      }
+    }
+
+    // Render Right Dock Details Panel
+    function renderDetailsDrawer(sub) {
+      const drawer = document.getElementById('detailsDockPanel');
+      drawer.classList.remove('closed');
+      const body = document.getElementById('drawerBody');
+
+      const initials = sub.student?.avatarInitials || getInitials(sub.student?.name);
+      const avatarColor = sub.student?.avatarColor || '#2563EB';
+      const statusClass = getStatusClass(sub.status);
+      const marksVal = sub.marks && sub.marks !== '-' ? sub.marks : '-';
+
+      // Files HTML
+      let filesHtml = '';
+      if (sub.files && sub.files.length > 0) {
+        filesHtml = sub.files.map(f => {
+          let iconClass = 'fa-file-lines';
+          let boxClass = 'file-icon';
+          if (f.name.endsWith('.ipynb') || f.name.endsWith('.py') || f.name.endsWith('.tsx') || f.name.endsWith('.js')) {
+            iconClass = 'fa-code';
+            boxClass = 'file-icon code';
+          } else if (f.name.endsWith('.csv') || f.name.endsWith('.xlsx')) {
+            iconClass = 'fa-table';
+            boxClass = 'file-icon csv';
+          } else if (f.name.endsWith('.pdf')) {
+            iconClass = 'fa-file-pdf';
+            boxClass = 'file-icon pdf';
+          }
+          return `
+            <div class="file-item-card">
+              <div class="file-item-left">
+                <div class="${boxClass}"><i class="fa-solid ${iconClass}"></i></div>
+                <div class="file-details">
+                  <span class="file-name" title="${escapeHTML(f.name)}">${escapeHTML(f.name)}</span>
+                  <span class="file-size">${f.size || '1.0 MB'}</span>
+                </div>
+              </div>
+              <button class="btn-file-dl" title="Download ${escapeHTML(f.name)}" onclick="downloadFileDemo('${escapeHTML(f.name)}')">
+                <i class="fa-solid fa-arrow-down-to-line"></i>
+              </button>
+            </div>
+          `;
+        }).join('');
+      } else {
+        filesHtml = `<div style="font-size: 12px; color: #94a3b8; font-style: italic;">No files uploaded yet.</div>`;
+      }
+
+      // Code preview HTML
+      let codePreviewHtml = '';
+      if (sub.codePreview && sub.codePreview.code) {
+        codePreviewHtml = `
+          <div class="drawer-section">
+            <div class="drawer-section-title">
+              <span>Preview (${escapeHTML(sub.codePreview.fileName || 'source_code')})</span>
+              <a class="drawer-link" href="javascript:void(0)" onclick="openCodeSnippetTab('${escapeHTML(sub.codePreview.fileName)}')">
+                <span>Open in New Tab</span>
+                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i>
+              </a>
+            </div>
+            <div class="code-preview-container">
+              <pre><code>${formatCodeSyntax(sub.codePreview.code)}</code></pre>
+            </div>
+          </div>
+        `;
+      }
+
+      // Feedback HTML
+      let feedbackHtml = '';
+      if (sub.feedback && sub.feedback.score) {
+        feedbackHtml = `
+          <div class="drawer-section">
+            <div class="drawer-section-title">
+              <span>Feedback & Review</span>
+            </div>
+            <div class="feedback-review-card">
+              <div class="feedback-top-row">
+                <div class="reviewer-info">
+                  <div class="reviewer-avatar">${sub.feedback.reviewerInitials || 'AD'}</div>
+                  <div>
+                    <div class="reviewer-name">${escapeHTML(sub.feedback.reviewerName || 'Admin')}</div>
+                    <div class="reviewer-date">${sub.feedback.date || 'Recently'}</div>
+                  </div>
+                </div>
+                <div class="feedback-score-pill">${sub.feedback.score}</div>
+              </div>
+              <div class="feedback-comment">"${escapeHTML(sub.feedback.comment || 'Good progress')}"</div>
+              <div class="feedback-bottom-action">
+                <button class="btn-edit-feedback" onclick="openMarksModal()">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <span>Edit</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        feedbackHtml = `
+          <div class="drawer-section">
+            <div class="drawer-section-title">
+              <span>Feedback & Review</span>
+            </div>
+            <div style="background: #F8FAFC; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 14px; text-align: center;">
+              <span style="font-size: 12px; color: #64748b;">No feedback provided yet.</span>
+              <div style="margin-top: 8px;">
+                <button class="btn-outline" style="padding: 5px 12px; font-size: 11.5px;" onclick="openMarksModal()">
+                  <i class="fa-solid fa-plus"></i> Add Feedback
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      body.innerHTML = `
+        <!-- Student Info -->
+        <div class="drawer-student-card">
+          <div class="drawer-avatar" style="background: ${avatarColor};">${initials}</div>
+          <div class="drawer-student-meta">
+            <h4>${escapeHTML(sub.student?.name || 'Student')}</h4>
+            <div class="student-email-row">${escapeHTML(sub.student?.email || '')}</div>
+            <div class="drawer-student-tags">
+              <span class="status-pill ${statusClass}">
+                <span class="status-dot"></span>
+                <span>${sub.status}</span>
+              </span>
+              <span class="drawer-timestamp">Submitted on ${sub.submittedOn || 'N/A'}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2x2 Meta Grid -->
+        <div class="drawer-meta-grid">
+          <div class="meta-box">
+            <span class="meta-label">Task Title</span>
+            <span class="meta-value">${escapeHTML(sub.taskTitle)}</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Course</span>
+            <span class="meta-value">${escapeHTML(sub.course || 'Data Analytics')}</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Due Date</span>
+            <span class="meta-value">${sub.dueDate || '-'}</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Marks</span>
+            <span class="meta-value" style="color: ${marksVal !== '-' ? '#16A34A' : '#64748B'};">${marksVal}</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="drawer-section">
+          <div class="drawer-section-title">Description</div>
+          <p class="drawer-description-text">${escapeHTML(sub.description || sub.taskSubtitle || 'No description provided.')}</p>
+        </div>
+
+        <!-- Submitted Files -->
+        <div class="drawer-section">
+          <div class="drawer-section-title">
+            <span>Submitted Files (${sub.files ? sub.files.length : 0})</span>
+            <a class="drawer-link" href="javascript:void(0)" onclick="downloadAllFilesDemo()">
+              <i class="fa-solid fa-cloud-arrow-down"></i>
+              <span>Download All</span>
+            </a>
+          </div>
+          <div class="files-list">
+            ${filesHtml}
+          </div>
+        </div>
+
+        <!-- Code Preview -->
+        ${codePreviewHtml}
+
+        <!-- Feedback & Review -->
+        ${feedbackHtml}
+      `;
+    }
+
+    function renderEmptyDetails() {
+      const body = document.getElementById('drawerBody');
+      body.innerHTML = `
+        <div style="text-align: center; padding: 60px 20px; color: #94a3b8;">
+          <i class="fa-solid fa-list-check" style="font-size: 32px; margin-bottom: 12px; color: #cbd5e1;"></i>
+          <p style="font-size: 13px;">Select a submission row from the table to view complete details, preview code, and submit grades.</p>
+        </div>
+      `;
+    }
+
+    function closeDetailsPanel() {
+      const drawer = document.getElementById('detailsDockPanel');
+      drawer.classList.add('closed');
+    }
+
+    // Syntax highlight helper for Python snippet
+    function formatCodeSyntax(code) {
+      if (!code) return '';
+      return escapeHTML(code)
+        .replace(/(import|from|def|return|class|if|else|elif|for|in|as)/g, '<span class="code-kw">$1</span>')
+        .replace(/(pd|df|plt|sns|X_train|y_train)/g, '<span class="code-var">$1</span>')
+        .replace(/('[\w\s._-]+'|"[\w\s._-]+")/g, '<span class="code-str">$1</span>')
+        .replace(/(#.*)/g, '<span class="code-comm">$1</span>');
+    }
+
+    // Pagination render
+    function renderPagination(pagination) {
+      const summary = document.getElementById('paginationSummary');
+      const controls = document.getElementById('paginationControls');
+
+      if (!pagination) return;
+      const start = (pagination.page - 1) * pagination.limit + 1;
+      const end = Math.min(pagination.page * pagination.limit, pagination.total);
+
+      summary.textContent = `Showing ${pagination.total === 0 ? 0 : start} to ${end} of ${pagination.total} submissions`;
+
+      controls.innerHTML = '';
+
+      // Prev button
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-btn';
+      prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+      prevBtn.disabled = (pagination.page <= 1);
+      prevBtn.onclick = () => { currentPage--; fetchSubmissions(); };
+      controls.appendChild(prevBtn);
+
+      // Page numbers (smart window around current page)
+      const totalPages = pagination.totalPages;
+      for (let p = 1; p <= totalPages; p++) {
+        if (p === 1 || p === totalPages || (p >= pagination.page - 1 && p <= pagination.page + 1)) {
+          const btn = document.createElement('button');
+          btn.className = `page-btn ${p === pagination.page ? 'active' : ''}`;
+          btn.textContent = p;
+          btn.onclick = () => { currentPage = p; fetchSubmissions(); };
+          controls.appendChild(btn);
+        } else if (p === pagination.page - 2 || p === pagination.page + 2) {
+          const ellipsis = document.createElement('span');
+          ellipsis.textContent = '...';
+          ellipsis.style.padding = '0 4px';
+          ellipsis.style.color = '#94a3b8';
+          controls.appendChild(ellipsis);
+        }
+      }
+
+      // Next button
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-btn';
+      nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+      nextBtn.disabled = (pagination.page >= totalPages);
+      nextBtn.onclick = () => { currentPage++; fetchSubmissions(); };
+      controls.appendChild(nextBtn);
+    }
+
+    // Filter Handlers
+    function switchTab(btn, status) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilterStatus = status;
+      currentPage = 1;
+      fetchSubmissions();
+    }
+
+    function applyFilters() {
+      currentCourse = document.getElementById('courseFilter').value;
+      currentTask = document.getElementById('taskFilter').value;
+      currentPage = 1;
+      fetchSubmissions();
+    }
+
+    function debounceSearch() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        currentSearch = document.getElementById('searchInput').value.trim();
+        currentPage = 1;
+        fetchSubmissions();
+      }, 250);
+    }
+
+    function handleTopSearch(e) {
+      if (e.key === 'Enter') {
+        const val = document.getElementById('topNavSearch').value.trim();
+        document.getElementById('searchInput').value = val;
+        currentSearch = val;
+        currentPage = 1;
+        fetchSubmissions();
+      }
+    }
+
+    function toggleDateFilterPrompt() {
+      const selected = prompt('Filter by submission month or day (e.g. "25 Oct", "Oct 2026"):', currentDate !== 'all' ? currentDate : '');
+      if (selected !== null) {
+        currentDate = selected.trim() ? selected.trim() : 'all';
+        document.getElementById('dateFilterLabel').textContent = currentDate !== 'all' ? currentDate : 'All Dates';
+        currentPage = 1;
+        fetchSubmissions();
+      }
+    }
+
+    function resetFilters() {
+      currentFilterStatus = 'all';
+      currentCourse = 'all';
+      currentTask = 'all';
+      currentDate = 'all';
+      currentSearch = '';
+      currentPage = 1;
+
+      document.getElementById('searchInput').value = '';
+      document.getElementById('courseFilter').value = 'all';
+      document.getElementById('taskFilter').value = 'all';
+      document.getElementById('dateFilterLabel').textContent = 'All Dates';
+      document.querySelectorAll('.tab-btn').forEach((b, idx) => {
+        if (idx === 0) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+
+      fetchSubmissions();
+      showToast('Filters reset to default');
+    }
+
+    function toggleSelectAll(masterCheckbox) {
+      const boxes = document.querySelectorAll('.row-checkbox');
+      boxes.forEach(cb => { cb.checked = masterCheckbox.checked; });
+    }
+
+    // Modals
+    function openMarksModal() {
+      const sub = submissionsData.find(s => s._id === activeSubmissionId);
+      if (!sub) {
+        showToast('Please select a submission first');
+        return;
+      }
+
+      document.getElementById('modalStudentName').textContent = sub.student?.name || 'Student';
+      document.getElementById('modalTaskTitle').textContent = sub.taskTitle;
+      document.getElementById('modalScoreInput').value = sub.score !== null ? sub.score : 9;
+      document.getElementById('modalMaxScoreInput').value = sub.maxScore || 10;
+      document.getElementById('modalStatusSelect').value = sub.status === 'Not Submitted' ? 'Reviewed' : sub.status;
+      document.getElementById('modalFeedbackInput').value = sub.feedback?.comment || '';
+
+      document.getElementById('marksModal').classList.add('active');
+    }
+
+    function quickEditMarks(id) {
+      selectSubmission(id);
+      openMarksModal();
+    }
+
+    function openRevisionModal() {
+      const sub = submissionsData.find(s => s._id === activeSubmissionId);
+      if (!sub) {
+        showToast('Please select a submission first');
+        return;
+      }
+      document.getElementById('modalRevisionNotes').value = sub.feedback?.comment || 'Please fix the highlighted issues and resubmit.';
+      document.getElementById('revisionModal').classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    // API Submissions: Update marks
+    async function submitReviewUpdate() {
+      try {
+        const score = parseInt(document.getElementById('modalScoreInput').value, 10);
+        const maxScore = parseInt(document.getElementById('modalMaxScoreInput').value, 10);
+        const status = document.getElementById('modalStatusSelect').value;
+        const comment = document.getElementById('modalFeedbackInput').value.trim();
+
+        if (isNaN(score) || isNaN(maxScore)) {
+          alert('Please enter valid numeric score and max score');
+          return;
+        }
+
+        const marks = `${score} / ${maxScore}`;
+
+        const res = await fetch(`/api/admin/task-submissions/${activeSubmissionId}/review`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            score,
+            maxScore,
+            marks,
+            status,
+            comment,
+            reviewerName: 'Admin'
+          })
+        });
+
+        if (!res.ok) throw new Error('Failed to update review');
+        const data = await res.json();
+
+        closeModal('marksModal');
+        showToast(`Review updated: ${marks}`);
+        fetchSubmissions();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error saving review. Please try again.');
+      }
+    }
+
+    // API Submissions: Request revision
+    async function submitRevisionRequest() {
+      try {
+        const comment = document.getElementById('modalRevisionNotes').value.trim();
+
+        const res = await fetch(`/api/admin/task-submissions/${activeSubmissionId}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            status: 'Needs Revision',
+            comment
+          })
+        });
+
+        if (!res.ok) throw new Error('Failed to request revision');
+        closeModal('revisionModal');
+        showToast('Revision request sent to student');
+        fetchSubmissions();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error updating status');
+      }
+    }
+
+    // API Submissions: Mark as Reviewed
+    async function markCurrentAsReviewed() {
+      const sub = submissionsData.find(s => s._id === activeSubmissionId);
+      if (!sub) return;
+
+      try {
+        const score = sub.score !== null ? sub.score : 9;
+        const maxScore = sub.maxScore || 10;
+        const marks = `${score} / ${maxScore}`;
+
+        const res = await fetch(`/api/admin/task-submissions/${activeSubmissionId}/review`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            status: 'Reviewed',
+            score,
+            maxScore,
+            marks,
+            comment: sub.feedback?.comment || 'All task criteria satisfied.',
+            reviewerName: 'Admin'
+          })
+        });
+
+        if (!res.ok) throw new Error('Failed to update status');
+        showToast('Marked as Reviewed');
+        fetchSubmissions();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error marking as reviewed');
+      }
+    }
+
+    // CSV Export
+    function exportSubmissionsCSV() {
+      if (submissionsData.length === 0) {
+        showToast('No submissions to export');
+        return;
+      }
+
+      const headers = ['Order', 'Task Title', 'Student Name', 'Student Email', 'Course', 'Submitted On', 'Due Date', 'Status', 'Marks'];
+      const rows = submissionsData.map(s => [
+        s.order || 1,
+        `"${(s.taskTitle || '').replace(/"/g, '""')}"`,
+        `"${(s.student?.name || '').replace(/"/g, '""')}"`,
+        s.student?.email || '',
+        s.course || '',
+        s.submittedOn || '',
+        s.dueDate || '',
+        s.status || '',
+        s.marks || '-'
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `Edurup_Task_Submissions_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Exported submissions CSV');
+    }
+
+    function downloadFileDemo(name) {
+      showToast(`Downloading file: ${name}`);
+    }
+
+    function downloadAllFilesDemo() {
+      showToast('Downloading all submission files as ZIP archive...');
+    }
+
+    function openCodeSnippetTab(filename) {
+      showToast(`Opening ${filename} in full-screen code viewer...`);
+    }
+
+    // Utilities
+    function getInitials(name) {
+      if (!name) return 'ST';
+      return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+
+  <!-- Sidebar helper functions & styles -->
+  <style>
+    /* ---------------- UNIFIED ADMIN SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: #0B132B !important;
+      color: #cbd5e1 !important;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active {
+      background: #2563eb !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff !important;
+      background: rgba(37, 99, 235, 0.15) !important;
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #64748b;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 36px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      display: block;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      background: #2563eb !important;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 900px) {
+      aside.sidebar {
+        position: fixed;
+        left: -260px;
+      }
+      aside.sidebar.mobile-open {
+        left: 0;
+      }
+    }
+  </style>
+
+  <script>
+    if (typeof toggleNavGroup !== 'function') {
+      window.toggleNavGroup = function(groupId) {
+        const el = document.getElementById(groupId);
+        if (el) el.classList.toggle('open');
+      };
+    }
+    if (typeof showToast !== 'function') {
+      window.showToast = function(text) {
+        let toast = document.getElementById('toastMsg');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'toastMsg';
+          toast.className = 'toast-msg';
+          toast.innerHTML = '<i class="fa-solid fa-circle-check" style="color: #22c55e;"></i><span id="toastText"></span>';
+          document.body.appendChild(toast);
+        }
+        const textElem = toast.querySelector('#toastText') || toast;
+        textElem.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      };
+    }
+    if (typeof toggleSidebarMobile !== 'function') {
+      window.toggleSidebarMobile = function() {
+        const sb = document.getElementById('adminSidebar');
+        if (sb) sb.classList.toggle('mobile-open');
+      };
+    }
+  </script>
+</body>
+</html>

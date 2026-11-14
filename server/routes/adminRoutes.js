@@ -15,6 +15,7 @@ const Mentor = require('../models/Mentor');
 const Resource = require('../models/Resource');
 const Task = require('../models/Task');
 const SubscriptionStudent = require('../models/SubscriptionStudent');
+const TaskSubmission = require('../models/TaskSubmission');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -3193,6 +3194,208 @@ router.post('/tasks/assign-bulk', async (req, res) => {
     });
   } catch (err) {
     console.error('Assign Bulk Tasks Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// TASK SUBMISSIONS API (Internship Management)
+// ==========================================
+
+// @route   GET /api/admin/task-submissions
+// @desc    Get all task submissions with KPI metrics, filters, and pagination
+router.get('/task-submissions', async (req, res) => {
+  try {
+    const {
+      search,
+      course,
+      task,
+      status,
+      date,
+      page = 1,
+      limit = 10,
+      sortBy = 'order',
+      sortOrder = 'asc'
+    } = req.query;
+
+    const query = {};
+
+    // Tab / Status filter
+    if (status && status !== 'all' && status !== 'All') {
+      if (status === 'Pending Review' || status === 'Pending') {
+        query.status = 'Pending';
+      } else {
+        query.status = status;
+      }
+    }
+
+    // Course filter
+    if (course && course !== 'all' && course !== 'All Courses') {
+      query.course = course;
+    }
+
+    // Task filter
+    if (task && task !== 'all' && task !== 'All Tasks') {
+      query.taskTitle = task;
+    }
+
+    // Search query (Student Name, Email, Task Title)
+    if (search && search.trim()) {
+      const sRegex = new RegExp(search.trim(), 'i');
+      query.$or = [
+        { 'student.name': sRegex },
+        { 'student.email': sRegex },
+        { taskTitle: sRegex },
+        { course: sRegex }
+      ];
+    }
+
+    // Optional date filter
+    if (date && date !== 'all' && date !== 'All Dates') {
+      query.submittedOn = new RegExp(date, 'i');
+    }
+
+    // KPI counts
+    const [totalCount, reviewedCount, pendingCount, needsRevisionCount, notSubmittedCount] = await Promise.all([
+      TaskSubmission.countDocuments(),
+      TaskSubmission.countDocuments({ status: 'Reviewed' }),
+      TaskSubmission.countDocuments({ status: 'Pending' }),
+      TaskSubmission.countDocuments({ status: 'Needs Revision' }),
+      TaskSubmission.countDocuments({ status: 'Not Submitted' })
+    ]);
+
+    const pageNum = Math.max(1, parseInt(page, 10));
+    const limitNum = Math.max(1, parseInt(limit, 10));
+    const skip = (pageNum - 1) * limitNum;
+
+    // Sort order
+    const sortObj = {};
+    if (sortBy === 'order') {
+      sortObj.order = sortOrder === 'desc' ? -1 : 1;
+    } else if (sortBy === 'submittedOn') {
+      sortObj.submittedOnRaw = sortOrder === 'desc' ? -1 : 1;
+    } else {
+      sortObj[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    }
+
+    const [submissions, totalMatching] = await Promise.all([
+      TaskSubmission.find(query).sort(sortObj).skip(skip).limit(limitNum),
+      TaskSubmission.countDocuments(query)
+    ]);
+
+    // Unique courses and task titles for filters
+    const [distinctCourses, distinctTasks] = await Promise.all([
+      TaskSubmission.distinct('course'),
+      TaskSubmission.distinct('taskTitle')
+    ]);
+
+    return res.json({
+      success: true,
+      submissions,
+      pagination: {
+        total: totalMatching,
+        page: pageNum,
+        limit: limitNum,
+        totalPages: Math.ceil(totalMatching / limitNum) || 1
+      },
+      kpis: {
+        total: totalCount,
+        reviewed: reviewedCount,
+        reviewedPercent: Math.round((reviewedCount / (totalCount || 1)) * 100),
+        pending: pendingCount,
+        pendingPercent: Math.round((pendingCount / (totalCount || 1)) * 100),
+        needsRevision: needsRevisionCount,
+        needsRevisionPercent: Math.round((needsRevisionCount / (totalCount || 1)) * 100),
+        notSubmitted: notSubmittedCount,
+        notSubmittedPercent: Math.round((notSubmittedCount / (totalCount || 1)) * 100)
+      },
+      filters: {
+        courses: distinctCourses.sort(),
+        tasks: distinctTasks.sort()
+      }
+    });
+  } catch (err) {
+    console.error('Fetch Task Submissions Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/task-submissions/:id
+// @desc    Get details for a single task submission
+router.get('/task-submissions/:id', async (req, res) => {
+  try {
+    const submission = await TaskSubmission.findById(req.params.id);
+    if (!submission) {
+      return res.status(404).json({ success: false, message: 'Task submission not found' });
+    }
+    return res.json({ success: true, submission });
+  } catch (err) {
+    console.error('Fetch Submission Detail Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/task-submissions/:id/review
+// @desc    Review / Update marks and feedback for a submission
+router.put('/task-submissions/:id/review', async (req, res) => {
+  try {
+    const { marks, score, maxScore, comment, reviewerName = 'Admin', status = 'Reviewed' } = req.body;
+    const submission = await TaskSubmission.findById(req.params.id);
+    if (!submission) {
+      return res.status(404).json({ success: false, message: 'Task submission not found' });
+    }
+
+    if (marks !== undefined) submission.marks = marks;
+    if (score !== undefined) submission.score = Number(score);
+    if (maxScore !== undefined) submission.maxScore = Number(maxScore);
+    if (status) submission.status = status;
+
+    const now = new Date();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+    const hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = String(hours % 12 || 12).padStart(2, '0');
+    const dateStr = `${day} ${month} ${year}, ${formattedHours}:${minutes} ${ampm}`;
+
+    submission.feedback = {
+      reviewerName,
+      reviewerInitials: reviewerName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'AD',
+      date: dateStr,
+      score: submission.marks || `${submission.score || 0} / ${submission.maxScore || 10}`,
+      comment: comment !== undefined ? comment : (submission.feedback && submission.feedback.comment ? submission.feedback.comment : '')
+    };
+
+    await submission.save();
+    return res.json({ success: true, submission, message: 'Review successfully updated' });
+  } catch (err) {
+    console.error('Update Task Review Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/task-submissions/:id/status
+// @desc    Update only status of a submission (e.g. Needs Revision, Reviewed, Pending)
+router.put('/task-submissions/:id/status', async (req, res) => {
+  try {
+    const { status, comment } = req.body;
+    const submission = await TaskSubmission.findById(req.params.id);
+    if (!submission) {
+      return res.status(404).json({ success: false, message: 'Task submission not found' });
+    }
+
+    if (status) submission.status = status;
+    if (comment && submission.feedback) {
+      submission.feedback.comment = comment;
+    }
+
+    await submission.save();
+    return res.json({ success: true, submission, message: `Status updated to ${status}` });
+  } catch (err) {
+    console.error('Update Submission Status Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });

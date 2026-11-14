@@ -19,6 +19,7 @@ PAGES_CONFIG = {
     'admin-applications.html': 'internships-applications',
     'admin-tasks.html': 'tasks-all',
     'admin-all-projects.html': 'tasks-projects',
+    'admin-task-submissions.html': 'tasks-submissions',
     'admin-assign-tasks.html': 'tasks-assign',
 }
 
@@ -277,6 +278,7 @@ def build_sidebar_html(page_key):
     tasks_cat_active = ' active-category' if is_tasks else ''
     tasks_all_active = ' active-subitem' if page_key == 'tasks-all' else ''
     tasks_projects_active = ' active-subitem' if page_key == 'tasks-projects' else ''
+    tasks_submissions_active = ' active-subitem' if page_key == 'tasks-submissions' else ''
     tasks_assign_active = ' active-subitem' if page_key == 'tasks-assign' else ''
 
     return f"""  <!-- ================= SIDEBAR ================= -->
@@ -366,8 +368,7 @@ def build_sidebar_html(page_key):
         <div class="nav-sublist">
           <a href="admin-tasks.html" class="nav-subitem{tasks_all_active}">All Tasks</a>
           <a href="admin-all-projects.html" class="nav-subitem{tasks_projects_active}">All Projects</a>
-          <a href="javascript:void(0)" onclick="showToast('My Tasks panel opening soon')" class="nav-subitem">My Tasks</a>
-          <a href="javascript:void(0)" onclick="showToast('Task Submissions panel opening soon')" class="nav-subitem">Task Submissions</a>
+          <a href="admin-task-submissions.html" class="nav-subitem{tasks_submissions_active}">Task Submissions</a>
           <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
           <a href="admin-assign-tasks.html" class="nav-subitem{tasks_assign_active}">Assign Tasks</a>
           <a href="javascript:void(0)" onclick="showToast('Task Templates library opening soon')" class="nav-subitem">Task Templates</a>
