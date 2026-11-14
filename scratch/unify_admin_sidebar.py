@@ -20,6 +20,7 @@ PAGES_CONFIG = {
     'admin-tasks.html': 'tasks-all',
     'admin-all-projects.html': 'tasks-projects',
     'admin-task-submissions.html': 'tasks-submissions',
+    'admin-project-submissions.html': 'tasks-project-submissions',
     'admin-assign-tasks.html': 'tasks-assign',
 }
 
@@ -279,6 +280,7 @@ def build_sidebar_html(page_key):
     tasks_all_active = ' active-subitem' if page_key == 'tasks-all' else ''
     tasks_projects_active = ' active-subitem' if page_key == 'tasks-projects' else ''
     tasks_submissions_active = ' active-subitem' if page_key == 'tasks-submissions' else ''
+    tasks_proj_submissions_active = ' active-subitem' if page_key == 'tasks-project-submissions' else ''
     tasks_assign_active = ' active-subitem' if page_key == 'tasks-assign' else ''
 
     return f"""  <!-- ================= SIDEBAR ================= -->
@@ -369,7 +371,7 @@ def build_sidebar_html(page_key):
           <a href="admin-tasks.html" class="nav-subitem{tasks_all_active}">All Tasks</a>
           <a href="admin-all-projects.html" class="nav-subitem{tasks_projects_active}">All Projects</a>
           <a href="admin-task-submissions.html" class="nav-subitem{tasks_submissions_active}">Task Submissions</a>
-          <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
+          <a href="admin-project-submissions.html" class="nav-subitem{tasks_proj_submissions_active}">Project Submissions</a>
           <a href="admin-assign-tasks.html" class="nav-subitem{tasks_assign_active}">Assign Tasks</a>
           <a href="javascript:void(0)" onclick="showToast('Task Templates library opening soon')" class="nav-subitem">Task Templates</a>
           <a href="javascript:void(0)" onclick="showToast('Recurring Tasks schedule opening soon')" class="nav-subitem">Recurring Tasks</a>

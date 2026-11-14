@@ -16,6 +16,7 @@ const Resource = require('../models/Resource');
 const Task = require('../models/Task');
 const SubscriptionStudent = require('../models/SubscriptionStudent');
 const TaskSubmission = require('../models/TaskSubmission');
+const ProjectSubmission = require('../models/ProjectSubmission');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -3396,6 +3397,277 @@ router.put('/task-submissions/:id/status', async (req, res) => {
     return res.json({ success: true, submission, message: `Status updated to ${status}` });
   } catch (err) {
     console.error('Update Submission Status Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// PROJECT SUBMISSIONS API (Batch Wise)
+// ==========================================
+
+// @route   GET /api/admin/project-submissions
+// @desc    Get all project submissions grouped batch-wise with KPIs, filters, tabs
+router.get('/project-submissions', async (req, res) => {
+  try {
+    const {
+      course,
+      batch,
+      projectType,
+      status,
+      date,
+      search
+    } = req.query;
+
+    const query = {};
+
+    if (course && course !== 'all' && course !== 'All Courses') {
+      query.course = course;
+    }
+
+    if (batch && batch !== 'all' && batch !== 'All' && batch !== 'All Batches') {
+      query.batch = batch;
+    }
+
+    if (projectType && projectType !== 'all' && projectType !== 'All') {
+      query.projectType = projectType;
+    }
+
+    if (status && status !== 'all' && status !== 'All') {
+      query.status = status;
+    }
+
+    if (date && date !== 'all' && date !== 'All Dates') {
+      query.submittedOn = new RegExp(date, 'i');
+    }
+
+    if (search && search.trim()) {
+      const sRegex = new RegExp(search.trim(), 'i');
+      query.$or = [
+        { 'student.name': sRegex },
+        { 'student.email': sRegex },
+        { projectTitle: sRegex },
+        { batch: sRegex },
+        { course: sRegex }
+      ];
+    }
+
+    // Overall KPI counts
+    const [totalCount, reviewedCount, pendingCount, needsRevCount, notSubCount] = await Promise.all([
+      ProjectSubmission.countDocuments(),
+      ProjectSubmission.countDocuments({ status: 'Reviewed' }),
+      ProjectSubmission.countDocuments({ status: 'Pending' }),
+      ProjectSubmission.countDocuments({ status: 'Needs Revision' }),
+      ProjectSubmission.countDocuments({ status: 'Not Submitted' })
+    ]);
+
+    // Fetch matching submissions
+    const submissions = await ProjectSubmission.find(query).sort({ order: 1 });
+
+    // Distinct lists for dropdowns
+    const [distinctCourses, distinctBatches, distinctTypes] = await Promise.all([
+      ProjectSubmission.distinct('course'),
+      ProjectSubmission.distinct('batch'),
+      ProjectSubmission.distinct('projectType')
+    ]);
+
+    // Group submissions batch-wise
+    const batchMap = new Map();
+
+    submissions.forEach(sub => {
+      const bName = sub.batch || 'Other Batch';
+      if (!batchMap.has(bName)) {
+        batchMap.set(bName, {
+          batchName: bName,
+          course: sub.course || 'Data Analytics',
+          totalStudents: 0,
+          submittedCount: 0,
+          pendingCount: 0,
+          revisionCount: 0,
+          notSubmittedCount: 0,
+          submissions: []
+        });
+      }
+      const bObj = batchMap.get(bName);
+      bObj.totalStudents++;
+      bObj.submissions.push(sub);
+
+      if (sub.status === 'Reviewed') bObj.submittedCount++;
+      else if (sub.status === 'Pending') bObj.pendingCount++;
+      else if (sub.status === 'Needs Revision') bObj.revisionCount++;
+      else if (sub.status === 'Not Submitted') bObj.notSubmittedCount++;
+    });
+
+    const batchPriority = ['October 2026', 'September 2026', 'August 2026', 'July 2026', 'June 2026', 'May 2026'];
+    const batches = Array.from(batchMap.values()).sort((a, b) => {
+      const aIdx = batchPriority.indexOf(a.batchName);
+      const bIdx = batchPriority.indexOf(b.batchName);
+      if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+      if (aIdx !== -1) return -1;
+      if (bIdx !== -1) return 1;
+      return a.batchName.localeCompare(b.batchName);
+    });
+
+    // Tab counts for main batches
+    const batchTabCounts = await Promise.all(
+      ['October 2026', 'September 2026', 'August 2026', 'July 2026', 'June 2026'].map(async (bName) => {
+        const count = await ProjectSubmission.countDocuments({ batch: bName });
+        const shortName = bName.replace(' 2026', '');
+        return { batchName: bName, label: `${shortName} 2026 (${count})`, count };
+      })
+    );
+
+    return res.json({
+      success: true,
+      batches,
+      totalCount: submissions.length,
+      kpis: {
+        total: totalCount,
+        reviewed: reviewedCount,
+        reviewedPercent: Math.round((reviewedCount / (totalCount || 1)) * 100),
+        pending: pendingCount,
+        pendingPercent: Math.round((pendingCount / (totalCount || 1)) * 100),
+        needsRevision: needsRevCount,
+        needsRevisionPercent: Math.round((needsRevCount / (totalCount || 1)) * 100),
+        notSubmitted: notSubCount,
+        notSubmittedPercent: Math.round((notSubCount / (totalCount || 1)) * 100)
+      },
+      batchTabs: batchTabCounts,
+      filters: {
+        courses: distinctCourses.sort(),
+        batches: distinctBatches,
+        projectTypes: distinctTypes
+      }
+    });
+  } catch (err) {
+    console.error('Fetch Project Submissions Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/project-submissions/:id
+// @desc    Get single project submission detail
+router.get('/project-submissions/:id', async (req, res) => {
+  try {
+    const submission = await ProjectSubmission.findById(req.params.id);
+    if (!submission) {
+      return res.status(404).json({ success: false, message: 'Project submission not found' });
+    }
+    return res.json({ success: true, submission });
+  } catch (err) {
+    console.error('Fetch Project Submission Detail Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/project-submissions/:id/review
+// @desc    Review / Update marks and feedback for a project submission
+router.put('/project-submissions/:id/review', async (req, res) => {
+  try {
+    const { marks, score, maxScore = 20, comment, reviewerName = 'Admin', status = 'Reviewed' } = req.body;
+    const submission = await ProjectSubmission.findById(req.params.id);
+    if (!submission) {
+      return res.status(404).json({ success: false, message: 'Project submission not found' });
+    }
+
+    if (marks !== undefined) submission.marks = marks;
+    if (score !== undefined) submission.score = Number(score);
+    if (maxScore !== undefined) submission.maxScore = Number(maxScore);
+    if (status) submission.status = status;
+
+    const now = new Date();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+    const hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = String(hours % 12 || 12).padStart(2, '0');
+    const dateStr = `${day} ${month} ${year}, ${formattedHours}:${minutes} ${ampm}`;
+
+    submission.feedback = {
+      reviewerName,
+      reviewerInitials: reviewerName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'AD',
+      date: dateStr,
+      score: submission.marks || `${submission.score || 0} / ${submission.maxScore || 20}`,
+      comment: comment !== undefined ? comment : (submission.feedback && submission.feedback.comment ? submission.feedback.comment : '')
+    };
+
+    if (!submission.history) submission.history = [];
+    submission.history.push({
+      action: status,
+      by: reviewerName,
+      date: dateStr,
+      notes: `Review updated with marks ${submission.marks}`
+    });
+
+    await submission.save();
+    return res.json({ success: true, submission, message: 'Project review successfully updated' });
+  } catch (err) {
+    console.error('Update Project Review Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/project-submissions/:id/status
+// @desc    Update status (e.g. Needs Revision, Reviewed, Pending)
+router.put('/project-submissions/:id/status', async (req, res) => {
+  try {
+    const { status, comment, reviewerName = 'Admin' } = req.body;
+    const submission = await ProjectSubmission.findById(req.params.id);
+    if (!submission) {
+      return res.status(404).json({ success: false, message: 'Project submission not found' });
+    }
+
+    if (status) submission.status = status;
+    if (comment && submission.feedback) {
+      submission.feedback.comment = comment;
+    }
+
+    const now = new Date();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+    const hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = String(hours % 12 || 12).padStart(2, '0');
+    const dateStr = `${day} ${month} ${year}, ${formattedHours}:${minutes} ${ampm}`;
+
+    if (!submission.history) submission.history = [];
+    submission.history.push({
+      action: status,
+      by: reviewerName,
+      date: dateStr,
+      notes: comment || `Status changed to ${status}`
+    });
+
+    await submission.save();
+    return res.json({ success: true, submission, message: `Status updated to ${status}` });
+  } catch (err) {
+    console.error('Update Project Status Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/project-submissions/bulk-status
+// @desc    Bulk update status for selected submissions
+router.post('/project-submissions/bulk-status', async (req, res) => {
+  try {
+    const { ids, status } = req.body;
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'Please provide submission IDs' });
+    }
+
+    await ProjectSubmission.updateMany(
+      { _id: { $in: ids } },
+      { $set: { status } }
+    );
+
+    return res.json({ success: true, message: `Updated ${ids.length} submissions to ${status}` });
+  } catch (err) {
+    console.error('Bulk Status Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });

@@ -1,0 +1,3186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Submissions (Batch Wise) | Tasks & Projects | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #DCFCE7;
+      --success-text: #166534;
+      --warning: #F59E0B;
+      --warning-light: #FEF3C7;
+      --warning-text: #92400E;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --danger-text: #B91C1C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- TOPBAR ---------------- */
+    .topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-mobile-sidebar {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 16px;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    .topbar-search-box {
+      position: relative;
+      width: 380px;
+    }
+
+    .topbar-search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13.5px;
+    }
+
+    .topbar-search-box input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 12px 9px 38px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .topbar-search-box input:focus {
+      background: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar-notification {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .topbar-notification:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 1.5px solid #ffffff;
+    }
+
+    .topbar-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .topbar-profile:hover {
+      background: #f1f5f9;
+    }
+
+    .profile-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #7c3aed;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .profile-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ---------------- TWO-COLUMN PAGE LAYOUT ---------------- */
+    .dashboard-layout {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Left Area */
+    .content-area {
+      flex: 1;
+      padding: 24px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .breadcrumb-row a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumb-row span.current {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* Page Header */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .page-title-group h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .page-title-group p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+
+    .btn-primary-action {
+      background: #2563EB;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary-action:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- 5 KPI CARDS ---------------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .kpi-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-purple { background: #F3E8FF; color: #9333EA; }
+    .kpi-icon-green { background: #DCFCE7; color: #16A34A; }
+    .kpi-icon-amber { background: #FEF3C7; color: #D97706; }
+    .kpi-icon-red { background: #FEE2E2; color: #DC2626; }
+    .kpi-icon-blue { background: #E0F2FE; color: #0284C7; }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .kpi-content h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .kpi-label-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .kpi-percent-badge {
+      font-weight: 700;
+      font-size: 11px;
+      margin-top: 3px;
+    }
+    .kpi-percent-green { color: #16A34A; }
+    .kpi-percent-amber { color: #D97706; }
+    .kpi-percent-red { color: #DC2626; }
+    .kpi-percent-blue { color: #0284C7; }
+
+    /* ---------------- FILTER PANEL ---------------- */
+    .filter-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .filter-grid-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .filter-group label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      width: 100%;
+    }
+
+    .filter-select:hover {
+      border-color: #94a3b8;
+    }
+
+    .filter-select:focus {
+      border-color: #2563eb;
+    }
+
+    .filter-date-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #64748b;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    .filter-date-btn:hover {
+      border-color: #94a3b8;
+      background: #f8fafc;
+    }
+
+    .btn-reset-link {
+      background: transparent;
+      border: none;
+      color: #2563EB;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 8px;
+      margin-top: 18px;
+      transition: all 0.15s;
+    }
+
+    .btn-reset-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Tabs & Search Row */
+    .tabs-and-search-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .batch-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      overflow-x: auto;
+    }
+
+    .batch-tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 0 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .batch-tab-btn:hover {
+      color: #0f172a;
+    }
+
+    .batch-tab-btn.active {
+      color: #2563EB;
+      border-bottom-color: #2563EB;
+      font-weight: 700;
+    }
+
+    .search-input-box {
+      position: relative;
+      width: 260px;
+    }
+
+    .search-input-box i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .search-input-box input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 7px 12px 7px 34px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.15s;
+    }
+
+    .search-input-box input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    /* ---------------- BATCH ACCORDION CARDS ---------------- */
+    .batch-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .batch-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: box-shadow 0.2s ease;
+    }
+
+    .batch-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .batch-header {
+      padding: 16px 20px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      border-bottom: 1px solid transparent;
+      transition: background 0.15s ease;
+      gap: 16px;
+    }
+
+    .batch-card.open .batch-header {
+      border-bottom-color: #f1f5f9;
+      background: #ffffff;
+    }
+
+    .batch-header:hover {
+      background: #f8fafc;
+    }
+
+    .batch-header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 260px;
+    }
+
+    .batch-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #EFF6FF;
+      color: #2563EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .batch-title-group h3 {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .batch-title-group span {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .batch-stats-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .batch-stat-pill {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .pill-submitted { background: #DCFCE7; color: #166534; }
+    .pill-pending { background: #FEF3C7; color: #92400E; }
+    .pill-revision { background: #FEE2E2; color: #B91C1C; }
+    .pill-not-submitted { background: #F1F5F9; color: #475569; }
+
+    .batch-header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-batch-action {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-batch-action:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+
+    .batch-toggle-chevron {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 13px;
+      transition: transform 0.2s ease;
+    }
+
+    .batch-card.open .batch-toggle-chevron {
+      transform: rotate(180deg);
+    }
+
+    .batch-body {
+      display: none;
+      background: #ffffff;
+    }
+
+    .batch-card.open .batch-body {
+      display: block;
+    }
+
+    /* ---------------- DATA TABLE INSIDE BATCH ---------------- */
+    .table-responsive {
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table.project-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12.5px;
+    }
+
+    table.project-table thead th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      font-size: 11.5px;
+      letter-spacing: 0.02em;
+      padding: 11px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    table.project-table tbody tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    table.project-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    table.project-table tbody tr.row-selected {
+      background: #EFF6FF !important;
+      position: relative;
+    }
+
+    table.project-table tbody tr.row-selected td:first-child {
+      border-left: 3px solid #2563EB;
+    }
+
+    table.project-table tbody td {
+      padding: 12px 14px;
+      vertical-align: middle;
+      color: #334155;
+    }
+
+    .cell-checkbox {
+      width: 36px;
+      text-align: center;
+    }
+
+    .cell-checkbox input[type="checkbox"] {
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+      accent-color: #2563eb;
+    }
+
+    .cell-order {
+      width: 40px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .student-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 170px;
+    }
+
+    .student-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .student-name {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 12.5px;
+    }
+
+    .project-title-cell {
+      font-weight: 600;
+      color: #0f172a;
+      font-size: 12.5px;
+      min-width: 200px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-reviewed { background: #DCFCE7; color: #166534; }
+    .status-pending { background: #FEF3C7; color: #92400E; }
+    .status-needs-revision { background: #FEE2E2; color: #B91C1C; }
+    .status-not-submitted { background: #F1F5F9; color: #475569; }
+
+    .marks-text {
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .marks-empty {
+      color: #94a3b8;
+    }
+
+    .action-icons-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-action-icon:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+
+    .btn-action-icon.view-btn:hover { color: #2563eb; }
+    .btn-action-icon.chat-btn:hover { color: #0284c7; }
+    .btn-action-icon.edit-btn:hover { color: #16a34a; }
+
+    /* ---------------- RIGHT DOCKED DETAILS PANEL ---------------- */
+    .details-dock-panel {
+      width: 440px;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      overflow-y: auto;
+      transition: all 0.3s ease;
+      z-index: 80;
+    }
+
+    .details-dock-panel.closed {
+      display: none;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 5;
+    }
+
+    .panel-header h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .btn-close-panel {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: #f1f5f9;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-close-panel:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .panel-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    /* Student info card */
+    .drawer-student-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .drawer-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .drawer-student-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .drawer-student-meta h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .drawer-student-meta .student-email-row {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .drawer-student-tags {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .drawer-timestamp {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* Project title block */
+    .drawer-project-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .drawer-project-label {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .drawer-project-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    /* 4-Item Grid */
+    .drawer-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .meta-box {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .meta-value {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* Drawer internal tabs */
+    .drawer-nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 2px;
+    }
+
+    .drawer-tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 0 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .drawer-tab-btn:hover {
+      color: #0f172a;
+    }
+
+    .drawer-tab-btn.active {
+      color: #2563EB;
+      border-bottom-color: #2563EB;
+      font-weight: 700;
+    }
+
+    .drawer-tab-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Files List */
+    .drawer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .drawer-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2563EB;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .drawer-link:hover {
+      text-decoration: underline;
+    }
+
+    .files-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .file-item-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      transition: border-color 0.15s ease;
+    }
+
+    .file-item-card:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .file-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .file-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: #EFF6FF;
+      color: #2563EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .file-icon.pdf { background: #FEE2E2; color: #DC2626; }
+    .file-icon.csv { background: #DCFCE7; color: #16A34A; }
+    .file-icon.code { background: #F3E8FF; color: #9333EA; }
+
+    .file-details {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .file-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-size {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .btn-file-dl {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: all 0.15s;
+    }
+
+    .btn-file-dl:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* Code Preview Box with numbered lines */
+    .code-preview-container {
+      background: #0F172A;
+      border-radius: 8px;
+      padding: 12px 14px;
+      overflow-x: auto;
+    }
+
+    .code-line-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      line-height: 1.6;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 12px;
+    }
+
+    .code-line-num {
+      color: #475569;
+      user-select: none;
+      width: 18px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .code-line-text {
+      color: #E2E8F0;
+      white-space: pre;
+    }
+
+    .code-kw { color: #F472B6; }
+    .code-var { color: #60A5FA; }
+    .code-str { color: #34D399; }
+    .code-comm { color: #64748B; font-style: italic; }
+
+    /* Feedback Card */
+    .feedback-review-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feedback-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reviewer-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #7c3aed;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reviewer-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .reviewer-date {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .feedback-score-pill {
+      background: #DCFCE7;
+      color: #166534;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .feedback-comment {
+      font-size: 12.5px;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    /* Sticky Bottom Actions in Drawer */
+    .drawer-sticky-footer {
+      position: sticky;
+      bottom: 0;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .footer-btn-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-action-revision {
+      flex: 1;
+      background: #ffffff;
+      color: #DC2626;
+      border: 1px solid #DC2626;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-action-revision:hover {
+      background: #FEE2E2;
+    }
+
+    .btn-action-marks {
+      flex: 1;
+      background: #ffffff;
+      color: #2563EB;
+      border: 1px solid #2563EB;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-action-marks:hover {
+      background: #EFF6FF;
+    }
+
+    .btn-action-reviewed {
+      width: 100%;
+      background: #2563EB;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.15s;
+    }
+
+    .btn-action-reviewed:hover {
+      background: #1d4ed8;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- MODALS ---------------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 12px;
+      width: 520px;
+      max-width: 90vw;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .form-control {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: #0f172a;
+      outline: none;
+      transition: all 0.15s;
+    }
+
+    .form-control:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    textarea.form-control {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .filter-grid-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .details-dock-panel {
+        width: 380px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .filter-grid-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .btn-mobile-sidebar {
+        display: block;
+      }
+      .details-dock-panel {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-grid-row {
+        grid-template-columns: 1fr;
+      }
+      .content-area {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+    <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem">Courses</a>
+          <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="live-classes.html" class="nav-subitem">Live Classes</a>
+          <a href="admin-quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="admin-resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
+          <a href="admin-projects.html" class="nav-subitem">Projects</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-applications.html" class="nav-subitem">Applications</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="javascript:void(0)" onclick="showToast('Certificates section opening soon')" class="nav-subitem">Certificates</a>
+        </div>
+      </div>
+
+      <!-- Tasks & Projects -->
+      <div class="nav-group open" id="navGroupTasks">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupTasks')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks & Projects</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-tasks.html" class="nav-subitem">All Tasks</a>
+          <a href="admin-all-projects.html" class="nav-subitem">All Projects</a>
+          <a href="admin-task-submissions.html" class="nav-subitem">Task Submissions</a>
+          <a href="admin-project-submissions.html" class="nav-subitem active-subitem">Project Submissions</a>
+          <a href="admin-assign-tasks.html" class="nav-subitem">Assign Tasks</a>
+          <a href="javascript:void(0)" onclick="showToast('Task Templates library opening soon')" class="nav-subitem">Task Templates</a>
+          <a href="javascript:void(0)" onclick="showToast('Recurring Tasks schedule opening soon')" class="nav-subitem">Recurring Tasks</a>
+        </div>
+      </div>
+
+      <!-- Companies & Mentors -->
+      <div class="nav-group" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building"></i>
+            <span>Companies & Mentors</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Partner Companies desk opening soon')" class="nav-subitem">Partner Companies</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentor Assignments</a>
+        </div>
+      </div>
+
+      <!-- Attendance & Reports -->
+      <div class="nav-group" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance & Reports</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Attendance: 87% (612 present, 68 absent)')" class="nav-subitem">Attendance</a>
+          <a href="javascript:void(0)" onclick="showToast('Weekly Reports: 46 submitted, 42 approved')" class="nav-subitem">Weekly Reports</a>
+        </div>
+      </div>
+
+      <!-- Certificates & LOR -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & LOR</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Generate Certificate desk opening soon')" class="nav-subitem">Generate Certificate</a>
+          <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation desk ready')" class="nav-subitem">Letter of Recommendation</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Exporting system reports...')" class="nav-subitem">Export Excel / PDF</a>
+          <a href="javascript:void(0)" onclick="showToast('Placement Metrics: 71% placement success rate')" class="nav-subitem">Placement Metrics</a>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="nav-group" id="navGroupFinance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupFinance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Total Revenue: ₹12,40,000 recorded')" class="nav-subitem">Payments</a>
+          <a href="javascript:void(0)" onclick="showToast('Refund Requests: 0 active')" class="nav-subitem">Refunds</a>
+          <a href="javascript:void(0)" onclick="showToast('Revenue statement ready for download')" class="nav-subitem">Revenue Reports</a>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="nav-group" id="navGroupComms">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupComms')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Announcements center opening soon')" class="nav-subitem">Announcements</a>
+          <a href="javascript:void(0)" onclick="showToast('Broadcast center: SMS & Email ready')" class="nav-subitem">Email / WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Admin Roles: Super Admin (Active)')" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN LAYOUT ================= -->
+  <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+    
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-mobile-sidebar" onclick="toggleSidebarMobile()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="topbar-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="topNavSearch" placeholder="Search students, projects, tasks, courses..." onkeyup="handleTopSearch(event)">
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-notification" onclick="showToast('You have 28 pending project submissions to review')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notification-dot"></span>
+        </div>
+
+        <div class="topbar-profile" onclick="window.location.href='admin-settings.html'">
+          <div class="profile-avatar">AD</div>
+          <div class="profile-info">
+            <span class="profile-name">Admin</span>
+            <span class="profile-role">Super Admin</span>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size: 11px; color: #94a3b8; margin-left: 2px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content + Right Dock -->
+    <div class="dashboard-layout">
+      
+      <!-- Content Area -->
+      <main class="content-area">
+        
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb-row">
+          <a href="admin-dashboard.html"><i class="fa-solid fa-house" style="font-size: 11px; margin-right: 2px;"></i> Dashboard</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span>Tasks & Projects</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span class="current">Project Submissions</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header-row">
+          <div class="page-title-group">
+            <h1>Project Submissions (Batch Wise)</h1>
+            <p>View and manage student project submissions batch wise for all courses and internship projects.</p>
+          </div>
+          <div class="header-actions-group">
+            <button class="btn-outline" onclick="exportProjectsCSV()">
+              <i class="fa-solid fa-download"></i>
+              <span>Export</span>
+            </button>
+            <button class="btn-outline" onclick="openBulkActionsMenu()">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Bulk Actions</span>
+              <i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 3px;"></i>
+            </button>
+            <a href="admin-assign-tasks.html" class="btn-primary-action">
+              <i class="fa-solid fa-plus"></i>
+              <span>Create Project</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5 KPI Metrics Cards -->
+        <div class="kpi-grid">
+          <!-- Card 1: Total Submissions -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-purple">
+              <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiTotal">152</h3>
+              <span class="kpi-label-text">Total Submissions</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Reviewed -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-green">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiReviewed">98</h3>
+              <span class="kpi-label-text">Reviewed</span>
+              <span class="kpi-percent-badge kpi-percent-green" id="kpiReviewedPercent">64%</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Pending Review -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-amber">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiPending">28</h3>
+              <span class="kpi-label-text">Pending Review</span>
+              <span class="kpi-percent-badge kpi-percent-amber" id="kpiPendingPercent">18%</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Needs Revision -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-red">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiNeedsRevision">16</h3>
+              <span class="kpi-label-text">Needs Revision</span>
+              <span class="kpi-percent-badge kpi-percent-red" id="kpiNeedsRevPercent">11%</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Not Submitted -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-blue">
+              <i class="fa-solid fa-user-xmark"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiNotSubmitted">10</h3>
+              <span class="kpi-label-text">Not Submitted</span>
+              <span class="kpi-percent-badge kpi-percent-blue" id="kpiNotSubPercent">7%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+          <div class="filter-grid-row">
+            <div class="filter-group">
+              <label>Course</label>
+              <select class="filter-select" id="courseFilter" onchange="applyFilters()">
+                <option value="Data Analytics" selected>Data Analytics</option>
+                <option value="all">All Courses</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Full Stack">Full Stack</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Project Type</label>
+              <select class="filter-select" id="typeFilter" onchange="applyFilters()">
+                <option value="all" selected>All</option>
+                <option value="Course Project">Course Project</option>
+                <option value="Capstone Project">Capstone Project</option>
+                <option value="Internship Project">Internship Project</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Subscription Month (Batch)</label>
+              <select class="filter-select" id="batchSelectFilter" onchange="applyFilters()">
+                <option value="all">All</option>
+                <option value="October 2026" selected>October 2026</option>
+                <option value="September 2026">September 2026</option>
+                <option value="August 2026">August 2026</option>
+                <option value="July 2026">July 2026</option>
+                <option value="June 2026">June 2026</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Status</label>
+              <select class="filter-select" id="statusFilter" onchange="applyFilters()">
+                <option value="all" selected>All</option>
+                <option value="Reviewed">Reviewed</option>
+                <option value="Pending">Pending</option>
+                <option value="Needs Revision">Needs Revision</option>
+                <option value="Not Submitted">Not Submitted</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Submission Date</label>
+              <button class="filter-date-btn" onclick="toggleDateFilterPrompt()">
+                <i class="fa-regular fa-calendar"></i>
+                <span id="dateFilterLabel">Select Date Range</span>
+              </button>
+            </div>
+
+            <div>
+              <button class="btn-reset-link" onclick="resetFilters()">Reset</button>
+            </div>
+          </div>
+
+          <!-- Batch Tabs & Search Row -->
+          <div class="tabs-and-search-row">
+            <div class="batch-tabs-bar" id="batchTabsBar">
+              <button class="batch-tab-btn active" data-batch="all" onclick="switchBatchTab(this, 'all')">All Batches</button>
+              <button class="batch-tab-btn" data-batch="October 2026" onclick="switchBatchTab(this, 'October 2026')">Oct 2026 (32)</button>
+              <button class="batch-tab-btn" data-batch="September 2026" onclick="switchBatchTab(this, 'September 2026')">Sep 2026 (28)</button>
+              <button class="batch-tab-btn" data-batch="August 2026" onclick="switchBatchTab(this, 'August 2026')">Aug 2026 (24)</button>
+              <button class="batch-tab-btn" data-batch="July 2026" onclick="switchBatchTab(this, 'July 2026')">Jul 2026 (18)</button>
+              <button class="batch-tab-btn" data-batch="June 2026" onclick="switchBatchTab(this, 'June 2026')">Jun 2026 (16)</button>
+            </div>
+
+            <div class="search-input-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="searchInput" placeholder="Search by student, project..." oninput="debounceSearch()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Batch Accordion Cards Container -->
+        <div class="batch-list-container" id="batchCardsContainer">
+          <!-- Dynamically populated batch sections -->
+        </div>
+
+      </main>
+
+      <!-- ================= RIGHT DOCKED DETAILS PANEL ================= -->
+      <aside class="details-dock-panel" id="detailsDockPanel">
+        <div class="panel-header">
+          <h3>Submission Details</h3>
+          <button class="btn-close-panel" onclick="closeDetailsPanel()" title="Close details">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="panel-body" id="drawerBody">
+          <!-- Dynamically populated drawer content -->
+        </div>
+
+        <!-- Sticky Footer Action Buttons -->
+        <div class="drawer-sticky-footer" id="drawerFooter">
+          <div class="footer-btn-row">
+            <button class="btn-action-revision" onclick="openRevisionModal()">
+              <span>Request Revision</span>
+            </button>
+            <button class="btn-action-marks" onclick="openMarksModal()">
+              <span>Update Marks</span>
+            </button>
+          </div>
+          <button class="btn-action-reviewed" onclick="markCurrentAsReviewed()">
+            <span>Mark as Reviewed</span>
+          </button>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ================= UPDATE MARKS / REVIEW MODAL ================= -->
+  <div class="modal-overlay" id="marksModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Update Marks & Feedback</h3>
+        <button class="btn-close-panel" onclick="closeModal('marksModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="drawer-meta-grid" style="margin-bottom: 4px;">
+          <div class="meta-box">
+            <span class="meta-label">Student</span>
+            <span class="meta-value" id="modalStudentName">Rahul Sharma</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Project</span>
+            <span class="meta-value" id="modalProjectTitle">EDA Project - Retail Sales</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Awarded Score</label>
+            <input type="number" class="form-control" id="modalScoreInput" min="0" max="100" placeholder="e.g. 18">
+          </div>
+          <div class="form-group">
+            <label>Max Score</label>
+            <input type="number" class="form-control" id="modalMaxScoreInput" min="1" max="100" placeholder="e.g. 20" value="20">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Submission Status</label>
+          <select class="form-control" id="modalStatusSelect">
+            <option value="Reviewed">Reviewed</option>
+            <option value="Needs Revision">Needs Revision</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Reviewer Feedback / Comments</label>
+          <textarea class="form-control" id="modalFeedbackInput" placeholder="Provide constructive feedback and recommendations..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeModal('marksModal')">Cancel</button>
+        <button class="btn-primary-action" onclick="submitReviewUpdate()">Save Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= REQUEST REVISION MODAL ================= -->
+  <div class="modal-overlay" id="revisionModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Request Revision</h3>
+        <button class="btn-close-panel" onclick="closeModal('revisionModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569;">
+          Specify the fixes required for this project before final grading. The student will be notified to revise and re-upload.
+        </p>
+
+        <div class="form-group">
+          <label>Revision Notes / Instructions</label>
+          <textarea class="form-control" id="modalRevisionNotes" placeholder="e.g. Please improve conclusions and add business recommendations."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeModal('revisionModal')">Cancel</button>
+        <button class="btn-action-revision" style="flex: unset; padding: 9px 18px;" onclick="submitRevisionRequest()">Send Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BULK ACTIONS MODAL ================= -->
+  <div class="modal-overlay" id="bulkModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Bulk Actions</h3>
+        <button class="btn-close-panel" onclick="closeModal('bulkModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569;" id="bulkSummaryText">
+          Select an action to apply across all checked submissions.
+        </p>
+        <div class="form-group">
+          <label>Action</label>
+          <select class="form-control" id="bulkActionSelect">
+            <option value="Reviewed">Mark as Reviewed</option>
+            <option value="Needs Revision">Request Revision</option>
+            <option value="export">Export Selected Submissions (CSV)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="closeModal('bulkModal')">Cancel</button>
+        <button class="btn-primary-action" onclick="executeBulkAction()">Apply Action</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let batchesData = [];
+    let allSubmissionsFlat = [];
+    let activeSubmissionId = null;
+    let activeDrawerTab = 'submission';
+    let currentBatchTab = 'all';
+    let currentCourse = 'all';
+    let currentType = 'all';
+    let currentBatchSelect = 'all';
+    let currentStatus = 'all';
+    let currentDate = 'all';
+    let currentSearch = '';
+    let searchDebounceTimer = null;
+    let expandedBatches = new Set(['October 2026']);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchProjectSubmissions();
+    });
+
+    async function fetchProjectSubmissions() {
+      try {
+        const queryParams = new URLSearchParams({
+          course: currentCourse,
+          batch: currentBatchTab !== 'all' ? currentBatchTab : (currentBatchSelect !== 'all' ? currentBatchSelect : 'all'),
+          projectType: currentType,
+          status: currentStatus,
+          date: currentDate,
+          search: currentSearch
+        });
+
+        const res = await fetch(`/api/admin/project-submissions?${queryParams.toString()}`);
+        if (!res.ok) throw new Error('Failed to fetch project submissions');
+        const data = await res.json();
+
+        batchesData = data.batches || [];
+        allSubmissionsFlat = [];
+        batchesData.forEach(b => {
+          allSubmissionsFlat.push(...(b.submissions || []));
+        });
+
+        // KPIs
+        if (data.kpis) {
+          document.getElementById('kpiTotal').textContent = data.kpis.total;
+          document.getElementById('kpiReviewed').textContent = data.kpis.reviewed;
+          document.getElementById('kpiReviewedPercent').textContent = `${data.kpis.reviewedPercent}%`;
+          document.getElementById('kpiPending').textContent = data.kpis.pending;
+          document.getElementById('kpiPendingPercent').textContent = `${data.kpis.pendingPercent}%`;
+          document.getElementById('kpiNeedsRevision').textContent = data.kpis.needsRevision;
+          document.getElementById('kpiNeedsRevPercent').textContent = `${data.kpis.needsRevisionPercent}%`;
+          document.getElementById('kpiNotSubmitted').textContent = data.kpis.notSubmitted;
+          document.getElementById('kpiNotSubPercent').textContent = `${data.kpis.notSubmittedPercent}%`;
+        }
+
+        renderBatchCards();
+
+        // Select first item or keep active
+        if (allSubmissionsFlat.length > 0) {
+          const exists = allSubmissionsFlat.some(s => s._id === activeSubmissionId);
+          if (!activeSubmissionId || !exists) {
+            selectSubmission(allSubmissionsFlat[0]._id);
+          } else {
+            const activeSub = allSubmissionsFlat.find(s => s._id === activeSubmissionId);
+            renderDetailsDrawer(activeSub);
+          }
+        } else {
+          renderEmptyDetails();
+        }
+
+      } catch (err) {
+        console.error('Error:', err);
+        showToast('Error loading project submissions');
+      }
+    }
+
+    // Render batch accordion list
+    function renderBatchCards() {
+      const container = document.getElementById('batchCardsContainer');
+      container.innerHTML = '';
+
+      if (batchesData.length === 0) {
+        container.innerHTML = `
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 48px; text-align: center; color: #64748b;">
+            <i class="fa-solid fa-folder-open" style="font-size: 32px; color: #cbd5e1; margin-bottom: 12px; display: block;"></i>
+            No project submissions found for the selected filters.
+          </div>
+        `;
+        return;
+      }
+
+      batchesData.forEach(b => {
+        const isOpen = expandedBatches.has(b.batchName);
+        const card = document.createElement('div');
+        card.className = `batch-card ${isOpen ? 'open' : ''}`;
+        card.id = `batchCard_${b.batchName.replace(/\s+/g, '_')}`;
+
+        // Header
+        const header = document.createElement('div');
+        header.className = 'batch-header';
+        header.onclick = () => toggleBatchAccordion(b.batchName);
+
+        header.innerHTML = `
+          <div class="batch-header-left">
+            <div class="batch-icon-box">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <div class="batch-title-group">
+              <h3>${escapeHTML(b.batchName)} Batch</h3>
+              <span>${escapeHTML(b.course || 'Data Analytics')} • ${b.totalStudents} Students</span>
+            </div>
+          </div>
+
+          <div class="batch-stats-row">
+            <span class="batch-stat-pill pill-submitted">${b.submittedCount} Submitted</span>
+            <span class="batch-stat-pill pill-pending">${b.pendingCount} Pending</span>
+            <span class="batch-stat-pill pill-revision">${b.revisionCount} Revision</span>
+            <span class="batch-stat-pill pill-not-submitted">${b.notSubmittedCount} Not Submitted</span>
+          </div>
+
+          <div class="batch-header-right">
+            <button class="btn-batch-action" onclick="event.stopPropagation(); showBatchReportsDemo('${escapeHTML(b.batchName)}')">
+              ${isOpen ? 'View Batch Reports' : 'View Submissions'}
+            </button>
+            <div class="batch-toggle-chevron">
+              <i class="fa-solid fa-chevron-up"></i>
+            </div>
+          </div>
+        `;
+
+        // Body Table
+        const body = document.createElement('div');
+        body.className = 'batch-body';
+
+        const tableRowsHtml = (b.submissions || []).map((sub, index) => {
+          const isSelected = (sub._id === activeSubmissionId);
+          const initials = sub.student?.avatarInitials || getInitials(sub.student?.name);
+          const avatarColor = sub.student?.avatarColor || '#2563EB';
+          const statusClass = getStatusClass(sub.status);
+          const marksVal = sub.marks && sub.marks !== '-' ? sub.marks : '-';
+
+          return `
+            <tr class="${isSelected ? 'row-selected' : ''}" onclick="selectSubmission('${sub._id}')" id="subRow_${sub._id}">
+              <td class="cell-checkbox" onclick="event.stopPropagation()">
+                <input type="checkbox" class="row-checkbox" value="${sub._id}">
+              </td>
+              <td class="cell-order">${index + 1}</td>
+              <td>
+                <div class="student-cell">
+                  <div class="student-avatar" style="background: ${avatarColor};">${initials}</div>
+                  <span class="student-name">${escapeHTML(sub.student?.name || 'Student')}</span>
+                </div>
+              </td>
+              <td>
+                <span class="project-title-cell">${escapeHTML(sub.projectTitle)}</span>
+              </td>
+              <td>
+                <span style="font-size: 12px; color: #334155; font-weight: 500;">${sub.submittedOn || '-'}</span>
+              </td>
+              <td>
+                <span class="status-pill ${statusClass}">${sub.status}</span>
+              </td>
+              <td>
+                <span class="marks-text ${marksVal === '-' ? 'marks-empty' : ''}">${marksVal}</span>
+              </td>
+              <td onclick="event.stopPropagation()">
+                <div class="action-icons-row">
+                  <button class="btn-action-icon view-btn" title="View Submission" onclick="selectSubmission('${sub._id}')">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                  <button class="btn-action-icon chat-btn" title="Feedback / Notes" onclick="quickFeedback('${sub._id}')">
+                    <i class="fa-regular fa-comment-dots"></i>
+                  </button>
+                  <button class="btn-action-icon edit-btn" title="Update Marks" onclick="quickEditMarks('${sub._id}')">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="btn-action-icon" title="More Options" onclick="showToast('Submission #${index + 1} options')">
+                    <i class="fa-solid fa-up-down-left-right"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        body.innerHTML = `
+          <div class="table-responsive">
+            <table class="project-table">
+              <thead>
+                <tr>
+                  <th class="cell-checkbox">
+                    <input type="checkbox" onclick="toggleSelectAllInBatch(this, '${escapeHTML(b.batchName)}')">
+                  </th>
+                  <th style="width: 40px;">#</th>
+                  <th>Student Name</th>
+                  <th>Project Title</th>
+                  <th>Submitted On</th>
+                  <th>Status</th>
+                  <th>Marks</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${tableRowsHtml}
+              </tbody>
+            </table>
+          </div>
+        `;
+
+        card.appendChild(header);
+        card.appendChild(body);
+        container.appendChild(card);
+      });
+    }
+
+    function toggleBatchAccordion(batchName) {
+      if (expandedBatches.has(batchName)) {
+        expandedBatches.delete(batchName);
+      } else {
+        expandedBatches.add(batchName);
+      }
+      renderBatchCards();
+    }
+
+    function getStatusClass(status) {
+      switch (status) {
+        case 'Reviewed': return 'status-reviewed';
+        case 'Pending': return 'status-pending';
+        case 'Needs Revision': return 'status-needs-revision';
+        case 'Not Submitted': return 'status-not-submitted';
+        default: return 'status-pending';
+      }
+    }
+
+    // Select submission row
+    function selectSubmission(id) {
+      activeSubmissionId = id;
+
+      // Update active highlight in DOM
+      document.querySelectorAll('.project-table tbody tr').forEach(r => r.classList.remove('row-selected'));
+      const row = document.getElementById(`subRow_${id}`);
+      if (row) row.classList.add('row-selected');
+
+      const sub = allSubmissionsFlat.find(s => s._id === id);
+      if (sub) {
+        // Ensure its batch is expanded
+        if (!expandedBatches.has(sub.batch)) {
+          expandedBatches.add(sub.batch);
+          renderBatchCards();
+        }
+        renderDetailsDrawer(sub);
+      }
+    }
+
+    // Render Right Details Drawer
+    function renderDetailsDrawer(sub) {
+      const drawer = document.getElementById('detailsDockPanel');
+      drawer.classList.remove('closed');
+      const body = document.getElementById('drawerBody');
+
+      const initials = sub.student?.avatarInitials || getInitials(sub.student?.name);
+      const avatarColor = sub.student?.avatarColor || '#2563EB';
+      const statusClass = getStatusClass(sub.status);
+      const marksVal = sub.marks && sub.marks !== '-' ? sub.marks : '-';
+
+      // Tab switcher header
+      const tabsHeaderHtml = `
+        <div class="drawer-nav-tabs">
+          <button class="drawer-tab-btn ${activeDrawerTab === 'submission' ? 'active' : ''}" onclick="switchDrawerTab('submission')">Submission</button>
+          <button class="drawer-tab-btn ${activeDrawerTab === 'feedback' ? 'active' : ''}" onclick="switchDrawerTab('feedback')">Feedback</button>
+          <button class="drawer-tab-btn ${activeDrawerTab === 'history' ? 'active' : ''}" onclick="switchDrawerTab('history')">History</button>
+        </div>
+      `;
+
+      let tabBodyContent = '';
+
+      if (activeDrawerTab === 'submission') {
+        // Files HTML
+        let filesHtml = '';
+        if (sub.files && sub.files.length > 0) {
+          filesHtml = sub.files.map(f => {
+            let iconClass = 'fa-file-lines';
+            let boxClass = 'file-icon';
+            if (f.name.endsWith('.ipynb') || f.name.endsWith('.py') || f.name.endsWith('.sql')) {
+              iconClass = 'fa-code';
+              boxClass = 'file-icon code';
+            } else if (f.name.endsWith('.csv') || f.name.endsWith('.xlsx') || f.name.endsWith('.pbix')) {
+              iconClass = 'fa-table';
+              boxClass = 'file-icon csv';
+            } else if (f.name.endsWith('.pdf')) {
+              iconClass = 'fa-file-pdf';
+              boxClass = 'file-icon pdf';
+            }
+            return `
+              <div class="file-item-card">
+                <div class="file-item-left">
+                  <div class="${boxClass}"><i class="fa-solid ${iconClass}"></i></div>
+                  <div class="file-details">
+                    <span class="file-name" title="${escapeHTML(f.name)}">${escapeHTML(f.name)}</span>
+                    <span class="file-size">${f.size || '1.5 MB'}</span>
+                  </div>
+                </div>
+                <button class="btn-file-dl" title="Download ${escapeHTML(f.name)}" onclick="downloadDemo('${escapeHTML(f.name)}')">
+                  <i class="fa-solid fa-arrow-down-to-line"></i>
+                </button>
+              </div>
+            `;
+          }).join('');
+        } else {
+          filesHtml = `<div style="font-size: 12px; color: #94a3b8; font-style: italic;">No files uploaded for this project yet.</div>`;
+        }
+
+        // Code Preview with line numbers
+        let codeLinesHtml = '';
+        const rawCode = sub.codePreview?.code || 'import pandas as pd\nimport matplotlib.pyplot as plt\n\ndf = pd.read_csv("sales_data.csv")\ndf.head()';
+        const lines = rawCode.split('\n');
+        codeLinesHtml = lines.map((l, i) => `
+          <div class="code-line-row">
+            <span class="code-line-num">${i + 1}</span>
+            <span class="code-line-text">${formatCodeSyntax(l)}</span>
+          </div>
+        `).join('');
+
+        // Feedback Card in Submission Tab
+        let feedbackBlockHtml = '';
+        if (sub.feedback && sub.feedback.score) {
+          feedbackBlockHtml = `
+            <div class="drawer-section">
+              <div class="drawer-section-title">Feedback</div>
+              <div class="feedback-review-card">
+                <div class="feedback-top-row">
+                  <div class="reviewer-info">
+                    <div class="reviewer-avatar">${sub.feedback.reviewerInitials || 'AD'}</div>
+                    <div>
+                      <div class="reviewer-name">${escapeHTML(sub.feedback.reviewerName || 'Admin')}</div>
+                      <div class="reviewer-date">${sub.feedback.date || 'Recently'}</div>
+                    </div>
+                  </div>
+                  <div class="feedback-score-pill">${sub.feedback.score}</div>
+                </div>
+                <div class="feedback-comment">"${escapeHTML(sub.feedback.comment || 'Good analysis')}"</div>
+              </div>
+            </div>
+          `;
+        }
+
+        tabBodyContent = `
+          <!-- Submission Files -->
+          <div class="drawer-section">
+            <div class="drawer-section-title">
+              <span>Submission Files (${sub.files ? sub.files.length : 0})</span>
+              <a class="drawer-link" href="javascript:void(0)" onclick="downloadAllDemo()">
+                <i class="fa-solid fa-cloud-arrow-down"></i>
+                <span>Download All</span>
+              </a>
+            </div>
+            <div class="files-list">
+              ${filesHtml}
+            </div>
+          </div>
+
+          <!-- Code Preview -->
+          <div class="drawer-section">
+            <div class="drawer-section-title">
+              <span>Preview (${escapeHTML(sub.codePreview?.fileName || 'eda_analysis.ipynb')})</span>
+              <a class="drawer-link" href="javascript:void(0)" onclick="openFullCodeDemo('${escapeHTML(sub.codePreview?.fileName || 'file')}')">
+                <span>Open in New Tab</span>
+                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i>
+              </a>
+            </div>
+            <div class="code-preview-container">
+              ${codeLinesHtml}
+            </div>
+          </div>
+
+          <!-- Feedback -->
+          ${feedbackBlockHtml}
+        `;
+      } else if (activeDrawerTab === 'feedback') {
+        tabBodyContent = `
+          <div class="drawer-section">
+            <div class="drawer-section-title">Evaluation & Rubric</div>
+            <div class="feedback-review-card">
+              <div class="form-group">
+                <label>Score Awarded (out of 20)</label>
+                <input type="number" class="form-control" id="inlineScoreInput" value="${sub.score || 18}" max="20" min="0">
+              </div>
+              <div class="form-group" style="margin-top: 8px;">
+                <label>Review Commentary</label>
+                <textarea class="form-control" id="inlineFeedbackComment" placeholder="Write feedback for the student...">${escapeHTML(sub.feedback?.comment || 'Good analysis and visualizations. Please improve conclusions and add business recommendations.')}</textarea>
+              </div>
+              <button class="btn-primary-action" style="margin-top: 10px; width: 100%; justify-content: center;" onclick="saveInlineFeedback()">Save Evaluation</button>
+            </div>
+          </div>
+        `;
+      } else if (activeDrawerTab === 'history') {
+        const historyList = (sub.history && sub.history.length > 0) ? sub.history : [
+          { action: 'Reviewed', by: 'Admin', date: sub.submittedOn || '25 Oct 2026', notes: `Marks: ${sub.marks}` },
+          { action: 'Submitted', by: sub.student?.name, date: sub.submittedOn || '25 Oct 2026', notes: 'Deliverables uploaded.' }
+        ];
+
+        const historyItemsHtml = historyList.map(h => `
+          <div style="display: flex; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #f1f5f9;">
+            <div style="width: 26px; height: 26px; border-radius: 50%; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0;">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <div style="font-size: 12.5px; font-weight: 700; color: #0f172a;">${escapeHTML(h.action)} by ${escapeHTML(h.by)}</div>
+              <div style="font-size: 11px; color: #94a3b8;">${h.date}</div>
+              <div style="font-size: 12px; color: #475569; margin-top: 2px;">${escapeHTML(h.notes || '')}</div>
+            </div>
+          </div>
+        `).join('');
+
+        tabBodyContent = `
+          <div class="drawer-section">
+            <div class="drawer-section-title">Audit Timeline</div>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px;">
+              ${historyItemsHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      body.innerHTML = `
+        <!-- Student Header -->
+        <div class="drawer-student-card">
+          <div class="drawer-avatar" style="background: ${avatarColor};">${initials}</div>
+          <div class="drawer-student-meta">
+            <h4>${escapeHTML(sub.student?.name || 'Student')}</h4>
+            <div class="student-email-row">${escapeHTML(sub.student?.email || '')}</div>
+            <div class="drawer-student-tags">
+              <span class="status-pill ${statusClass}">${sub.status}</span>
+              <span class="drawer-timestamp">Submitted on ${sub.submittedOn || 'N/A'}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Title -->
+        <div class="drawer-project-block">
+          <span class="drawer-project-label">Project Title</span>
+          <span class="drawer-project-val">${escapeHTML(sub.projectTitle)}</span>
+        </div>
+
+        <!-- 4-Item Grid -->
+        <div class="drawer-meta-grid">
+          <div class="meta-box">
+            <span class="meta-label">Course</span>
+            <span class="meta-value">${escapeHTML(sub.course || 'Data Analytics')}</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Batch (Subscription Month)</span>
+            <span class="meta-value">${escapeHTML(sub.batch || 'October 2026')}</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Project Type</span>
+            <span class="meta-value">${escapeHTML(sub.projectType || 'Course Project')}</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-label">Due Date</span>
+            <span class="meta-value">${sub.dueDate || '25 Oct 2026'}</span>
+          </div>
+          <div class="meta-box" style="grid-column: span 2; display: flex; flex-direction: row; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 2px;">
+            <span class="meta-label" style="font-size: 12px;">Marks</span>
+            <span class="meta-value" style="font-size: 14px; color: ${marksVal !== '-' ? '#16A34A' : '#64748B'};">${marksVal}</span>
+          </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        ${tabsHeaderHtml}
+
+        <!-- Tab Body -->
+        <div class="drawer-tab-content">
+          ${tabBodyContent}
+        </div>
+      `;
+    }
+
+    function switchDrawerTab(tabName) {
+      activeDrawerTab = tabName;
+      const sub = allSubmissionsFlat.find(s => s._id === activeSubmissionId);
+      if (sub) renderDetailsDrawer(sub);
+    }
+
+    function renderEmptyDetails() {
+      const body = document.getElementById('drawerBody');
+      body.innerHTML = `
+        <div style="text-align: center; padding: 60px 20px; color: #94a3b8;">
+          <i class="fa-solid fa-list-check" style="font-size: 32px; margin-bottom: 12px; color: #cbd5e1;"></i>
+          <p style="font-size: 13px;">Select a student project submission row to view complete files, review preview code, and submit feedback.</p>
+        </div>
+      `;
+    }
+
+    function closeDetailsPanel() {
+      const drawer = document.getElementById('detailsDockPanel');
+      drawer.classList.add('closed');
+    }
+
+    // Code syntax highlighting helper
+    function formatCodeSyntax(line) {
+      if (!line) return '';
+      return escapeHTML(line)
+        .replace(/(import|from|def|return|class|as)/g, '<span class="code-kw">$1</span>')
+        .replace(/(pd|plt|df)/g, '<span class="code-var">$1</span>')
+        .replace(/(".*?"|'.*?')/g, '<span class="code-str">$1</span>')
+        .replace(/(#.*)/g, '<span class="code-comm">$1</span>');
+    }
+
+    // Filters and search
+    function switchBatchTab(btn, batchName) {
+      document.querySelectorAll('.batch-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentBatchTab = batchName;
+      fetchProjectSubmissions();
+    }
+
+    function applyFilters() {
+      currentCourse = document.getElementById('courseFilter').value;
+      currentType = document.getElementById('typeFilter').value;
+      currentBatchSelect = document.getElementById('batchSelectFilter').value;
+      currentStatus = document.getElementById('statusFilter').value;
+      fetchProjectSubmissions();
+    }
+
+    function debounceSearch() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        currentSearch = document.getElementById('searchInput').value.trim();
+        fetchProjectSubmissions();
+      }, 250);
+    }
+
+    function handleTopSearch(e) {
+      if (e.key === 'Enter') {
+        const val = document.getElementById('topNavSearch').value.trim();
+        document.getElementById('searchInput').value = val;
+        currentSearch = val;
+        fetchProjectSubmissions();
+      }
+    }
+
+    function toggleDateFilterPrompt() {
+      const selected = prompt('Filter by submission month or day (e.g. "25 Oct", "Oct 2026"):', currentDate !== 'all' ? currentDate : '');
+      if (selected !== null) {
+        currentDate = selected.trim() ? selected.trim() : 'all';
+        document.getElementById('dateFilterLabel').textContent = currentDate !== 'all' ? currentDate : 'Select Date Range';
+        fetchProjectSubmissions();
+      }
+    }
+
+    function resetFilters() {
+      currentBatchTab = 'all';
+      currentCourse = 'all';
+      currentType = 'all';
+      currentBatchSelect = 'all';
+      currentStatus = 'all';
+      currentDate = 'all';
+      currentSearch = '';
+
+      document.getElementById('searchInput').value = '';
+      document.getElementById('courseFilter').value = 'all';
+      document.getElementById('typeFilter').value = 'all';
+      document.getElementById('batchSelectFilter').value = 'all';
+      document.getElementById('statusFilter').value = 'all';
+      document.getElementById('dateFilterLabel').textContent = 'Select Date Range';
+
+      document.querySelectorAll('.batch-tab-btn').forEach((b, idx) => {
+        if (idx === 0) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+
+      fetchProjectSubmissions();
+      showToast('Filters reset to default');
+    }
+
+    function toggleSelectAllInBatch(masterCheckbox, batchName) {
+      const batchCard = document.getElementById(`batchCard_${batchName.replace(/\s+/g, '_')}`);
+      if (!batchCard) return;
+      const checkboxes = batchCard.querySelectorAll('.row-checkbox');
+      checkboxes.forEach(cb => { cb.checked = masterCheckbox.checked; });
+    }
+
+    // Modal Actions
+    function openMarksModal() {
+      const sub = allSubmissionsFlat.find(s => s._id === activeSubmissionId);
+      if (!sub) {
+        showToast('Please select a project submission first');
+        return;
+      }
+
+      document.getElementById('modalStudentName').textContent = sub.student?.name || 'Student';
+      document.getElementById('modalProjectTitle').textContent = sub.projectTitle;
+      document.getElementById('modalScoreInput').value = sub.score !== null ? sub.score : 18;
+      document.getElementById('modalMaxScoreInput').value = sub.maxScore || 20;
+      document.getElementById('modalStatusSelect').value = sub.status === 'Not Submitted' ? 'Reviewed' : sub.status;
+      document.getElementById('modalFeedbackInput').value = sub.feedback?.comment || '';
+
+      document.getElementById('marksModal').classList.add('active');
+    }
+
+    function quickEditMarks(id) {
+      selectSubmission(id);
+      openMarksModal();
+    }
+
+    function quickFeedback(id) {
+      selectSubmission(id);
+      switchDrawerTab('feedback');
+    }
+
+    function openRevisionModal() {
+      const sub = allSubmissionsFlat.find(s => s._id === activeSubmissionId);
+      if (!sub) {
+        showToast('Please select a project submission first');
+        return;
+      }
+      document.getElementById('modalRevisionNotes').value = sub.feedback?.comment || 'Please improve conclusions and add business recommendations.';
+      document.getElementById('revisionModal').classList.add('active');
+    }
+
+    function openBulkActionsMenu() {
+      const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
+      if (checkedBoxes.length === 0) {
+        showToast('Please select at least one submission checkbox for bulk actions');
+        return;
+      }
+      document.getElementById('bulkSummaryText').textContent = `${checkedBoxes.length} submissions currently selected.`;
+      document.getElementById('bulkModal').classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    // Submit Marks API
+    async function submitReviewUpdate() {
+      try {
+        const score = parseInt(document.getElementById('modalScoreInput').value, 10);
+        const maxScore = parseInt(document.getElementById('modalMaxScoreInput').value, 10);
+        const status = document.getElementById('modalStatusSelect').value;
+        const comment = document.getElementById('modalFeedbackInput').value.trim();
+
+        if (isNaN(score) || isNaN(maxScore)) {
+          alert('Please enter valid numeric scores');
+          return;
+        }
+
+        const marks = `${score} / ${maxScore}`;
+
+        const res = await fetch(`/api/admin/project-submissions/${activeSubmissionId}/review`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            score,
+            maxScore,
+            marks,
+            status,
+            comment,
+            reviewerName: 'Admin'
+          })
+        });
+
+        if (!res.ok) throw new Error('Failed to update project review');
+        closeModal('marksModal');
+        showToast(`Review updated: ${marks}`);
+        fetchProjectSubmissions();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error updating review');
+      }
+    }
+
+    async function saveInlineFeedback() {
+      try {
+        const score = parseInt(document.getElementById('inlineScoreInput').value, 10);
+        const comment = document.getElementById('inlineFeedbackComment').value.trim();
+        const marks = `${score} / 20`;
+
+        const res = await fetch(`/api/admin/project-submissions/${activeSubmissionId}/review`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            score,
+            maxScore: 20,
+            marks,
+            status: 'Reviewed',
+            comment,
+            reviewerName: 'Admin'
+          })
+        });
+
+        if (!res.ok) throw new Error('Failed to save evaluation');
+        showToast('Evaluation successfully saved');
+        fetchProjectSubmissions();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error saving evaluation');
+      }
+    }
+
+    // Submit Revision API
+    async function submitRevisionRequest() {
+      try {
+        const comment = document.getElementById('modalRevisionNotes').value.trim();
+
+        const res = await fetch(`/api/admin/project-submissions/${activeSubmissionId}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            status: 'Needs Revision',
+            comment,
+            reviewerName: 'Admin'
+          })
+        });
+
+        if (!res.ok) throw new Error('Failed to request revision');
+        closeModal('revisionModal');
+        showToast('Revision request sent to student');
+        fetchProjectSubmissions();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error requesting revision');
+      }
+    }
+
+    // Mark as Reviewed API
+    async function markCurrentAsReviewed() {
+      const sub = allSubmissionsFlat.find(s => s._id === activeSubmissionId);
+      if (!sub) return;
+
+      try {
+        const score = sub.score !== null ? sub.score : 18;
+        const marks = `${score} / 20`;
+
+        const res = await fetch(`/api/admin/project-submissions/${activeSubmissionId}/review`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            status: 'Reviewed',
+            score,
+            maxScore: 20,
+            marks,
+            comment: sub.feedback?.comment || 'All project deliverables verified and approved.',
+            reviewerName: 'Admin'
+          })
+        });
+
+        if (!res.ok) throw new Error('Failed to update status');
+        showToast('Marked as Reviewed');
+        fetchProjectSubmissions();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error marking as reviewed');
+      }
+    }
+
+    // Bulk Actions Executor
+    async function executeBulkAction() {
+      const checkedBoxes = Array.from(document.querySelectorAll('.row-checkbox:checked'));
+      const ids = checkedBoxes.map(cb => cb.value);
+      const action = document.getElementById('bulkActionSelect').value;
+
+      if (action === 'export') {
+        closeModal('bulkModal');
+        exportSelectedCSV(ids);
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/admin/project-submissions/bulk-status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids, status: action })
+        });
+
+        if (!res.ok) throw new Error('Failed to execute bulk update');
+        closeModal('bulkModal');
+        showToast(`Bulk updated ${ids.length} submissions to ${action}`);
+        fetchProjectSubmissions();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error applying bulk action');
+      }
+    }
+
+    // CSV Export
+    function exportProjectsCSV() {
+      if (allSubmissionsFlat.length === 0) {
+        showToast('No submissions to export');
+        return;
+      }
+
+      const headers = ['Order', 'Batch', 'Project Title', 'Student Name', 'Student Email', 'Course', 'Submitted On', 'Due Date', 'Status', 'Marks'];
+      const rows = allSubmissionsFlat.map(s => [
+        s.order || 1,
+        `"${(s.batch || '').replace(/"/g, '""')}"`,
+        `"${(s.projectTitle || '').replace(/"/g, '""')}"`,
+        `"${(s.student?.name || '').replace(/"/g, '""')}"`,
+        s.student?.email || '',
+        s.course || '',
+        s.submittedOn || '',
+        s.dueDate || '',
+        s.status || '',
+        s.marks || '-'
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `Edurup_Project_Submissions_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Exported project submissions CSV');
+    }
+
+    function exportSelectedCSV(ids) {
+      const selectedSubs = allSubmissionsFlat.filter(s => ids.includes(s._id));
+      const headers = ['Order', 'Batch', 'Project Title', 'Student Name', 'Student Email', 'Course', 'Submitted On', 'Status', 'Marks'];
+      const rows = selectedSubs.map(s => [
+        s.order || 1,
+        `"${s.batch || ''}"`,
+        `"${s.projectTitle || ''}"`,
+        `"${s.student?.name || ''}"`,
+        s.student?.email || '',
+        s.course || '',
+        s.submittedOn || '',
+        s.status || '',
+        s.marks || '-'
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `Edurup_Selected_Projects_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast(`Exported ${selectedSubs.length} selected submissions`);
+    }
+
+    function downloadDemo(fileName) {
+      showToast(`Downloading deliverable: ${fileName}`);
+    }
+
+    function downloadAllDemo() {
+      showToast('Preparing ZIP archive of all project deliverables...');
+    }
+
+    function openFullCodeDemo(fileName) {
+      showToast(`Opening ${fileName} in dedicated code viewer`);
+    }
+
+    function showBatchReportsDemo(batchName) {
+      showToast(`Viewing executive report for ${batchName}`);
+    }
+
+    function getInitials(name) {
+      if (!name) return 'ST';
+      return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+
+  <!-- Sidebar helper functions & styles -->
+  <style>
+    /* ---------------- UNIFIED ADMIN SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: #0B132B !important;
+      color: #cbd5e1 !important;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active {
+      background: #2563eb !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff !important;
+      background: rgba(37, 99, 235, 0.15) !important;
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #64748b;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 36px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      display: block;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      background: #2563eb !important;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 900px) {
+      aside.sidebar {
+        position: fixed;
+        left: -260px;
+      }
+      aside.sidebar.mobile-open {
+        left: 0;
+      }
+    }
+  </style>
+
+  <script>
+    if (typeof toggleNavGroup !== 'function') {
+      window.toggleNavGroup = function(groupId) {
+        const el = document.getElementById(groupId);
+        if (el) el.classList.toggle('open');
+      };
+    }
+    if (typeof showToast !== 'function') {
+      window.showToast = function(text) {
+        let toast = document.getElementById('toastMsg');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'toastMsg';
+          toast.className = 'toast-msg';
+          toast.innerHTML = '<i class="fa-solid fa-circle-check" style="color: #22c55e;"></i><span id="toastText"></span>';
+          document.body.appendChild(toast);
+        }
+        const textElem = toast.querySelector('#toastText') || toast;
+        textElem.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      };
+    }
+    if (typeof toggleSidebarMobile !== 'function') {
+      window.toggleSidebarMobile = function() {
+        const sb = document.getElementById('adminSidebar');
+        if (sb) sb.classList.toggle('mobile-open');
+      };
+    }
+  </script>
+</body>
+</html>
