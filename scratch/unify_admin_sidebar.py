@@ -18,6 +18,7 @@ PAGES_CONFIG = {
     'admin-mentors.html': 'internships-mentors',
     'admin-applications.html': 'internships-applications',
     'admin-tasks.html': 'tasks-all',
+    'admin-all-projects.html': 'tasks-projects',
     'admin-assign-tasks.html': 'tasks-assign',
 }
 
@@ -364,7 +365,7 @@ def build_sidebar_html(page_key):
         </button>
         <div class="nav-sublist">
           <a href="admin-tasks.html" class="nav-subitem{tasks_all_active}">All Tasks</a>
-          <a href="admin-projects.html" class="nav-subitem{tasks_projects_active}">All Projects</a>
+          <a href="admin-all-projects.html" class="nav-subitem{tasks_projects_active}">All Projects</a>
           <a href="javascript:void(0)" onclick="showToast('My Tasks panel opening soon')" class="nav-subitem">My Tasks</a>
           <a href="javascript:void(0)" onclick="showToast('Task Submissions panel opening soon')" class="nav-subitem">Task Submissions</a>
           <a href="project-feedback.html" class="nav-subitem">Project Submissions</a>
