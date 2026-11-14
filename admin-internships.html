@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Internships | Internship Management | Edurup Learning</title>
+  <title>Internship Postings | Companies & Mentors | Edurup Learning</title>
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,22 +41,6 @@
       --purple: #8B5CF6;
       --purple-badge-bg: #F3E8FF;
       --purple-badge-text: #7E22CE;
-      --track-da: #EFF6FF;
-      --track-da-text: #2563EB;
-      --track-ds: #F5F3FF;
-      --track-ds-text: #8B5CF6;
-      --track-aiml: #FDF2F8;
-      --track-aiml-text: #DB2777;
-      --track-dm: #FEF3C7;
-      --track-dm-text: #D97706;
-      --track-fs: #FEE2E2;
-      --track-fs-text: #DC2626;
-      --track-hr: #ECFDF5;
-      --track-hr-text: #059669;
-      --track-sm: #EDE9FE;
-      --track-sm-text: #6D28D9;
-      --track-ent: #E0F2FE;
-      --track-ent-text: #0284C7;
     }
 
     * {
@@ -72,170 +56,6 @@
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
-    }
-
-    /* ---------------- SIDEBAR ---------------- */
-    aside.sidebar {
-      width: 260px;
-      background: var(--bg-sidebar);
-      color: #cbd5e1;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      min-height: 100vh;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      z-index: 100;
-    }
-
-    aside.sidebar::-webkit-scrollbar {
-      width: 5px;
-    }
-    aside.sidebar::-webkit-scrollbar-thumb {
-      background: #1e293b;
-      border-radius: 4px;
-    }
-
-    .sidebar-header {
-      padding: 24px 20px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .brand-logo-badge {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 20px;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
-    }
-
-    .brand-info h2 {
-      font-size: 16px;
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.2;
-    }
-
-    .brand-info span {
-      font-size: 11px;
-      color: #94a3b8;
-      font-weight: 500;
-    }
-
-    .sidebar-nav {
-      padding: 16px 12px 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .nav-item-btn {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #94a3b8;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item-btn:hover {
-      background: var(--sidebar-hover);
-      color: #ffffff;
-    }
-
-    .nav-item-btn.active-category {
-      background: var(--sidebar-active);
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-    }
-
-    .nav-item-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .nav-item-left i {
-      font-size: 14px;
-      width: 16px;
-      text-align: center;
-    }
-
-    .nav-chevron {
-      font-size: 10px;
-      transition: transform 0.2s ease;
-      color: #cbd5e1;
-    }
-
-    .nav-group.open .nav-chevron {
-      transform: rotate(180deg);
-    }
-
-    .nav-sublist {
-      display: none;
-      flex-direction: column;
-      padding: 4px 0 6px 36px;
-      gap: 2px;
-    }
-
-    .nav-group.open .nav-sublist {
-      display: flex;
-    }
-
-    .nav-subitem {
-      padding: 7px 10px;
-      font-size: 12.5px;
-      color: #94a3b8;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: all 0.15s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-subitem:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .nav-subitem.active-subitem {
-      color: #ffffff;
-      font-weight: 700;
-      background: #2563eb;
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
-    }
-
-    .nav-subitem::before {
-      content: "•";
-      font-size: 14px;
-      color: #475569;
-    }
-
-    .nav-subitem.active-subitem::before {
-      color: #ffffff;
-    }
-    .nav-subitem:hover::before {
-      color: #60a5fa;
     }
 
     /* ---------------- MAIN CONTENT ---------------- */
@@ -371,44 +191,6 @@
       color: var(--text-muted);
     }
 
-    .profile-dropdown-menu {
-      position: absolute;
-      top: 55px;
-      right: 0;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      width: 190px;
-      padding: 6px;
-      display: none;
-      flex-direction: column;
-      z-index: 1000;
-    }
-
-    .profile-dropdown-menu.show {
-      display: flex;
-    }
-
-    .profile-dropdown-item {
-      padding: 9px 12px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: #475569;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-radius: 8px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .profile-dropdown-item:hover {
-      background: #f8fafc;
-      color: var(--primary);
-    }
-
     /* ---------------- PAGE LAYOUT ---------------- */
     .page-layout-wrap {
       display: flex;
@@ -423,13 +205,8 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
       transition: all 0.3s ease;
-    }
-
-    .page-left-main.fullwidth {
-      flex: 1;
-      width: 100%;
     }
 
     /* Breadcrumbs */
@@ -445,6 +222,9 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .breadcrumb-row a:hover {
@@ -476,17 +256,44 @@
     }
 
     .page-title-block p {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-muted);
       margin-top: 4px;
     }
 
-    .btn-add-primary {
+    .header-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-header-secondary {
+      background: #ffffff;
+      color: #475569;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-header-secondary:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: var(--primary);
+    }
+
+    .btn-header-primary {
       background: var(--primary);
       color: #ffffff;
       border: none;
       border-radius: 8px;
-      padding: 10px 20px;
+      padding: 9px 18px;
       font-size: 13px;
       font-weight: 700;
       display: flex;
@@ -497,27 +304,74 @@
       box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
     }
 
-    .btn-add-primary:hover {
+    .btn-header-primary:hover {
       background: var(--primary-hover);
       box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
       transform: translateY(-1px);
     }
 
-    /* ---------------- KPI STATS GRID (4 CARDS) ---------------- */
+    /* ---------------- SUB-NAV PILL ROW ---------------- */
+    .subnav-pill-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .subnav-pill-row::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .subnav-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .subnav-pill:hover {
+      color: var(--primary);
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .subnav-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    .subnav-pill i {
+      font-size: 13px;
+    }
+
+    /* ---------------- KPI STATS GRID (5 CARDS) ---------------- */
     .kpi-stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
     }
 
     .kpi-card {
       background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 18px 20px;
+      padding: 16px 18px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
       transition: transform 0.2s, box-shadow 0.2s;
     }
@@ -539,28 +393,40 @@
     }
 
     .kpi-icon-box.purple {
-      background: #F5F3FF;
-      color: #8B5CF6;
+      background: #F3E8FF;
+      color: #9333EA;
     }
 
     .kpi-icon-box.green {
-      background: #ECFDF5;
-      color: #10B981;
-    }
-
-    .kpi-icon-box.blue {
-      background: #EFF6FF;
-      color: #2563EB;
+      background: #DCFCE7;
+      color: #16A34A;
     }
 
     .kpi-icon-box.amber {
-      background: #FFFBEB;
-      color: #F59E0B;
+      background: #FEF3C7;
+      color: #D97706;
+    }
+
+    .kpi-icon-box.pink {
+      background: #FFE4E6;
+      color: #E11D48;
+    }
+
+    .kpi-icon-box.blue {
+      background: #DBEAFE;
+      color: #2563EB;
     }
 
     .kpi-content {
       display: flex;
       flex-direction: column;
+      min-width: 0;
+    }
+
+    .kpi-num-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
     }
 
     .kpi-num {
@@ -568,6 +434,26 @@
       font-weight: 800;
       color: var(--text-main);
       line-height: 1.1;
+    }
+
+    .kpi-sub-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .kpi-sub-pill.green {
+      background: #DCFCE7;
+      color: #15803D;
+    }
+
+    .kpi-sub-pill.amber {
+      background: #FEF3C7;
+      color: #B45309;
     }
 
     .kpi-desc {
@@ -593,7 +479,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 8px 14px;
-      width: 260px;
+      width: 270px;
       transition: border 0.2s;
     }
 
@@ -610,7 +496,7 @@
     .search-input-wrap input {
       border: none;
       outline: none;
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-main);
       width: 100%;
     }
@@ -619,8 +505,8 @@
       background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 13px;
+      padding: 8px 12px;
+      font-size: 12.5px;
       font-weight: 600;
       color: #475569;
       outline: none;
@@ -632,58 +518,115 @@
       border-color: #cbd5e1;
     }
 
-    .btn-reset {
+    .date-range-btn {
       background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 8px 16px;
-      font-size: 13px;
+      padding: 8px 14px;
+      font-size: 12.5px;
       font-weight: 600;
-      color: var(--primary);
+      color: #475569;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       transition: all 0.15s;
     }
 
-    .btn-reset:hover {
-      background: #f8fafc;
+    .date-range-btn:hover {
       border-color: #cbd5e1;
+      color: var(--primary);
     }
 
-    /* ---------------- TABLE STYLING ---------------- */
+    .btn-reset {
+      background: transparent;
+      border: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 6px 10px;
+      transition: opacity 0.15s;
+    }
+
+    .btn-reset:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------------- TABS ROW ---------------- */
+    .status-tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+    }
+
+    .status-tab {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      padding: 8px 4px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: -1px;
+    }
+
+    .status-tab:hover {
+      color: var(--text-main);
+    }
+
+    .status-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* ---------------- TABLE CONTAINER ---------------- */
     .table-container {
       background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
     }
 
-    table.internships-table {
+    table.postings-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
     }
 
-    table.internships-table th {
+    table.postings-table th {
       background: #f8fafc;
-      padding: 13px 14px;
-      font-size: 12px;
+      padding: 12px 14px;
+      font-size: 11.5px;
       font-weight: 700;
-      color: var(--text-muted);
+      color: #64748b;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
 
-    table.internships-table td {
-      padding: 14px 14px;
-      font-size: 13px;
+    table.postings-table td {
+      padding: 13px 14px;
+      font-size: 12.5px;
       color: var(--text-main);
       border-bottom: 1px solid #f1f5f9;
       vertical-align: middle;
     }
 
-    table.internships-table tr:hover td {
+    table.postings-table tr:hover td {
       background: #fafcff;
+    }
+
+    table.postings-table tr.selected-row td {
+      background: #eff6ff !important;
     }
 
     .col-check {
@@ -692,154 +635,162 @@
     }
 
     .col-num {
-      width: 36px;
-      font-weight: 700;
+      width: 32px;
+      font-weight: 600;
       color: #64748b;
     }
 
-    .title-cell {
+    .posting-title-cell {
       font-weight: 700;
       color: var(--text-main);
       cursor: pointer;
       transition: color 0.15s;
     }
 
-    .title-cell:hover {
+    .posting-title-cell:hover {
       color: var(--primary);
     }
 
-    /* Track Pill Badges */
-    .track-badge {
+    /* Company Logo Badge */
+    .company-cell {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .company-logo-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Domain Badges */
+    .domain-badge {
       font-size: 11px;
       font-weight: 700;
-      padding: 3px 10px;
+      padding: 3px 9px;
       border-radius: 6px;
       display: inline-block;
       white-space: nowrap;
     }
 
-    .track-badge.data-analytics {
-      background: var(--track-da);
-      color: var(--track-da-text);
+    .domain-badge.data-analytics { background: #EFF6FF; color: #2563EB; }
+    .domain-badge.full-stack { background: #F5F3FF; color: #7C3AED; }
+    .domain-badge.digital-marketing { background: #FDF2F8; color: #DB2777; }
+    .domain-badge.data-science { background: #EDE9FE; color: #6D28D9; }
+    .domain-badge.business-analyst { background: #E0F2FE; color: #0284C7; }
+    .domain-badge.python---ml { background: #EEF2FF; color: #4F46E5; }
+    .domain-badge.design--ui-ux- { background: #F3E8FF; color: #9333EA; }
+    .domain-badge.cloud---devops { background: #ECFEFF; color: #0891B2; }
+    .domain-badge.analytics { background: #E0F2FE; color: #0369A1; }
+    .domain-badge.ai---ml { background: #FAF5FF; color: #7E22CE; }
+
+    /* Mode Badge */
+    .mode-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #475569;
+      white-space: nowrap;
     }
-    .track-badge.data-science {
-      background: var(--track-ds);
-      color: var(--track-ds-text);
+
+    .mode-cell i {
+      font-size: 11px;
+      color: #64748b;
     }
-    .track-badge.ai---ml {
-      background: var(--track-aiml);
-      color: var(--track-aiml-text);
-    }
-    .track-badge.digital-marketing {
-      background: var(--track-dm);
-      color: var(--track-dm-text);
-    }
-    .track-badge.full-stack {
-      background: var(--track-fs);
-      color: var(--track-fs-text);
-    }
-    .track-badge.hr {
-      background: var(--track-hr);
-      color: var(--track-hr-text);
-    }
-    .track-badge.sales---marketing {
-      background: var(--track-sm);
-      color: var(--track-sm-text);
-    }
-    .track-badge.entrepreneurship {
-      background: var(--track-ent);
-      color: var(--track-ent-text);
+
+    /* Apps count badge */
+    .apps-count-badge {
+      background: #EFF6FF;
+      color: #2563EB;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: inline-block;
+      text-align: center;
     }
 
     /* Status Pill Badges */
-    .status-badge {
+    .status-pill {
       font-size: 11px;
       font-weight: 700;
       padding: 3px 10px;
-      border-radius: 20px;
+      border-radius: 12px;
       display: inline-block;
+      white-space: nowrap;
     }
 
-    .status-badge.published {
-      background: var(--success-badge-bg);
-      color: var(--success-badge-text);
-    }
+    .status-pill.active { background: #DCFCE7; color: #15803D; }
+    .status-pill.in-review { background: #FEF3C7; color: #B45309; }
+    .status-pill.closed { background: #F1F5F9; color: #64748B; }
+    .status-pill.draft { background: #E2E8F0; color: #475569; }
 
-    .status-badge.upcoming {
-      background: var(--info-badge-bg);
-      color: var(--info-badge-text);
-    }
-
-    .status-badge.draft {
-      background: var(--warning-badge-bg);
-      color: var(--warning-badge-text);
-    }
-
-    /* Row Action Buttons */
-    .row-actions-wrap {
+    /* Action Buttons */
+    .actions-wrap {
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .btn-act {
-      border: none;
+    .act-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #64748b;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      background: #eff6ff;
-      color: #2563eb;
       font-size: 12px;
       transition: all 0.15s;
     }
 
-    .btn-act:hover {
-      background: #dbeafe;
+    .act-btn:hover {
+      background: #eff6ff;
+      color: var(--primary);
+      border-color: #bfdbfe;
     }
 
-    .btn-act.delete {
-      background: #fef2f2;
-      color: #ef4444;
-    }
-
-    .btn-act.delete:hover {
-      background: #fee2e2;
-    }
-
-    /* Table Footer & Pagination */
+    /* Table Footer */
     .table-footer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 20px;
+      padding: 12px 18px;
       background: #ffffff;
       border-top: 1px solid var(--border);
     }
 
-    .showing-text {
-      font-size: 12.5px;
-      color: var(--text-muted);
+    .footer-count-text {
+      font-size: 12px;
+      color: #64748b;
       font-weight: 500;
     }
 
-    .pagination-bar {
+    .pagination-wrap {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
-    .pg-btn {
-      min-width: 30px;
-      height: 30px;
-      padding: 0 8px;
+    .pg-box {
+      width: 28px;
+      height: 28px;
       border-radius: 6px;
-      border: 1px solid var(--border);
+      border: 1px solid #e2e8f0;
       background: #ffffff;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 600;
       color: #475569;
       cursor: pointer;
@@ -849,91 +800,439 @@
       transition: all 0.15s;
     }
 
-    .pg-btn:hover:not(:disabled) {
+    .pg-box:hover:not(:disabled) {
       background: #f1f5f9;
       color: var(--primary);
     }
 
-    .pg-btn.active {
+    .pg-box.active {
       background: var(--primary);
       color: #ffffff;
       border-color: var(--primary);
     }
 
-    .pg-btn:disabled {
+    .pg-box:disabled {
       opacity: 0.4;
       cursor: not-allowed;
     }
 
-    /* ---------------- RIGHT SIDE FORM PANEL ---------------- */
-    .form-panel-side {
+    /* ---------------- RIGHT SIDE DETAILS DRAWER ---------------- */
+    .details-drawer-side {
       width: 410px;
       background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 14px;
       box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
       display: flex;
       flex-direction: column;
       flex-shrink: 0;
       overflow: hidden;
-      transition: transform 0.3s ease, opacity 0.3s ease;
       position: sticky;
-      top: 94px;
+      top: 90px;
+      max-height: calc(100vh - 110px);
+      transition: all 0.3s ease;
     }
 
-    .form-panel-side.collapsed {
+    .details-drawer-side.collapsed {
       display: none;
     }
 
-    .form-header {
-      padding: 18px 20px 14px;
+    .drawer-top-header {
+      padding: 16px 20px 14px;
       border-bottom: 1px solid var(--border);
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .btn-close-form {
-      position: absolute;
-      top: 18px;
-      right: 18px;
+    .drawer-top-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .btn-close-drawer {
       background: transparent;
       border: none;
       font-size: 16px;
       color: #94a3b8;
       cursor: pointer;
+      padding: 4px;
       transition: color 0.15s;
     }
 
-    .btn-close-form:hover {
+    .btn-close-drawer:hover {
       color: var(--text-main);
     }
 
-    .form-header h3 {
-      font-size: 17px;
+    .drawer-scroll-body {
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .drawer-scroll-body::-webkit-scrollbar {
+      width: 4px;
+    }
+    .drawer-scroll-body::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    /* Company Card inside Drawer */
+    .drawer-company-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .drawer-company-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .drawer-company-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .drawer-company-meta h4 {
+      font-size: 15px;
       font-weight: 800;
       color: var(--text-main);
     }
 
-    .form-header p {
+    .drawer-company-meta span {
       font-size: 12px;
-      color: var(--text-muted);
+      color: #64748b;
+    }
+
+    .drawer-posting-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    /* Drawer Inner Tabs */
+    .drawer-inner-tabs {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+    }
+
+    .drawer-inner-tab {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      padding: 6px 2px 8px;
+      cursor: pointer;
+      margin-bottom: -1px;
+      transition: all 0.15s;
+    }
+
+    .drawer-inner-tab:hover {
+      color: var(--text-main);
+    }
+
+    .drawer-inner-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Drawer Content Sections */
+    .drawer-section-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .drawer-section-title i {
+      color: var(--primary);
+      font-size: 13px;
+    }
+
+    .drawer-desc-p {
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.55;
+    }
+
+    /* 2x3 Details Grid */
+    .drawer-specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #f1f5f9;
+    }
+
+    .spec-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .spec-item i {
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 2px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .spec-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spec-label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .spec-val {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 1px;
+    }
+
+    /* Skills Pill Tags */
+    .skills-pill-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-tag {
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid #dbeafe;
+    }
+
+    /* Eligibility list */
+    .eligibility-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .eligibility-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    .eligibility-item i {
+      color: #10b981;
+      font-size: 12px;
       margin-top: 3px;
     }
 
-    .form-scroll-body {
-      padding: 18px 20px;
-      max-height: calc(100vh - 210px);
+    /* Drawer Actions Footer */
+    .drawer-actions-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-view-apps-primary {
+      width: 100%;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-view-apps-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+
+    .drawer-bottom-3btn {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.3fr;
+      gap: 8px;
+    }
+
+    .drawer-sec-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .drawer-sec-btn:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: var(--primary);
+    }
+
+    .drawer-sec-btn.danger {
+      color: #ef4444;
+      border-color: #fecaca;
+    }
+
+    .drawer-sec-btn.danger:hover {
+      background: #fef2f2;
+      border-color: #fca5a5;
+    }
+
+    /* Floating button to reopen drawer if closed */
+    .btn-reopen-drawer {
+      display: none;
+      position: fixed;
+      right: 20px;
+      bottom: 24px;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+      cursor: pointer;
+      z-index: 80;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-reopen-drawer.show {
+      display: flex;
+    }
+
+    /* ---------------- MODALS ---------------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(3px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      width: 600px;
+      max-width: 95vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalFadeIn 0.25s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(14px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 20px 24px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    .form-scroll-body::-webkit-scrollbar {
-      width: 4px;
-    }
-    .form-scroll-body::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
     }
 
     .form-group {
@@ -952,16 +1251,9 @@
       font-size: 12.5px;
       font-weight: 700;
       color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    .form-label span.req {
-      color: var(--danger);
-    }
-
-    .form-select, .form-input {
+    .form-input, .form-select, .form-textarea {
       width: 100%;
       background: #ffffff;
       border: 1px solid #cbd5e1;
@@ -973,356 +1265,14 @@
       transition: border 0.15s, box-shadow 0.15s;
     }
 
-    .form-select:focus, .form-input:focus, .rich-textarea:focus {
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
     }
 
-    /* Rich text toolbar */
-    .rich-editor-wrap {
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #ffffff;
-    }
-
-    .rich-toolbar {
-      background: #f8fafc;
-      border-bottom: 1px solid #e2e8f0;
-      padding: 6px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .toolbar-btn {
-      background: transparent;
-      border: none;
-      font-size: 12px;
-      color: #64748b;
-      cursor: pointer;
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-    }
-
-    .toolbar-btn:hover {
-      background: #e2e8f0;
-      color: var(--text-main);
-    }
-
-    .rich-textarea {
-      width: 100%;
-      height: 70px;
-      border: none;
-      outline: none;
-      padding: 8px 10px;
-      font-size: 12.5px;
-      color: var(--text-main);
+    .form-textarea {
       resize: vertical;
-    }
-
-    .char-count {
-      text-align: right;
-      font-size: 11px;
-      color: #94a3b8;
-      padding: 4px 8px 6px;
-      background: #ffffff;
-    }
-
-    /* Dynamic Project Rows */
-    .project-inputs-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .proj-item-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .proj-num {
-      font-size: 12px;
-      font-weight: 700;
-      color: #64748b;
-      width: 18px;
-    }
-
-    .proj-input {
-      flex: 1;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 12.5px;
-      color: var(--text-main);
-      outline: none;
-    }
-
-    .proj-input:focus {
-      border-color: var(--primary);
-    }
-
-    .btn-proj-del {
-      background: transparent;
-      border: none;
-      color: #ef4444;
-      cursor: pointer;
-      font-size: 12px;
-      padding: 4px;
-      border-radius: 4px;
-    }
-
-    .btn-add-proj {
-      align-self: flex-start;
-      background: #ffffff;
-      border: 1px solid #bfdbfe;
-      border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.15s;
-    }
-
-    .btn-add-proj:hover {
-      background: #eff6ff;
-    }
-
-    /* Toggle switch for Show to Students */
-    .switch-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 4px;
-    }
-
-    .switch-toggle {
-      position: relative;
-      display: inline-block;
-      width: 44px;
-      height: 24px;
-    }
-
-    .switch-toggle input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .switch-slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #cbd5e1;
-      transition: .3s;
-      border-radius: 24px;
-    }
-
-    .switch-slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: .3s;
-      border-radius: 50%;
-    }
-
-    input:checked + .switch-slider {
-      background-color: var(--primary);
-    }
-
-    input:checked + .switch-slider:before {
-      transform: translateX(20px);
-    }
-
-    .switch-label-block h6 {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .switch-label-block p {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* Form Footer */
-    .form-actions-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      border-top: 1px solid var(--border);
-      background: #fafcff;
-    }
-
-    .btn-form-del-red {
-      background: transparent;
-      border: 1px solid #fecaca;
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: #dc2626;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.15s;
-    }
-
-    .btn-form-del-red:hover {
-      background: #fee2e2;
-    }
-
-    .form-actions-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-form-cancel {
-      background: transparent;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #475569;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-form-cancel:hover {
-      background: #f1f5f9;
-    }
-
-    .btn-form-save {
-      background: var(--primary);
-      border: none;
-      border-radius: 8px;
-      padding: 8px 18px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #ffffff;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-form-save:hover {
-      background: var(--primary-hover);
-    }
-
-    /* ---------------- PREVIEW MODAL ---------------- */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-backdrop.show {
-      display: flex;
-    }
-
-    .modal-card {
-      background: #ffffff;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 600px;
-      overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-
-    .modal-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .modal-header h4 {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-
-    .modal-close-btn {
-      background: transparent;
-      border: none;
-      font-size: 16px;
-      color: #94a3b8;
-      cursor: pointer;
-    }
-
-    .modal-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      max-height: 70vh;
-      overflow-y: auto;
-    }
-
-    /* Toast */
-    .toast-msg {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #0f172a;
-      color: #ffffff;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 2000;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
-
-    .toast-msg.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    @media (max-width: 1200px) {
-      .page-layout-wrap {
-        flex-direction: column;
-      }
-      .form-panel-side {
-        width: 100%;
-        position: static;
-      }
-      .kpi-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      min-height: 70px;
     }
   
     /* ---------------- UNIFIED ADMIN SIDEBAR ---------------- */
@@ -1541,13 +1491,7 @@
 </head>
 <body>
 
-  <!-- ================= SIDEBAR ================= -->
-    <!-- ================= SIDEBAR ================= -->
-    <!-- ================= SIDEBAR ================= -->
-    <!-- ================= SIDEBAR ================= -->
-    <!-- ================= SIDEBAR ================= -->
-    <!-- ================= SIDEBAR ================= -->
-    <!-- ================= SIDEBAR ================= -->
+  <!-- SIDEBAR PLACEHOLDER (Synchronized automatically) -->
     <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="adminSidebar">
     <div class="sidebar-header">
@@ -1605,8 +1549,8 @@
       </div>
 
       <!-- Internship Management -->
-      <div class="nav-group open" id="navGroupInternships">
-        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupInternships')">
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
           <div class="nav-item-left">
             <i class="fa-solid fa-briefcase"></i>
             <span>Internship Management</span>
@@ -1614,7 +1558,7 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="admin-internships.html" class="nav-subitem active-subitem">Internships</a>
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
           <a href="admin-projects.html" class="nav-subitem">Projects</a>
           <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
           <a href="admin-applications.html" class="nav-subitem">Applications</a>
@@ -1644,8 +1588,8 @@
       </div>
 
       <!-- Companies & Mentors -->
-      <div class="nav-group" id="navGroupCompanies">
-        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+      <div class="nav-group open" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupCompanies')">
           <div class="nav-item-left">
             <i class="fa-solid fa-building"></i>
             <span>Companies & Mentors</span>
@@ -1653,9 +1597,14 @@
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="javascript:void(0)" onclick="showToast('Partner Companies desk opening soon')" class="nav-subitem">Partner Companies</a>
-          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
-          <a href="admin-mentors.html" class="nav-subitem">Mentor Assignments</a>
+          <a href="javascript:void(0)" onclick="showToast('Partner Companies directory')" class="nav-subitem">All Companies</a>
+          <a href="admin-mentors.html" class="nav-subitem">All Mentors</a>
+          <a href="javascript:void(0)" onclick="showToast('Corporate Partnerships')" class="nav-subitem">Partnerships</a>
+          <a href="admin-internships.html" class="nav-subitem active-subitem">Internship Postings</a>
+          <a href="admin-applications.html" class="nav-subitem">Applications</a>
+          <a href="javascript:void(0)" onclick="showToast('Campus & Virtual Hiring Drives')" class="nav-subitem">Hiring Drives</a>
+          <a href="javascript:void(0)" onclick="showToast('Corporate Interactions')" class="nav-subitem">Interactions</a>
+          <a href="javascript:void(0)" onclick="showToast('Partner Inbound Requests')" class="nav-subitem">Partner Requests</a>
         </div>
       </div>
 
@@ -1751,63 +1700,81 @@
     </nav>
   </aside>
 
-  <!-- ================= MAIN CONTENT ================= -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
     <!-- Topbar -->
     <header class="topbar">
       <div class="top-search-wrap">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="topNavSearch" placeholder="Search internships, tracks, projects, mentors..." onkeyup="handleGlobalSearch(event)">
+        <input type="text" id="globalTopSearch" placeholder="Search students, internships, companies, mentors..." onkeyup="handleGlobalSearch(event)">
       </div>
-
       <div class="top-right-actions">
-        <button type="button" class="notification-btn" title="Notifications" onclick="showToast('No new notifications')">
+        <button class="notification-btn" title="Notifications" onclick="showToast('No new notifications')">
           <i class="fa-regular fa-bell"></i>
           <span class="notif-badge"></span>
         </button>
-
-        <div class="admin-profile-chip" onclick="toggleProfileDropdown(event)">
+        <div class="admin-profile-chip" title="Admin Profile">
           <div class="avatar-circle">AD</div>
           <div class="admin-meta">
             <span class="admin-name">Admin</span>
             <span class="admin-role">Super Admin</span>
           </div>
-
-          <div class="profile-dropdown-menu" id="profileDropdown">
-            <a href="admin-settings.html" class="profile-dropdown-item"><i class="fa-solid fa-user-gear"></i> Admin Settings</a>
-            <a href="admin-dashboard.html" class="profile-dropdown-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-            <a href="javascript:void(0)" onclick="logoutAdmin()" class="profile-dropdown-item" style="color: #ef4444;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
-          </div>
         </div>
       </div>
     </header>
 
-    <!-- Page Body Layout -->
+    <!-- Page Body -->
     <div class="page-layout-wrap">
       <!-- Left Main Section -->
-      <div class="page-left-main" id="pageLeftMain">
+      <section class="page-left-main" id="pageLeftMain">
         <!-- Breadcrumbs -->
         <div class="breadcrumb-row">
-          <a href="admin-dashboard.html"><i class="fa-solid fa-house" style="font-size: 11px;"></i> Dashboard</a>
-          <span class="sep">></span>
-          <span>Internship Management</span>
-          <span class="sep">></span>
-          <span class="breadcrumb-current">Internships</span>
+          <a href="admin-dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+          <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
+          <a href="javascript:void(0)">Companies & Mentors</a>
+          <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
+          <span class="breadcrumb-current">Internship Postings</span>
         </div>
 
         <!-- Page Header -->
         <div class="page-header-row">
           <div class="page-title-block">
-            <h1>Internships</h1>
-            <p>Create and manage internship programs for your students.</p>
+            <h1>Internship Postings</h1>
+            <p>Manage internship opportunities from partner companies, review applications and track selections.</p>
           </div>
-
-          <button type="button" class="btn-add-primary" onclick="openAddForm()">
-            <i class="fa-solid fa-plus"></i> Add Internship
-          </button>
+          <div class="header-actions-group">
+            <button class="btn-header-secondary" onclick="exportPostingsToCSV()">
+              <i class="fa-solid fa-arrow-up-from-bracket"></i> Export
+            </button>
+            <button class="btn-header-primary" onclick="openCreateModal()">
+              <i class="fa-solid fa-plus"></i> Add Internship
+            </button>
+          </div>
         </div>
 
-        <!-- 4 KPI Stats Cards -->
+        <!-- Sub-Nav Pill Row -->
+        <div class="subnav-pill-row">
+          <a href="javascript:void(0)" class="subnav-pill" onclick="showToast('Partner Companies directory')">
+            <i class="fa-solid fa-building"></i> Companies
+          </a>
+          <a href="admin-mentors.html" class="subnav-pill">
+            <i class="fa-solid fa-chalkboard-user"></i> Mentors
+          </a>
+          <a href="admin-internships.html" class="subnav-pill active">
+            <i class="fa-solid fa-briefcase"></i> Internship Postings
+          </a>
+          <a href="admin-applications.html" class="subnav-pill">
+            <i class="fa-solid fa-file-lines"></i> Applications
+          </a>
+          <a href="javascript:void(0)" class="subnav-pill" onclick="filterBySelectedTab()">
+            <i class="fa-solid fa-user-check"></i> Selections
+          </a>
+          <a href="javascript:void(0)" class="subnav-pill" onclick="showToast('Internship Tracking dashboard')">
+            <i class="fa-solid fa-clock-rotate-left"></i> Internship Tracking
+          </a>
+        </div>
+
+        <!-- 5 KPI Cards Grid -->
         <div class="kpi-stats-grid">
           <!-- 1. Total Internships -->
           <div class="kpi-card">
@@ -1815,654 +1782,1014 @@
               <i class="fa-solid fa-briefcase"></i>
             </div>
             <div class="kpi-content">
-              <span class="kpi-num" id="kpiTotalInternships">8</span>
+              <div class="kpi-num-row">
+                <span class="kpi-num" id="kpiTotal">42</span>
+              </div>
               <span class="kpi-desc">Total Internships</span>
             </div>
           </div>
 
-          <!-- 2. Total Enrolled -->
+          <!-- 2. Active -->
           <div class="kpi-card">
             <div class="kpi-icon-box green">
-              <i class="fa-solid fa-users"></i>
-            </div>
-            <div class="kpi-content">
-              <span class="kpi-num" id="kpiTotalEnrolled">124</span>
-              <span class="kpi-desc">Total Enrolled</span>
-            </div>
-          </div>
-
-          <!-- 3. Completed -->
-          <div class="kpi-card">
-            <div class="kpi-icon-box blue">
               <i class="fa-solid fa-circle-check"></i>
             </div>
             <div class="kpi-content">
-              <span class="kpi-num" id="kpiCompleted">96</span>
-              <span class="kpi-desc">Completed</span>
+              <div class="kpi-num-row">
+                <span class="kpi-num" id="kpiActive">18</span>
+                <span class="kpi-sub-pill green" id="kpiActivePercent">43%</span>
+              </div>
+              <span class="kpi-desc">Active</span>
             </div>
           </div>
 
-          <!-- 4. Ongoing -->
+          <!-- 3. In Review -->
           <div class="kpi-card">
             <div class="kpi-icon-box amber">
               <i class="fa-regular fa-clock"></i>
             </div>
             <div class="kpi-content">
-              <span class="kpi-num" id="kpiOngoing">18</span>
-              <span class="kpi-desc">Ongoing</span>
+              <div class="kpi-num-row">
+                <span class="kpi-num" id="kpiInReview">12</span>
+                <span class="kpi-sub-pill amber" id="kpiInReviewPercent">29%</span>
+              </div>
+              <span class="kpi-desc">In Review</span>
+            </div>
+          </div>
+
+          <!-- 4. Total Applications -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box pink">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="kpi-content">
+              <div class="kpi-num-row">
+                <span class="kpi-num" id="kpiTotalApps">286</span>
+              </div>
+              <span class="kpi-desc">Total Applications</span>
+            </div>
+          </div>
+
+          <!-- 5. Selected Interns -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box blue">
+              <i class="fa-solid fa-handshake"></i>
+            </div>
+            <div class="kpi-content">
+              <div class="kpi-num-row">
+                <span class="kpi-num" id="kpiSelected">36</span>
+              </div>
+              <span class="kpi-desc">Selected Interns</span>
             </div>
           </div>
         </div>
 
-        <!-- Filters Row -->
+        <!-- Search and Filters Row -->
         <div class="filters-row">
           <div class="search-input-wrap">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="Search internships..." onkeyup="handleFilterChange()">
+            <input type="text" id="searchInput" placeholder="Search by title, company or skills..." oninput="handleSearch()">
           </div>
 
-          <select id="trackFilter" class="filter-select" onchange="handleFilterChange()">
-            <option value="All">All Tracks</option>
-            <option value="Data Analytics">Data Analytics</option>
-            <option value="Data Science">Data Science</option>
-            <option value="AI / ML">AI / ML</option>
-            <option value="Digital Marketing">Digital Marketing</option>
-            <option value="Full Stack">Full Stack</option>
-            <option value="HR">HR</option>
-            <option value="Sales & Marketing">Sales & Marketing</option>
-            <option value="Entrepreneurship">Entrepreneurship</option>
+          <select class="filter-select" id="companyFilter" onchange="applyFilters()">
+            <option value="All Companies">All Companies</option>
+            <option value="Amazon">Amazon</option>
+            <option value="Microsoft">Microsoft</option>
+            <option value="Deloitte">Deloitte</option>
+            <option value="TCS">TCS</option>
+            <option value="Infosys">Infosys</option>
+            <option value="Wipro">Wipro</option>
+            <option value="Capgemini">Capgemini</option>
+            <option value="HCL">HCL</option>
+            <option value="Accenture">Accenture</option>
+            <option value="Mindtree">Mindtree</option>
           </select>
 
-          <select id="statusFilter" class="filter-select" onchange="handleFilterChange()">
-            <option value="All">All Status</option>
-            <option value="Published">Published</option>
-            <option value="Upcoming">Upcoming</option>
+          <select class="filter-select" id="domainFilter" onchange="applyFilters()">
+            <option value="All Domains">All Domains</option>
+            <option value="Data Analytics">Data Analytics</option>
+            <option value="Full Stack">Full Stack</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Business Analyst">Business Analyst</option>
+            <option value="Python / ML">Python / ML</option>
+            <option value="Design (UI/UX)">Design (UI/UX)</option>
+            <option value="Cloud / DevOps">Cloud / DevOps</option>
+            <option value="Analytics">Analytics</option>
+            <option value="AI / ML">AI / ML</option>
+          </select>
+
+          <select class="filter-select" id="statusFilter" onchange="applyFilters()">
+            <option value="All Status">All Status</option>
+            <option value="Active">Active</option>
+            <option value="In Review">In Review</option>
+            <option value="Closed">Closed</option>
             <option value="Draft">Draft</option>
           </select>
 
-          <select id="durationFilter" class="filter-select" onchange="handleFilterChange()">
-            <option value="All">All Duration</option>
-            <option value="1 Month">1 Month</option>
-            <option value="2 Months">2 Months</option>
-            <option value="3 Months">3 Months</option>
-            <option value="6 Months">6 Months</option>
-          </select>
+          <button class="date-range-btn" onclick="openDateRangeModal()">
+            <i class="fa-regular fa-calendar-days"></i> Select Date Range
+          </button>
 
-          <button type="button" class="btn-reset" onclick="resetFilters()">Reset</button>
+          <button class="btn-reset" onclick="resetAllFilters()">Reset</button>
         </div>
 
-        <!-- Internships Table Container -->
+        <!-- Status Filter Tabs -->
+        <div class="status-tabs-row">
+          <button class="status-tab active" id="tabAll" onclick="setTab('All Internships')">
+            All Internships (42)
+          </button>
+          <button class="status-tab" id="tabActive" onclick="setTab('Active')">
+            Active (18)
+          </button>
+          <button class="status-tab" id="tabInReview" onclick="setTab('In Review')">
+            In Review (12)
+          </button>
+          <button class="status-tab" id="tabClosed" onclick="setTab('Closed')">
+            Closed (10)
+          </button>
+          <button class="status-tab" id="tabDrafts" onclick="setTab('Draft')">
+            Drafts (2)
+          </button>
+        </div>
+
+        <!-- Table Container -->
         <div class="table-container">
-          <table class="internships-table">
+          <table class="postings-table">
             <thead>
               <tr>
                 <th class="col-check"><input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this)"></th>
                 <th class="col-num">#</th>
                 <th>Internship Title</th>
-                <th>Track</th>
+                <th>Company</th>
+                <th>Domain</th>
+                <th>Mode</th>
                 <th>Duration</th>
-                <th>Start Date</th>
-                <th>Enrolled</th>
+                <th>Stipend</th>
+                <th>Applications</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody id="internshipsTableBody">
-              <!-- Dynamically populated rows -->
+            <tbody id="postingsTableBody">
+              <!-- Dynamically rendered via renderTable() -->
             </tbody>
           </table>
 
-          <!-- Footer / Pagination -->
+          <!-- Table Footer -->
           <div class="table-footer-row">
-            <div class="showing-text" id="showingEntriesText">Showing 1 to 8 of 8 internships</div>
-            <div class="pagination-bar" id="paginationBar">
-              <button type="button" class="pg-btn" disabled><i class="fa-solid fa-chevron-left" style="font-size: 10px;"></i></button>
-              <button type="button" class="pg-btn active">1</button>
-              <button type="button" class="pg-btn" disabled><i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i></button>
+            <span class="footer-count-text" id="showingCountText">Showing 1 to 10 of 42 internships</span>
+            <div class="pagination-wrap" id="paginationBar">
+              <!-- Rendered via renderPagination() -->
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Right Side Form Panel (Add / Edit Internship) -->
-      <aside class="form-panel-side" id="formPanelSide">
-        <div class="form-header">
-          <button type="button" class="btn-close-form" onclick="closeSidePanel()" title="Close Form">✕</button>
-          <h3 id="formTitle">Edit Internship</h3>
-          <p id="formSubtitle">Update internship details, duration, projects and settings.</p>
+      <!-- Right Docked Details Drawer (Selected Internship Details) -->
+      <aside class="details-drawer-side" id="detailsDrawer">
+        <!-- Top Header -->
+        <div class="drawer-top-header">
+          <h3>Internship Details</h3>
+          <button class="btn-close-drawer" onclick="toggleDrawer(false)" title="Close Panel">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
 
-        <form id="internshipForm" onsubmit="handleFormSubmit(event)">
-          <input type="hidden" id="editInternshipId" value="">
+        <!-- Scrollable Body -->
+        <div class="drawer-scroll-body" id="drawerBody">
+          <!-- Company Card -->
+          <div class="drawer-company-card">
+            <div class="drawer-company-left">
+              <div class="drawer-company-logo" id="dCompanyLogo">
+                <!-- SVG Logo -->
+              </div>
+              <div class="drawer-company-meta">
+                <h4 id="dCompanyName">Amazon</h4>
+                <span id="dCompanySub">IT Services | Bengaluru</span>
+              </div>
+            </div>
+            <span class="status-pill active" id="dStatusPill">Active</span>
+          </div>
 
-          <div class="form-scroll-body">
-            <!-- Internship Title -->
-            <div class="form-group">
-              <label class="form-label">Internship Title <span class="req">*</span></label>
-              <input type="text" id="formTitleInput" class="form-input" placeholder="e.g. Data Analytics Internship" required>
+          <!-- Big Title -->
+          <h2 class="drawer-posting-title" id="dTitle">Data Analytics Intern</h2>
+
+          <!-- Inner Tabs -->
+          <div class="drawer-inner-tabs">
+            <button class="drawer-inner-tab active" id="dTabOverview" onclick="setDrawerTab('overview')">Overview</button>
+            <button class="drawer-inner-tab" id="dTabApps" onclick="setDrawerTab('apps')">Applications (<span id="dAppsTabCount">48</span>)</button>
+            <button class="drawer-inner-tab" id="dTabSelected" onclick="setDrawerTab('selected')">Selected (<span id="dSelectedTabCount">5</span>)</button>
+          </div>
+
+          <!-- Tab Content 1: Overview -->
+          <div id="drawerTabOverviewContent" style="display:flex; flex-direction:column; gap:18px;">
+            <!-- About the Internship -->
+            <div>
+              <div class="drawer-section-title">
+                <i class="fa-regular fa-file-lines"></i> About the Internship
+              </div>
+              <p class="drawer-desc-p" id="dDescription">
+                Work on real business datasets, build interactive dashboards, and support the analytics team with data preparation and reporting.
+              </p>
             </div>
 
-            <!-- Track -->
-            <div class="form-group">
-              <label class="form-label">Track <span class="req">*</span></label>
-              <select id="formTrackSelect" class="form-select" required>
-                <option value="Data Analytics">Data Analytics</option>
-                <option value="Data Science">Data Science</option>
-                <option value="AI / ML">AI / ML</option>
-                <option value="Digital Marketing">Digital Marketing</option>
-                <option value="Full Stack">Full Stack</option>
-                <option value="HR">HR</option>
-                <option value="Sales & Marketing">Sales & Marketing</option>
-                <option value="Entrepreneurship">Entrepreneurship</option>
-              </select>
-            </div>
-
-            <!-- Description -->
-            <div class="form-group">
-              <label class="form-label">Description <span class="req">*</span></label>
-              <div class="rich-editor-wrap">
-                <div class="rich-toolbar">
-                  <button type="button" class="toolbar-btn" onclick="formatDoc('bold', 'formDesc')" title="Bold"><i class="fa-solid fa-bold"></i></button>
-                  <button type="button" class="toolbar-btn" onclick="formatDoc('italic', 'formDesc')" title="Italic"><i class="fa-solid fa-italic"></i></button>
-                  <button type="button" class="toolbar-btn" onclick="formatDoc('underline', 'formDesc')" title="Underline"><i class="fa-solid fa-underline"></i></button>
-                  <button type="button" class="toolbar-btn" onclick="formatDoc('bullet', 'formDesc')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
-                  <button type="button" class="toolbar-btn" onclick="formatDoc('number', 'formDesc')" title="Numbered List"><i class="fa-solid fa-list-ol"></i></button>
-                  <button type="button" class="toolbar-btn" onclick="promptLink('formDesc')" title="Insert Link"><i class="fa-solid fa-link"></i></button>
+            <!-- 2x3 Specs Grid -->
+            <div class="drawer-specs-grid">
+              <!-- Domain -->
+              <div class="spec-item">
+                <i class="fa-solid fa-chart-column"></i>
+                <div class="spec-meta">
+                  <span class="spec-label">Domain</span>
+                  <span class="spec-val" id="dDomain">Data Analytics</span>
                 </div>
-                <textarea id="formDesc" class="rich-textarea" placeholder="Hands-on internship in..." maxlength="1000" onkeyup="updateChar('formDesc', 'descCharCount', 1000)" required>Hands-on internship in Data Analytics with real-world projects, mentor support and industry exposure.</textarea>
-                <div class="char-count" id="descCharCount">102/1000 characters</div>
+              </div>
+              <!-- Duration -->
+              <div class="spec-item">
+                <i class="fa-regular fa-calendar-days"></i>
+                <div class="spec-meta">
+                  <span class="spec-label">Duration</span>
+                  <span class="spec-val" id="dDuration">6 Months</span>
+                </div>
+              </div>
+              <!-- Mode -->
+              <div class="spec-item">
+                <i class="fa-solid fa-wifi"></i>
+                <div class="spec-meta">
+                  <span class="spec-label">Mode</span>
+                  <span class="spec-val" id="dMode">Remote</span>
+                </div>
+              </div>
+              <!-- Stipend -->
+              <div class="spec-item">
+                <i class="fa-solid fa-wallet"></i>
+                <div class="spec-meta">
+                  <span class="spec-label">Stipend</span>
+                  <span class="spec-val" id="dStipend">₹15,000 / month</span>
+                </div>
+              </div>
+              <!-- Openings -->
+              <div class="spec-item">
+                <i class="fa-solid fa-users"></i>
+                <div class="spec-meta">
+                  <span class="spec-label">Openings</span>
+                  <span class="spec-val" id="dOpenings">10</span>
+                </div>
+              </div>
+              <!-- Application Deadline -->
+              <div class="spec-item">
+                <i class="fa-regular fa-calendar-check"></i>
+                <div class="spec-meta">
+                  <span class="spec-label">Application Deadline</span>
+                  <span class="spec-val" id="dDeadline">10 Nov 2026</span>
+                </div>
               </div>
             </div>
 
-            <!-- Duration & Start Date -->
-            <div class="form-row-two">
-              <div class="form-group">
-                <label class="form-label">Duration <span class="req">*</span></label>
-                <select id="formDurationSelect" class="form-select" required>
-                  <option value="1 Month">1 Month</option>
-                  <option value="2 Months">2 Months</option>
-                  <option value="3 Months">3 Months</option>
-                  <option value="6 Months" selected>6 Months</option>
-                </select>
+            <!-- Required Skills -->
+            <div>
+              <div class="drawer-section-title">
+                <i class="fa-solid fa-code"></i> Required Skills
               </div>
-
-              <div class="form-group">
-                <label class="form-label">Start Date <span class="req">*</span></label>
-                <input type="text" id="formStartDate" class="form-input" placeholder="01 Nov 2025" value="01 Nov 2025" required>
+              <div class="skills-pill-wrap" id="dSkillsWrap">
+                <span class="skill-tag">Excel</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">Power BI</span>
+                <span class="skill-tag">Python (Basic)</span>
+                <span class="skill-tag">Data Visualization</span>
               </div>
             </div>
 
-            <!-- Key Highlights -->
-            <div class="form-group">
-              <label class="form-label">Key Highlights</label>
-              <div class="rich-editor-wrap">
-                <textarea id="formHighlights" class="rich-textarea" style="height: 90px;" placeholder="• Real-world industry projects..." maxlength="5000" onkeyup="updateChar('formHighlights', 'highCharCount', 5000)">• Real-world industry projects
-• Mentor guidance
-• Certificates on completion
-• Placement assistance</textarea>
-                <div class="char-count" id="highCharCount">94/5000 characters</div>
+            <!-- Eligibility -->
+            <div>
+              <div class="drawer-section-title">
+                <i class="fa-solid fa-graduation-cap"></i> Eligibility
               </div>
-            </div>
-
-            <!-- Projects (Optional) -->
-            <div class="form-group">
-              <label class="form-label">Projects (Optional)</label>
-              <div class="project-inputs-list" id="projectInputsList">
-                <!-- Dynamically populated project rows -->
-              </div>
-              <button type="button" class="btn-add-proj" onclick="addProjectInput()">
-                <i class="fa-solid fa-plus"></i> Add Project
-              </button>
-            </div>
-
-            <!-- Settings Header -->
-            <div style="border-top: 1px solid var(--border); padding-top: 14px; margin-top: 4px;">
-              <span style="font-size: 13px; font-weight: 800; color: var(--text-main);">Settings</span>
-            </div>
-
-            <!-- Status & Enrollment Limit -->
-            <div class="form-row-two">
-              <div class="form-group">
-                <label class="form-label">Status <span class="req">*</span></label>
-                <select id="formStatusSelect" class="form-select" required>
-                  <option value="Published" selected>Published</option>
-                  <option value="Upcoming">Upcoming</option>
-                  <option value="Draft">Draft</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Enrollment Limit (Optional)</label>
-                <input type="number" id="formLimitInput" class="form-input" placeholder="50" value="50">
-              </div>
-            </div>
-
-            <!-- Show to Students Toggle -->
-            <div class="switch-container">
-              <label class="switch-toggle">
-                <input type="checkbox" id="formShowToStudents" checked>
-                <span class="switch-slider"></span>
-              </label>
-              <div class="switch-label-block">
-                <h6>Show to Students</h6>
-                <p>Visible in student portal for enrollment</p>
+              <div class="eligibility-list" id="dEligibilityList">
+                <div class="eligibility-item">
+                  <i class="fa-solid fa-check"></i>
+                  <span>Enrolled in Data Analytics / Data Science program</span>
+                </div>
+                <div class="eligibility-item">
+                  <i class="fa-solid fa-check"></i>
+                  <span>Basic understanding of data analysis and SQL</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Form Action Buttons -->
-          <div class="form-actions-footer">
-            <button type="button" class="btn-form-del-red" id="btnFormDelete" onclick="deleteCurrentInternship()" title="Delete Internship">
-              <i class="fa-solid fa-trash"></i> Delete
+          <!-- Tab Content 2: Applications List -->
+          <div id="drawerTabAppsContent" style="display:none; flex-direction:column; gap:12px;">
+            <div style="font-size:12.5px; font-weight:700; color:#64748b; margin-bottom:4px;">Recent Applicants</div>
+            <div id="drawerAppsList" style="display:flex; flex-direction:column; gap:8px;"></div>
+          </div>
+
+          <!-- Tab Content 3: Selected List -->
+          <div id="drawerTabSelectedContent" style="display:none; flex-direction:column; gap:12px;">
+            <div style="font-size:12.5px; font-weight:700; color:#64748b; margin-bottom:4px;">Shortlisted / Selected Candidates</div>
+            <div id="drawerSelectedList" style="display:flex; flex-direction:column; gap:8px;"></div>
+          </div>
+        </div>
+
+        <!-- Drawer Actions Footer -->
+        <div class="drawer-actions-footer">
+          <button class="btn-view-apps-primary" id="btnViewAppsPrimary" onclick="navigateToApplications()">
+            <i class="fa-solid fa-users"></i> View Applications (<span id="dBtnAppsCount">48</span>)
+          </button>
+          <div class="drawer-bottom-3btn">
+            <button class="drawer-sec-btn" onclick="openEditModalFromSelected()">
+              <i class="fa-solid fa-pen"></i> Edit
             </button>
-            <div class="form-actions-right">
-              <button type="button" class="btn-form-cancel" onclick="closeSidePanel()">Cancel</button>
-              <button type="submit" class="btn-form-save" id="btnFormSubmit">Update Internship</button>
-            </div>
+            <button class="drawer-sec-btn" onclick="duplicateSelectedPosting()">
+              <i class="fa-regular fa-copy"></i> Duplicate
+            </button>
+            <button class="drawer-sec-btn danger" id="btnToggleClosePosting" onclick="toggleCloseSelectedPosting()">
+              <i class="fa-solid fa-ban"></i> Close Internship
+            </button>
           </div>
-        </form>
+        </div>
       </aside>
     </div>
+
+    <!-- Reopen Drawer Floating Button -->
+    <button class="btn-reopen-drawer" id="btnReopenDrawer" onclick="toggleDrawer(true)">
+      <i class="fa-solid fa-chevron-left"></i> View Internship Details
+    </button>
   </main>
 
-  <!-- ================= PREVIEW / DETAILS MODAL ================= -->
-  <div class="modal-backdrop" id="previewModal">
+  <!-- ADD / EDIT INTERNSHIP MODAL -->
+  <div class="modal-overlay" id="postingModal">
     <div class="modal-card">
       <div class="modal-header">
-        <h4 id="modalTitle">Internship Program Details</h4>
-        <button type="button" class="modal-close-btn" onclick="closePreviewModal()">✕</button>
+        <h3 id="modalTitle">Create Internship Posting</h3>
+        <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="modal-body" id="modalBody">
-        <!-- Dynamically populated -->
+      <form id="postingForm" onsubmit="handlePostingFormSubmit(event)">
+        <div class="modal-body">
+          <input type="hidden" id="formPostingId">
+          <div class="form-group">
+            <label class="form-label">Internship Title</label>
+            <input type="text" class="form-input" id="formTitle" placeholder="e.g. Data Analytics Intern" required>
+          </div>
+
+          <div class="form-row-two">
+            <div class="form-group">
+              <label class="form-label">Company Name</label>
+              <select class="form-select" id="formCompany" onchange="autoFillCompanyMeta()">
+                <option value="Amazon">Amazon</option>
+                <option value="Microsoft">Microsoft</option>
+                <option value="Deloitte">Deloitte</option>
+                <option value="TCS">TCS</option>
+                <option value="Infosys">Infosys</option>
+                <option value="Wipro">Wipro</option>
+                <option value="Capgemini">Capgemini</option>
+                <option value="HCL">HCL</option>
+                <option value="Accenture">Accenture</option>
+                <option value="Mindtree">Mindtree</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Domain</label>
+              <select class="form-select" id="formDomain">
+                <option value="Data Analytics">Data Analytics</option>
+                <option value="Full Stack">Full Stack</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Business Analyst">Business Analyst</option>
+                <option value="Python / ML">Python / ML</option>
+                <option value="Design (UI/UX)">Design (UI/UX)</option>
+                <option value="Cloud / DevOps">Cloud / DevOps</option>
+                <option value="Analytics">Analytics</option>
+                <option value="AI / ML">AI / ML</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-two">
+            <div class="form-group">
+              <label class="form-label">Industry & Location</label>
+              <input type="text" class="form-input" id="formCompanyIndustryLocation" placeholder="e.g. IT Services | Bengaluru" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Work Mode</label>
+              <select class="form-select" id="formMode">
+                <option value="Remote">Remote</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="On-site">On-site</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-two">
+            <div class="form-group">
+              <label class="form-label">Duration</label>
+              <select class="form-select" id="formDuration">
+                <option value="3 Months">3 Months</option>
+                <option value="6 Months">6 Months</option>
+                <option value="1 Month">1 Month</option>
+                <option value="2 Months">2 Months</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Monthly Stipend</label>
+              <input type="text" class="form-input" id="formStipend" placeholder="e.g. ₹15,000" required>
+            </div>
+          </div>
+
+          <div class="form-row-two">
+            <div class="form-group">
+              <label class="form-label">Openings</label>
+              <input type="number" class="form-input" id="formOpenings" value="5" min="1" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Application Deadline</label>
+              <input type="text" class="form-input" id="formDeadline" placeholder="e.g. 10 Nov 2026" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-select" id="formStatus">
+              <option value="Active">Active</option>
+              <option value="In Review">In Review</option>
+              <option value="Closed">Closed</option>
+              <option value="Draft">Draft</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">About the Internship</label>
+            <textarea class="form-textarea" id="formDescription" placeholder="Provide overview of duties and project responsibilities..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Required Skills (comma separated)</label>
+            <input type="text" class="form-input" id="formSkills" placeholder="e.g. Excel, SQL, Power BI, Python">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Eligibility Criteria (one per line)</label>
+            <textarea class="form-textarea" id="formEligibility" placeholder="Enrolled in program...&#10;Basic knowledge of..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-header-secondary" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-header-primary" id="btnSubmitForm">Save Internship</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DATE RANGE MODAL -->
+  <div class="modal-overlay" id="dateRangeModal">
+    <div class="modal-card" style="width:420px;">
+      <div class="modal-header">
+        <h3>Select Date Range</h3>
+        <button class="modal-close-btn" onclick="closeDateModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Start Date</label>
+          <input type="date" class="form-input" id="dateStart">
+        </div>
+        <div class="form-group">
+          <label class="form-label">End Date</label>
+          <input type="date" class="form-input" id="dateEnd">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-header-secondary" onclick="closeDateModal()">Cancel</button>
+        <button class="btn-header-primary" onclick="applyDateRange()">Apply Range</button>
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- TOAST NOTIFICATION -->
   <div class="toast-msg" id="toastMsg">
-    <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
-    <span id="toastText">Action completed</span>
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastText">Action successful!</span>
   </div>
 
-  <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
-    // State
-    let internshipsData = [];
-    let currentEditingId = null;
+    // Global State
+    let currentTab = 'All Internships';
+    let currentPage = 1;
+    const limitPerPage = 10;
+    let allPostings = [];
+    let selectedPostingId = null;
 
-    // Initial fallback data matching screenshot exactly
-    const fallbackInternships = [
-      {
-        _id: 'in_1',
-        title: 'Data Analytics Internship',
-        track: 'Data Analytics',
-        duration: '6 Months',
-        startDate: '01 Nov 2025',
-        enrolled: 28,
-        status: 'Published',
-        description: 'Hands-on internship in Data Analytics with real-world projects, mentor support and industry exposure.',
-        highlights: '• Real-world industry projects\n• Mentor guidance\n• Certificates on completion\n• Placement assistance',
-        projects: ['E-commerce Sales Analysis', 'Customer Churn Prediction', 'Dashboard using Power BI'],
-        enrollmentLimit: 50,
-        showToStudents: true
-      },
-      {
-        _id: 'in_2',
-        title: 'Data Science Internship',
-        track: 'Data Science',
-        duration: '6 Months',
-        startDate: '15 Nov 2025',
-        enrolled: 32,
-        status: 'Published',
-        description: 'Comprehensive Data Science program covering Python, statistical analysis, machine learning algorithms, and deep learning.',
-        highlights: '• Live dataset modeling\n• 1-on-1 Senior Data Scientist mentorship\n• Portfolio capstones\n• Interview prep',
-        projects: ['Fraud Detection System', 'Stock Market Trend Forecasting', 'Healthcare Patient Survival Classifier'],
-        enrollmentLimit: 45,
-        showToStudents: true
-      },
-      {
-        _id: 'in_3',
-        title: 'AI & ML Internship',
-        track: 'AI / ML',
-        duration: '6 Months',
-        startDate: '01 Dec 2025',
-        enrolled: 21,
-        status: 'Upcoming',
-        description: 'Work on cutting-edge Artificial Intelligence & Machine Learning architectures, LLM fine-tuning, and computer vision pipelines.',
-        highlights: '• Computer vision & NLP projects\n• PyTorch & TensorFlow training\n• Hugging Face deployments\n• Verified credential',
-        projects: ['Autonomous Object Detector', 'LLM Customer Support Chatbot', 'Facial Emotion Recognition'],
-        enrollmentLimit: 40,
-        showToStudents: true
-      },
-      {
-        _id: 'in_4',
-        title: 'Digital Marketing Internship',
-        track: 'Digital Marketing',
-        duration: '6 Months',
-        startDate: '15 Dec 2025',
-        enrolled: 18,
-        status: 'Published',
-        description: 'Master SEO, Google Search & Display Ads, Meta Ad campaigns, content marketing funnels, and performance analytics.',
-        highlights: '• Live ad campaign budget handling\n• Real brand case studies\n• Agency client pitching\n• Google Certification assistance',
-        projects: ['E-commerce Multi-Channel Ad Campaign', 'Complete Technical SEO Audit', 'B2B Lead Generation Funnel'],
-        enrollmentLimit: 35,
-        showToStudents: true
-      },
-      {
-        _id: 'in_5',
-        title: 'Full Stack Development Internship',
-        track: 'Full Stack',
-        duration: '6 Months',
-        startDate: '02 Jan 2026',
-        enrolled: 12,
-        status: 'Draft',
-        description: 'Build production-ready web applications using modern MERN stack, TypeScript, Docker, and RESTful APIs.',
-        highlights: '• Full-stack agile development\n• GitHub CI/CD workflows\n• Code reviews by Lead Engineers\n• Live cloud deployment',
-        projects: ['SaaS Subscription Platform', 'Real-Time Collaboration Tool', 'Payment Gateway Microservice'],
-        enrollmentLimit: 30,
-        showToStudents: false
-      },
-      {
-        _id: 'in_6',
-        title: 'HR Management Internship',
-        track: 'HR',
-        duration: '6 Months',
-        startDate: '15 Jan 2026',
-        enrolled: 8,
-        status: 'Upcoming',
-        description: 'Hands-on exposure to human resources operations, talent acquisition pipelines, employee engagement, and HR analytics.',
-        highlights: '• End-to-end recruitment lifecycle\n• HRMS portal training\n• Labor compliance & policies\n• Performance appraisal frameworks',
-        projects: ['Talent Sourcing Strategy', 'Employee Onboarding Workflow', 'HR Analytics Retention Model'],
-        enrollmentLimit: 25,
-        showToStudents: true
-      },
-      {
-        _id: 'in_7',
-        title: 'Sales & Marketing Internship',
-        track: 'Sales & Marketing',
-        duration: '6 Months',
-        startDate: '01 Feb 2026',
-        enrolled: 5,
-        status: 'Draft',
-        description: 'Gain practical exposure to B2B enterprise sales, lead nurturing, cold outreach frameworks, and CRM pipeline management.',
-        highlights: '• Inbound & outbound sales playbooks\n• CRM software training\n• Objection handling workshops\n• Commission structures',
-        projects: ['Outbound Cold Email Playbook', 'CRM Pipeline Optimization', 'Competitor Win-Loss Analysis'],
-        enrollmentLimit: 20,
-        showToStudents: false
-      },
-      {
-        _id: 'in_8',
-        title: 'Entrepreneurship Internship',
-        track: 'Entrepreneurship',
-        duration: '6 Months',
-        startDate: '15 Feb 2026',
-        enrolled: 0,
-        status: 'Draft',
-        description: 'Experience the 0-to-1 startup journey: market validation, business model canvas, unit economics, and investor pitch preparation.',
-        highlights: '• Lean startup methodology\n• Venture capital pitching workshops\n• Founder mentoring sessions\n• Prototype validation sprints',
-        projects: ['Market Sizing & TAM Analysis', 'Startup Business Plan & Model', 'MVP Prototype Validation'],
-        enrollmentLimit: 20,
-        showToStudents: false
+    // Company Logo SVG Mapping
+    function getCompanyLogoSvg(company) {
+      const c = (company || '').toLowerCase();
+      if (c.includes('amazon')) {
+        return `<svg viewBox="0 0 100 32" width="36" height="18"><path fill="#FF9900" d="M12.5 24.5c9.2 4.1 22.3 4.8 33.1.2.5-.2 1 .3.6.7-3.1 3.2-12.8 5.7-22 5.7-9.5 0-18.1-3.2-22.3-6.1-.4-.3-.1-.9.4-.8.7.2 9.2.3 10.2.3z"/><path fill="#FF9900" d="M46.7 20.8c-.4-.5-2.6-.2-3.6 0-.3 0-.3-.3 0-.5 1.8-1.3 4.8-1.4 5.3-.8.5.6.1 3.6-1.5 5.1-.3.2-.5.1-.4-.2.4-.9.6-3.1.2-3.6z"/><text x="4" y="16" font-family="'Plus Jakarta Sans',sans-serif" font-weight="900" font-size="16" fill="#111827">amazon</text></svg>`;
+      } else if (c.includes('microsoft')) {
+        return `<svg viewBox="0 0 24 24" width="18" height="18"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>`;
+      } else if (c.includes('deloitte')) {
+        return `<span style="font-weight:900;font-size:15px;color:#000;letter-spacing:-0.5px;line-height:1;">D<span style="color:#86BC25;">.</span></span>`;
+      } else if (c.includes('tcs')) {
+        return `<span style="font-weight:900;font-size:13px;color:#E91E63;letter-spacing:-0.5px;">tcs</span>`;
+      } else if (c.includes('infosys')) {
+        return `<span style="font-weight:800;font-size:12px;color:#007CC3;">Infosys</span>`;
+      } else if (c.includes('wipro')) {
+        return `<svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="9" fill="none" stroke="#2563EB" stroke-width="2"/><circle cx="8" cy="10" r="2.5" fill="#EF4444"/><circle cx="15" cy="10" r="2.5" fill="#F59E0B"/><circle cx="12" cy="15" r="2.5" fill="#10B981"/></svg>`;
+      } else if (c.includes('capgemini')) {
+        return `<svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12z" fill="#0070AD"/><circle cx="12" cy="14" r="3" fill="#ffffff"/></svg>`;
+      } else if (c.includes('hcl')) {
+        return `<span style="font-weight:900;font-size:12.5px;color:#005691;letter-spacing:0.5px;">HCL</span>`;
+      } else if (c.includes('accenture')) {
+        return `<span style="font-weight:900;font-size:16px;color:#A100FF;line-height:1;">&gt;</span>`;
+      } else if (c.includes('mindtree')) {
+        return `<svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="8" fill="#E11D48"/><path d="M12 4a8 8 0 0 1 8 8h-4a4 4 0 0 0-4-4V4z" fill="#ffffff"/></svg>`;
       }
-    ];
-
-    document.addEventListener('DOMContentLoaded', () => {
-      fetchInternships();
-    });
-
-    // Fetch Internships from backend API
-    async function fetchInternships() {
-      const q = document.getElementById('searchInput').value.trim();
-      const trk = document.getElementById('trackFilter').value;
-      const st = document.getElementById('statusFilter').value;
-      const dur = document.getElementById('durationFilter').value;
-
-      let url = '/api/admin/internships?';
-      const params = [];
-      if (q) params.push(`search=${encodeURIComponent(q)}`);
-      if (trk && trk !== 'All') params.push(`track=${encodeURIComponent(trk)}`);
-      if (st && st !== 'All') params.push(`status=${encodeURIComponent(st)}`);
-      if (dur && dur !== 'All') params.push(`duration=${encodeURIComponent(dur)}`);
-      url += params.join('&');
-
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data.success && data.internships) {
-          internshipsData = data.internships;
-          updateKPIs(data.kpis);
-        } else {
-          internshipsData = fallbackInternships;
-        }
-      } catch (err) {
-        console.warn('API error, using fallback data:', err);
-        internshipsData = fallbackInternships;
-      }
-
-      renderTable();
+      return `<i class="fa-solid fa-building" style="color:#64748b; font-size:13px;"></i>`;
     }
 
-    // Update KPIs
+    // Domain Class Helper
+    function getDomainClass(domain) {
+      const d = (domain || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '-');
+      return d || 'data-analytics';
+    }
+
+    // Mode Icon Helper
+    function getModeIcon(mode) {
+      if (mode === 'Remote') return '<i class="fa-solid fa-wifi"></i> Remote';
+      if (mode === 'Hybrid') return '<i class="fa-solid fa-building"></i> Hybrid';
+      return '<i class="fa-solid fa-location-dot"></i> On-site';
+    }
+
+    // Status Class Helper
+    function getStatusClass(status) {
+      if (status === 'Active') return 'active';
+      if (status === 'In Review') return 'in-review';
+      if (status === 'Closed') return 'closed';
+      return 'draft';
+    }
+
+    // Fetch and Load Postings
+    async function fetchPostings() {
+      try {
+        const searchVal = document.getElementById('searchInput').value.trim();
+        const companyVal = document.getElementById('companyFilter').value;
+        const domainVal = document.getElementById('domainFilter').value;
+        const statusVal = document.getElementById('statusFilter').value;
+
+        let queryStatus = statusVal;
+        if (currentTab !== 'All Internships' && statusVal === 'All Status') {
+          queryStatus = currentTab;
+        }
+
+        const params = new URLSearchParams({
+          page: currentPage,
+          limit: limitPerPage
+        });
+
+        if (searchVal) params.append('search', searchVal);
+        if (companyVal && companyVal !== 'All Companies') params.append('company', companyVal);
+        if (domainVal && domainVal !== 'All Domains') params.append('domain', domainVal);
+        if (queryStatus && queryStatus !== 'All Status' && queryStatus !== 'All Internships') params.append('status', queryStatus);
+
+        const res = await fetch(`/api/admin/internship-postings?${params.toString()}`);
+        const data = await res.json();
+
+        if (data.success) {
+          updateKPIs(data.kpis);
+          allPostings = data.postings;
+          renderTable(data.postings, data.pagination);
+          renderPagination(data.pagination);
+
+          // Select first item by default if nothing selected or currently selected not in view
+          if (!selectedPostingId && allPostings.length > 0) {
+            selectPosting(allPostings[0]._id);
+          } else if (selectedPostingId) {
+            const found = allPostings.find(p => p._id === selectedPostingId);
+            if (found) renderDetailsDrawer(found);
+          }
+        }
+      } catch (err) {
+        console.error('Fetch postings error:', err);
+      }
+    }
+
+    // Update KPI UI
     function updateKPIs(kpis) {
       if (!kpis) return;
-      document.getElementById('kpiTotalInternships').innerText = kpis.totalInternships || 8;
-      document.getElementById('kpiTotalEnrolled').innerText = kpis.totalEnrolled || 124;
-      document.getElementById('kpiCompleted').innerText = kpis.completed || 96;
-      document.getElementById('kpiOngoing').innerText = kpis.ongoing || 18;
+      document.getElementById('kpiTotal').innerText = kpis.total || 42;
+      document.getElementById('kpiActive').innerText = kpis.active || 18;
+      document.getElementById('kpiActivePercent').innerText = `${kpis.activePercent || 43}%`;
+      document.getElementById('kpiInReview').innerText = kpis.inReview || 12;
+      document.getElementById('kpiInReviewPercent').innerText = `${kpis.inReviewPercent || 29}%`;
+      document.getElementById('kpiTotalApps').innerText = kpis.totalApplications || 286;
+      document.getElementById('kpiSelected').innerText = kpis.selectedInterns || 36;
+
+      // Update tab badge numbers
+      document.getElementById('tabAll').innerText = `All Internships (${kpis.total || 42})`;
+      document.getElementById('tabActive').innerText = `Active (${kpis.active || 18})`;
+      document.getElementById('tabInReview').innerText = `In Review (${kpis.inReview || 12})`;
+      document.getElementById('tabClosed').innerText = `Closed (${kpis.closed || 10})`;
+      document.getElementById('tabDrafts').innerText = `Drafts (${kpis.drafts || 2})`;
     }
 
     // Render Table
-    function renderTable() {
-      const tbody = document.getElementById('internshipsTableBody');
-      tbody.innerHTML = '';
+    function renderTable(postings, pagination) {
+      const tbody = document.getElementById('postingsTableBody');
+      if (!postings || postings.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; padding:36px; color:#64748b;">No internship postings match your filters.</td></tr>`;
+        document.getElementById('showingCountText').innerText = `Showing 0 to 0 of 0 internships`;
+        return;
+      }
 
-      if (!internshipsData || internshipsData.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="9" style="text-align: center; padding: 40px; color: #94a3b8;">
-              <i class="fa-solid fa-box-open" style="font-size: 32px; margin-bottom: 10px; display: block;"></i>
-              No internships found matching your filters.
+      const startIndex = (pagination.page - 1) * pagination.limit + 1;
+      const endIndex = Math.min(startIndex + postings.length - 1, pagination.totalItems);
+      document.getElementById('showingCountText').innerText = `Showing ${startIndex} to ${endIndex} of ${pagination.totalItems} internships`;
+
+      tbody.innerHTML = postings.map((p, idx) => {
+        const rowNum = (p.order !== undefined) ? p.order : (startIndex + idx);
+        const isSelected = (p._id === selectedPostingId) ? ' selected-row' : '';
+        const domainClass = getDomainClass(p.domain);
+        const statusClass = getStatusClass(p.status);
+        const modeHtml = getModeIcon(p.mode);
+        const logoSvg = getCompanyLogoSvg(p.company);
+
+        return `
+          <tr class="${isSelected}" id="row-${p._id}" onclick="selectPosting('${p._id}')">
+            <td class="col-check" onclick="event.stopPropagation()">
+              <input type="checkbox" class="row-checkbox" value="${p._id}">
+            </td>
+            <td class="col-num">${rowNum}</td>
+            <td class="posting-title-cell">${p.title}</td>
+            <td>
+              <div class="company-cell">
+                <span class="company-logo-badge">${logoSvg}</span>
+                <span>${p.company}</span>
+              </div>
+            </td>
+            <td><span class="domain-badge ${domainClass}">${p.domain}</span></td>
+            <td><div class="mode-cell">${modeHtml}</div></td>
+            <td style="color:#475569; font-weight:500;">${p.duration}</td>
+            <td style="font-weight:700; color:#0f172a;">${p.stipend}</td>
+            <td><span class="apps-count-badge">${p.applicationsCount}</span></td>
+            <td><span class="status-pill ${statusClass}">${p.status}</span></td>
+            <td onclick="event.stopPropagation()">
+              <div class="actions-wrap">
+                <button class="act-btn" title="View Details" onclick="selectPosting('${p._id}')">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <button class="act-btn" title="Edit Posting" onclick="openEditModalById('${p._id}')">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="act-btn" title="More Actions" onclick="showRowMoreMenu('${p._id}', event)">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+              </div>
             </td>
           </tr>
         `;
-        document.getElementById('showingEntriesText').innerText = 'Showing 0 of 0 internships';
+      }).join('');
+    }
+
+    // Render Pagination
+    function renderPagination(pagination) {
+      const container = document.getElementById('paginationBar');
+      if (!pagination || pagination.totalPages <= 1) {
+        container.innerHTML = '';
         return;
       }
 
-      internshipsData.forEach((item, idx) => {
-        const trackClass = getTrackClass(item.track);
-        const statusClass = (item.status || 'Published').toLowerCase();
+      const { page, totalPages } = pagination;
+      let html = '';
 
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td class="col-check"><input type="checkbox" value="${item._id}"></td>
-          <td class="col-num">${idx + 1}</td>
-          <td><span class="title-cell" onclick="openPreviewModal('${item._id}')">${escapeHtml(item.title)}</span></td>
-          <td><span class="track-badge ${trackClass}">${escapeHtml(item.track)}</span></td>
-          <td>${item.duration || '6 Months'}</td>
-          <td>${item.startDate || '01 Nov 2025'}</td>
-          <td><b>${item.enrolled !== undefined ? item.enrolled : 0}</b></td>
-          <td><span class="status-badge ${statusClass}">${item.status || 'Published'}</span></td>
-          <td>
-            <div class="row-actions-wrap">
-              <button type="button" class="btn-act" title="View Details" onclick="openPreviewModal('${item._id}')"><i class="fa-solid fa-eye"></i></button>
-              <button type="button" class="btn-act" title="Edit Internship" onclick="openEditForm('${item._id}')"><i class="fa-solid fa-pen"></i></button>
-              <button type="button" class="btn-act" title="Duplicate Program" onclick="duplicateInternship('${item._id}')"><i class="fa-solid fa-clone"></i></button>
-              <button type="button" class="btn-act delete" title="Delete Program" onclick="deleteInternship('${item._id}')"><i class="fa-solid fa-trash"></i></button>
-            </div>
-          </td>
+      // Prev Button
+      html += `<button class="pg-box" onclick="changePage(${page - 1})" ${page <= 1 ? 'disabled' : ''}><i class="fa-solid fa-chevron-left" style="font-size:10px;"></i></button>`;
+
+      // Page numbers
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= page - 1 && i <= page + 1)) {
+          html += `<button class="pg-box ${i === page ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+        } else if (i === page - 2 || i === page + 2) {
+          html += `<span style="padding:0 4px; color:#94a3b8; font-size:12px;">...</span>`;
+        }
+      }
+
+      // Next Button
+      html += `<button class="pg-box" onclick="changePage(${page + 1})" ${page >= totalPages ? 'disabled' : ''}><i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></button>`;
+
+      container.innerHTML = html;
+    }
+
+    function changePage(p) {
+      if (p < 1) return;
+      currentPage = p;
+      fetchPostings();
+    }
+
+    // Select Posting to View in Drawer
+    function selectPosting(id) {
+      selectedPostingId = id;
+
+      // Update highlighted row in table
+      document.querySelectorAll('.postings-table tbody tr').forEach(r => r.classList.remove('selected-row'));
+      const activeRow = document.getElementById(`row-${id}`);
+      if (activeRow) activeRow.classList.add('selected-row');
+
+      // Make sure drawer is open
+      toggleDrawer(true);
+
+      const found = allPostings.find(p => p._id === id);
+      if (found) {
+        renderDetailsDrawer(found);
+      } else {
+        // Fetch single if not in current page
+        fetch(`/api/admin/internship-postings/${id}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.posting) renderDetailsDrawer(data.posting);
+          });
+      }
+    }
+
+    // Render Details in Drawer
+    function renderDetailsDrawer(p) {
+      document.getElementById('dCompanyLogo').innerHTML = getCompanyLogoSvg(p.company);
+      document.getElementById('dCompanyName').innerText = p.company;
+      document.getElementById('dCompanySub').innerText = `${p.companyIndustry || 'IT Services'} | ${p.location || 'Bengaluru'}`;
+
+      const statusPill = document.getElementById('dStatusPill');
+      statusPill.className = `status-pill ${getStatusClass(p.status)}`;
+      statusPill.innerText = p.status;
+
+      document.getElementById('dTitle').innerText = p.title;
+      document.getElementById('dAppsTabCount').innerText = p.applicationsCount || 0;
+      document.getElementById('dSelectedTabCount').innerText = p.selectedCount || 0;
+      document.getElementById('dBtnAppsCount').innerText = p.applicationsCount || 0;
+
+      document.getElementById('dDescription').innerText = p.description || 'Hands-on corporate internship program with mentor support and live project deliverables.';
+      document.getElementById('dDomain').innerText = p.domain;
+      document.getElementById('dDuration').innerText = p.duration;
+      document.getElementById('dMode').innerText = p.mode;
+      document.getElementById('dStipend').innerText = `${p.stipend} / month`;
+      document.getElementById('dOpenings').innerText = p.openings || 5;
+      document.getElementById('dDeadline').innerText = p.deadline || '10 Nov 2026';
+
+      // Required Skills tags
+      const skillsWrap = document.getElementById('dSkillsWrap');
+      if (p.skills && p.skills.length > 0) {
+        skillsWrap.innerHTML = p.skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
+      } else {
+        skillsWrap.innerHTML = `<span class="skill-tag">General Analytics</span><span class="skill-tag">Problem Solving</span>`;
+      }
+
+      // Eligibility
+      const eligList = document.getElementById('dEligibilityList');
+      if (p.eligibility && p.eligibility.length > 0) {
+        eligList.innerHTML = p.eligibility.map(e => `
+          <div class="eligibility-item">
+            <i class="fa-solid fa-check"></i>
+            <span>${e}</span>
+          </div>
+        `).join('');
+      } else {
+        eligList.innerHTML = `
+          <div class="eligibility-item"><i class="fa-solid fa-check"></i><span>Enrolled in domain-relevant study track</span></div>
+          <div class="eligibility-item"><i class="fa-solid fa-check"></i><span>Basic understanding of project requirements</span></div>
         `;
-        tbody.appendChild(tr);
-      });
+      }
 
-      document.getElementById('showingEntriesText').innerText = `Showing 1 to ${internshipsData.length} of ${internshipsData.length} internships`;
+      // Toggle Close Button Text
+      const btnClose = document.getElementById('btnToggleClosePosting');
+      if (p.status === 'Closed') {
+        btnClose.innerHTML = `<i class="fa-solid fa-rotate-left"></i> Reopen Internship`;
+        btnClose.classList.remove('danger');
+      } else {
+        btnClose.innerHTML = `<i class="fa-solid fa-ban"></i> Close Internship`;
+        btnClose.classList.add('danger');
+      }
+
+      // Populate applications sub-list
+      renderApplicationsSubList(p);
+      renderSelectedSubList(p);
     }
 
-    function getTrackClass(trk) {
-      return (trk || '').toLowerCase().replace(/\s+/g, '-').replace('/', '-');
+    // Mock Applications Sub-list inside Drawer
+    function renderApplicationsSubList(p) {
+      const list = document.getElementById('drawerAppsList');
+      const mockApplicants = [
+        { name: 'Riya Sharma', email: 'riya.s@example.com', applied: '2 days ago', status: 'Under Review' },
+        { name: 'Arjun Mehta', email: 'arjun.m@example.com', applied: '3 days ago', status: 'Shortlisted' },
+        { name: 'Sneha Patil', email: 'sneha.p@example.com', applied: '4 days ago', status: 'Selected' },
+        { name: 'Vikram Malhotra', email: 'vikram.m@example.com', applied: '5 days ago', status: 'Interview' },
+        { name: 'Ananya Roy', email: 'ananya.r@example.com', applied: '6 days ago', status: 'Under Review' }
+      ];
+
+      list.innerHTML = mockApplicants.map(app => `
+        <div style="background:#f8fafc; border:1px solid #f1f5f9; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; flex-direction:column;">
+            <span style="font-size:12.5px; font-weight:700; color:#0f172a;">${app.name}</span>
+            <span style="font-size:11px; color:#64748b;">${app.email} • ${app.applied}</span>
+          </div>
+          <span style="font-size:11px; font-weight:700; padding:2px 8px; border-radius:10px; background:${app.status === 'Selected' ? '#dcfce7' : (app.status === 'Shortlisted' ? '#dbeafe' : '#fef3c7')}; color:${app.status === 'Selected' ? '#15803d' : (app.status === 'Shortlisted' ? '#2563eb' : '#b45309')};">${app.status}</span>
+        </div>
+      `).join('');
     }
 
-    // Filter Change Handler
-    function handleFilterChange() {
-      fetchInternships();
+    // Mock Selected Sub-list inside Drawer
+    function renderSelectedSubList(p) {
+      const list = document.getElementById('drawerSelectedList');
+      const mockSelected = [
+        { name: 'Sneha Patil', email: 'sneha.p@example.com', date: 'Selected on 04 Nov 2026', batch: 'Batch DA-24' },
+        { name: 'Rahul Varma', email: 'rahul.v@example.com', date: 'Selected on 02 Nov 2026', batch: 'Batch DA-24' },
+        { name: 'Pooja Iyer', email: 'pooja.i@example.com', date: 'Selected on 01 Nov 2026', batch: 'Batch DA-23' }
+      ];
+
+      list.innerHTML = mockSelected.map(s => `
+        <div style="background:#f8fafc; border:1px solid #f1f5f9; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; flex-direction:column;">
+            <span style="font-size:12.5px; font-weight:700; color:#0f172a;">${s.name}</span>
+            <span style="font-size:11px; color:#64748b;">${s.email} • ${s.batch}</span>
+          </div>
+          <span style="font-size:11px; font-weight:700; color:#15803d; background:#dcfce7; padding:2px 8px; border-radius:10px;"><i class="fa-solid fa-check"></i> Offer Accepted</span>
+        </div>
+      `).join('');
     }
 
-    function resetFilters() {
+    // Drawer Tabs switching
+    function setDrawerTab(tab) {
+      document.getElementById('dTabOverview').classList.toggle('active', tab === 'overview');
+      document.getElementById('dTabApps').classList.toggle('active', tab === 'apps');
+      document.getElementById('dTabSelected').classList.toggle('active', tab === 'selected');
+
+      document.getElementById('drawerTabOverviewContent').style.display = tab === 'overview' ? 'flex' : 'none';
+      document.getElementById('drawerTabAppsContent').style.display = tab === 'apps' ? 'flex' : 'none';
+      document.getElementById('drawerTabSelectedContent').style.display = tab === 'selected' ? 'flex' : 'none';
+    }
+
+    // Toggle Drawer visibility
+    function toggleDrawer(show) {
+      const drawer = document.getElementById('detailsDrawer');
+      const reopenBtn = document.getElementById('btnReopenDrawer');
+      if (show) {
+        drawer.classList.remove('collapsed');
+        reopenBtn.classList.remove('show');
+      } else {
+        drawer.classList.add('collapsed');
+        reopenBtn.classList.add('show');
+      }
+    }
+
+    // Filter Tab Switching
+    function setTab(tabName) {
+      currentTab = tabName;
+      document.querySelectorAll('.status-tab').forEach(b => b.classList.remove('active'));
+
+      if (tabName === 'All Internships') document.getElementById('tabAll').classList.add('active');
+      else if (tabName === 'Active') document.getElementById('tabActive').classList.add('active');
+      else if (tabName === 'In Review') document.getElementById('tabInReview').classList.add('active');
+      else if (tabName === 'Closed') document.getElementById('tabClosed').classList.add('active');
+      else if (tabName === 'Draft') document.getElementById('tabDrafts').classList.add('active');
+
+      // Reset status dropdown to All Status when tab is clicked
+      document.getElementById('statusFilter').value = 'All Status';
+      currentPage = 1;
+      fetchPostings();
+    }
+
+    // Search and Dropdown Filter Trigger
+    let searchTimeout = null;
+    function handleSearch() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        currentPage = 1;
+        fetchPostings();
+      }, 250);
+    }
+
+    function applyFilters() {
+      currentPage = 1;
+      fetchPostings();
+    }
+
+    function resetAllFilters() {
       document.getElementById('searchInput').value = '';
-      document.getElementById('trackFilter').value = 'All';
-      document.getElementById('statusFilter').value = 'All';
-      document.getElementById('durationFilter').value = 'All';
-      fetchInternships();
+      document.getElementById('companyFilter').value = 'All Companies';
+      document.getElementById('domainFilter').value = 'All Domains';
+      document.getElementById('statusFilter').value = 'All Status';
+      setTab('All Internships');
     }
 
-    // ---------------- FORM ACTIONS ----------------
-    function openAddForm() {
-      currentEditingId = null;
-      document.getElementById('formTitle').innerText = 'Add Internship';
-      document.getElementById('formSubtitle').innerText = 'Create a new internship program for students.';
-      document.getElementById('btnFormSubmit').innerText = 'Create Internship';
-      document.getElementById('btnFormDelete').style.display = 'none';
-      document.getElementById('editInternshipId').value = '';
-
-      document.getElementById('formTitleInput').value = '';
-      document.getElementById('formTrackSelect').value = 'Data Analytics';
-      document.getElementById('formDesc').value = '';
-      updateChar('formDesc', 'descCharCount', 1000);
-      document.getElementById('formDurationSelect').value = '6 Months';
-      document.getElementById('formStartDate').value = '01 Nov 2025';
-      document.getElementById('formHighlights').value = '• Real-world industry projects\n• Mentor guidance\n• Certificates on completion\n• Placement assistance';
-      updateChar('formHighlights', 'highCharCount', 5000);
-      document.getElementById('formStatusSelect').value = 'Published';
-      document.getElementById('formLimitInput').value = '50';
-      document.getElementById('formShowToStudents').checked = true;
-
-      renderProjectInputs(['', '']);
-
-      document.getElementById('formPanelSide').classList.remove('collapsed');
-      document.getElementById('pageLeftMain').classList.remove('fullwidth');
+    function filterBySelectedTab() {
+      showToast('Filtering selected interns across corporate programs...');
+      setDrawerTab('selected');
     }
 
-    function openEditForm(id) {
-      const item = internshipsData.find(i => i._id === id);
-      if (!item) return;
+    // Modal Create / Edit
+    function openCreateModal() {
+      document.getElementById('modalTitle').innerText = 'Create Internship Posting';
+      document.getElementById('btnSubmitForm').innerText = 'Save Internship';
+      document.getElementById('formPostingId').value = '';
+      document.getElementById('formTitle').value = '';
+      document.getElementById('formCompany').value = 'Amazon';
+      document.getElementById('formDomain').value = 'Data Analytics';
+      document.getElementById('formCompanyIndustryLocation').value = 'IT Services | Bengaluru';
+      document.getElementById('formMode').value = 'Remote';
+      document.getElementById('formDuration').value = '6 Months';
+      document.getElementById('formStipend').value = '₹15,000';
+      document.getElementById('formOpenings').value = '5';
+      document.getElementById('formDeadline').value = '30 Nov 2026';
+      document.getElementById('formStatus').value = 'Active';
+      document.getElementById('formDescription').value = '';
+      document.getElementById('formSkills').value = '';
+      document.getElementById('formEligibility').value = '';
 
-      currentEditingId = id;
-      document.getElementById('formTitle').innerText = 'Edit Internship';
-      document.getElementById('formSubtitle').innerText = 'Update internship details, duration, projects and settings.';
-      document.getElementById('btnFormSubmit').innerText = 'Update Internship';
-      document.getElementById('btnFormDelete').style.display = 'flex';
-      document.getElementById('editInternshipId').value = id;
-
-      document.getElementById('formTitleInput').value = item.title || '';
-      document.getElementById('formTrackSelect').value = item.track || 'Data Analytics';
-      document.getElementById('formDesc').value = item.description || '';
-      updateChar('formDesc', 'descCharCount', 1000);
-      document.getElementById('formDurationSelect').value = item.duration || '6 Months';
-      document.getElementById('formStartDate').value = item.startDate || '01 Nov 2025';
-      document.getElementById('formHighlights').value = item.highlights || '';
-      updateChar('formHighlights', 'highCharCount', 5000);
-      document.getElementById('formStatusSelect').value = item.status || 'Published';
-      document.getElementById('formLimitInput').value = item.enrollmentLimit || 50;
-      document.getElementById('formShowToStudents').checked = (item.showToStudents !== false);
-
-      renderProjectInputs(item.projects || []);
-
-      document.getElementById('formPanelSide').classList.remove('collapsed');
-      document.getElementById('pageLeftMain').classList.remove('fullwidth');
+      document.getElementById('postingModal').classList.add('show');
     }
 
-    function closeSidePanel() {
-      document.getElementById('formPanelSide').classList.add('collapsed');
-      document.getElementById('pageLeftMain').classList.add('fullwidth');
+    function openEditModalById(id) {
+      const p = allPostings.find(item => item._id === id);
+      if (!p) return;
+
+      document.getElementById('modalTitle').innerText = 'Edit Internship Posting';
+      document.getElementById('btnSubmitForm').innerText = 'Update Internship';
+      document.getElementById('formPostingId').value = p._id;
+      document.getElementById('formTitle').value = p.title || '';
+      document.getElementById('formCompany').value = p.company || 'Amazon';
+      document.getElementById('formDomain').value = p.domain || 'Data Analytics';
+      document.getElementById('formCompanyIndustryLocation').value = `${p.companyIndustry || 'IT Services'} | ${p.location || 'Bengaluru'}`;
+      document.getElementById('formMode').value = p.mode || 'Remote';
+      document.getElementById('formDuration').value = p.duration || '6 Months';
+      document.getElementById('formStipend').value = p.stipend || '₹15,000';
+      document.getElementById('formOpenings').value = p.openings || 5;
+      document.getElementById('formDeadline').value = p.deadline || '10 Nov 2026';
+      document.getElementById('formStatus').value = p.status || 'Active';
+      document.getElementById('formDescription').value = p.description || '';
+      document.getElementById('formSkills').value = (p.skills || []).join(', ');
+      document.getElementById('formEligibility').value = (p.eligibility || []).join('\n');
+
+      document.getElementById('postingModal').classList.add('show');
     }
 
-    // Projects list inside form
-    function renderProjectInputs(projs) {
-      const list = document.getElementById('projectInputsList');
-      list.innerHTML = '';
-
-      if (!projs || projs.length === 0) projs = [''];
-
-      projs.forEach((p, idx) => {
-        const row = document.createElement('div');
-        row.className = 'proj-item-row';
-        row.innerHTML = `
-          <span class="proj-num">${idx + 1}.</span>
-          <input type="text" class="proj-input" placeholder="Project title..." value="${escapeHtml(p)}">
-          <button type="button" class="btn-proj-del" onclick="deleteProjectInput(this)" title="Remove Project"><i class="fa-solid fa-trash"></i></button>
-        `;
-        list.appendChild(row);
-      });
+    function openEditModalFromSelected() {
+      if (selectedPostingId) openEditModalById(selectedPostingId);
     }
 
-    function addProjectInput() {
-      const list = document.getElementById('projectInputsList');
-      const count = list.querySelectorAll('.proj-item-row').length + 1;
-      const row = document.createElement('div');
-      row.className = 'proj-item-row';
-      row.innerHTML = `
-        <span class="proj-num">${count}.</span>
-        <input type="text" class="proj-input" placeholder="Project title..." value="">
-        <button type="button" class="btn-proj-del" onclick="deleteProjectInput(this)" title="Remove Project"><i class="fa-solid fa-trash"></i></button>
-      `;
-      list.appendChild(row);
+    function closeModal() {
+      document.getElementById('postingModal').classList.remove('show');
     }
 
-    function deleteProjectInput(btn) {
-      const row = btn.closest('.proj-item-row');
-      const list = document.getElementById('projectInputsList');
-      if (list.querySelectorAll('.proj-item-row').length <= 1) {
-        showToast('At least one project row is required');
-        return;
+    // Auto-fill industry & location on company change
+    function autoFillCompanyMeta() {
+      const comp = document.getElementById('formCompany').value;
+      const metaMap = {
+        'Amazon': 'IT Services | Bengaluru',
+        'Microsoft': 'Technology | Hyderabad',
+        'Deloitte': 'Consulting | Mumbai',
+        'TCS': 'IT Services | Pune',
+        'Infosys': 'IT Services | Bengaluru',
+        'Wipro': 'IT Services | Chennai',
+        'Capgemini': 'IT Consulting | Noida',
+        'HCL': 'IT Services | Noida',
+        'Accenture': 'Consulting | Gurugram',
+        'Mindtree': 'Technology | Bengaluru'
+      };
+      if (metaMap[comp]) {
+        document.getElementById('formCompanyIndustryLocation').value = metaMap[comp];
       }
-      row.remove();
-      // Re-number
-      list.querySelectorAll('.proj-item-row').forEach((r, idx) => {
-        r.querySelector('.proj-num').innerText = `${idx + 1}.`;
-      });
     }
 
-    // Handle Form Submit
-    async function handleFormSubmit(e) {
+    // Form Submit Handler
+    async function handlePostingFormSubmit(e) {
       e.preventDefault();
-
-      const title = document.getElementById('formTitleInput').value.trim();
-      const track = document.getElementById('formTrackSelect').value;
-      const desc = document.getElementById('formDesc').value.trim();
-      const duration = document.getElementById('formDurationSelect').value;
-      const startDate = document.getElementById('formStartDate').value.trim();
-      const highlights = document.getElementById('formHighlights').value.trim();
-      const status = document.getElementById('formStatusSelect').value;
-      const limit = parseInt(document.getElementById('formLimitInput').value) || 50;
-      const showToStudents = document.getElementById('formShowToStudents').checked;
-
-      // Extract projects
-      const projectInputs = document.querySelectorAll('#projectInputsList .proj-input');
-      const projects = Array.from(projectInputs).map(inp => inp.value.trim()).filter(Boolean);
+      const id = document.getElementById('formPostingId').value;
+      const parts = document.getElementById('formCompanyIndustryLocation').value.split('|');
+      const companyIndustry = parts[0] ? parts[0].trim() : 'IT Services';
+      const location = parts[1] ? parts[1].trim() : 'Bengaluru';
 
       const payload = {
-        title,
-        track,
-        description: desc,
-        duration,
-        startDate,
-        highlights,
-        status,
-        enrollmentLimit: limit,
-        showToStudents,
-        projects
+        title: document.getElementById('formTitle').value.trim(),
+        company: document.getElementById('formCompany').value,
+        companyIndustry,
+        location,
+        domain: document.getElementById('formDomain').value,
+        mode: document.getElementById('formMode').value,
+        duration: document.getElementById('formDuration').value,
+        stipend: document.getElementById('formStipend').value.trim(),
+        openings: parseInt(document.getElementById('formOpenings').value, 10) || 5,
+        deadline: document.getElementById('formDeadline').value.trim(),
+        status: document.getElementById('formStatus').value,
+        description: document.getElementById('formDescription').value.trim(),
+        skills: document.getElementById('formSkills').value.split(',').map(s => s.trim()).filter(Boolean),
+        eligibility: document.getElementById('formEligibility').value.split('\n').map(s => s.trim()).filter(Boolean)
       };
 
       try {
         let res;
-        if (currentEditingId) {
-          res = await fetch(`/api/admin/internships/${currentEditingId}`, {
+        if (id) {
+          res = await fetch(`/api/admin/internship-postings/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
         } else {
-          res = await fetch('/api/admin/internships', {
+          res = await fetch('/api/admin/internship-postings', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -2471,184 +2798,146 @@
 
         const data = await res.json();
         if (data.success) {
-          showToast(currentEditingId ? 'Internship updated successfully!' : 'Internship created successfully!');
-          fetchInternships();
-          closeSidePanel();
+          closeModal();
+          showToast(id ? 'Internship posting updated!' : 'New internship posting created!');
+          fetchPostings();
         } else {
-          showToast(data.message || 'Error occurred');
+          showToast(data.message || 'Error saving posting');
         }
       } catch (err) {
-        showToast('Saved successfully');
-        fetchInternships();
-        closeSidePanel();
+        console.error('Submit error:', err);
+        showToast('Server connection error');
       }
     }
 
-    // Delete Internship
-    async function deleteInternship(id) {
-      const item = internshipsData.find(i => i._id === id);
-      const title = item ? item.title : 'this program';
-      if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
-
+    // Duplicate Selected Posting
+    async function duplicateSelectedPosting() {
+      if (!selectedPostingId) return;
       try {
-        const res = await fetch(`/api/admin/internships/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/admin/internship-postings/${selectedPostingId}/duplicate`, {
+          method: 'POST'
+        });
         const data = await res.json();
         if (data.success) {
-          showToast('Internship deleted successfully');
-          fetchInternships();
-          if (currentEditingId === id) closeSidePanel();
+          showToast('Internship duplicated successfully!');
+          fetchPostings();
         } else {
-          showToast(data.message || 'Delete failed');
+          showToast(data.message || 'Duplicate error');
         }
       } catch (err) {
-        showToast('Internship deleted');
-        fetchInternships();
-        if (currentEditingId === id) closeSidePanel();
+        showToast('Server error during duplication');
       }
     }
 
-    function deleteCurrentInternship() {
-      if (currentEditingId) deleteInternship(currentEditingId);
-    }
+    // Toggle Close / Reopen Posting
+    async function toggleCloseSelectedPosting() {
+      if (!selectedPostingId) return;
+      const current = allPostings.find(p => p._id === selectedPostingId);
+      const newStatus = (current && current.status === 'Closed') ? 'Active' : 'Closed';
 
-    // Duplicate Internship
-    async function duplicateInternship(id) {
       try {
-        const res = await fetch(`/api/admin/internships/${id}/duplicate`, { method: 'POST' });
+        const res = await fetch(`/api/admin/internship-postings/${selectedPostingId}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
         const data = await res.json();
         if (data.success) {
-          showToast('Internship program duplicated!');
-          fetchInternships();
-        } else {
-          showToast(data.message || 'Duplication failed');
+          showToast(`Internship marked as ${newStatus}!`);
+          fetchPostings();
         }
       } catch (err) {
-        showToast('Program duplicated');
-        fetchInternships();
+        showToast('Server error updating status');
       }
     }
 
-    // ---------------- PREVIEW MODAL ----------------
-    function openPreviewModal(id) {
-      const item = internshipsData.find(i => i._id === id);
-      if (!item) return;
-
-      document.getElementById('modalTitle').innerText = item.title;
-      const mb = document.getElementById('modalBody');
-
-      const projectsHtml = (item.projects && item.projects.length > 0)
-        ? `<ol style="padding-left: 20px; line-height: 1.8;">${item.projects.map(p => `<li><b>${escapeHtml(p)}</b></li>`).join('')}</ol>`
-        : '<p style="color: #94a3b8;">No specific projects listed.</p>';
-
-      mb.innerHTML = `
-        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-          <span class="track-badge ${getTrackClass(item.track)}" style="font-size: 12px; padding: 4px 12px;">${escapeHtml(item.track)}</span>
-          <span class="status-badge ${item.status.toLowerCase()}">${item.status}</span>
-          <span style="font-size: 13px; color: #64748b;"><i class="fa-regular fa-clock"></i> ${item.duration}</span>
-          <span style="font-size: 13px; color: #64748b;"><i class="fa-regular fa-calendar"></i> Starts: <b>${item.startDate}</b></span>
-          <span style="font-size: 13px; color: #16a34a;"><i class="fa-solid fa-user-graduate"></i> Enrolled: <b>${item.enrolled} students</b></span>
-        </div>
-
-        <div>
-          <h5 style="font-size: 13px; font-weight: 700; color: #0F172A; margin-bottom: 4px;">Description</h5>
-          <p style="font-size: 13.5px; color: #475569; line-height: 1.6;">${escapeHtml(item.description)}</p>
-        </div>
-
-        <div>
-          <h5 style="font-size: 13px; font-weight: 700; color: #0F172A; margin-bottom: 4px;">Key Highlights</h5>
-          <pre style="font-family: inherit; font-size: 13px; color: #475569; white-space: pre-line; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">${escapeHtml(item.highlights)}</pre>
-        </div>
-
-        <div>
-          <h5 style="font-size: 13px; font-weight: 700; color: #0F172A; margin-bottom: 6px;">Hands-On Capstone Projects</h5>
-          ${projectsHtml}
-        </div>
-      `;
-
-      document.getElementById('previewModal').classList.add('show');
+    // Navigate to Applications
+    function navigateToApplications() {
+      const p = allPostings.find(item => item._id === selectedPostingId);
+      const title = p ? encodeURIComponent(p.title) : '';
+      window.location.href = `admin-applications.html?internship=${title}`;
     }
 
-    function closePreviewModal() {
-      document.getElementById('previewModal').classList.remove('show');
+    // Row More Menu Dropdown
+    function showRowMoreMenu(id, e) {
+      e.stopPropagation();
+      const p = allPostings.find(item => item._id === id);
+      if (!p) return;
+
+      const act = confirm(`Internship: "${p.title}"\n\nClick OK to Duplicate, or Cancel to Delete.`);
+      if (act) {
+        fetch(`/api/admin/internship-postings/${id}/duplicate`, { method: 'POST' })
+          .then(r => r.json())
+          .then(data => {
+            showToast('Posting duplicated!');
+            fetchPostings();
+          });
+      }
     }
 
-    // Checkbox select all
+    // Export Postings to CSV
+    function exportPostingsToCSV() {
+      if (!allPostings || allPostings.length === 0) {
+        showToast('No postings to export');
+        return;
+      }
+      let csv = 'ID,Order,Title,Company,Domain,Mode,Duration,Stipend,Applications,Selected,Status,Deadline\n';
+      allPostings.forEach(p => {
+        csv += `"${p._id}","${p.order}","${p.title}","${p.company}","${p.domain}","${p.mode}","${p.duration}","${p.stipend}","${p.applicationsCount}","${p.selectedCount}","${p.status}","${p.deadline}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `edurup-internship-postings-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      showToast('Exported internship postings to CSV!');
+    }
+
+    // Date Range Modal
+    function openDateRangeModal() {
+      document.getElementById('dateRangeModal').classList.add('show');
+    }
+    function closeDateModal() {
+      document.getElementById('dateRangeModal').classList.remove('show');
+    }
+    function applyDateRange() {
+      const s = document.getElementById('dateStart').value;
+      const e = document.getElementById('dateEnd').value;
+      closeDateModal();
+      showToast(`Filtered date range: ${s || 'Start'} to ${e || 'End'}`);
+    }
+
+    // Select all checkboxes
     function toggleSelectAll(cb) {
-      document.querySelectorAll('#internshipsTableBody input[type="checkbox"]').forEach(c => {
-        c.checked = cb.checked;
+      document.querySelectorAll('.row-checkbox').forEach(box => {
+        box.checked = cb.checked;
       });
     }
 
-    // Helper functions
-    function updateChar(inputElId, counterElId, max) {
-      const len = document.getElementById(inputElId).value.length;
-      document.getElementById(counterElId).innerText = `${len}/${max} characters`;
-    }
-
-    function formatDoc(cmd, elId) {
-      const ta = document.getElementById(elId);
-      const s = ta.selectionStart;
-      const e = ta.selectionEnd;
-      const txt = ta.value.substring(s, e);
-      let rep = txt;
-      if (cmd === 'bold') rep = `**${txt || 'text'}**`;
-      else if (cmd === 'italic') rep = `*${txt || 'text'}*`;
-      else if (cmd === 'underline') rep = `<u>${txt || 'text'}</u>`;
-      else if (cmd === 'bullet') rep = `\n• ${txt || 'point'}`;
-      else if (cmd === 'number') rep = `\n1. ${txt || 'point'}`;
-      ta.setRangeText(rep, s, e, 'end');
-      ta.focus();
-    }
-
-    function promptLink(elId) {
-      const url = prompt('Enter link URL (e.g. https://...):', 'https://');
-      if (url) {
-        const ta = document.getElementById(elId);
-        const s = ta.selectionStart;
-        const e = ta.selectionEnd;
-        const txt = ta.value.substring(s, e) || 'link';
-        ta.setRangeText(`[${txt}](${url})`, s, e, 'end');
-      }
-    }
-
-    function escapeHtml(str) {
-      return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
+    // Global Top Search
     function handleGlobalSearch(e) {
       if (e.key === 'Enter') {
-        document.getElementById('searchInput').value = e.target.value.trim();
-        fetchInternships();
+        document.getElementById('searchInput').value = e.target.value;
+        handleSearch();
       }
     }
 
-    function toggleProfileDropdown(e) {
-      e.stopPropagation();
-      document.getElementById('profileDropdown').classList.toggle('show');
-    }
-
-    document.addEventListener('click', () => {
-      const pd = document.getElementById('profileDropdown');
-      if (pd && pd.classList.contains('show')) pd.classList.remove('show');
-    });
-
-    function toggleNavGroup(id) {
-      const g = document.getElementById(id);
-      if (g) g.classList.toggle('open');
-    }
-
+    // Toast message trigger
     function showToast(msg) {
-      const t = document.getElementById('toastMsg');
+      const toast = document.getElementById('toastMsg');
       document.getElementById('toastText').innerText = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3000);
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     }
 
-    function logoutAdmin() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = 'login.html';
-    }
+    // Initial Load
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchPostings();
+    });
   </script>
 
   <!-- Standard Sidebar and Toast Helper Scripts -->

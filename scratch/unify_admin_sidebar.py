@@ -13,7 +13,8 @@ PAGES_CONFIG = {
     'admin-recorded-classes.html': 'learning-recorded',
     'admin-quizzes.html': 'learning-quizzes',
     'admin-resources.html': 'learning-resources',
-    'admin-internships.html': 'internships-all',
+    'admin-internships.html': 'companies-internships',
+    'admin-internship-postings.html': 'companies-internships',
     'admin-projects.html': 'internships-projects',
     'admin-mentors.html': 'internships-mentors',
     'admin-applications.html': 'internships-applications',
@@ -285,6 +286,19 @@ def build_sidebar_html(page_key):
     tasks_assign_active = ' active-subitem' if page_key == 'tasks-assign' else ''
     tasks_recurring_active = ' active-subitem' if page_key == 'tasks-recurring' else ''
 
+    # Companies & Mentors classes
+    is_companies = page_key.startswith('companies-')
+    companies_open = ' open' if is_companies else ''
+    companies_cat_active = ' active-category' if is_companies else ''
+    companies_all_active = ' active-subitem' if page_key == 'companies-all' else ''
+    companies_mentors_active = ' active-subitem' if page_key == 'companies-mentors' else ''
+    companies_partnerships_active = ' active-subitem' if page_key == 'companies-partnerships' else ''
+    companies_postings_active = ' active-subitem' if page_key == 'companies-internships' else ''
+    companies_apps_active = ' active-subitem' if page_key == 'companies-applications' else ''
+    companies_drives_active = ' active-subitem' if page_key == 'companies-drives' else ''
+    companies_interactions_active = ' active-subitem' if page_key == 'companies-interactions' else ''
+    companies_requests_active = ' active-subitem' if page_key == 'companies-requests' else ''
+
     return f"""  <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="adminSidebar">
     <div class="sidebar-header">
@@ -381,8 +395,8 @@ def build_sidebar_html(page_key):
       </div>
 
       <!-- Companies & Mentors -->
-      <div class="nav-group" id="navGroupCompanies">
-        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+      <div class="nav-group{companies_open}" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn{companies_cat_active}" onclick="toggleNavGroup('navGroupCompanies')">
           <div class="nav-item-left">
             <i class="fa-solid fa-building"></i>
             <span>Companies & Mentors</span>
@@ -390,9 +404,14 @@ def build_sidebar_html(page_key):
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="javascript:void(0)" onclick="showToast('Partner Companies desk opening soon')" class="nav-subitem">Partner Companies</a>
-          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
-          <a href="admin-mentors.html" class="nav-subitem">Mentor Assignments</a>
+          <a href="javascript:void(0)" onclick="showToast('Partner Companies directory')" class="nav-subitem{companies_all_active}">All Companies</a>
+          <a href="admin-mentors.html" class="nav-subitem{companies_mentors_active}">All Mentors</a>
+          <a href="javascript:void(0)" onclick="showToast('Corporate Partnerships')" class="nav-subitem{companies_partnerships_active}">Partnerships</a>
+          <a href="admin-internships.html" class="nav-subitem{companies_postings_active}">Internship Postings</a>
+          <a href="admin-applications.html" class="nav-subitem{companies_apps_active}">Applications</a>
+          <a href="javascript:void(0)" onclick="showToast('Campus & Virtual Hiring Drives')" class="nav-subitem{companies_drives_active}">Hiring Drives</a>
+          <a href="javascript:void(0)" onclick="showToast('Corporate Interactions')" class="nav-subitem{companies_interactions_active}">Interactions</a>
+          <a href="javascript:void(0)" onclick="showToast('Partner Inbound Requests')" class="nav-subitem{companies_requests_active}">Partner Requests</a>
         </div>
       </div>
 
