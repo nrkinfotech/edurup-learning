@@ -13,6 +13,7 @@ PAGES_CONFIG = {
     'admin-recorded-classes.html': 'learning-recorded',
     'admin-quizzes.html': 'learning-quizzes',
     'admin-resources.html': 'learning-resources',
+    'admin-companies.html': 'companies-all',
     'admin-internships.html': 'companies-internships',
     'admin-internship-postings.html': 'companies-internships',
     'admin-projects.html': 'internships-projects',
@@ -404,7 +405,7 @@ def build_sidebar_html(page_key):
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="javascript:void(0)" onclick="showToast('Partner Companies directory')" class="nav-subitem{companies_all_active}">All Companies</a>
+          <a href="admin-companies.html" class="nav-subitem{companies_all_active}">All Companies</a>
           <a href="admin-mentors.html" class="nav-subitem{companies_mentors_active}">All Mentors</a>
           <a href="javascript:void(0)" onclick="showToast('Corporate Partnerships')" class="nav-subitem{companies_partnerships_active}">Partnerships</a>
           <a href="admin-internships.html" class="nav-subitem{companies_postings_active}">Internship Postings</a>

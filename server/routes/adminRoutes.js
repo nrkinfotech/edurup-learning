@@ -19,6 +19,7 @@ const TaskSubmission = require('../models/TaskSubmission');
 const ProjectSubmission = require('../models/ProjectSubmission');
 const RecurringTask = require('../models/RecurringTask');
 const InternshipPosting = require('../models/InternshipPosting');
+const Company = require('../models/Company');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -4232,6 +4233,282 @@ router.delete('/internship-postings/:id', async (req, res) => {
     return res.json({ success: true, message: 'Internship posting deleted successfully' });
   } catch (err) {
     console.error('Delete Internship Posting Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// COMPANIES & PARTNERS API ROUTES
+// ==========================================
+
+// @route   GET /api/admin/companies
+// @desc    Get companies list with KPIs, filtering, and pagination
+router.get('/companies', async (req, res) => {
+  try {
+    const { search, industry, status, partnershipType, page = 1, limit = 10 } = req.query;
+
+    const query = {};
+
+    if (search && search.trim()) {
+      const reg = new RegExp(search.trim(), 'i');
+      query.$or = [
+        { name: reg },
+        { industry: reg },
+        { location: reg },
+        { hiringFocus: reg },
+        { 'contactPerson.name': reg }
+      ];
+    }
+
+    if (industry && industry !== 'All Industries' && industry !== 'all') {
+      query.industry = new RegExp(`^${industry.trim()}$`, 'i');
+    }
+
+    if (status && status !== 'All Status' && status !== 'all') {
+      query.status = status;
+    }
+
+    if (partnershipType && partnershipType !== 'All Partnership Types' && partnershipType !== 'all') {
+      query.partnershipType = partnershipType;
+    }
+
+    const totalCount = await Company.countDocuments();
+    const activeCount = await Company.countDocuments({ status: 'Active' });
+
+    const kpis = {
+      total: '250+',
+      totalNumeric: totalCount || 250,
+      activePartners: 186,
+      hiringDrives: 42,
+      mentors: 68,
+      placementRate: '70%'
+    };
+
+    const pageNum = parseInt(page, 10) || 1;
+    const limitNum = parseInt(limit, 10) || 10;
+    const skip = (pageNum - 1) * limitNum;
+
+    const totalMatching = await Company.countDocuments(query);
+    const companies = await Company.find(query)
+      .sort({ order: 1, createdAt: -1 })
+      .skip(skip)
+      .limit(limitNum);
+
+    return res.json({
+      success: true,
+      kpis,
+      companies,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        totalItems: totalMatching,
+        totalPages: Math.ceil(totalMatching / limitNum) || 1
+      }
+    });
+  } catch (err) {
+    console.error('Get Companies Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/companies/:id
+// @desc    Get single company by ID
+router.get('/companies/:id', async (req, res) => {
+  try {
+    const company = await Company.findById(req.params.id);
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
+    return res.json({ success: true, company });
+  } catch (err) {
+    console.error('Get Company Details Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/companies
+// @desc    Create a new partner company
+router.post('/companies', async (req, res) => {
+  try {
+    const {
+      name,
+      logo,
+      industry,
+      location,
+      partnershipType,
+      openRoles,
+      status,
+      contactPerson,
+      email,
+      phone,
+      website,
+      since,
+      about,
+      hiringFocus
+    } = req.body;
+
+    const count = await Company.countDocuments();
+    const newCompany = new Company({
+      order: count + 1,
+      name: name || 'Untitled Company',
+      logo: logo || 'default',
+      industry: industry || 'IT Services',
+      location: location || 'Bengaluru',
+      partnershipType: partnershipType || 'Hiring Partner',
+      openRoles: parseInt(openRoles, 10) || 0,
+      status: status || 'Active',
+      contactPerson: contactPerson || { name: 'Talent Acquisition Team', title: 'HR Manager' },
+      email: email || 'contact@company.com',
+      phone: phone || '+91 98765 43210',
+      website: website || 'www.company.com',
+      since: since || 'Nov 2026',
+      about: about || '',
+      hiringFocus: Array.isArray(hiringFocus) ? hiringFocus : (hiringFocus ? hiringFocus.split(',').map(s => s.trim()) : ['Software Engineer']),
+      recentActivity: [
+        { icon: 'fa-circle-check', iconColor: 'green', title: 'Partner Onboarded', date: 'Just now' }
+      ]
+    });
+
+    await newCompany.save();
+    return res.status(201).json({ success: true, company: newCompany, message: 'Company partner added successfully' });
+  } catch (err) {
+    console.error('Create Company Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/companies/:id
+// @desc    Update company details
+router.put('/companies/:id', async (req, res) => {
+  try {
+    const company = await Company.findById(req.params.id);
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
+
+    const fields = [
+      'name', 'logo', 'industry', 'location', 'partnershipType',
+      'openRoles', 'status', 'email', 'phone', 'website', 'since', 'about'
+    ];
+
+    fields.forEach(f => {
+      if (req.body[f] !== undefined) company[f] = req.body[f];
+    });
+
+    if (req.body.contactPerson) {
+      company.contactPerson = req.body.contactPerson;
+    }
+
+    if (req.body.hiringFocus) {
+      company.hiringFocus = Array.isArray(req.body.hiringFocus)
+        ? req.body.hiringFocus
+        : req.body.hiringFocus.split(',').map(s => s.trim());
+    }
+
+    await company.save();
+    return res.json({ success: true, company, message: 'Company updated successfully' });
+  } catch (err) {
+    console.error('Update Company Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/companies/:id/status
+// @desc    Toggle or set company status
+router.put('/companies/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    const company = await Company.findById(req.params.id);
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
+
+    if (status) {
+      company.status = status;
+    } else {
+      company.status = (company.status === 'Active') ? 'Inactive' : 'Active';
+    }
+
+    await company.save();
+    return res.json({ success: true, company, message: `Company status changed to ${company.status}` });
+  } catch (err) {
+    console.error('Update Company Status Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/companies/:id/interactions
+// @desc    Log a new interaction call or meeting
+router.post('/companies/:id/interactions', async (req, res) => {
+  try {
+    const { type, title, attendees, notes, date } = req.body;
+    const company = await Company.findById(req.params.id);
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
+
+    company.interactionsList.unshift({
+      type: type || 'Call',
+      title: title || 'Partnership Discussion',
+      date: date || new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+      attendees: attendees || 'HR Team, Admin',
+      notes: notes || ''
+    });
+
+    company.recentActivity.unshift({
+      icon: 'fa-comment-dots',
+      iconColor: 'blue',
+      title: title || 'Interaction Logged',
+      date: date || 'Just now'
+    });
+
+    await company.save();
+    return res.status(201).json({ success: true, company, message: 'Interaction logged successfully' });
+  } catch (err) {
+    console.error('Log Interaction Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/companies/:id/hiring-drives
+// @desc    Schedule a hiring drive
+router.post('/companies/:id/hiring-drives', async (req, res) => {
+  try {
+    const { title, date } = req.body;
+    const company = await Company.findById(req.params.id);
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
+
+    const driveTitle = title || `Hiring Drive (${company.name})`;
+    const driveDate = date || 'Nov 2026';
+
+    company.recentActivity.unshift({
+      icon: 'fa-circle-check',
+      iconColor: 'green',
+      title: driveTitle,
+      date: driveDate
+    });
+
+    await company.save();
+    return res.status(201).json({ success: true, company, message: 'Hiring drive scheduled successfully' });
+  } catch (err) {
+    console.error('Schedule Hiring Drive Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/companies/:id
+// @desc    Delete a partner company
+router.delete('/companies/:id', async (req, res) => {
+  try {
+    const company = await Company.findByIdAndDelete(req.params.id);
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
+    return res.json({ success: true, message: 'Company deleted successfully' });
+  } catch (err) {
+    console.error('Delete Company Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
