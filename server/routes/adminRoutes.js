@@ -2248,7 +2248,7 @@ router.post('/projects/:id/duplicate', async (req, res) => {
 // @desc    Get all mentors with filters, pagination, and KPI counts
 router.get('/mentors', async (req, res) => {
   try {
-    const { search, department, status, program, page = 1, limit = 10 } = req.query;
+    const { search, domain, type, status, department, program, page = 1, limit = 10 } = req.query;
 
     const query = {};
 
@@ -2258,10 +2258,24 @@ router.get('/mentors', async (req, res) => {
         { name: reg },
         { email: reg },
         { phone: reg },
+        { designation: reg },
+        { company: reg },
         { department: reg },
         { role: reg },
-        { skills: reg }
+        { skills: reg },
+        { expertise: reg },
+        { domains: reg }
       ];
+    }
+
+    if (domain && domain !== 'All Domains' && domain !== 'all') {
+      const regDom = new RegExp(domain.trim(), 'i');
+      query.$or = query.$or || [];
+      query.$or.push({ domains: regDom }, { expertise: regDom }, { department: regDom });
+    }
+
+    if (type && type !== 'All Types' && type !== 'all') {
+      query.mentorType = type;
     }
 
     if (department && department !== 'All Departments' && department !== 'all') {
@@ -2276,40 +2290,25 @@ router.get('/mentors', async (req, res) => {
       query['currentPrograms.programName'] = new RegExp(program.trim(), 'i');
     }
 
-    const pageNum = parseInt(page) || 1;
-    const limitNum = parseInt(limit) || 10;
+    const pageNum = parseInt(page, 10) || 1;
+    const limitNum = parseInt(limit, 10) || 10;
     const skip = (pageNum - 1) * limitNum;
 
-    const [
-      totalFiltered,
-      mentors,
-      totalMentors,
-      activeMentors,
-      aggStats
-    ] = await Promise.all([
-      Mentor.countDocuments(query),
-      Mentor.find(query).sort({ order: 1, createdAt: -1 }).skip(skip).limit(limitNum),
-      Mentor.countDocuments(),
-      Mentor.countDocuments({ status: 'Active' }),
-      Mentor.aggregate([
-        {
-          $group: {
-            _id: null,
-            totalAssigned: { $sum: '$assignedStudents' },
-            totalOngoingSessions: { $sum: '$ongoingSessions' },
-            avgRating: { $avg: '$rating' }
-          }
-        }
-      ])
-    ]);
+    const totalMentorsCount = await Mentor.countDocuments();
+    const activeCount = await Mentor.countDocuments({ status: 'Active' });
+    const onLeaveCount = await Mentor.countDocuments({ status: 'On Leave' });
 
-    const stats = aggStats[0] || {};
+    const totalFiltered = await Mentor.countDocuments(query);
+    const mentors = await Mentor.find(query).sort({ order: 1, createdAt: -1 }).skip(skip).limit(limitNum);
+
     const kpis = {
-      totalMentors: totalMentors || 28,
-      activeMentors: activeMentors || 24,
-      assignedStudents: stats.totalAssigned || 326,
-      ongoingSessions: stats.totalOngoingSessions || 48,
-      avgRating: stats.avgRating ? parseFloat(stats.avgRating.toFixed(1)) : 4.8
+      totalMentors: totalMentorsCount || 186,
+      activeMentors: activeCount || 142,
+      activePercent: totalMentorsCount > 0 ? Math.round((activeCount / totalMentorsCount) * 100) : 76,
+      onLeave: onLeaveCount || 18,
+      onLeavePercent: totalMentorsCount > 0 ? Math.round((onLeaveCount / totalMentorsCount) * 100) : 10,
+      assignedBatches: 26,
+      industryExperts: 12
     };
 
     return res.status(200).json({
@@ -2419,6 +2418,7 @@ router.put('/mentors/:id', async (req, res) => {
 
     const fields = [
       'name', 'email', 'phone', 'location', 'role', 'department',
+      'designation', 'company', 'mentorType', 'assignedToText', 'experience', 'linkedin',
       'avatar', 'assignedStudents', 'ongoingSessions', 'rating',
       'status', 'bio', 'sessionCompletion'
     ];
@@ -2431,6 +2431,24 @@ router.put('/mentors/:id', async (req, res) => {
       item.skills = Array.isArray(req.body.skills)
         ? req.body.skills.filter(Boolean)
         : req.body.skills.split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    if (req.body.expertise !== undefined) {
+      item.expertise = Array.isArray(req.body.expertise)
+        ? req.body.expertise.filter(Boolean)
+        : req.body.expertise.split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    if (req.body.domains !== undefined) {
+      item.domains = Array.isArray(req.body.domains)
+        ? req.body.domains.filter(Boolean)
+        : req.body.domains.split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    if (req.body.assignedBatches !== undefined) {
+      item.assignedBatches = Array.isArray(req.body.assignedBatches)
+        ? req.body.assignedBatches.filter(Boolean)
+        : req.body.assignedBatches.split('\n').map(s => s.trim()).filter(Boolean);
     }
 
     if (Array.isArray(req.body.currentPrograms)) {
@@ -2450,6 +2468,30 @@ router.put('/mentors/:id', async (req, res) => {
     });
   } catch (err) {
     console.error('Update Mentor Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/mentors/:id/status
+// @desc    Toggle or set mentor status (Active, Inactive, On Leave)
+router.put('/mentors/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    const item = await Mentor.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Mentor not found' });
+    }
+
+    if (status) {
+      item.status = status;
+    } else {
+      item.status = (item.status === 'Active') ? 'Inactive' : 'Active';
+    }
+
+    await item.save();
+    return res.json({ success: true, mentor: item, message: `Mentor marked as ${item.status}` });
+  } catch (err) {
+    console.error('Toggle Mentor Status Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });

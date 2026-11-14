@@ -30,9 +30,48 @@ const mentorSchema = new mongoose.Schema({
   },
   department: {
     type: String,
-    required: true,
     trim: true,
     default: 'Data Analytics'
+  },
+  designation: {
+    type: String,
+    default: 'Senior Mentor'
+  },
+  company: {
+    type: String,
+    default: 'Amazon'
+  },
+  expertise: [{
+    type: String,
+    trim: true
+  }],
+  domains: [{
+    type: String,
+    trim: true
+  }],
+  mentorType: {
+    type: String,
+    enum: ['Industry', 'External', 'Internal'],
+    default: 'Industry'
+  },
+  assignedToText: {
+    type: String,
+    default: '1 Batch'
+  },
+  assignedBatches: [{
+    type: String
+  }],
+  experience: {
+    type: String,
+    default: '5+ Years'
+  },
+  linkedin: {
+    type: String,
+    default: 'linkedin.com/in/mentor'
+  },
+  isIndustryExpert: {
+    type: Boolean,
+    default: false
   },
   avatar: {
     type: String,
