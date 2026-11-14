@@ -1,0 +1,2600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recurring Tasks | Tasks & Projects | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #DCFCE7;
+      --success-text: #166534;
+      --warning: #F59E0B;
+      --warning-light: #FEF3C7;
+      --warning-text: #92400E;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --danger-text: #B91C1C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- TOPBAR ---------------- */
+    .topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-mobile-sidebar {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 16px;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    .topbar-search-box {
+      position: relative;
+      width: 380px;
+    }
+
+    .topbar-search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13.5px;
+    }
+
+    .topbar-search-box input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 12px 9px 38px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .topbar-search-box input:focus {
+      background: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar-notification {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .topbar-notification:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 7px;
+      height: 7px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 1.5px solid #ffffff;
+    }
+
+    .topbar-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .topbar-profile:hover {
+      background: #f1f5f9;
+    }
+
+    .profile-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #7c3aed;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .profile-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ---------------- TWO-COLUMN PAGE LAYOUT ---------------- */
+    .dashboard-layout {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Left Area */
+    .content-area {
+      flex: 1;
+      padding: 24px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .breadcrumb-row a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumb-row span.current {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* Page Header */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .page-title-group h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .page-title-group p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+
+    .btn-primary-action {
+      background: #2563EB;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-primary-action:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ---------------- 4 KPI CARDS ---------------- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .kpi-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-purple { background: #F3E8FF; color: #9333EA; }
+    .kpi-icon-green { background: #DCFCE7; color: #16A34A; }
+    .kpi-icon-amber { background: #FEF3C7; color: #D97706; }
+    .kpi-icon-red { background: #FEE2E2; color: #DC2626; }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .kpi-content h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .kpi-label-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .kpi-percent-badge {
+      font-weight: 700;
+      font-size: 11px;
+      margin-top: 2px;
+    }
+    .kpi-percent-green { color: #16A34A; }
+    .kpi-percent-amber { color: #D97706; }
+    .kpi-percent-red { color: #DC2626; }
+
+    /* ---------------- FILTER PANEL ---------------- */
+    .filter-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .filter-row-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-search-box {
+      position: relative;
+      flex: 1.4;
+      min-width: 220px;
+    }
+
+    .filter-search-box i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .filter-search-box input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px 8px 34px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .filter-search-box input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-width: 130px;
+    }
+
+    .filter-select:hover {
+      border-color: #94a3b8;
+    }
+
+    .filter-select:focus {
+      border-color: #2563eb;
+    }
+
+    .btn-reset-link {
+      background: transparent;
+      border: none;
+      color: #2563EB;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-reset-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Tabs Row */
+    .filter-tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 12px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 6px 4px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: #0f172a;
+    }
+
+    .tab-btn.active {
+      color: #2563EB;
+      border-bottom-color: #2563EB;
+      font-weight: 700;
+    }
+
+    /* ---------------- DATA TABLE ---------------- */
+    .table-container {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table.tasks-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12.5px;
+    }
+
+    table.tasks-table thead th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      font-size: 11.5px;
+      letter-spacing: 0.02em;
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    table.tasks-table tbody tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+
+    table.tasks-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    table.tasks-table tbody tr.row-selected {
+      background: #EFF6FF !important;
+      position: relative;
+    }
+
+    table.tasks-table tbody tr.row-selected td:first-child {
+      border-left: 3px solid #2563EB;
+    }
+
+    table.tasks-table tbody td {
+      padding: 12px 14px;
+      vertical-align: middle;
+      color: #334155;
+    }
+
+    .cell-checkbox {
+      width: 36px;
+      text-align: center;
+    }
+
+    .cell-checkbox input[type="checkbox"] {
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+      accent-color: #2563eb;
+    }
+
+    .cell-order {
+      width: 36px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .task-name-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 190px;
+    }
+
+    .task-title {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 13px;
+    }
+
+    .task-subtitle {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .course-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 11.5px;
+      white-space: nowrap;
+    }
+
+    .course-data-analytics { background: #E0F2FE; color: #0284C7; }
+    .course-data-science { background: #F3E8FF; color: #7C3AED; }
+    .course-full-stack { background: #EFF6FF; color: #2563EB; }
+    .course-digital-marketing { background: #FCE7F3; color: #DB2777; }
+    .course-internship { background: #F3E8FF; color: #9333EA; }
+
+    .recurrence-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #334155;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .recurrence-cell i {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-active { background: #DCFCE7; color: #166534; }
+    .status-paused { background: #FEF3C7; color: #92400E; }
+    .status-inactive { background: #FEE2E2; color: #B91C1C; }
+
+    .action-icons-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-action-icon:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+
+    .btn-action-icon.play-btn:hover { color: #16a34a; }
+    .btn-action-icon.pause-btn:hover { color: #d97706; }
+    .btn-action-icon.edit-btn:hover { color: #2563eb; }
+
+    /* Pagination Footer */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-top: 1px solid #e2e8f0;
+      background: #ffffff;
+      font-size: 12.5px;
+      color: #64748b;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .page-btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .page-btn.active {
+      background: #2563EB;
+      color: #ffffff;
+      border-color: #2563EB;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ---------------- RIGHT DOCKED DETAILS PANEL ---------------- */
+    .details-dock-panel {
+      width: 440px;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: calc(100vh - 70px);
+      position: sticky;
+      top: 70px;
+      overflow-y: auto;
+      transition: all 0.3s ease;
+      z-index: 80;
+    }
+
+    .details-dock-panel.closed {
+      display: none;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 5;
+    }
+
+    .panel-header h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .btn-close-panel {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: #f1f5f9;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-close-panel:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .panel-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-group label span.req {
+      color: #ef4444;
+    }
+
+    .form-control {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      color: #0f172a;
+      outline: none;
+      transition: all 0.15s;
+      width: 100%;
+    }
+
+    .form-control:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    textarea.form-control {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    /* Segmented Recurrence Buttons */
+    .segmented-control {
+      display: flex;
+      gap: 8px;
+    }
+
+    .seg-btn {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .seg-btn:hover {
+      background: #f8fafc;
+    }
+
+    .seg-btn.active {
+      background: #2563EB;
+      color: #ffffff;
+      border-color: #2563EB;
+    }
+
+    /* Repeat every stepper */
+    .stepper-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .stepper-input {
+      width: 70px;
+      text-align: center;
+      padding: 6px 10px;
+    }
+
+    /* Day Checkboxes */
+    .days-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .day-check-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .day-check-label input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: #2563eb;
+      cursor: pointer;
+    }
+
+    /* Input with icon */
+    .input-icon-box {
+      position: relative;
+    }
+
+    .input-icon-box i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    .input-icon-box input {
+      padding-left: 30px;
+    }
+
+    /* Radio Group for Assign To */
+    .radio-assign-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .radio-option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    .radio-option-row input[type="radio"] {
+      accent-color: #2563eb;
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+
+    /* Toggle switch row */
+    .switch-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .switch-container {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .switch-container input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .2s;
+      border-radius: 20px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #2563EB;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+
+    .switch-label-text {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    /* Sticky Footer */
+    .drawer-sticky-footer {
+      position: sticky;
+      bottom: 0;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      padding: 14px 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .btn-cancel-drawer {
+      flex: 1;
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-cancel-drawer:hover {
+      background: #f8fafc;
+    }
+
+    .btn-save-drawer {
+      flex: 1.4;
+      background: #2563EB;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.15s;
+    }
+
+    .btn-save-drawer:hover {
+      background: #1d4ed8;
+    }
+
+    /* ---------------- CALENDAR MODAL ---------------- */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 12px;
+      width: 650px;
+      max-width: 90vw;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .calendar-day-header {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .calendar-day-cell {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      min-height: 56px;
+      padding: 4px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: #ffffff;
+    }
+
+    .calendar-day-num {
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .cal-event-pill {
+      font-size: 9.5px;
+      padding: 1px 4px;
+      border-radius: 4px;
+      background: #EFF6FF;
+      color: #2563EB;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cal-event-pill.event-green { background: #DCFCE7; color: #166534; }
+    .cal-event-pill.event-purple { background: #F3E8FF; color: #7C3AED; }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .details-dock-panel {
+        width: 380px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .btn-mobile-sidebar {
+        display: block;
+      }
+      .details-dock-panel {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+    <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Dashboard -->
+      <a href="admin-dashboard.html" class="nav-item-btn">
+        <div class="nav-item-left">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </div>
+      </a>
+
+      <!-- Students Management -->
+      <div class="nav-group" id="navGroupStudents">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupStudents')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-users"></i>
+            <span>Students Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-students.html" class="nav-subitem">All Students</a>
+          <a href="admin-add-student.html" class="nav-subitem">Add Student</a>
+          <a href="admin-batches.html" class="nav-subitem">Student Batches</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="admin-active-dropped.html" class="nav-subitem">Active / Dropped</a>
+        </div>
+      </div>
+
+      <!-- Learning Management -->
+      <div class="nav-group" id="navGroupLearning">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupLearning')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Learning Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-courses.html" class="nav-subitem">Courses</a>
+          <a href="admin-modules.html" class="nav-subitem">Modules & Content</a>
+          <a href="admin-recorded-classes.html" class="nav-subitem">Recorded Classes</a>
+          <a href="live-classes.html" class="nav-subitem">Live Classes</a>
+          <a href="admin-quizzes.html" class="nav-subitem">Quizzes & Assessments</a>
+          <a href="admin-resources.html" class="nav-subitem">Learning Resources</a>
+        </div>
+      </div>
+
+      <!-- Internship Management -->
+      <div class="nav-group" id="navGroupInternships">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupInternships')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Internship Management</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-internships.html" class="nav-subitem">Internships</a>
+          <a href="admin-projects.html" class="nav-subitem">Projects</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-applications.html" class="nav-subitem">Applications</a>
+          <a href="admin-progress.html" class="nav-subitem">Student Progress</a>
+          <a href="javascript:void(0)" onclick="showToast('Certificates section opening soon')" class="nav-subitem">Certificates</a>
+        </div>
+      </div>
+
+      <!-- Tasks & Projects -->
+      <div class="nav-group open" id="navGroupTasks">
+        <button type="button" class="nav-item-btn active-category" onclick="toggleNavGroup('navGroupTasks')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Tasks & Projects</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="admin-tasks.html" class="nav-subitem">All Tasks</a>
+          <a href="admin-all-projects.html" class="nav-subitem">All Projects</a>
+          <a href="admin-task-submissions.html" class="nav-subitem">Task Submissions</a>
+          <a href="admin-project-submissions.html" class="nav-subitem">Project Submissions</a>
+          <a href="admin-assign-tasks.html" class="nav-subitem">Assign Tasks</a>
+          <a href="javascript:void(0)" onclick="showToast('Task Templates library opening soon')" class="nav-subitem">Task Templates</a>
+          <a href="admin-recurring-tasks.html" class="nav-subitem active-subitem">Recurring Tasks</a>
+        </div>
+      </div>
+
+      <!-- Companies & Mentors -->
+      <div class="nav-group" id="navGroupCompanies">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCompanies')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-building"></i>
+            <span>Companies & Mentors</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Partner Companies desk opening soon')" class="nav-subitem">Partner Companies</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentors</a>
+          <a href="admin-mentors.html" class="nav-subitem">Mentor Assignments</a>
+        </div>
+      </div>
+
+      <!-- Attendance & Reports -->
+      <div class="nav-group" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Attendance & Reports</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Attendance: 87% (612 present, 68 absent)')" class="nav-subitem">Attendance</a>
+          <a href="javascript:void(0)" onclick="showToast('Weekly Reports: 46 submitted, 42 approved')" class="nav-subitem">Weekly Reports</a>
+        </div>
+      </div>
+
+      <!-- Certificates & LOR -->
+      <div class="nav-group" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-award"></i>
+            <span>Certificates & LOR</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Generate Certificate desk opening soon')" class="nav-subitem">Generate Certificate</a>
+          <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation desk ready')" class="nav-subitem">Letter of Recommendation</a>
+        </div>
+      </div>
+
+      <!-- Reports & Analytics -->
+      <div class="nav-group" id="navGroupReports">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupReports')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Reports & Analytics</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Exporting system reports...')" class="nav-subitem">Export Excel / PDF</a>
+          <a href="javascript:void(0)" onclick="showToast('Placement Metrics: 71% placement success rate')" class="nav-subitem">Placement Metrics</a>
+        </div>
+      </div>
+
+      <!-- Finance -->
+      <div class="nav-group" id="navGroupFinance">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupFinance')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Total Revenue: ₹12,40,000 recorded')" class="nav-subitem">Payments</a>
+          <a href="javascript:void(0)" onclick="showToast('Refund Requests: 0 active')" class="nav-subitem">Refunds</a>
+          <a href="javascript:void(0)" onclick="showToast('Revenue statement ready for download')" class="nav-subitem">Revenue Reports</a>
+        </div>
+      </div>
+
+      <!-- Communications -->
+      <div class="nav-group" id="navGroupComms">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupComms')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-comments"></i>
+            <span>Communications</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Announcements center opening soon')" class="nav-subitem">Announcements</a>
+          <a href="javascript:void(0)" onclick="showToast('Broadcast center: SMS & Email ready')" class="nav-subitem">Email / WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Settings & Access -->
+      <div class="nav-group" id="navGroupSettings">
+        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupSettings')">
+          <div class="nav-item-left">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings & Access</span>
+          </div>
+          <i class="fa-solid fa-chevron-down nav-chevron"></i>
+        </button>
+        <div class="nav-sublist">
+          <a href="javascript:void(0)" onclick="showToast('Admin Roles: Super Admin (Active)')" class="nav-subitem">Roles & Permissions</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ================= MAIN LAYOUT ================= -->
+  <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+    
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-mobile-sidebar" onclick="toggleSidebarMobile()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="topbar-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="topNavSearch" placeholder="Search students, tasks, projects, courses..." onkeyup="handleTopSearch(event)">
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-notification" onclick="showToast('9 recurring tasks scheduled for execution this month')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notification-dot"></span>
+        </div>
+
+        <div class="topbar-profile" onclick="window.location.href='admin-settings.html'">
+          <div class="profile-avatar">AD</div>
+          <div class="profile-info">
+            <span class="profile-name">Admin</span>
+            <span class="profile-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content + Right Dock -->
+    <div class="dashboard-layout">
+      
+      <!-- Content Area -->
+      <main class="content-area">
+        
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb-row">
+          <a href="admin-dashboard.html"><i class="fa-solid fa-house" style="font-size: 11px; margin-right: 2px;"></i> Dashboard</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span>Tasks & Projects</span>
+          <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+          <span class="current">Recurring Tasks</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header-row">
+          <div class="page-title-group">
+            <h1>Recurring Tasks</h1>
+            <p>Create automated, repeating tasks for courses, batches or subscription months.</p>
+          </div>
+          <div class="header-actions-group">
+            <button class="btn-outline" onclick="openCalendarModal()">
+              <i class="fa-regular fa-calendar-days"></i>
+              <span>Task Calendar</span>
+            </button>
+            <button class="btn-outline" onclick="exportRecurringCSV()">
+              <i class="fa-solid fa-download"></i>
+              <span>Export</span>
+            </button>
+            <button class="btn-primary-action" onclick="openCreateRecurringDrawer()">
+              <i class="fa-solid fa-plus"></i>
+              <span>Create Recurring Task</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 KPI Metrics Cards -->
+        <div class="kpi-grid">
+          <!-- Card 1: Recurring Tasks -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-purple">
+              <i class="fa-regular fa-calendar-check"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiTotal">12</h3>
+              <span class="kpi-label-text">Recurring Tasks</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Active -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-green">
+              <i class="fa-solid fa-play"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiActive">9</h3>
+              <span class="kpi-label-text">Active</span>
+              <span class="kpi-percent-badge kpi-percent-green" id="kpiActivePercent">75%</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Paused -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-amber">
+              <i class="fa-solid fa-pause"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiPaused">2</h3>
+              <span class="kpi-label-text">Paused</span>
+              <span class="kpi-percent-badge kpi-percent-amber" id="kpiPausedPercent">17%</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Inactive -->
+          <div class="kpi-card">
+            <div class="kpi-icon-box kpi-icon-red">
+              <i class="fa-solid fa-stop"></i>
+            </div>
+            <div class="kpi-content">
+              <h3 id="kpiInactive">1</h3>
+              <span class="kpi-label-text">Inactive</span>
+              <span class="kpi-percent-badge kpi-percent-red" id="kpiInactivePercent">8%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+          <div class="filter-row-top">
+            <div class="filter-search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="searchInput" placeholder="Search recurring task..." oninput="debounceSearch()">
+            </div>
+
+            <select class="filter-select" id="courseFilter" onchange="applyFilters()">
+              <option value="all">All Courses</option>
+            </select>
+
+            <select class="filter-select" id="taskTypeFilter" onchange="applyFilters()">
+              <option value="all">All Task Types</option>
+            </select>
+
+            <select class="filter-select" id="statusFilter" onchange="applyFilters()">
+              <option value="all">All Status</option>
+              <option value="Active">Active</option>
+              <option value="Paused">Paused</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+
+            <button class="btn-reset-link" onclick="resetFilters()">Reset</button>
+          </div>
+
+          <!-- Tabs Row -->
+          <div class="filter-tabs-row">
+            <button class="tab-btn active" data-tab="all" onclick="switchTab(this, 'all')">All (12)</button>
+            <button class="tab-btn" data-tab="Active" onclick="switchTab(this, 'Active')">Active (9)</button>
+            <button class="tab-btn" data-tab="Paused" onclick="switchTab(this, 'Paused')">Paused (2)</button>
+            <button class="tab-btn" data-tab="Inactive" onclick="switchTab(this, 'Inactive')">Inactive (1)</button>
+          </div>
+        </div>
+
+        <!-- Tasks Data Table -->
+        <div class="table-container">
+          <div class="table-responsive">
+            <table class="tasks-table">
+              <thead>
+                <tr>
+                  <th class="cell-checkbox">
+                    <input type="checkbox" id="selectAllBox" onclick="toggleSelectAll(this)">
+                  </th>
+                  <th class="cell-order">#</th>
+                  <th>Task Name</th>
+                  <th>Course</th>
+                  <th>Recurrence</th>
+                  <th>Next Run</th>
+                  <th>Assigned To</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tasksTableBody">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div class="table-footer">
+            <div id="paginationSummary">Showing 1 to 10 of 12 recurring tasks</div>
+            <div class="pagination-controls" id="paginationControls">
+              <!-- Dynamically populated page buttons -->
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- ================= RIGHT DOCKED CREATE / EDIT PANEL ================= -->
+      <aside class="details-dock-panel" id="detailsDockPanel">
+        <div class="panel-header">
+          <h3 id="drawerHeaderTitle">Create / Edit Recurring Task</h3>
+          <button class="btn-close-panel" onclick="closeDetailsPanel()" title="Close details">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form class="panel-body" id="recurringTaskForm" onsubmit="handleFormSubmit(event)">
+          <input type="hidden" id="editTaskId" value="">
+
+          <!-- Task Title -->
+          <div class="form-group">
+            <label>Task Title <span class="req">*</span></label>
+            <input type="text" class="form-control" id="formTaskTitle" placeholder="e.g. Weekly Practice – Power BI" required>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" id="formDescription" placeholder="Weekly hands-on practice with datasets and visualizations."></textarea>
+          </div>
+
+          <!-- Course & Task Type Row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Course <span class="req">*</span></label>
+              <select class="form-control" id="formCourse" required>
+                <option value="Data Analytics">Data Analytics</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Full Stack">Full Stack</option>
+                <option value="Digital Marketing">Digital Marketing</option>
+                <option value="Internship">Internship</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Task Type <span class="req">*</span></label>
+              <select class="form-control" id="formTaskType" required>
+                <option value="Assignment">Assignment</option>
+                <option value="Project Milestone">Project Milestone</option>
+                <option value="Quiz">Quiz</option>
+                <option value="Assessment">Assessment</option>
+                <option value="Report">Report</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Recurrence Pattern -->
+          <div class="form-group">
+            <label>Recurrence Pattern <span class="req">*</span></label>
+            <div class="segmented-control">
+              <button type="button" class="seg-btn active" data-pattern="Weekly" onclick="setRecurrencePattern('Weekly')">
+                <i class="fa-regular fa-calendar-check"></i> Weekly
+              </button>
+              <button type="button" class="seg-btn" data-pattern="Bi-Weekly" onclick="setRecurrencePattern('Bi-Weekly')">
+                <i class="fa-regular fa-calendar-plus"></i> Bi-Weekly
+              </button>
+              <button type="button" class="seg-btn" data-pattern="Monthly" onclick="setRecurrencePattern('Monthly')">
+                <i class="fa-regular fa-calendar-days"></i> Monthly
+              </button>
+            </div>
+          </div>
+
+          <!-- Repeat Every -->
+          <div class="form-group">
+            <label>Repeat Every</label>
+            <div class="stepper-row">
+              <span>Every</span>
+              <input type="number" class="form-control stepper-input" id="formRepeatEvery" min="1" max="12" value="1">
+              <span id="repeatUnitLabel">Week</span>
+            </div>
+          </div>
+
+          <!-- On (Days of week) -->
+          <div class="form-group" id="daysSection">
+            <label>On <span class="req">*</span></label>
+            <div class="days-checkbox-row">
+              <label class="day-check-label"><input type="checkbox" name="dayOfWeek" value="Mon" checked> Mon</label>
+              <label class="day-check-label"><input type="checkbox" name="dayOfWeek" value="Tue"> Tue</label>
+              <label class="day-check-label"><input type="checkbox" name="dayOfWeek" value="Wed"> Wed</label>
+              <label class="day-check-label"><input type="checkbox" name="dayOfWeek" value="Thu"> Thu</label>
+              <label class="day-check-label"><input type="checkbox" name="dayOfWeek" value="Fri"> Fri</label>
+            </div>
+          </div>
+
+          <!-- Time -->
+          <div class="form-group">
+            <label>Time <span class="req">*</span></label>
+            <div class="input-icon-box">
+              <i class="fa-regular fa-clock"></i>
+              <input type="text" class="form-control" id="formTime" value="10:00 AM" required>
+            </div>
+          </div>
+
+          <!-- Start Date & End Date -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Start Date <span class="req">*</span></label>
+              <div class="input-icon-box">
+                <i class="fa-regular fa-calendar"></i>
+                <input type="text" class="form-control" id="formStartDate" value="17 Nov 2026" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>End Date</label>
+              <div class="input-icon-box">
+                <i class="fa-regular fa-calendar"></i>
+                <input type="text" class="form-control" id="formEndDate" value="No end date">
+              </div>
+            </div>
+          </div>
+
+          <!-- Assign To -->
+          <div class="form-group">
+            <label>Assign To <span class="req">*</span></label>
+            <div class="radio-assign-group">
+              <label class="radio-option-row">
+                <input type="radio" name="assignTargetRadio" value="batch" checked onchange="toggleAssignTargetMode()">
+                <span>Subscription Month (Batch)</span>
+              </label>
+              <select class="form-control" id="formAssignBatchSelect" style="margin-left: 23px; width: calc(100% - 23px);">
+                <option value="October 2026 (32 Students)">October 2026 (32 Students)</option>
+                <option value="September 2026 (28 Students)">September 2026 (28 Students)</option>
+                <option value="August 2026 (24 Students)">August 2026 (24 Students)</option>
+                <option value="July 2026 (18 Students)">July 2026 (18 Students)</option>
+                <option value="November 2026 (24 Students)">November 2026 (24 Students)</option>
+              </select>
+
+              <label class="radio-option-row">
+                <input type="radio" name="assignTargetRadio" value="all_active" onchange="toggleAssignTargetMode()">
+                <span>All Active Students (128)</span>
+              </label>
+
+              <label class="radio-option-row">
+                <input type="radio" name="assignTargetRadio" value="specific" onchange="toggleAssignTargetMode()">
+                <span>Specific Students</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Toggle switch for auto-assignment -->
+          <div class="switch-row">
+            <label class="switch-container">
+              <input type="checkbox" id="formAutoAssignSwitch" checked>
+              <span class="slider"></span>
+            </label>
+            <span class="switch-label-text">
+              Automatically assign to new students who join this course after the start date
+            </span>
+          </div>
+
+          <div style="height: 10px;"></div>
+        </form>
+
+        <!-- Sticky Footer -->
+        <div class="drawer-sticky-footer">
+          <button type="button" class="btn-cancel-drawer" onclick="closeDetailsPanel()">Cancel</button>
+          <button type="submit" form="recurringTaskForm" class="btn-save-drawer">Save Recurring Task</button>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ================= TASK CALENDAR MODAL ================= -->
+  <div class="modal-overlay" id="calendarModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Task Schedule Calendar – November 2026</h3>
+        <button class="btn-close-panel" onclick="closeModal('calendarModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="calendar-grid">
+          <div class="calendar-day-header">Sun</div>
+          <div class="calendar-day-header">Mon</div>
+          <div class="calendar-day-header">Tue</div>
+          <div class="calendar-day-header">Wed</div>
+          <div class="calendar-day-header">Thu</div>
+          <div class="calendar-day-header">Fri</div>
+          <div class="calendar-day-header">Sat</div>
+
+          <!-- Week 1 -->
+          <div class="calendar-day-cell"><span class="calendar-day-num">1</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">2</span><span class="cal-event-pill">Power BI</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">3</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">4</span><span class="cal-event-pill event-green">Coding Ch.</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">5</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">6</span><span class="cal-event-pill">SQL Task</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">7</span></div>
+
+          <!-- Week 2 -->
+          <div class="calendar-day-cell"><span class="calendar-day-num">8</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">9</span><span class="cal-event-pill">Power BI</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">10</span><span class="cal-event-pill event-purple">Internship</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">11</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">12</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">13</span><span class="cal-event-pill">SQL Task</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">14</span></div>
+
+          <!-- Week 3 (Active) -->
+          <div class="calendar-day-cell"><span class="calendar-day-num">15</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">16</span></div>
+          <div class="calendar-day-cell" style="background: #EFF6FF; border-color: #2563EB;">
+            <span class="calendar-day-num" style="color: #2563EB;">17</span>
+            <span class="cal-event-pill">Power BI (10am)</span>
+          </div>
+          <div class="calendar-day-cell">
+            <span class="calendar-day-num">18</span>
+            <span class="cal-event-pill">Data Cleaning</span>
+            <span class="cal-event-pill event-green">Coding Ch.</span>
+          </div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">19</span><span class="cal-event-pill">Frontend UI</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">20</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">21</span><span class="cal-event-pill">SQL Queries</span></div>
+
+          <!-- Week 4 -->
+          <div class="calendar-day-cell"><span class="calendar-day-num">22</span><span class="cal-event-pill event-green">Quiz Review</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">23</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">24</span><span class="cal-event-pill event-purple">Project Check</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">25</span><span class="cal-event-pill">Case Study</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">26</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">27</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">28</span></div>
+
+          <!-- Week 5 -->
+          <div class="calendar-day-cell"><span class="calendar-day-num">29</span></div>
+          <div class="calendar-day-cell"><span class="calendar-day-num">30</span><span class="cal-event-pill event-purple">Analytics Rep</span></div>
+        </div>
+      </div>
+      <div style="padding: 14px 20px; border-top: 1px solid #e2e8f0; background: #f8fafc; display: flex; justify-content: flex-end;">
+        <button class="btn-outline" onclick="closeModal('calendarModal')">Close Calendar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let tasksData = [];
+    let activeTaskId = null;
+    let currentTab = 'all';
+    let currentCourse = 'all';
+    let currentTaskType = 'all';
+    let currentStatus = 'all';
+    let currentSearch = '';
+    let currentPage = 1;
+    let limitPerPage = 10;
+    let totalItems = 12;
+    let searchDebounceTimer = null;
+    let currentPattern = 'Weekly';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchRecurringTasks();
+    });
+
+    async function fetchRecurringTasks() {
+      try {
+        const queryParams = new URLSearchParams({
+          page: currentPage,
+          limit: limitPerPage,
+          status: currentTab !== 'all' ? currentTab : currentStatus,
+          course: currentCourse,
+          taskType: currentTaskType,
+          search: currentSearch
+        });
+
+        const res = await fetch(`/api/admin/recurring-tasks?${queryParams.toString()}`);
+        if (!res.ok) throw new Error('Failed to fetch recurring tasks');
+        const data = await res.json();
+
+        tasksData = data.tasks || [];
+        totalItems = data.pagination ? data.pagination.total : tasksData.length;
+
+        // KPIs
+        if (data.kpis) {
+          document.getElementById('kpiTotal').textContent = data.kpis.total;
+          document.getElementById('kpiActive').textContent = data.kpis.active;
+          document.getElementById('kpiActivePercent').textContent = `${data.kpis.activePercent}%`;
+          document.getElementById('kpiPaused').textContent = data.kpis.paused;
+          document.getElementById('kpiPausedPercent').textContent = `${data.kpis.pausedPercent}%`;
+          document.getElementById('kpiInactive').textContent = data.kpis.inactive;
+          document.getElementById('kpiInactivePercent').textContent = `${data.kpis.inactivePercent}%`;
+
+          // Tab labels
+          document.querySelector('.tab-btn[data-tab="all"]').textContent = `All (${data.kpis.total})`;
+          document.querySelector('.tab-btn[data-tab="Active"]').textContent = `Active (${data.kpis.active})`;
+          document.querySelector('.tab-btn[data-tab="Paused"]').textContent = `Paused (${data.kpis.paused})`;
+          document.querySelector('.tab-btn[data-tab="Inactive"]').textContent = `Inactive (${data.kpis.inactive})`;
+        }
+
+        if (data.filters) {
+          populateDropdown('courseFilter', data.filters.courses, currentCourse, 'All Courses');
+          populateDropdown('taskTypeFilter', data.filters.taskTypes, currentTaskType, 'All Task Types');
+        }
+
+        renderTable();
+        renderPagination(data.pagination);
+
+        if (tasksData.length > 0) {
+          const currentExists = tasksData.some(t => t._id === activeTaskId);
+          if (!activeTaskId || !currentExists) {
+            selectTask(tasksData[0]._id);
+          } else {
+            const active = tasksData.find(t => t._id === activeTaskId);
+            populateDrawerForm(active);
+          }
+        }
+
+      } catch (err) {
+        console.error('Error fetching recurring tasks:', err);
+        showToast('Error loading recurring tasks');
+      }
+    }
+
+    function populateDropdown(elemId, items, selectedValue, defaultLabel) {
+      const select = document.getElementById(elemId);
+      if (!select || select.children.length > 1) return;
+
+      select.innerHTML = `<option value="all">${defaultLabel}</option>`;
+      (items || []).forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item;
+        opt.textContent = item;
+        if (item === selectedValue) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('tasksTableBody');
+      tbody.innerHTML = '';
+
+      if (tasksData.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 40px; color: #64748b;">
+              <i class="fa-regular fa-calendar-xmark" style="font-size: 28px; margin-bottom: 8px; color: #cbd5e1; display: block;"></i>
+              No recurring tasks found matching current filters.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tasksData.forEach((task, index) => {
+        const isSelected = (task._id === activeTaskId);
+        const tr = document.createElement('tr');
+        tr.className = isSelected ? 'row-selected' : '';
+        tr.onclick = (e) => {
+          if (e.target.type !== 'checkbox' && !e.target.closest('.action-icons-row')) {
+            selectTask(task._id);
+          }
+        };
+
+        const statusClass = getStatusClass(task.status);
+        const courseClass = getCourseBadgeClass(task.course);
+        const isPaused = (task.status === 'Paused');
+        const isInactive = (task.status === 'Inactive');
+
+        const orderNum = (currentPage - 1) * limitPerPage + index + 1;
+
+        tr.innerHTML = `
+          <td class="cell-checkbox" onclick="event.stopPropagation()">
+            <input type="checkbox" class="row-checkbox" value="${task._id}">
+          </td>
+          <td class="cell-order">${orderNum}</td>
+          <td>
+            <div class="task-name-cell">
+              <span class="task-title">${escapeHTML(task.title)}</span>
+              <span class="task-subtitle">${escapeHTML(task.subtitle || '')}</span>
+            </div>
+          </td>
+          <td>
+            <span class="course-badge ${courseClass}">${escapeHTML(task.course)}</span>
+          </td>
+          <td>
+            <div class="recurrence-cell">
+              <i class="fa-regular fa-calendar"></i>
+              <span>${escapeHTML(task.recurrenceText)}</span>
+            </div>
+          </td>
+          <td>
+            <span style="font-size: 12px; color: #334155; font-weight: 500;">${task.nextRun || '-'}</span>
+          </td>
+          <td>
+            <span style="font-size: 12px; color: #64748b; font-weight: 600;">${escapeHTML(task.assignedTarget || 'All Batches')}</span>
+          </td>
+          <td>
+            <span class="status-pill ${statusClass}">${task.status}</span>
+          </td>
+          <td onclick="event.stopPropagation()">
+            <div class="action-icons-row">
+              <button class="btn-action-icon ${isPaused ? 'play-btn' : 'pause-btn'}" title="${isPaused ? 'Resume Schedule' : 'Pause Schedule'}" onclick="toggleTaskStatus('${task._id}')">
+                <i class="fa-solid ${isPaused ? 'fa-play' : 'fa-pause'}"></i>
+              </button>
+              <button class="btn-action-icon edit-btn" title="Edit Task" onclick="editTaskInDrawer('${task._id}')">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="btn-action-icon" title="More Options" onclick="deleteTaskPrompt('${task._id}')">
+                <i class="fa-solid fa-up-down-left-right"></i>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function getStatusClass(status) {
+      switch (status) {
+        case 'Active': return 'status-active';
+        case 'Paused': return 'status-paused';
+        case 'Inactive': return 'status-inactive';
+        default: return 'status-active';
+      }
+    }
+
+    function getCourseBadgeClass(course) {
+      if (course === 'Data Analytics') return 'course-data-analytics';
+      if (course === 'Data Science') return 'course-data-science';
+      if (course === 'Full Stack') return 'course-full-stack';
+      if (course === 'Digital Marketing') return 'course-digital-marketing';
+      if (course === 'Internship') return 'course-internship';
+      return 'course-data-analytics';
+    }
+
+    function selectTask(id) {
+      activeTaskId = id;
+
+      document.querySelectorAll('.tasks-table tbody tr').forEach(r => r.classList.remove('row-selected'));
+      const activeTask = tasksData.find(t => t._id === id);
+      if (activeTask) {
+        const rows = Array.from(document.querySelectorAll('.tasks-table tbody tr'));
+        const targetRow = rows.find(r => r.querySelector(`.row-checkbox[value="${id}"]`));
+        if (targetRow) targetRow.classList.add('row-selected');
+        populateDrawerForm(activeTask);
+      }
+    }
+
+    function populateDrawerForm(task) {
+      const drawer = document.getElementById('detailsDockPanel');
+      drawer.classList.remove('closed');
+
+      document.getElementById('drawerHeaderTitle').textContent = 'Create / Edit Recurring Task';
+      document.getElementById('editTaskId').value = task._id;
+      document.getElementById('formTaskTitle').value = task.title;
+      document.getElementById('formDescription').value = task.description || '';
+      document.getElementById('formCourse').value = task.course;
+      document.getElementById('formTaskType').value = task.taskType || 'Assignment';
+      document.getElementById('formRepeatEvery').value = task.repeatEvery || 1;
+      document.getElementById('formTime').value = task.time || '10:00 AM';
+      document.getElementById('formStartDate').value = task.startDate || '17 Nov 2026';
+      document.getElementById('formEndDate').value = task.endDate || 'No end date';
+      document.getElementById('formAutoAssignSwitch').checked = Boolean(task.autoAssignNewStudents);
+
+      setRecurrencePattern(task.pattern || 'Weekly', false);
+
+      // Days of week checkboxes
+      const days = task.daysOfWeek || ['Mon'];
+      document.querySelectorAll('input[name="dayOfWeek"]').forEach(cb => {
+        cb.checked = days.includes(cb.value);
+      });
+
+      // Target radio
+      const radios = document.querySelectorAll('input[name="assignTargetRadio"]');
+      radios.forEach(r => {
+        if (r.value === (task.assignedType || 'batch')) r.checked = true;
+      });
+
+      if (task.assignedType === 'batch') {
+        const select = document.getElementById('formAssignBatchSelect');
+        const optExists = Array.from(select.options).some(o => o.value === task.assignedTarget);
+        if (optExists) select.value = task.assignedTarget;
+      }
+    }
+
+    function openCreateRecurringDrawer() {
+      const drawer = document.getElementById('detailsDockPanel');
+      drawer.classList.remove('closed');
+
+      document.getElementById('drawerHeaderTitle').textContent = 'Create New Recurring Task';
+      document.getElementById('editTaskId').value = '';
+      document.getElementById('formTaskTitle').value = '';
+      document.getElementById('formDescription').value = '';
+      document.getElementById('formCourse').value = 'Data Analytics';
+      document.getElementById('formTaskType').value = 'Assignment';
+      document.getElementById('formRepeatEvery').value = 1;
+      document.getElementById('formTime').value = '10:00 AM';
+      document.getElementById('formStartDate').value = '17 Nov 2026';
+      document.getElementById('formEndDate').value = 'No end date';
+      document.getElementById('formAutoAssignSwitch').checked = true;
+
+      setRecurrencePattern('Weekly');
+      document.querySelectorAll('input[name="dayOfWeek"]').forEach(cb => {
+        cb.checked = (cb.value === 'Mon');
+      });
+      document.querySelectorAll('.tasks-table tbody tr').forEach(r => r.classList.remove('row-selected'));
+      activeTaskId = null;
+    }
+
+    function editTaskInDrawer(id) {
+      selectTask(id);
+    }
+
+    function setRecurrencePattern(pattern, updateUnit = true) {
+      currentPattern = pattern;
+      document.querySelectorAll('.seg-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.pattern === pattern);
+      });
+
+      const unitLabel = document.getElementById('repeatUnitLabel');
+      if (pattern === 'Monthly') {
+        unitLabel.textContent = 'Month';
+        document.getElementById('daysSection').style.display = 'none';
+      } else {
+        unitLabel.textContent = 'Week';
+        document.getElementById('daysSection').style.display = 'flex';
+      }
+    }
+
+    function toggleAssignTargetMode() {
+      const selected = document.querySelector('input[name="assignTargetRadio"]:checked').value;
+      const select = document.getElementById('formAssignBatchSelect');
+      select.disabled = (selected !== 'batch');
+    }
+
+    function closeDetailsPanel() {
+      const drawer = document.getElementById('detailsDockPanel');
+      drawer.classList.add('closed');
+    }
+
+    // Form submit
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const taskId = document.getElementById('editTaskId').value;
+      const title = document.getElementById('formTaskTitle').value.trim();
+      const description = document.getElementById('formDescription').value.trim();
+      const course = document.getElementById('formCourse').value;
+      const taskType = document.getElementById('formTaskType').value;
+      const repeatEvery = parseInt(document.getElementById('formRepeatEvery').value, 10) || 1;
+      const time = document.getElementById('formTime').value.trim();
+      const startDate = document.getElementById('formStartDate').value.trim();
+      const endDate = document.getElementById('formEndDate').value.trim();
+      const autoAssignNewStudents = document.getElementById('formAutoAssignSwitch').checked;
+
+      const checkedDays = Array.from(document.querySelectorAll('input[name="dayOfWeek"]:checked')).map(cb => cb.value);
+      const assignType = document.querySelector('input[name="assignTargetRadio"]:checked').value;
+      let assignedTarget = 'All Batches';
+
+      if (assignType === 'batch') {
+        assignedTarget = document.getElementById('formAssignBatchSelect').value.replace(' Students)', ')').replace('October', 'Oct').replace('September', 'Sep').replace('August', 'Aug').replace('November', 'Nov').replace('July', 'Jul');
+      } else if (assignType === 'all_active') {
+        assignedTarget = 'All Active (128)';
+      } else {
+        assignedTarget = 'Specific (15)';
+      }
+
+      const payload = {
+        title,
+        subtitle: description ? description.slice(0, 40) : 'Repeating task assignment',
+        description,
+        course,
+        taskType,
+        pattern: currentPattern,
+        repeatEvery,
+        daysOfWeek: checkedDays.length ? checkedDays : ['Mon'],
+        time,
+        startDate,
+        endDate,
+        assignedType: assignType,
+        assignedTarget,
+        autoAssignNewStudents
+      };
+
+      try {
+        let res;
+        if (taskId) {
+          // Update
+          res = await fetch(`/api/admin/recurring-tasks/${taskId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          // Create
+          res = await fetch('/api/admin/recurring-tasks', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+
+        if (!res.ok) throw new Error('Failed to save recurring task');
+        const data = await res.json();
+
+        showToast(taskId ? 'Recurring task updated!' : 'Recurring task created!');
+        fetchRecurringTasks();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error saving recurring task');
+      }
+    }
+
+    // Toggle status API
+    async function toggleTaskStatus(id) {
+      try {
+        const res = await fetch(`/api/admin/recurring-tasks/${id}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({})
+        });
+
+        if (!res.ok) throw new Error('Failed to toggle status');
+        const data = await res.json();
+        showToast(data.message || 'Status updated');
+        fetchRecurringTasks();
+
+      } catch (err) {
+        console.error(err);
+        showToast('Error updating status');
+      }
+    }
+
+    async function deleteTaskPrompt(id) {
+      if (confirm('Are you sure you want to delete this recurring task schedule?')) {
+        try {
+          const res = await fetch(`/api/admin/recurring-tasks/${id}`, { method: 'DELETE' });
+          if (!res.ok) throw new Error('Failed to delete');
+          showToast('Recurring task deleted');
+          fetchRecurringTasks();
+        } catch (err) {
+          console.error(err);
+          showToast('Error deleting task');
+        }
+      }
+    }
+
+    // Filter and Tab handlers
+    function switchTab(btn, status) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentTab = status;
+      currentPage = 1;
+      fetchRecurringTasks();
+    }
+
+    function applyFilters() {
+      currentCourse = document.getElementById('courseFilter').value;
+      currentTaskType = document.getElementById('taskTypeFilter').value;
+      currentStatus = document.getElementById('statusFilter').value;
+      currentPage = 1;
+      fetchRecurringTasks();
+    }
+
+    function debounceSearch() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        currentSearch = document.getElementById('searchInput').value.trim();
+        currentPage = 1;
+        fetchRecurringTasks();
+      }, 250);
+    }
+
+    function handleTopSearch(e) {
+      if (e.key === 'Enter') {
+        const val = document.getElementById('topNavSearch').value.trim();
+        document.getElementById('searchInput').value = val;
+        currentSearch = val;
+        currentPage = 1;
+        fetchRecurringTasks();
+      }
+    }
+
+    function resetFilters() {
+      currentTab = 'all';
+      currentCourse = 'all';
+      currentTaskType = 'all';
+      currentStatus = 'all';
+      currentSearch = '';
+      currentPage = 1;
+
+      document.getElementById('searchInput').value = '';
+      document.getElementById('courseFilter').value = 'all';
+      document.getElementById('taskTypeFilter').value = 'all';
+      document.getElementById('statusFilter').value = 'all';
+      document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === 0);
+      });
+
+      fetchRecurringTasks();
+      showToast('Filters reset to default');
+    }
+
+    function toggleSelectAll(masterCb) {
+      document.querySelectorAll('.row-checkbox').forEach(cb => { cb.checked = masterCb.checked; });
+    }
+
+    function renderPagination(pagination) {
+      const summary = document.getElementById('paginationSummary');
+      const controls = document.getElementById('paginationControls');
+      if (!pagination) return;
+
+      const start = (pagination.page - 1) * pagination.limit + 1;
+      const end = Math.min(pagination.page * pagination.limit, pagination.total);
+
+      summary.textContent = `Showing ${pagination.total === 0 ? 0 : start} to ${end} of ${pagination.total} recurring tasks`;
+
+      controls.innerHTML = '';
+
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-btn';
+      prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+      prevBtn.disabled = (pagination.page <= 1);
+      prevBtn.onclick = () => { currentPage--; fetchRecurringTasks(); };
+      controls.appendChild(prevBtn);
+
+      for (let p = 1; p <= pagination.totalPages; p++) {
+        const btn = document.createElement('button');
+        btn.className = `page-btn ${p === pagination.page ? 'active' : ''}`;
+        btn.textContent = p;
+        btn.onclick = () => { currentPage = p; fetchRecurringTasks(); };
+        controls.appendChild(btn);
+      }
+
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-btn';
+      nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+      nextBtn.disabled = (pagination.page >= pagination.totalPages);
+      nextBtn.onclick = () => { currentPage++; fetchRecurringTasks(); };
+      controls.appendChild(nextBtn);
+    }
+
+    // Modal & Calendar
+    function openCalendarModal() {
+      document.getElementById('calendarModal').classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    // Export CSV
+    function exportRecurringCSV() {
+      if (tasksData.length === 0) {
+        showToast('No tasks to export');
+        return;
+      }
+
+      const headers = ['Order', 'Task Title', 'Subtitle', 'Course', 'Task Type', 'Recurrence', 'Next Run', 'Assigned To', 'Status'];
+      const rows = tasksData.map(t => [
+        t.order || 1,
+        `"${(t.title || '').replace(/"/g, '""')}"`,
+        `"${(t.subtitle || '').replace(/"/g, '""')}"`,
+        t.course || '',
+        t.taskType || '',
+        `"${(t.recurrenceText || '').replace(/"/g, '""')}"`,
+        t.nextRun || '',
+        `"${(t.assignedTarget || '').replace(/"/g, '""')}"`,
+        t.status || ''
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `Edurup_Recurring_Tasks_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Exported recurring tasks CSV');
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+
+  <!-- Sidebar helper functions & styles -->
+  <style>
+    /* ---------------- UNIFIED ADMIN SIDEBAR ---------------- */
+    aside.sidebar {
+      width: 260px;
+      background: #0B132B !important;
+      color: #cbd5e1 !important;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 100vh;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    aside.sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+    aside.sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .sidebar-header {
+      padding: 24px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+
+    .brand-info h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .nav-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item-btn.active {
+      background: #2563eb !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    .nav-item-btn.active-category {
+      color: #ffffff !important;
+      background: rgba(37, 99, 235, 0.15) !important;
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item-left i {
+      font-size: 14px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .nav-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: #64748b;
+    }
+
+    .nav-group.open .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .nav-sublist {
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: 36px;
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    .nav-group.open .nav-sublist {
+      display: flex;
+    }
+
+    .nav-subitem {
+      display: block;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .nav-subitem:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-subitem.active-subitem {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      background: #2563eb !important;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 900px) {
+      aside.sidebar {
+        position: fixed;
+        left: -260px;
+      }
+      aside.sidebar.mobile-open {
+        left: 0;
+      }
+    }
+  </style>
+
+  <script>
+    if (typeof toggleNavGroup !== 'function') {
+      window.toggleNavGroup = function(groupId) {
+        const el = document.getElementById(groupId);
+        if (el) el.classList.toggle('open');
+      };
+    }
+    if (typeof showToast !== 'function') {
+      window.showToast = function(text) {
+        let toast = document.getElementById('toastMsg');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'toastMsg';
+          toast.className = 'toast-msg';
+          toast.innerHTML = '<i class="fa-solid fa-circle-check" style="color: #22c55e;"></i><span id="toastText"></span>';
+          document.body.appendChild(toast);
+        }
+        const textElem = toast.querySelector('#toastText') || toast;
+        textElem.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3200);
+      };
+    }
+    if (typeof toggleSidebarMobile !== 'function') {
+      window.toggleSidebarMobile = function() {
+        const sb = document.getElementById('adminSidebar');
+        if (sb) sb.classList.toggle('mobile-open');
+      };
+    }
+  </script>
+</body>
+</html>

@@ -17,6 +17,7 @@ const Task = require('../models/Task');
 const SubscriptionStudent = require('../models/SubscriptionStudent');
 const TaskSubmission = require('../models/TaskSubmission');
 const ProjectSubmission = require('../models/ProjectSubmission');
+const RecurringTask = require('../models/RecurringTask');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -3668,6 +3669,289 @@ router.post('/project-submissions/bulk-status', async (req, res) => {
     return res.json({ success: true, message: `Updated ${ids.length} submissions to ${status}` });
   } catch (err) {
     console.error('Bulk Status Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// RECURRING TASKS API
+// ==========================================
+
+// @route   GET /api/admin/recurring-tasks
+// @desc    Get all recurring tasks with KPI metrics, filters, and pagination
+router.get('/recurring-tasks', async (req, res) => {
+  try {
+    const {
+      search,
+      course,
+      taskType,
+      status,
+      page = 1,
+      limit = 10,
+      sortBy = 'order',
+      sortOrder = 'asc'
+    } = req.query;
+
+    const query = {};
+
+    if (course && course !== 'all' && course !== 'All Courses') {
+      query.course = course;
+    }
+
+    if (taskType && taskType !== 'all' && taskType !== 'All Task Types') {
+      query.taskType = taskType;
+    }
+
+    if (status && status !== 'all' && status !== 'All Status') {
+      query.status = status;
+    }
+
+    if (search && search.trim()) {
+      const sRegex = new RegExp(search.trim(), 'i');
+      query.$or = [
+        { title: sRegex },
+        { subtitle: sRegex },
+        { description: sRegex },
+        { course: sRegex },
+        { assignedTarget: sRegex }
+      ];
+    }
+
+    // KPI counts
+    const [totalCount, activeCount, pausedCount, inactiveCount] = await Promise.all([
+      RecurringTask.countDocuments(),
+      RecurringTask.countDocuments({ status: 'Active' }),
+      RecurringTask.countDocuments({ status: 'Paused' }),
+      RecurringTask.countDocuments({ status: 'Inactive' })
+    ]);
+
+    const pageNum = Math.max(1, parseInt(page, 10));
+    const limitNum = Math.max(1, parseInt(limit, 10));
+    const skip = (pageNum - 1) * limitNum;
+
+    const sortObj = {};
+    sortObj[sortBy] = sortOrder === 'desc' ? -1 : 1;
+
+    const [tasks, totalMatching] = await Promise.all([
+      RecurringTask.find(query).sort(sortObj).skip(skip).limit(limitNum),
+      RecurringTask.countDocuments(query)
+    ]);
+
+    const [distinctCourses, distinctTaskTypes] = await Promise.all([
+      RecurringTask.distinct('course'),
+      RecurringTask.distinct('taskType')
+    ]);
+
+    return res.json({
+      success: true,
+      tasks,
+      pagination: {
+        total: totalMatching,
+        page: pageNum,
+        limit: limitNum,
+        totalPages: Math.ceil(totalMatching / limitNum) || 1
+      },
+      kpis: {
+        total: totalCount,
+        active: activeCount,
+        activePercent: Math.round((activeCount / (totalCount || 1)) * 100),
+        paused: pausedCount,
+        pausedPercent: Math.round((pausedCount / (totalCount || 1)) * 100),
+        inactive: inactiveCount,
+        inactivePercent: Math.round((inactiveCount / (totalCount || 1)) * 100)
+      },
+      filters: {
+        courses: distinctCourses.sort(),
+        taskTypes: distinctTaskTypes.sort()
+      }
+    });
+  } catch (err) {
+    console.error('Fetch Recurring Tasks Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/recurring-tasks/:id
+// @desc    Get details for a single recurring task
+router.get('/recurring-tasks/:id', async (req, res) => {
+  try {
+    const task = await RecurringTask.findById(req.params.id);
+    if (!task) {
+      return res.status(404).json({ success: false, message: 'Recurring task not found' });
+    }
+    return res.json({ success: true, task });
+  } catch (err) {
+    console.error('Fetch Recurring Task Detail Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/recurring-tasks
+// @desc    Create a new recurring task
+router.post('/recurring-tasks', async (req, res) => {
+  try {
+    const {
+      title,
+      subtitle,
+      description,
+      course,
+      taskType = 'Assignment',
+      pattern = 'Weekly',
+      repeatEvery = 1,
+      daysOfWeek = ['Mon'],
+      time = '10:00 AM',
+      startDate = '17 Nov 2026',
+      endDate = 'No end date',
+      assignedType = 'batch',
+      assignedTarget = 'Oct 2026 (32)',
+      autoAssignNewStudents = true,
+      status = 'Active'
+    } = req.body;
+
+    if (!title || !course) {
+      return res.status(400).json({ success: false, message: 'Title and Course are required' });
+    }
+
+    let recurrenceText = '';
+    const daysStr = (daysOfWeek || []).join(', ') || 'Mon';
+    if (pattern === 'Weekly') {
+      recurrenceText = `Every Week (${daysStr}, ${time})`;
+    } else if (pattern === 'Bi-Weekly') {
+      recurrenceText = `Every 2 Weeks (${daysStr}, ${time})`;
+    } else if (pattern === 'Monthly') {
+      recurrenceText = `Every Month (${daysStr}, ${time})`;
+    } else {
+      recurrenceText = `Every ${repeatEvery} ${pattern} (${daysStr}, ${time})`;
+    }
+
+    const lastTask = await RecurringTask.findOne().sort({ order: -1 });
+    const nextOrder = (lastTask && lastTask.order ? lastTask.order : 0) + 1;
+
+    const newTask = new RecurringTask({
+      title,
+      subtitle: subtitle || description?.slice(0, 50) || 'Automated recurring task',
+      description,
+      course,
+      taskType,
+      pattern,
+      repeatEvery: Number(repeatEvery) || 1,
+      daysOfWeek,
+      time,
+      startDate,
+      endDate,
+      recurrenceText,
+      nextRun: startDate,
+      nextRunRaw: new Date(),
+      assignedType,
+      assignedTarget,
+      autoAssignNewStudents: Boolean(autoAssignNewStudents),
+      status,
+      order: nextOrder
+    });
+
+    await newTask.save();
+    return res.status(201).json({ success: true, task: newTask, message: 'Recurring task created successfully' });
+  } catch (err) {
+    console.error('Create Recurring Task Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/recurring-tasks/:id
+// @desc    Update an existing recurring task
+router.put('/recurring-tasks/:id', async (req, res) => {
+  try {
+    const task = await RecurringTask.findById(req.params.id);
+    if (!task) {
+      return res.status(404).json({ success: false, message: 'Recurring task not found' });
+    }
+
+    const {
+      title,
+      subtitle,
+      description,
+      course,
+      taskType,
+      pattern,
+      repeatEvery,
+      daysOfWeek,
+      time,
+      startDate,
+      endDate,
+      assignedType,
+      assignedTarget,
+      autoAssignNewStudents,
+      status
+    } = req.body;
+
+    if (title !== undefined) task.title = title;
+    if (subtitle !== undefined) task.subtitle = subtitle;
+    if (description !== undefined) task.description = description;
+    if (course !== undefined) task.course = course;
+    if (taskType !== undefined) task.taskType = taskType;
+    if (pattern !== undefined) task.pattern = pattern;
+    if (repeatEvery !== undefined) task.repeatEvery = Number(repeatEvery);
+    if (daysOfWeek !== undefined) task.daysOfWeek = daysOfWeek;
+    if (time !== undefined) task.time = time;
+    if (startDate !== undefined) task.startDate = startDate;
+    if (endDate !== undefined) task.endDate = endDate;
+    if (assignedType !== undefined) task.assignedType = assignedType;
+    if (assignedTarget !== undefined) task.assignedTarget = assignedTarget;
+    if (autoAssignNewStudents !== undefined) task.autoAssignNewStudents = Boolean(autoAssignNewStudents);
+    if (status !== undefined) task.status = status;
+
+    const daysStr = (task.daysOfWeek || []).join(', ') || 'Mon';
+    if (task.pattern === 'Weekly') {
+      task.recurrenceText = `Every Week (${daysStr}, ${task.time})`;
+    } else if (task.pattern === 'Bi-Weekly') {
+      task.recurrenceText = `Every 2 Weeks (${daysStr}, ${task.time})`;
+    } else if (task.pattern === 'Monthly') {
+      task.recurrenceText = `Every Month (${daysStr}, ${task.time})`;
+    }
+
+    await task.save();
+    return res.json({ success: true, task, message: 'Recurring task updated successfully' });
+  } catch (err) {
+    console.error('Update Recurring Task Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/recurring-tasks/:id/status
+// @desc    Toggle status between Active, Paused, Inactive
+router.put('/recurring-tasks/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    const task = await RecurringTask.findById(req.params.id);
+    if (!task) {
+      return res.status(404).json({ success: false, message: 'Recurring task not found' });
+    }
+
+    if (status) {
+      task.status = status;
+    } else {
+      task.status = (task.status === 'Active') ? 'Paused' : 'Active';
+    }
+
+    await task.save();
+    return res.json({ success: true, task, message: `Task status changed to ${task.status}` });
+  } catch (err) {
+    console.error('Toggle Recurring Task Status Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/recurring-tasks/:id
+// @desc    Delete a recurring task
+router.delete('/recurring-tasks/:id', async (req, res) => {
+  try {
+    const task = await RecurringTask.findByIdAndDelete(req.params.id);
+    if (!task) {
+      return res.status(404).json({ success: false, message: 'Recurring task not found' });
+    }
+    return res.json({ success: true, message: 'Recurring task deleted successfully' });
+  } catch (err) {
+    console.error('Delete Recurring Task Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
