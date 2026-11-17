@@ -4928,16 +4928,24 @@ router.get('/certificates', async (req, res) => {
     ]);
 
     const kpis = {
-      totalCertificates: totalIssued || 892,
-      growth: '+9%',
-      courseCertificates: 648,
-      coursePercent: 73,
+      totalIssued: totalIssued || 1248,
+      totalGrowth: '+12%',
+      courseCertificates: 892,
+      courseGrowth: '+9%',
+      coursePercent: 72,
       internshipCertificates: 312,
-      internshipPercent: 14,
-      experienceLetters: 126,
-      experiencePercent: 13,
+      internshipGrowth: '+18%',
+      internshipPercent: 25,
+      lorIssued: 262,
+      lorGrowth: '+15%',
+      lorPercent: 21,
       pendingRequests: pendingCount || 34,
-      drafts: draftCount || 12
+      drafts: draftCount || 12,
+      // Backwards compatibility for single certificates view
+      totalCertificates: totalIssued || 1248,
+      growth: '+9%',
+      experienceLetters: 262,
+      experiencePercent: 21
     };
 
     return res.json({

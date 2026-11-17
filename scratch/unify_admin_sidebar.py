@@ -30,6 +30,8 @@ PAGES_CONFIG = {
     'admin-partner-request.html': 'companies-requests',
     'admin-certificates.html': 'certificates-all',
     'admin-certificate.html': 'certificates-all',
+    'admin-certificates-overview.html': 'certificates-overview',
+    'admin-lor-overview.html': 'certificates-overview',
 }
 
 SIDEBAR_CSS = """
@@ -458,7 +460,7 @@ def build_sidebar_html(page_key):
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="javascript:void(0)" onclick="showToast('Certificates Overview')" class="nav-subitem{certs_overview_active}">Overview</a>
+          <a href="admin-certificates-overview.html" class="nav-subitem{certs_overview_active}">Overview</a>
           <a href="admin-certificates.html" class="nav-subitem{certs_all_active}">Certificates</a>
           <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation (LOR) Desk')" class="nav-subitem{certs_lor_active}">LOR</a>
           <a href="javascript:void(0)" onclick="if(typeof openTemplatesModal==='function')openTemplatesModal();else showToast('Templates library')" class="nav-subitem{certs_templates_active}">Templates</a>

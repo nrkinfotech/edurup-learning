@@ -56,8 +56,8 @@ const topFiveCertificates = [
     avatarInitials: 'PV',
     avatarColor: '#EC4899',
     course: 'Full Stack Developer',
-    certificateType: 'Experience Letter',
-    certificateId: 'EDU-EL-2026-0118',
+    certificateType: 'LOR',
+    certificateId: 'EDU-LOR-2026-0262',
     issueDate: 'Nov 12, 2026',
     issueDateTime: new Date('2026-11-12T14:15:00Z'),
     duration: '6 Months',
@@ -66,7 +66,7 @@ const topFiveCertificates = [
     template: 'Executive Platinum',
     directorName: 'Rupesh Kumar',
     signatoryName: 'Sirija Devi',
-    verificationUrl: 'https://edurup.in/verify/EDU-EL-2026-0118'
+    verificationUrl: 'https://edurup.in/verify/EDU-LOR-2026-0262'
   },
   {
     order: 4,
@@ -114,7 +114,8 @@ const studentNamesPool = [
   'Deepak Verma', 'Tanvi Saxena', 'Siddharth Sen', 'Ritika Kapoor', 'Varun Grover',
   'Ankit Sharma', 'Neha Singhal', 'Harish Babu', 'Shruti Agrawal', 'Gaurav Desai',
   'Juhi Chawla', 'Kartik Somani', 'Pallavi Rao', 'Mohan Sundaram', 'Aanchal Jain',
-  'Rishabh Dixit', 'Prashant Nair', 'Bhavna Roy', 'Tarun Mathur', 'Aditi Chawla'
+  'Rishabh Dixit', 'Prashant Nair', 'Bhavna Roy', 'Tarun Mathur', 'Aditi Chawla',
+  'Simran Kaur', 'Rajesh Kulkarni', 'Suresh Patel', 'Pooja Bhatt', 'Manish Pandey'
 ];
 
 const coursesPool = [
@@ -128,56 +129,39 @@ const avatarColors = ['#2563EB', '#8B5CF6', '#EC4899', '#10B981', '#3B82F6', '#F
 async function seedCertificates() {
   try {
     await connectDB();
-    console.log('Connected to MongoDB. Seeding Certificates...');
+    console.log('Connected to MongoDB. Seeding 1,248 Certificates & LORs...');
 
     await Certificate.deleteMany({});
     console.log('Cleared existing Certificates collection.');
 
     const certificatesList = [...topFiveCertificates];
 
-    // Total target: 892 certificates
-    // Course Certificates: 648 (top 5 has 2 -> need 646)
-    // Internship Certificates: 312 (or remaining balance)
-    // Experience Letters: 126
-    // In our total 892:
-    // Let's create exact distribution:
-    // 648 Course Certificates
-    // 126 Internship Certificates (matching donut 14%) or let's create 892 total
-    // 118 Experience Letters (matching donut 13%)
-    // Sum: 648 + 126 + 118 = 892 exact!
-
-    let courseCount = 2; // already 2 in top 5
-    let internCount = 2; // already 2 in top 5
-    let expCount = 1;    // already 1 in top 5
-
-    let order = 6;
+    // Total target: 1,248 issued records
+    // Let's seed orders 6 to 1248
     let ccNum = 889;
     let icNum = 310;
-    let elNum = 117;
+    let lorNum = 261;
 
-    for (let i = 6; i <= 892; i++) {
-      const name = studentNamesPool[i % studentNamesPool.length] + (i > 35 ? ` ${Math.floor(i / 30)}` : '');
+    for (let i = 6; i <= 1248; i++) {
+      const name = studentNamesPool[i % studentNamesPool.length] + (i > 35 ? ` ${Math.floor(i / 35)}` : '');
       const initials = name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
       const color = avatarColors[i % avatarColors.length];
       const course = coursesPool[i % coursesPool.length];
 
       let type = 'Course Certificate';
       let certId = '';
-      if (courseCount < 648) {
+      if (i <= 892) {
         type = 'Course Certificate';
         certId = `EDU-CC-2026-${String(ccNum).padStart(4, '0')}`;
         ccNum--;
-        courseCount++;
-      } else if (internCount < 126) {
+      } else if (i <= 1100) {
         type = 'Internship Certificate';
         certId = `EDU-IC-2026-${String(icNum).padStart(4, '0')}`;
         icNum--;
-        internCount++;
       } else {
-        type = 'Experience Letter';
-        certId = `EDU-EL-2026-${String(elNum).padStart(4, '0')}`;
-        elNum--;
-        expCount++;
+        type = 'LOR';
+        certId = `EDU-LOR-2026-${String(lorNum).padStart(4, '0')}`;
+        lorNum--;
       }
 
       const day = Math.floor(Math.random() * 28) + 1;
@@ -195,7 +179,7 @@ async function seedCertificates() {
         certificateId: certId,
         issueDate: dateStr,
         issueDateTime: new Date(`2026-11-${day < 10 ? '0' + day : day}T10:00:00Z`),
-        duration: type === 'Experience Letter' ? '6 Months' : (i % 3 === 0 ? '6 Months' : (i % 2 === 0 ? '4 Months' : '3 Months')),
+        duration: type === 'LOR' ? '6 Months' : (i % 3 === 0 ? '6 Months' : (i % 2 === 0 ? '4 Months' : '3 Months')),
         grade: i % 4 === 0 ? 'Distinction' : (i % 3 === 0 ? 'A+' : 'A'),
         status: 'Issued',
         template: 'Classic Gold',
@@ -205,17 +189,17 @@ async function seedCertificates() {
       });
     }
 
-    // Also add 34 Pending Requests
+    // 34 Pending Requests
     for (let p = 1; p <= 34; p++) {
-      const name = studentNamesPool[(p + 5) % studentNamesPool.length];
+      const name = studentNamesPool[(p + 3) % studentNamesPool.length];
       certificatesList.push({
-        order: 900 + p,
+        order: 1300 + p,
         studentName: name,
         studentEmail: `${name.toLowerCase().replace(/[^a-z]/g, '')}.req${p}@gmail.com`,
         avatarInitials: name.split(' ').map(w => w[0]).join('').substring(0, 2),
         avatarColor: avatarColors[p % avatarColors.length],
         course: coursesPool[p % coursesPool.length],
-        certificateType: p % 2 === 0 ? 'Course Certificate' : 'Internship Certificate',
+        certificateType: p % 3 === 0 ? 'LOR' : (p % 2 === 0 ? 'Course Certificate' : 'Internship Certificate'),
         certificateId: `REQ-CERT-2026-${String(p).padStart(3, '0')}`,
         issueDate: `Nov ${10 + (p % 5)}, 2026`,
         issueDateTime: new Date(),
@@ -228,17 +212,17 @@ async function seedCertificates() {
       });
     }
 
-    // Also add 12 Drafts
+    // 12 Drafts
     for (let d = 1; d <= 12; d++) {
-      const name = studentNamesPool[(d + 12) % studentNamesPool.length];
+      const name = studentNamesPool[(d + 8) % studentNamesPool.length];
       certificatesList.push({
-        order: 950 + d,
+        order: 1350 + d,
         studentName: name,
-        studentEmail: `${name.toLowerCase().replace(/[^a-z]/g, '')}.draft${d}@gmail.com`,
+        studentEmail: `${name.toLowerCase().replace(/[^a-z]/g, '')}.dft${d}@gmail.com`,
         avatarInitials: name.split(' ').map(w => w[0]).join('').substring(0, 2),
         avatarColor: avatarColors[d % avatarColors.length],
         course: coursesPool[d % coursesPool.length],
-        certificateType: d % 3 === 0 ? 'Experience Letter' : 'Course Certificate',
+        certificateType: d % 3 === 0 ? 'LOR' : 'Course Certificate',
         certificateId: `DFT-CERT-2026-${String(d).padStart(3, '0')}`,
         issueDate: `Nov ${1 + (d % 10)}, 2026`,
         issueDateTime: new Date(),
@@ -252,21 +236,15 @@ async function seedCertificates() {
     }
 
     const inserted = await Certificate.insertMany(certificatesList);
-    console.log(`Successfully seeded ${inserted.length} Certificates (892 Issued, 34 Pending, 12 Drafts)!`);
+    console.log(`Successfully seeded ${inserted.length} Certificates & LORs!`);
 
     const totalIssued = await Certificate.countDocuments({ status: 'Issued' });
-    const courseIssued = await Certificate.countDocuments({ status: 'Issued', certificateType: 'Course Certificate' });
-    const internIssued = await Certificate.countDocuments({ status: 'Issued', certificateType: 'Internship Certificate' });
-    const expIssued = await Certificate.countDocuments({ status: 'Issued', certificateType: 'Experience Letter' });
     const pendingTotal = await Certificate.countDocuments({ status: 'Pending' });
     const draftTotal = await Certificate.countDocuments({ status: 'Draft' });
 
     console.log(`\nVerification Summary:`);
-    console.log(`Total Issued: ${totalIssued}`);
-    console.log(`Course Certificates: ${courseIssued} (${Math.round((courseIssued/totalIssued)*100)}%)`);
-    console.log(`Internship Certificates: ${internIssued} (${Math.round((internIssued/totalIssued)*100)}%)`);
-    console.log(`Experience Letters: ${expIssued} (${Math.round((expIssued/totalIssued)*100)}%)`);
-    console.log(`Pending Requests: ${pendingTotal}`);
+    console.log(`Total Issued in DB: ${totalIssued}`);
+    console.log(`Pending: ${pendingTotal}`);
     console.log(`Drafts: ${draftTotal}`);
 
     process.exit(0);

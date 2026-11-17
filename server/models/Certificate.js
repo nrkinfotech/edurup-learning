@@ -32,7 +32,7 @@ const certificateSchema = new mongoose.Schema({
   },
   certificateType: {
     type: String,
-    enum: ['Course Certificate', 'Internship Certificate', 'Experience Letter'],
+    enum: ['Course Certificate', 'Internship Certificate', 'Experience Letter', 'LOR'],
     default: 'Course Certificate',
     index: true
   },
