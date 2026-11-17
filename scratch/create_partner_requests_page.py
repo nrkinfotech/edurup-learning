@@ -1,0 +1,2731 @@
+import os
+
+HTML_CONTENT = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partner Requests | Companies & Mentors | Edurup Learning</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-sidebar: #0B132B;
+      --sidebar-hover: #1C2541;
+      --sidebar-active: #2563EB;
+      --bg-body: #F4F7FC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --border-light: #F1F5F9;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #94A3B8;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --success: #10B981;
+      --success-light: #ECFDF5;
+      --warning: #F59E0B;
+      --warning-light: #FFFBEB;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --purple-light: #F5F3FF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
+    main.main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: #f8fafc;
+    }
+
+    /* Top Bar */
+    header.topbar {
+      height: 70px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .top-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 16px;
+      width: 480px;
+      transition: all 0.2s;
+    }
+
+    .top-search-wrap:focus-within {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .top-search-wrap i {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .top-search-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13.5px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .top-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-btn {
+      position: relative;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 17px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      transition: color 0.15s;
+    }
+
+    .notification-btn:hover {
+      color: var(--text-main);
+    }
+
+    .notif-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+    }
+
+    .admin-profile-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 10px;
+      transition: background 0.15s;
+    }
+
+    .admin-profile-chip:hover {
+      background: #f1f5f9;
+    }
+
+    .admin-avatar-initials {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #8b5cf6;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .admin-chip-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-chip-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .admin-chip-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Page Container */
+    .page-container {
+      padding: 24px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 1700px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .breadcrumb-row a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .breadcrumb-row a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumb-row .sep {
+      color: #cbd5e1;
+      font-size: 11px;
+    }
+
+    .breadcrumb-current {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Page Header */
+    .page-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .page-title-block h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .page-title-block p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-header-secondary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-header-secondary:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: var(--text-main);
+    }
+
+    .btn-header-primary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+      transition: all 0.15s ease;
+    }
+
+    .btn-header-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      transform: translateY(-1px);
+    }
+
+    /* ---------------- SUB-NAV PILL ROW ---------------- */
+    .subnav-pill-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .subnav-pill-row::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .subnav-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .subnav-pill:hover {
+      color: var(--primary);
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .subnav-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    /* ---------------- KPI STATS GRID (5 CARDS) ---------------- */
+    .kpi-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .kpi-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon-box.purple {
+      background: #F5F3FF;
+      color: #8B5CF6;
+    }
+
+    .kpi-icon-box.green {
+      background: #ECFDF5;
+      color: #10B981;
+    }
+
+    .kpi-icon-box.amber {
+      background: #FFFBEB;
+      color: #F59E0B;
+    }
+
+    .kpi-icon-box.blue {
+      background: #EFF6FF;
+      color: #2563EB;
+    }
+
+    .kpi-icon-box.red {
+      background: #FEF2F2;
+      color: #EF4444;
+    }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .kpi-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .kpi-label-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .kpi-percent-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .kpi-percent-pill.green {
+      background: #DCFCE7;
+      color: #15803D;
+    }
+
+    .kpi-percent-pill.amber {
+      background: #FEF3C7;
+      color: #B45309;
+    }
+
+    .kpi-percent-pill.purple {
+      background: #EDE9FE;
+      color: #6D28D9;
+    }
+
+    .kpi-percent-pill.red {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    /* ---------------- FILTER / SEARCH BAR ---------------- */
+    .filter-bar-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-left-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .search-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      width: 320px;
+      transition: all 0.2s;
+    }
+
+    .search-input-wrap:focus-within {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .search-input-wrap i {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .search-input-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 12.5px;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .filter-select {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+      transition: border 0.15s;
+    }
+
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+
+    .filter-btn-date {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn-date:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .filter-btn-reset {
+      background: transparent;
+      border: none;
+      color: var(--primary);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 10px;
+      transition: color 0.15s;
+    }
+
+    .filter-btn-reset:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------------- MAIN SPLIT VIEW (TABLE + DRAWER) ---------------- */
+    .partner-content-layout {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    /* Table Container */
+    .table-card-container {
+      flex: 1;
+      min-width: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .table-scroll-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.partner-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12.5px;
+      min-width: 820px;
+    }
+
+    table.partner-table thead tr {
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.partner-table th {
+      padding: 12px 14px;
+      color: #64748b;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    table.partner-table td {
+      padding: 14px 14px;
+      border-bottom: 1px solid var(--border-light);
+      color: #334155;
+      vertical-align: middle;
+      transition: background 0.15s;
+    }
+
+    table.partner-table tbody tr {
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    table.partner-table tbody tr:hover td {
+      background: #f8fafc;
+    }
+
+    table.partner-table tbody tr.row-selected td {
+      background: #EFF6FF !important;
+    }
+
+    table.partner-table tbody tr.row-selected {
+      border-left: 3px solid var(--primary);
+    }
+
+    /* Checkbox */
+    .checkbox-custom {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    /* Company Column Cell */
+    .company-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .company-logo-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      flex-shrink: 0;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .company-name-text {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 13px;
+    }
+
+    /* Request Type Badges */
+    .req-type-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .req-type-pill.partnership {
+      background: #EEF2FF;
+      color: #4F46E5;
+      border: 1px solid #E0E7FF;
+    }
+
+    .req-type-pill.internship {
+      background: #F0F9FF;
+      color: #0284C7;
+      border: 1px solid #BAE6FD;
+    }
+
+    .req-type-pill.hiring {
+      background: #F5F3FF;
+      color: #7C3AED;
+      border: 1px solid #DDD6FE;
+    }
+
+    /* Domain Tags */
+    .domain-tags-wrap {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .domain-tag {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2.5px 8px;
+      border-radius: 6px;
+      background: #F1F5F9;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    /* Contact Person */
+    .contact-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact-name {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 12.5px;
+    }
+
+    .contact-desig {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    /* Status Pill */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .status-pill.approved {
+      background: #DCFCE7;
+      color: #15803D;
+    }
+
+    .status-pill.under-review {
+      background: #FEF3C7;
+      color: #B45309;
+    }
+
+    .status-pill.awaiting-info {
+      background: #EDE9FE;
+      color: #6D28D9;
+    }
+
+    .status-pill.rejected {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    /* Table Actions */
+    .actions-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .act-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+
+    .act-btn:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+      border-color: #cbd5e1;
+    }
+
+    .act-btn.blue {
+      color: var(--primary);
+    }
+
+    /* Pagination Footer */
+    .table-pagination-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pagination-info {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-btn {
+      min-width: 30px;
+      height: 30px;
+      padding: 0 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: var(--text-main);
+    }
+
+    .page-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .page-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* ---------------- RIGHT DRAWER: PARTNER REQUEST DETAILS ---------------- */
+    .drawer-card {
+      width: 440px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 90px;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+      transition: all 0.3s ease;
+    }
+
+    .drawer-card::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .drawer-card::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 4px;
+    }
+
+    .drawer-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .drawer-close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.15s;
+    }
+
+    .drawer-close-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    /* Drawer Profile Banner */
+    .drawer-profile-banner {
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .drawer-company-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .drawer-company-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+    }
+
+    .drawer-company-names h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .drawer-company-names p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .drawer-type-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: #DCFCE7;
+      color: #15803D;
+      white-space: nowrap;
+    }
+
+    /* Drawer Tabs */
+    .drawer-tabs-row {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px;
+      background: #fafbfc;
+    }
+
+    .drawer-tab {
+      padding: 10px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #64748b;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .drawer-tab:hover {
+      color: var(--primary);
+    }
+
+    .drawer-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Drawer Tab Content */
+    .drawer-body-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .drawer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .drawer-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-section-title i {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .drawer-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .drawer-info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .drawer-info-label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .drawer-info-label i {
+      font-size: 10px;
+    }
+
+    .drawer-info-val {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+
+    .drawer-info-val a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .drawer-info-val a:hover {
+      text-decoration: underline;
+    }
+
+    /* Message Box */
+    .drawer-msg-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    /* Attachments List */
+    .drawer-attachments-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-download-all {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--primary);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-download-all:hover {
+      text-decoration: underline;
+    }
+
+    .attachment-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border 0.15s, background 0.15s;
+    }
+
+    .attachment-card:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .attachment-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .attachment-icon {
+      font-size: 18px;
+    }
+
+    .attachment-icon.pdf {
+      color: #ef4444;
+    }
+
+    .attachment-icon.docx {
+      color: #2563eb;
+    }
+
+    .attachment-meta {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .attachment-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 250px;
+    }
+
+    .attachment-size {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    .attachment-dl-btn {
+      color: #64748b;
+      background: transparent;
+      border: none;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 4px;
+      transition: color 0.15s;
+    }
+
+    .attachment-dl-btn:hover {
+      color: var(--primary);
+    }
+
+    /* Drawer Bottom Sticky Actions */
+    .drawer-footer-actions {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+    }
+
+    .btn-action-approve {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #ffffff;
+      border: 1px solid #10b981;
+      color: #10b981;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-action-approve:hover {
+      background: #10b981;
+      color: #ffffff;
+    }
+
+    .btn-action-info {
+      flex: 1.2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #ffffff;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-action-info:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-action-reject {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #ffffff;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-action-reject:hover {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    /* ---------------- MODAL STYLES ---------------- */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 620px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      max-height: 90vh;
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #f8fafc;
+    }
+
+    .form-group-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    /* ---------------- RESPONSIVENESS ---------------- */
+    @media (max-width: 1200px) {
+      .kpi-stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .partner-content-layout {
+        flex-direction: column;
+      }
+      .drawer-card {
+        width: 100%;
+        position: static;
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header.topbar {
+        padding: 0 16px;
+      }
+      .page-container {
+        padding: 16px;
+      }
+      .kpi-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .top-search-wrap {
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SIDEBAR PLACEHOLDER (Replaced by unify script) ================= -->
+  <aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo-badge">E</div>
+      <div class="brand-info">
+        <h2>Edurup Learning</h2>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN WRAPPER ================= -->
+  <main class="main-content">
+    
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="top-search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalTopSearch" placeholder="Search students, companies, mentors, requests..." onkeyup="handleGlobalSearch(event)">
+      </div>
+
+      <div class="top-right-actions">
+        <button class="notification-btn" title="Notifications" onclick="showToast('No new unread notifications')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notif-badge"></span>
+        </button>
+
+        <div class="admin-profile-chip" onclick="showToast('Logged in as Super Admin')">
+          <div class="admin-avatar-initials">AD</div>
+          <div class="admin-chip-info">
+            <span class="admin-chip-name">Admin</span>
+            <span class="admin-chip-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content Container -->
+    <div class="page-container">
+      
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-row">
+        <a href="admin-dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+        <span class="sep">></span>
+        <a href="admin-companies.html">Companies & Mentors</a>
+        <span class="sep">></span>
+        <span class="breadcrumb-current">Partner Requests</span>
+      </div>
+
+      <!-- Page Header -->
+      <div class="page-header-row">
+        <div class="page-title-block">
+          <h1>Partner Requests</h1>
+          <p>Review and manage partnership, internship and hiring collaboration requests from companies and industry experts.</p>
+        </div>
+
+        <div class="header-actions-group">
+          <button class="btn-header-secondary" onclick="exportRequestsToCSV()">
+            <i class="fa-solid fa-download"></i> Export
+          </button>
+          <button class="btn-header-primary" onclick="openNewRequestModal()">
+            <i class="fa-solid fa-plus"></i> New Partner Request
+          </button>
+        </div>
+      </div>
+
+      <!-- Sub-Nav Pill Row -->
+      <div class="subnav-pill-row">
+        <a href="admin-companies.html" class="subnav-pill">
+          <i class="fa-solid fa-building"></i> Companies
+        </a>
+        <a href="admin-mentors.html" class="subnav-pill">
+          <i class="fa-solid fa-chalkboard-user"></i> Mentors
+        </a>
+        <a href="javascript:void(0)" class="subnav-pill" onclick="showToast('Corporate Partnerships')">
+          <i class="fa-solid fa-handshake"></i> Partnerships
+        </a>
+        <a href="admin-internships.html" class="subnav-pill">
+          <i class="fa-solid fa-briefcase"></i> Internship Postings
+        </a>
+        <a href="javascript:void(0)" class="subnav-pill" onclick="showToast('Campus & Virtual Hiring Drives')">
+          <i class="fa-solid fa-user-group"></i> Hiring Drives
+        </a>
+        <a href="javascript:void(0)" class="subnav-pill" onclick="showToast('Corporate Interactions Log')">
+          <i class="fa-solid fa-clock-rotate-left"></i> Interactions
+        </a>
+        <a href="admin-partner-requests.html" class="subnav-pill active">
+          <i class="fa-solid fa-handshake"></i> Partner Requests
+        </a>
+      </div>
+
+      <!-- 5 KPI Cards Grid -->
+      <div class="kpi-stats-grid">
+        <!-- Total Requests -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box purple">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-val" id="kpiTotal">58</span>
+            <span class="kpi-label">Total Requests</span>
+          </div>
+        </div>
+
+        <!-- Approved -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box green">
+            <i class="fa-regular fa-circle-check"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-val" id="kpiApproved">22</span>
+            <div class="kpi-label-row">
+              <span class="kpi-label">Approved</span>
+              <span class="kpi-percent-pill green" id="kpiApprovedPercent">38%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Under Review -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box amber">
+            <i class="fa-solid fa-hourglass-half"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-val" id="kpiReview">12</span>
+            <div class="kpi-label-row">
+              <span class="kpi-label">Under Review</span>
+              <span class="kpi-percent-pill amber" id="kpiReviewPercent">21%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Awaiting Info -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box purple">
+            <i class="fa-solid fa-user-group"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-val" id="kpiAwaiting">18</span>
+            <div class="kpi-label-row">
+              <span class="kpi-label">Awaiting Info</span>
+              <span class="kpi-percent-pill purple" id="kpiAwaitingPercent">31%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rejected -->
+        <div class="kpi-card">
+          <div class="kpi-icon-box red">
+            <i class="fa-regular fa-circle-xmark"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-val" id="kpiRejected">6</span>
+            <div class="kpi-label-row">
+              <span class="kpi-label">Rejected</span>
+              <span class="kpi-percent-pill red" id="kpiRejectedPercent">10%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter / Search Bar -->
+      <div class="filter-bar-card">
+        <div class="filter-left-controls">
+          <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search by company name, contact or domain..." oninput="handleSearch()">
+          </div>
+
+          <select class="filter-select" id="filterType" onchange="handleSearch()">
+            <option value="All">Request Type: All</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Internship Collaboration">Internship Collaboration</option>
+            <option value="Hiring Partner">Hiring Partner</option>
+          </select>
+
+          <select class="filter-select" id="filterStatus" onchange="handleSearch()">
+            <option value="All">Status: All</option>
+            <option value="Approved">Approved</option>
+            <option value="Under Review">Under Review</option>
+            <option value="Awaiting Info">Awaiting Info</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+
+          <button class="filter-btn-date" onclick="promptDateFilter()">
+            <i class="fa-regular fa-calendar"></i> Date Range
+          </button>
+
+          <button class="filter-btn-reset" onclick="resetFilters()">Reset</button>
+        </div>
+      </div>
+
+      <!-- Main Split Content: Table & Drawer -->
+      <div class="partner-content-layout">
+        
+        <!-- Left Table Card -->
+        <div class="table-card-container" id="tableContainer">
+          <div class="table-scroll-wrapper">
+            <table class="partner-table" id="partnerTable">
+              <thead>
+                <tr>
+                  <th style="width: 40px; text-align: center;">
+                    <input type="checkbox" class="checkbox-custom" id="selectAllCheckbox" onchange="toggleSelectAll(this)">
+                  </th>
+                  <th style="width: 45px;">#</th>
+                  <th>Company / Mentor</th>
+                  <th>Request Type</th>
+                  <th>Domain / Interest</th>
+                  <th>Received On</th>
+                  <th>Contact Person</th>
+                  <th>Status</th>
+                  <th style="text-align: right; width: 100px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="partnerTableBody">
+                <!-- Rows injected dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div class="table-pagination-footer">
+            <span class="pagination-info" id="paginationInfo">Showing 1 to 10 of 58 requests</span>
+            <div class="pagination-controls" id="paginationControls">
+              <!-- Page buttons injected via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Drawer: Partner Request Details -->
+        <aside class="drawer-card" id="requestDrawer">
+          <div class="drawer-header">
+            <h2 class="drawer-title">Partner Request Details</h2>
+            <button class="drawer-close-btn" onclick="closeDrawer()" title="Close Details">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Company Banner -->
+          <div class="drawer-profile-banner">
+            <div class="drawer-company-info">
+              <div class="drawer-company-logo" id="drawerLogo">
+                <!-- Injected via JS -->
+              </div>
+              <div class="drawer-company-names">
+                <h3 id="drawerCompanyName">Amazon</h3>
+                <p id="drawerCompanySub">IT Services | Bengaluru</p>
+              </div>
+            </div>
+            <span class="drawer-type-badge" id="drawerBadge">Partnership Request</span>
+          </div>
+
+          <!-- Drawer Navigation Tabs -->
+          <div class="drawer-tabs-row">
+            <button class="drawer-tab active" onclick="switchDrawerTab('overview', this)">Overview</button>
+            <button class="drawer-tab" id="drawerTabDoc" onclick="switchDrawerTab('documents', this)">Documents (3)</button>
+            <button class="drawer-tab" id="drawerTabNote" onclick="switchDrawerTab('notes', this)">Notes (2)</button>
+            <button class="drawer-tab" onclick="switchDrawerTab('activity', this)">Activity</button>
+          </div>
+
+          <!-- Drawer Body Content -->
+          <div class="drawer-body-content">
+            
+            <!-- OVERVIEW TAB -->
+            <div id="drawerTabOverviewContent">
+              <!-- Request Information -->
+              <div class="drawer-section">
+                <div class="drawer-section-title">
+                  <i class="fa-solid fa-circle-info"></i> Request Information
+                </div>
+                <div class="drawer-grid-2col">
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-regular fa-calendar"></i> Request Type</span>
+                    <span class="drawer-info-val" id="drawerReqType">Partnership</span>
+                  </div>
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-solid fa-chart-line"></i> Status</span>
+                    <div id="drawerStatusVal">
+                      <span class="status-pill under-review">Under Review</span>
+                    </div>
+                  </div>
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-solid fa-layer-group"></i> Domain / Interest</span>
+                    <span class="drawer-info-val" id="drawerDomains">Data Analytics, AI/ML</span>
+                  </div>
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-regular fa-user"></i> Contact Person</span>
+                    <span class="drawer-info-val" id="drawerContactName">Rahul Sharma</span>
+                  </div>
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-regular fa-clock"></i> Received On</span>
+                    <span class="drawer-info-val" id="drawerReceivedOn">12 Nov 2026, 11:20 AM</span>
+                  </div>
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-solid fa-id-badge"></i> Designation</span>
+                    <span class="drawer-info-val" id="drawerContactDesig">Talent Manager</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Company Details -->
+              <div class="drawer-section" style="margin-top: 14px;">
+                <div class="drawer-section-title">
+                  <i class="fa-solid fa-building"></i> Company Details
+                </div>
+                <div class="drawer-grid-2col">
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-solid fa-globe"></i> Website</span>
+                    <span class="drawer-info-val" id="drawerWebsite"><a href="#" target="_blank">www.amazon.com</a></span>
+                  </div>
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-regular fa-envelope"></i> Email</span>
+                    <span class="drawer-info-val" id="drawerEmail">rahul.sharma@amazon.com</span>
+                  </div>
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-solid fa-phone"></i> Phone</span>
+                    <span class="drawer-info-val" id="drawerPhone">+91 98765 43210</span>
+                  </div>
+                  <div class="drawer-info-item">
+                    <span class="drawer-info-label"><i class="fa-solid fa-location-dot"></i> Location</span>
+                    <span class="drawer-info-val" id="drawerLocation">Bengaluru, India</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Request Message -->
+              <div class="drawer-section" style="margin-top: 14px;">
+                <div class="drawer-section-title">
+                  <i class="fa-regular fa-comment-dots"></i> Request Message
+                </div>
+                <div class="drawer-msg-box" id="drawerMessage">
+                  "We would like to collaborate with Edurup Learning for internship opportunities, student hiring, and joint training initiatives in the Data Analytics and AI/ML domains."
+                </div>
+              </div>
+
+              <!-- Attachments -->
+              <div class="drawer-section" style="margin-top: 14px;">
+                <div class="drawer-attachments-header">
+                  <div class="drawer-section-title">
+                    <i class="fa-solid fa-paperclip"></i> <span id="drawerAttachTitle">Attachments (3)</span>
+                  </div>
+                  <button class="btn-download-all" onclick="downloadAllAttachments()">
+                    <i class="fa-solid fa-download"></i> Download All
+                  </button>
+                </div>
+                <div id="drawerAttachmentsList" style="display: flex; flex-direction: column; gap: 8px;">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- DOCUMENTS TAB -->
+            <div id="drawerTabDocumentsContent" style="display: none;">
+              <div class="drawer-section">
+                <div class="drawer-section-title">
+                  <i class="fa-solid fa-folder-open"></i> Uploaded Documents
+                </div>
+                <p style="font-size: 12px; color: #64748b;">Review institutional dossiers, agreements, and curriculum guidelines submitted by this prospective partner.</p>
+                <div id="drawerFullDocsList" style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- NOTES TAB -->
+            <div id="drawerTabNotesContent" style="display: none;">
+              <div class="drawer-section">
+                <div class="drawer-section-title">
+                  <i class="fa-solid fa-pen-to-square"></i> Internal Admin Notes
+                </div>
+                <div id="drawerNotesList" style="display: flex; flex-direction: column; gap: 10px;">
+                  <!-- Injected via JS -->
+                </div>
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+                  <textarea id="newNoteInput" class="form-textarea" placeholder="Add an internal note or review feedback..."></textarea>
+                  <button class="btn-header-primary" style="align-self: flex-end; padding: 6px 14px; font-size: 12px;" onclick="submitNewNote()">
+                    Add Note
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTIVITY TAB -->
+            <div id="drawerTabActivityContent" style="display: none;">
+              <div class="drawer-section">
+                <div class="drawer-section-title">
+                  <i class="fa-solid fa-timeline"></i> Activity Timeline
+                </div>
+                <div id="drawerActivityList" style="display: flex; flex-direction: column; gap: 12px;">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Sticky Actions -->
+          <div class="drawer-footer-actions">
+            <button class="btn-action-approve" onclick="handleUpdateStatusCurrent('Approved')">
+              <i class="fa-regular fa-circle-check"></i> Approve
+            </button>
+            <button class="btn-action-info" onclick="openRequestInfoModal()">
+              <i class="fa-solid fa-pen"></i> Request More Info
+            </button>
+            <button class="btn-action-reject" onclick="handleUpdateStatusCurrent('Rejected')">
+              <i class="fa-regular fa-circle-xmark"></i> Reject
+            </button>
+          </div>
+        </aside>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Modal 1: + New Partner Request -->
+  <div class="modal-backdrop" id="modalNewRequest">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>New Partner Request</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalNewRequest')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="newRequestForm" onsubmit="handleCreateRequest(event)">
+        <div class="modal-body">
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Company Name *</label>
+              <input type="text" class="form-input" id="newReqCompany" required placeholder="e.g. Netflix, Spotify">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Industry / Sector</label>
+              <input type="text" class="form-input" id="newReqIndustry" placeholder="e.g. Digital Streaming, Media">
+            </div>
+          </div>
+
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Contact Person Name *</label>
+              <input type="text" class="form-input" id="newReqContactName" required placeholder="e.g. Rohit Bansal">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Designation</label>
+              <input type="text" class="form-input" id="newReqContactDesig" placeholder="e.g. University Recruiter">
+            </div>
+          </div>
+
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" class="form-input" id="newReqEmail" required placeholder="contact@company.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="text" class="form-input" id="newReqPhone" placeholder="+91 98765 43210">
+            </div>
+          </div>
+
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Request Type</label>
+              <select class="form-select" id="newReqType">
+                <option value="Partnership">Partnership</option>
+                <option value="Internship Collaboration">Internship Collaboration</option>
+                <option value="Hiring Partner">Hiring Partner</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Initial Status</label>
+              <select class="form-select" id="newReqStatus">
+                <option value="Under Review">Under Review</option>
+                <option value="Awaiting Info">Awaiting Info</option>
+                <option value="Approved">Approved</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Location (City, Country)</label>
+              <input type="text" class="form-input" id="newReqLocation" placeholder="e.g. Bengaluru, India">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Website</label>
+              <input type="text" class="form-input" id="newReqWebsite" placeholder="e.g. www.company.com">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Domains / Interest (Comma separated)</label>
+            <input type="text" class="form-input" id="newReqDomains" placeholder="e.g. Full Stack, Cloud, AI/ML">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Collaboration Message / Proposal Scope</label>
+            <textarea class="form-textarea" id="newReqMessage" placeholder="Provide background on the proposed collaboration scope, student hiring requirements, or training goals..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-header-secondary" onclick="closeModal('modalNewRequest')">Cancel</button>
+          <button type="submit" class="btn-header-primary">Submit Partner Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Edit Partner Request -->
+  <div class="modal-backdrop" id="modalEditRequest">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Edit Partner Request</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalEditRequest')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="editRequestForm" onsubmit="handleSaveEditRequest(event)">
+        <input type="hidden" id="editReqId">
+        <div class="modal-body">
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Company Name</label>
+              <input type="text" class="form-input" id="editReqCompany" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Industry</label>
+              <input type="text" class="form-input" id="editReqIndustry">
+            </div>
+          </div>
+
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Contact Person</label>
+              <input type="text" class="form-input" id="editReqContactName" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Designation</label>
+              <input type="text" class="form-input" id="editReqContactDesig">
+            </div>
+          </div>
+
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" id="editReqEmail">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="text" class="form-input" id="editReqPhone">
+            </div>
+          </div>
+
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Request Type</label>
+              <select class="form-select" id="editReqType">
+                <option value="Partnership">Partnership</option>
+                <option value="Internship Collaboration">Internship Collaboration</option>
+                <option value="Hiring Partner">Hiring Partner</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="editReqStatus">
+                <option value="Approved">Approved</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Awaiting Info">Awaiting Info</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group-grid-2">
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" class="form-input" id="editReqLocation">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Website</label>
+              <input type="text" class="form-input" id="editReqWebsite">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Domains / Interest</label>
+            <input type="text" class="form-input" id="editReqDomains">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" id="editReqMessage"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-header-secondary" onclick="closeModal('modalEditRequest')">Cancel</button>
+          <button type="submit" class="btn-header-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Request More Info -->
+  <div class="modal-backdrop" id="modalRequestInfo">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>Request More Information</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalRequestInfo')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569;">
+          Specify the additional documents or details required from this partner. The request status will be updated to <b>Awaiting Info</b>.
+        </p>
+        <div class="form-group">
+          <label class="form-label">Clarification Note / Required Documents</label>
+          <textarea class="form-textarea" id="requestInfoNote" placeholder="e.g. Please provide signed MOU draft and expected student stipend breakdown..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-header-secondary" onclick="closeModal('modalRequestInfo')">Cancel</button>
+        <button type="button" class="btn-header-primary" onclick="submitRequestMoreInfo()">Send Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toastMsg">
+    <i class="fa-solid fa-circle-check" style="color: #22c55e;"></i>
+    <span id="toastText">Action completed successfully</span>
+  </div>
+
+  <!-- ================= LOGIC SCRIPT ================= -->
+  <script>
+    let partnerRequests = [];
+    let selectedRequestId = null;
+    let currentPage = 1;
+    let totalPages = 6;
+    let totalCount = 58;
+    const limit = 10;
+
+    // Brand Logo Helper
+    function getCompanyBrand(name) {
+      const n = (name || '').toLowerCase();
+      if (n.includes('amazon')) {
+        return '<i class="fa-brands fa-amazon" style="color:#FF9900; font-size: 20px;"></i>';
+      }
+      if (n.includes('microsoft')) {
+        return '<i class="fa-brands fa-microsoft" style="color:#00A4EF; font-size: 18px;"></i>';
+      }
+      if (n.includes('google')) {
+        return '<i class="fa-brands fa-google" style="color:#EA4335; font-size: 18px;"></i>';
+      }
+      if (n.includes('deloitte')) {
+        return '<span style="font-weight:900; color:#86BC25; font-size:18px;">D.</span>';
+      }
+      if (n.includes('tcs')) {
+        return '<span style="font-weight:900; color:#005A9C; font-size:12px; letter-spacing:-0.5px;">tcs</span>';
+      }
+      if (n.includes('infosys')) {
+        return '<span style="font-weight:800; color:#007CC3; font-size:12px;">infy</span>';
+      }
+      if (n.includes('wipro')) {
+        return '<span style="display:inline-block; width:18px; height:18px; border-radius:50%; background:conic-gradient(#FF0055, #FF9900, #00CC88, #0099FF, #FF0055);"></span>';
+      }
+      if (n.includes('capgemini')) {
+        return '<i class="fa-solid fa-spade" style="color:#0070AD; font-size:18px;"></i>';
+      }
+      if (n.includes('hcl')) {
+        return '<span style="font-weight:800; color:#0066B2; font-size:13px;">HCL</span>';
+      }
+      if (n.includes('accenture')) {
+        return '<span style="font-weight:900; color:#A100FF; font-size:17px; line-height:1;">&gt;</span>';
+      }
+      if (n.includes('flipkart')) {
+        return '<i class="fa-solid fa-bag-shopping" style="color:#2874F0; font-size:17px;"></i>';
+      }
+      if (n.includes('apple')) {
+        return '<i class="fa-brands fa-apple" style="color:#000000; font-size: 19px;"></i>';
+      }
+      if (n.includes('oracle')) {
+        return '<span style="font-weight:800; color:#F80000; font-size:13px;">ORCL</span>';
+      }
+      if (n.includes('adobe')) {
+        return '<i class="fa-solid fa-font-awesome" style="color:#FF0000; font-size:17px;"></i>';
+      }
+      if (n.includes('ibm')) {
+        return '<span style="font-weight:900; color:#006699; font-size:13px; letter-spacing:0.5px;">IBM</span>';
+      }
+      
+      // Default letter initials
+      const init = (name || 'Co').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+      return `<span style="font-weight:700; color:#2563eb; font-size:13px;">${init}</span>`;
+    }
+
+    // Status Class Helper
+    function getStatusClass(status) {
+      const s = (status || '').toLowerCase();
+      if (s === 'approved') return 'approved';
+      if (s === 'under review') return 'under-review';
+      if (s === 'awaiting info') return 'awaiting-info';
+      if (s === 'rejected') return 'rejected';
+      return 'under-review';
+    }
+
+    // Request Type Class Helper
+    function getReqTypeClass(type) {
+      const t = (type || '').toLowerCase();
+      if (t.includes('partnership')) return 'partnership';
+      if (t.includes('internship')) return 'internship';
+      if (t.includes('hiring')) return 'hiring';
+      return 'partnership';
+    }
+
+    // Fetch Requests from API
+    async function fetchRequests() {
+      const search = document.getElementById('searchInput').value;
+      const requestType = document.getElementById('filterType').value;
+      const status = document.getElementById('filterStatus').value;
+
+      let url = `/api/admin/partner-requests?page=${currentPage}&limit=${limit}`;
+      if (search) url += `&search=${encodeURIComponent(search)}`;
+      if (requestType && requestType !== 'All') url += `&requestType=${encodeURIComponent(requestType)}`;
+      if (status && status !== 'All') url += `&status=${encodeURIComponent(status)}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.success) {
+          partnerRequests = data.requests;
+          totalCount = data.total;
+          totalPages = data.totalPages;
+
+          // Update KPIs if present
+          if (data.kpis) {
+            document.getElementById('kpiTotal').innerText = data.kpis.totalRequests;
+            document.getElementById('kpiApproved').innerText = data.kpis.approved;
+            document.getElementById('kpiApprovedPercent').innerText = `${data.kpis.approvedPercent}%`;
+            document.getElementById('kpiReview').innerText = data.kpis.underReview;
+            document.getElementById('kpiReviewPercent').innerText = `${data.kpis.underReviewPercent}%`;
+            document.getElementById('kpiAwaiting').innerText = data.kpis.awaitingInfo;
+            document.getElementById('kpiAwaitingPercent').innerText = `${data.kpis.awaitingInfoPercent}%`;
+            document.getElementById('kpiRejected').innerText = data.kpis.rejected;
+            document.getElementById('kpiRejectedPercent').innerText = `${data.kpis.rejectedPercent}%`;
+          }
+
+          renderTable();
+          renderPagination();
+
+          // Auto-select first request or previously selected
+          if (partnerRequests.length > 0) {
+            const match = partnerRequests.find(r => r._id === selectedRequestId);
+            selectRequestRow(match ? match._id : partnerRequests[0]._id);
+          } else {
+            selectedRequestId = null;
+          }
+        }
+      } catch (err) {
+        console.error('Fetch Requests Error:', err);
+      }
+    }
+
+    // Render Table Rows
+    function renderTable() {
+      const tbody = document.getElementById('partnerTableBody');
+      if (!partnerRequests || partnerRequests.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align:center; padding: 40px; color: #64748b;">
+              <i class="fa-solid fa-folder-open" style="font-size: 32px; color: #cbd5e1; margin-bottom: 8px;"></i>
+              <p>No partner requests found matching the criteria.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      let html = '';
+      partnerRequests.forEach((req, idx) => {
+        const isSelected = (req._id === selectedRequestId);
+        const rowClass = isSelected ? 'row-selected' : '';
+        const orderNum = req.order || ((currentPage - 1) * limit + idx + 1);
+        const statusClass = getStatusClass(req.status);
+        const reqTypeClass = getReqTypeClass(req.requestType);
+
+        const domainTags = (req.domains || []).slice(0, 2).map(d => `<span class="domain-tag">${d}</span>`).join(' ');
+
+        html += `
+          <tr class="${rowClass}" onclick="selectRequestRow('${req._id}')">
+            <td style="text-align: center;" onclick="event.stopPropagation()">
+              <input type="checkbox" class="checkbox-custom row-checkbox" value="${req._id}">
+            </td>
+            <td style="font-weight: 700; color: #64748b;">${orderNum}</td>
+            <td>
+              <div class="company-cell">
+                <div class="company-logo-avatar">
+                  ${getCompanyBrand(req.companyName)}
+                </div>
+                <span class="company-name-text">${req.companyName}</span>
+              </div>
+            </td>
+            <td>
+              <span class="req-type-pill ${reqTypeClass}">${req.requestType}</span>
+            </td>
+            <td>
+              <div class="domain-tags-wrap">
+                ${domainTags}
+              </div>
+            </td>
+            <td style="white-space: nowrap; color: #475569; font-weight: 500;">
+              ${req.receivedOn || '12 Nov 2026'}
+            </td>
+            <td>
+              <div class="contact-cell">
+                <span class="contact-name">${(req.contactPerson && req.contactPerson.name) || 'Contact Lead'}</span>
+                <span class="contact-desig">${(req.contactPerson && req.contactPerson.designation) || 'Talent Lead'}</span>
+              </div>
+            </td>
+            <td>
+              <span class="status-pill ${statusClass}">${req.status}</span>
+            </td>
+            <td style="text-align: right;" onclick="event.stopPropagation()">
+              <div class="actions-wrap" style="justify-content: flex-end;">
+                <button class="act-btn blue" title="View Details" onclick="selectRequestRow('${req._id}')">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+                <button class="act-btn" title="Edit Request" onclick="openEditRequestModal('${req._id}')">
+                  <i class="fa-solid fa-pencil"></i>
+                </button>
+                <button class="act-btn" title="More Options" onclick="openMoreOptions(event, '${req._id}')">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    // Select Request Row & Load in Drawer
+    function selectRequestRow(id) {
+      selectedRequestId = id;
+      const req = partnerRequests.find(r => r._id === id);
+      if (!req) return;
+
+      // Update row styles
+      document.querySelectorAll('#partnerTableBody tr').forEach(tr => {
+        tr.classList.remove('row-selected');
+      });
+      const selectedTr = Array.from(document.querySelectorAll('#partnerTableBody tr')).find(tr => {
+        return tr.innerHTML.includes(`selectRequestRow('${id}')`);
+      });
+      if (selectedTr) selectedTr.classList.add('row-selected');
+
+      // Populate Drawer
+      document.getElementById('drawerLogo').innerHTML = getCompanyBrand(req.companyName);
+      document.getElementById('drawerCompanyName').innerText = req.companyName;
+      document.getElementById('drawerCompanySub').innerText = `${req.industry || 'IT Services'} | ${req.location || 'Bengaluru'}`;
+      document.getElementById('drawerBadge').innerText = `${req.requestType} Request`;
+
+      // Request Information
+      document.getElementById('drawerReqType').innerText = req.requestType;
+      const statusClass = getStatusClass(req.status);
+      document.getElementById('drawerStatusVal').innerHTML = `<span class="status-pill ${statusClass}">${req.status}</span>`;
+      document.getElementById('drawerDomains').innerText = (req.domains && req.domains.length) ? req.domains.join(', ') : 'Data Analytics, AI/ML';
+      document.getElementById('drawerContactName').innerText = (req.contactPerson && req.contactPerson.name) || 'Rahul Sharma';
+      document.getElementById('drawerContactDesig').innerText = (req.contactPerson && req.contactPerson.designation) || 'Talent Manager';
+      document.getElementById('drawerReceivedOn').innerText = req.receivedOnTime || `${req.receivedOn || '12 Nov 2026'}, 11:20 AM`;
+
+      // Company Details
+      const web = req.website || `www.${req.companyName.toLowerCase().replace(/[^a-z]/g, '')}.com`;
+      document.getElementById('drawerWebsite').innerHTML = `<a href="https://${web.replace(/^https?:\/\//, '')}" target="_blank">${web} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i></a>`;
+      document.getElementById('drawerEmail').innerText = (req.contactPerson && req.contactPerson.email) || `contact@${req.companyName.toLowerCase()}.com`;
+      document.getElementById('drawerPhone').innerText = (req.contactPerson && req.contactPerson.phone) || '+91 98765 43210';
+      document.getElementById('drawerLocation').innerText = req.fullLocation || `${req.location || 'Bengaluru'}, India`;
+
+      // Message
+      document.getElementById('drawerMessage').innerText = `"${req.message || 'We would like to collaborate with Edurup Learning for student internship, talent hiring, and specialized training programs.'}"`;
+
+      // Attachments
+      const attachments = (req.attachments && req.attachments.length) ? req.attachments : [
+        { name: 'Partnership_Proposal.pdf', size: '2.4 MB', type: 'pdf' },
+        { name: 'Company_Profile.pdf', size: '1.8 MB', type: 'pdf' },
+        { name: 'Internship_Guidelines.docx', size: '534 KB', type: 'docx' }
+      ];
+
+      document.getElementById('drawerAttachTitle').innerText = `Attachments (${attachments.length})`;
+      document.getElementById('drawerTabDoc').innerText = `Documents (${attachments.length})`;
+
+      let attachHtml = '';
+      attachments.forEach(att => {
+        const isDocx = (att.type === 'docx' || att.name.endsWith('.docx'));
+        const iconClass = isDocx ? 'fa-file-word docx' : 'fa-file-pdf pdf';
+        attachHtml += `
+          <div class="attachment-card">
+            <div class="attachment-left">
+              <i class="fa-regular ${iconClass} attachment-icon"></i>
+              <div class="attachment-meta">
+                <span class="attachment-name" title="${att.name}">${att.name}</span>
+                <span class="attachment-size">${att.size || '1.5 MB'}</span>
+              </div>
+            </div>
+            <button class="attachment-dl-btn" title="Download Document" onclick="showToast('Downloading ${att.name}')">
+              <i class="fa-solid fa-download"></i>
+            </button>
+          </div>
+        `;
+      });
+      document.getElementById('drawerAttachmentsList').innerHTML = attachHtml;
+      document.getElementById('drawerFullDocsList').innerHTML = attachHtml;
+
+      // Notes
+      const notes = (req.notes && req.notes.length) ? req.notes : [
+        { author: 'Admin Lead', text: 'Reviewed initial dossier. Awaiting curriculum validation.', date: 'Today' }
+      ];
+      document.getElementById('drawerTabNote').innerText = `Notes (${notes.length})`;
+      let notesHtml = '';
+      notes.forEach(nt => {
+        notesHtml += `
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; font-weight: 600; margin-bottom: 4px;">
+              <span>${nt.author || 'Admin'}</span>
+              <span>${nt.date || 'Recent'}</span>
+            </div>
+            <div style="font-size: 12px; color: #334155; line-height: 1.4;">
+              ${nt.text}
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById('drawerNotesList').innerHTML = notesHtml;
+
+      // Activity
+      const activity = (req.activity && req.activity.length) ? req.activity : [
+        { title: `Request status marked as ${req.status}`, date: 'Recent', user: 'Admin' }
+      ];
+      let actHtml = '';
+      activity.forEach(a => {
+        actHtml += `
+          <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 12px;">
+            <i class="fa-solid fa-circle" style="font-size: 8px; color: var(--primary); margin-top: 5px;"></i>
+            <div>
+              <div style="font-weight: 600; color: #0f172a;">${a.title}</div>
+              <div style="font-size: 10.5px; color: #94a3b8;">${a.date} • by ${a.user || 'Admin'}</div>
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById('drawerActivityList').innerHTML = actHtml;
+
+      // Ensure drawer is open
+      document.getElementById('requestDrawer').style.display = 'flex';
+    }
+
+    // Drawer Tabs Switch
+    function switchDrawerTab(tabName, btnElem) {
+      document.querySelectorAll('.drawer-tab').forEach(b => b.classList.remove('active'));
+      btnElem.classList.add('active');
+
+      document.getElementById('drawerTabOverviewContent').style.display = (tabName === 'overview') ? 'block' : 'none';
+      document.getElementById('drawerTabDocumentsContent').style.display = (tabName === 'documents') ? 'block' : 'none';
+      document.getElementById('drawerTabNotesContent').style.display = (tabName === 'notes') ? 'block' : 'none';
+      document.getElementById('drawerTabActivityContent').style.display = (tabName === 'activity') ? 'block' : 'none';
+    }
+
+    // Close Drawer
+    function closeDrawer() {
+      document.getElementById('requestDrawer').style.display = 'none';
+      document.querySelectorAll('#partnerTableBody tr').forEach(tr => {
+        tr.classList.remove('row-selected');
+      });
+    }
+
+    // Render Pagination
+    function renderPagination() {
+      const start = (currentPage - 1) * limit + 1;
+      const end = Math.min(currentPage * limit, totalCount);
+      document.getElementById('paginationInfo').innerText = `Showing ${totalCount > 0 ? start : 0} to ${end} of ${totalCount} requests`;
+
+      let btnsHtml = `
+        <button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      `;
+
+      for (let p = 1; p <= Math.min(totalPages, 6); p++) {
+        btnsHtml += `
+          <button class="page-btn ${currentPage === p ? 'active' : ''}" onclick="changePage(${p})">${p}</button>
+        `;
+      }
+
+      if (totalPages > 6) {
+        btnsHtml += `<span style="padding: 0 4px; color: #94a3b8;">...</span>`;
+        btnsHtml += `
+          <button class="page-btn ${currentPage === totalPages ? 'active' : ''}" onclick="changePage(${totalPages})">${totalPages}</button>
+        `;
+      }
+
+      btnsHtml += `
+        <button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      `;
+
+      document.getElementById('paginationControls').innerHTML = btnsHtml;
+    }
+
+    function changePage(p) {
+      if (p < 1 || p > totalPages || p === currentPage) return;
+      currentPage = p;
+      fetchRequests();
+    }
+
+    // Search & Filter Handlers
+    let debounceTimer;
+    function handleSearch() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        currentPage = 1;
+        fetchRequests();
+      }, 250);
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('filterType').value = 'All';
+      document.getElementById('filterStatus').value = 'All';
+      currentPage = 1;
+      fetchRequests();
+      showToast('Filters reset to default');
+    }
+
+    function promptDateFilter() {
+      showToast('Displaying recent November 2026 partner submissions');
+    }
+
+    // Status Updates (Approve / Reject / Awaiting Info)
+    async function handleUpdateStatusCurrent(newStatus, note = '') {
+      if (!selectedRequestId) {
+        showToast('Please select a request first');
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/admin/partner-requests/${selectedRequestId}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus, note })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`Request marked as ${newStatus}`);
+          fetchRequests();
+        } else {
+          showToast(data.message || 'Status update failed');
+        }
+      } catch (err) {
+        console.error('Update Status Error:', err);
+        showToast('Error updating status');
+      }
+    }
+
+    // Modal Request More Info
+    function openRequestInfoModal() {
+      if (!selectedRequestId) return;
+      document.getElementById('requestInfoNote').value = '';
+      document.getElementById('modalRequestInfo').classList.add('open');
+    }
+
+    function submitRequestMoreInfo() {
+      const note = document.getElementById('requestInfoNote').value.trim();
+      closeModal('modalRequestInfo');
+      handleUpdateStatusCurrent('Awaiting Info', note || 'Requested additional compliance guidelines and stipend structure.');
+    }
+
+    // Add Note to Request
+    async function submitNewNote() {
+      const input = document.getElementById('newNoteInput');
+      const text = input.value.trim();
+      if (!text || !selectedRequestId) return;
+
+      try {
+        const res = await fetch(`/api/admin/partner-requests/${selectedRequestId}/notes`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, author: 'Admin' })
+        });
+        const data = await res.json();
+        if (data.success) {
+          input.value = '';
+          showToast('Note added successfully');
+          fetchRequests();
+        }
+      } catch (err) {
+        console.error('Add Note Error:', err);
+      }
+    }
+
+    // Modals Management
+    function openNewRequestModal() {
+      document.getElementById('newRequestForm').reset();
+      document.getElementById('modalNewRequest').classList.add('open');
+    }
+
+    function openEditRequestModal(id) {
+      const req = partnerRequests.find(r => r._id === id);
+      if (!req) return;
+
+      document.getElementById('editReqId').value = req._id;
+      document.getElementById('editReqCompany').value = req.companyName || '';
+      document.getElementById('editReqIndustry').value = req.industry || '';
+      document.getElementById('editReqContactName').value = (req.contactPerson && req.contactPerson.name) || '';
+      document.getElementById('editReqContactDesig').value = (req.contactPerson && req.contactPerson.designation) || '';
+      document.getElementById('editReqEmail').value = (req.contactPerson && req.contactPerson.email) || '';
+      document.getElementById('editReqPhone').value = (req.contactPerson && req.contactPerson.phone) || '';
+      document.getElementById('editReqType').value = req.requestType || 'Partnership';
+      document.getElementById('editReqStatus').value = req.status || 'Under Review';
+      document.getElementById('editReqLocation').value = req.fullLocation || req.location || '';
+      document.getElementById('editReqWebsite').value = req.website || '';
+      document.getElementById('editReqDomains').value = (req.domains || []).join(', ');
+      document.getElementById('editReqMessage').value = req.message || '';
+
+      document.getElementById('modalEditRequest').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    // Create New Request
+    async function handleCreateRequest(e) {
+      e.preventDefault();
+      const payload = {
+        companyName: document.getElementById('newReqCompany').value.trim(),
+        industry: document.getElementById('newReqIndustry').value.trim() || 'IT Services',
+        contactPerson: {
+          name: document.getElementById('newReqContactName').value.trim(),
+          designation: document.getElementById('newReqContactDesig').value.trim() || 'Talent Manager',
+          email: document.getElementById('newReqEmail').value.trim(),
+          phone: document.getElementById('newReqPhone').value.trim() || '+91 98765 43210'
+        },
+        requestType: document.getElementById('newReqType').value,
+        status: document.getElementById('newReqStatus').value,
+        fullLocation: document.getElementById('newReqLocation').value.trim() || 'Bengaluru, India',
+        website: document.getElementById('newReqWebsite').value.trim(),
+        domains: document.getElementById('newReqDomains').value.split(',').map(s => s.trim()).filter(Boolean),
+        message: document.getElementById('newReqMessage').value.trim()
+      };
+
+      try {
+        const res = await fetch('/api/admin/partner-requests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          closeModal('modalNewRequest');
+          showToast('New partner request registered');
+          fetchRequests();
+        } else {
+          showToast(data.message || 'Creation failed');
+        }
+      } catch (err) {
+        console.error('Create Request Error:', err);
+        showToast('Error registering partner request');
+      }
+    }
+
+    // Save Edited Request
+    async function handleSaveEditRequest(e) {
+      e.preventDefault();
+      const id = document.getElementById('editReqId').value;
+      const payload = {
+        companyName: document.getElementById('editReqCompany').value.trim(),
+        industry: document.getElementById('editReqIndustry').value.trim(),
+        contactPerson: {
+          name: document.getElementById('editReqContactName').value.trim(),
+          designation: document.getElementById('editReqContactDesig').value.trim(),
+          email: document.getElementById('editReqEmail').value.trim(),
+          phone: document.getElementById('editReqPhone').value.trim()
+        },
+        requestType: document.getElementById('editReqType').value,
+        status: document.getElementById('editReqStatus').value,
+        fullLocation: document.getElementById('editReqLocation').value.trim(),
+        website: document.getElementById('editReqWebsite').value.trim(),
+        domains: document.getElementById('editReqDomains').value,
+        message: document.getElementById('editReqMessage').value.trim()
+      };
+
+      try {
+        const res = await fetch(`/api/admin/partner-requests/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          closeModal('modalEditRequest');
+          showToast('Partner request updated');
+          fetchRequests();
+        } else {
+          showToast(data.message || 'Update failed');
+        }
+      } catch (err) {
+        console.error('Edit Request Error:', err);
+      }
+    }
+
+    // More Options Menu
+    function openMoreOptions(e, id) {
+      const actions = ['Approve', 'Awaiting Info', 'Under Review', 'Reject', 'Delete'];
+      const choice = prompt(`Select status for this request:\n1. Approve\n2. Awaiting Info\n3. Under Review\n4. Reject\n5. Delete Request\n(Type 1-5):`);
+      if (choice === '1') handleUpdateStatusCurrent('Approved');
+      else if (choice === '2') handleUpdateStatusCurrent('Awaiting Info');
+      else if (choice === '3') handleUpdateStatusCurrent('Under Review');
+      else if (choice === '4') handleUpdateStatusCurrent('Rejected');
+      else if (choice === '5') {
+        if (confirm('Are you sure you want to delete this partner request?')) {
+          deletePartnerRequest(id);
+        }
+      }
+    }
+
+    async function deletePartnerRequest(id) {
+      try {
+        const res = await fetch(`/api/admin/partner-requests/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Partner request deleted');
+          fetchRequests();
+        }
+      } catch (err) {
+        console.error('Delete Request Error:', err);
+      }
+    }
+
+    // Download All
+    function downloadAllAttachments() {
+      showToast('Downloading all request dossiers as ZIP bundle...');
+    }
+
+    // Export to CSV
+    function exportRequestsToCSV() {
+      if (!partnerRequests || partnerRequests.length === 0) {
+        showToast('No requests available to export');
+        return;
+      }
+
+      let csv = 'Order,Company,Request Type,Domains,Received On,Contact Person,Designation,Email,Phone,Status,Location\\n';
+      partnerRequests.forEach((r, i) => {
+        const order = r.order || (i + 1);
+        const comp = `"${(r.companyName || '').replace(/"/g, '""')}"`;
+        const type = `"${(r.requestType || '').replace(/"/g, '""')}"`;
+        const dom = `"${(r.domains || []).join('; ')}"`;
+        const date = `"${r.receivedOn || ''}"`;
+        const cname = `"${(r.contactPerson && r.contactPerson.name ? r.contactPerson.name : '').replace(/"/g, '""')}"`;
+        const cdesig = `"${(r.contactPerson && r.contactPerson.designation ? r.contactPerson.designation : '').replace(/"/g, '""')}"`;
+        const cemail = `"${(r.contactPerson && r.contactPerson.email ? r.contactPerson.email : '').replace(/"/g, '""')}"`;
+        const cphone = `"${(r.contactPerson && r.contactPerson.phone ? r.contactPerson.phone : '').replace(/"/g, '""')}"`;
+        const status = `"${r.status || ''}"`;
+        const loc = `"${(r.fullLocation || r.location || '').replace(/"/g, '""')}"`;
+        csv += `${order},${comp},${type},${dom},${date},${cname},${cdesig},${cemail},${cphone},${status},${loc}\\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Edurup_Partner_Requests_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('Exported partner requests to CSV');
+    }
+
+    // Toggle Select All
+    function toggleSelectAll(cb) {
+      document.querySelectorAll('.row-checkbox').forEach(box => {
+        box.checked = cb.checked;
+      });
+    }
+
+    // Global Top Search
+    function handleGlobalSearch(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('searchInput').value = e.target.value;
+        handleSearch();
+      }
+    }
+
+    // Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toastMsg');
+      document.getElementById('toastText').innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Initial Load
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchRequests();
+    });
+  </script>
+</body>
+</html>
+"""
+
+with open('/Users/riyasingh/Downloads/production_site/admin-partner-requests.html', 'w') as f:
+    f.write(HTML_CONTENT)
+
+print("Created admin-partner-requests.html successfully!")

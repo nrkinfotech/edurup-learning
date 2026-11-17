@@ -26,6 +26,8 @@ PAGES_CONFIG = {
     'admin-project-submissions.html': 'tasks-project-submissions',
     'admin-recurring-tasks.html': 'tasks-recurring',
     'admin-assign-tasks.html': 'tasks-assign',
+    'admin-partner-requests.html': 'companies-requests',
+    'admin-partner-request.html': 'companies-requests',
 }
 
 SIDEBAR_CSS = """
@@ -413,7 +415,7 @@ def build_sidebar_html(page_key):
           <a href="admin-applications.html" class="nav-subitem{companies_apps_active}">Applications</a>
           <a href="javascript:void(0)" onclick="showToast('Campus & Virtual Hiring Drives')" class="nav-subitem{companies_drives_active}">Hiring Drives</a>
           <a href="javascript:void(0)" onclick="showToast('Corporate Interactions')" class="nav-subitem{companies_interactions_active}">Interactions</a>
-          <a href="javascript:void(0)" onclick="showToast('Partner Inbound Requests')" class="nav-subitem{companies_requests_active}">Partner Requests</a>
+          <a href="admin-partner-requests.html" class="nav-subitem{companies_requests_active}">Partner Requests</a>
         </div>
       </div>
 

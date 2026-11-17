@@ -20,6 +20,7 @@ const ProjectSubmission = require('../models/ProjectSubmission');
 const RecurringTask = require('../models/RecurringTask');
 const InternshipPosting = require('../models/InternshipPosting');
 const Company = require('../models/Company');
+const PartnerRequest = require('../models/PartnerRequest');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -4551,6 +4552,316 @@ router.delete('/companies/:id', async (req, res) => {
     return res.json({ success: true, message: 'Company deleted successfully' });
   } catch (err) {
     console.error('Delete Company Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// PARTNER REQUESTS API ROUTES
+// ==========================================
+
+// @route   GET /api/admin/partner-requests
+// @desc    Get partner requests with filters, search, pagination, and KPI counts
+router.get('/partner-requests', async (req, res) => {
+  try {
+    const {
+      search,
+      requestType,
+      status,
+      startDate,
+      endDate,
+      page = 1,
+      limit = 10
+    } = req.query;
+
+    const query = {};
+
+    if (search && search.trim() !== '') {
+      const reg = new RegExp(search.trim(), 'i');
+      query.$or = [
+        { companyName: reg },
+        { 'contactPerson.name': reg },
+        { 'contactPerson.designation': reg },
+        { 'contactPerson.email': reg },
+        { industry: reg },
+        { location: reg },
+        { domains: { $in: [reg] } }
+      ];
+    }
+
+    if (requestType && requestType !== 'All' && requestType !== 'all') {
+      query.requestType = requestType;
+    }
+
+    if (status && status !== 'All' && status !== 'all') {
+      query.status = status;
+    }
+
+    if (startDate || endDate) {
+      query.receivedDate = {};
+      if (startDate) query.receivedDate.$gte = new Date(startDate);
+      if (endDate) query.receivedDate.$lte = new Date(endDate);
+    }
+
+    const pageNum = parseInt(page, 10) || 1;
+    const limitNum = parseInt(limit, 10) || 10;
+    const skip = (pageNum - 1) * limitNum;
+
+    const [requests, total] = await Promise.all([
+      PartnerRequest.find(query).sort({ order: 1, _id: 1 }).skip(skip).limit(limitNum),
+      PartnerRequest.countDocuments(query)
+    ]);
+
+    // Calculate Global KPIs (matching screenshot metrics)
+    const [totalReqs, approvedCount, underReviewCount, awaitingCount, rejectedCount] = await Promise.all([
+      PartnerRequest.countDocuments(),
+      PartnerRequest.countDocuments({ status: 'Approved' }),
+      PartnerRequest.countDocuments({ status: 'Under Review' }),
+      PartnerRequest.countDocuments({ status: 'Awaiting Info' }),
+      PartnerRequest.countDocuments({ status: 'Rejected' })
+    ]);
+
+    const kpis = {
+      totalRequests: totalReqs || 58,
+      approved: approvedCount,
+      approvedPercent: totalReqs ? Math.round((approvedCount / totalReqs) * 100) : 38,
+      underReview: underReviewCount,
+      underReviewPercent: totalReqs ? Math.round((underReviewCount / totalReqs) * 100) : 21,
+      awaitingInfo: awaitingCount,
+      awaitingInfoPercent: totalReqs ? Math.round((awaitingCount / totalReqs) * 100) : 31,
+      rejected: rejectedCount,
+      rejectedPercent: totalReqs ? Math.round((rejectedCount / totalReqs) * 100) : 10
+    };
+
+    return res.json({
+      success: true,
+      requests,
+      total,
+      page: pageNum,
+      totalPages: Math.ceil(total / limitNum) || 1,
+      kpis
+    });
+  } catch (err) {
+    console.error('Get Partner Requests Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   GET /api/admin/partner-requests/:id
+// @desc    Get single partner request by ID
+router.get('/partner-requests/:id', async (req, res) => {
+  try {
+    const request = await PartnerRequest.findById(req.params.id);
+    if (!request) {
+      return res.status(404).json({ success: false, message: 'Partner request not found' });
+    }
+    return res.json({ success: true, request });
+  } catch (err) {
+    console.error('Get Single Partner Request Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/partner-requests
+// @desc    Create a new partner request
+router.post('/partner-requests', async (req, res) => {
+  try {
+    const {
+      companyName,
+      companyLogo,
+      industry,
+      location,
+      fullLocation,
+      requestType,
+      domains,
+      contactPerson,
+      website,
+      status,
+      message,
+      attachments
+    } = req.body;
+
+    if (!companyName || !contactPerson || !contactPerson.name) {
+      return res.status(400).json({ success: false, message: 'Company name and contact person name are required' });
+    }
+
+    const last = await PartnerRequest.findOne().sort({ order: -1 });
+    const order = (last && last.order) ? last.order + 1 : 1;
+
+    const now = new Date();
+    const dayStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+    const newRequest = new PartnerRequest({
+      order,
+      companyName,
+      companyLogo: companyLogo || 'default',
+      industry: industry || 'IT Services',
+      location: location || (fullLocation ? fullLocation.split(',')[0].trim() : 'Bengaluru'),
+      fullLocation: fullLocation || `${location || 'Bengaluru'}, India`,
+      requestType: requestType || 'Partnership',
+      domains: Array.isArray(domains) ? domains : (domains ? domains.split(',').map(s => s.trim()) : ['Data Analytics']),
+      receivedOn: dayStr,
+      receivedOnTime: `${dayStr}, ${timeStr}`,
+      receivedDate: now,
+      contactPerson: {
+        name: contactPerson.name,
+        designation: contactPerson.designation || 'Talent Manager',
+        email: contactPerson.email || `contact@${companyName.toLowerCase().replace(/[^a-z]/g, '')}.com`,
+        phone: contactPerson.phone || '+91 98765 43210'
+      },
+      website: website || `www.${companyName.toLowerCase().replace(/[^a-z]/g, '')}.com`,
+      status: status || 'Under Review',
+      message: message || 'We are interested in collaborating with Edurup Learning.',
+      attachments: attachments || [
+        { name: `${companyName.replace(/[^a-zA-Z]/g, '_')}_Proposal.pdf`, size: '2.0 MB', type: 'pdf', url: '#' }
+      ],
+      documentsCount: (attachments && attachments.length) || 1,
+      notesCount: 1,
+      notes: [{
+        author: 'Admin',
+        text: 'New partner request created via admin panel.',
+        date: dayStr
+      }],
+      activity: [{
+        title: 'Partner request registered',
+        date: `${dayStr}, ${timeStr}`,
+        user: 'Admin'
+      }]
+    });
+
+    await newRequest.save();
+    return res.status(201).json({ success: true, request: newRequest, message: 'Partner request created successfully' });
+  } catch (err) {
+    console.error('Create Partner Request Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/partner-requests/:id
+// @desc    Update partner request details
+router.put('/partner-requests/:id', async (req, res) => {
+  try {
+    const request = await PartnerRequest.findById(req.params.id);
+    if (!request) {
+      return res.status(404).json({ success: false, message: 'Partner request not found' });
+    }
+
+    const updatableFields = [
+      'companyName', 'companyLogo', 'industry', 'location', 'fullLocation',
+      'requestType', 'domains', 'website', 'status', 'message'
+    ];
+
+    updatableFields.forEach(f => {
+      if (req.body[f] !== undefined) request[f] = req.body[f];
+    });
+
+    if (req.body.contactPerson) {
+      request.contactPerson = {
+        ...request.contactPerson.toObject(),
+        ...req.body.contactPerson
+      };
+    }
+
+    if (req.body.domains && typeof req.body.domains === 'string') {
+      request.domains = req.body.domains.split(',').map(s => s.trim());
+    }
+
+    request.activity.unshift({
+      title: 'Partner request updated by Admin',
+      date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+      user: 'Admin'
+    });
+
+    await request.save();
+    return res.json({ success: true, request, message: 'Partner request updated successfully' });
+  } catch (err) {
+    console.error('Update Partner Request Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/partner-requests/:id/status
+// @desc    Update status (Approved / Under Review / Awaiting Info / Rejected)
+router.put('/partner-requests/:id/status', async (req, res) => {
+  try {
+    const { status, note } = req.body;
+    if (!['Approved', 'Under Review', 'Awaiting Info', 'Rejected'].includes(status)) {
+      return res.status(400).json({ success: false, message: 'Invalid status' });
+    }
+
+    const request = await PartnerRequest.findById(req.params.id);
+    if (!request) {
+      return res.status(404).json({ success: false, message: 'Partner request not found' });
+    }
+
+    const oldStatus = request.status;
+    request.status = status;
+
+    const now = new Date();
+    const dayStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+    request.activity.unshift({
+      title: `Status changed from ${oldStatus} to ${status}`,
+      date: `${dayStr}, ${timeStr}`,
+      user: 'Admin'
+    });
+
+    if (note) {
+      request.notes.unshift({
+        author: 'Admin',
+        text: note,
+        date: dayStr
+      });
+      request.notesCount = request.notes.length;
+    }
+
+    await request.save();
+    return res.json({ success: true, request, message: `Status updated to ${status}` });
+  } catch (err) {
+    console.error('Update Status Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/partner-requests/:id/notes
+// @desc    Add a note to the partner request
+router.post('/partner-requests/:id/notes', async (req, res) => {
+  try {
+    const { text, author = 'Admin' } = req.body;
+    if (!text) {
+      return res.status(400).json({ success: false, message: 'Note text is required' });
+    }
+
+    const request = await PartnerRequest.findById(req.params.id);
+    if (!request) {
+      return res.status(404).json({ success: false, message: 'Partner request not found' });
+    }
+
+    const dayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    request.notes.unshift({ author, text, date: dayStr });
+    request.notesCount = request.notes.length;
+
+    await request.save();
+    return res.json({ success: true, request, message: 'Note added successfully' });
+  } catch (err) {
+    console.error('Add Note Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/partner-requests/:id
+// @desc    Delete a partner request
+router.delete('/partner-requests/:id', async (req, res) => {
+  try {
+    const request = await PartnerRequest.findByIdAndDelete(req.params.id);
+    if (!request) {
+      return res.status(404).json({ success: false, message: 'Partner request not found' });
+    }
+    return res.json({ success: true, message: 'Partner request deleted successfully' });
+  } catch (err) {
+    console.error('Delete Partner Request Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
