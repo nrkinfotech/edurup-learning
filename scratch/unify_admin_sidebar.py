@@ -28,6 +28,8 @@ PAGES_CONFIG = {
     'admin-assign-tasks.html': 'tasks-assign',
     'admin-partner-requests.html': 'companies-requests',
     'admin-partner-request.html': 'companies-requests',
+    'admin-certificates.html': 'certificates-all',
+    'admin-certificate.html': 'certificates-all',
 }
 
 SIDEBAR_CSS = """
@@ -303,6 +305,18 @@ def build_sidebar_html(page_key):
     companies_interactions_active = ' active-subitem' if page_key == 'companies-interactions' else ''
     companies_requests_active = ' active-subitem' if page_key == 'companies-requests' else ''
 
+    # Certificates & LOR classes
+    is_certificates = page_key.startswith('certificates-')
+    certs_open = ' open' if is_certificates else ''
+    certs_cat_active = ' active-category' if is_certificates else ''
+    certs_overview_active = ' active-subitem' if page_key == 'certificates-overview' else ''
+    certs_all_active = ' active-subitem' if page_key == 'certificates-all' else ''
+    certs_lor_active = ' active-subitem' if page_key == 'certificates-lor' else ''
+    certs_templates_active = ' active-subitem' if page_key == 'certificates-templates' else ''
+    certs_requests_active = ' active-subitem' if page_key == 'certificates-requests' else ''
+    certs_verification_active = ' active-subitem' if page_key == 'certificates-verification' else ''
+    certs_settings_active = ' active-subitem' if page_key == 'certificates-settings' else ''
+
     return f"""  <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="adminSidebar">
     <div class="sidebar-header">
@@ -435,8 +449,8 @@ def build_sidebar_html(page_key):
       </div>
 
       <!-- Certificates & LOR -->
-      <div class="nav-group" id="navGroupCertificates">
-        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupCertificates')">
+      <div class="nav-group{certs_open}" id="navGroupCertificates">
+        <button type="button" class="nav-item-btn{certs_cat_active}" onclick="toggleNavGroup('navGroupCertificates')">
           <div class="nav-item-left">
             <i class="fa-solid fa-award"></i>
             <span>Certificates & LOR</span>
@@ -444,8 +458,13 @@ def build_sidebar_html(page_key):
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="javascript:void(0)" onclick="showToast('Generate Certificate desk opening soon')" class="nav-subitem">Generate Certificate</a>
-          <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation desk ready')" class="nav-subitem">Letter of Recommendation</a>
+          <a href="javascript:void(0)" onclick="showToast('Certificates Overview')" class="nav-subitem{certs_overview_active}">Overview</a>
+          <a href="admin-certificates.html" class="nav-subitem{certs_all_active}">Certificates</a>
+          <a href="javascript:void(0)" onclick="showToast('Letter of Recommendation (LOR) Desk')" class="nav-subitem{certs_lor_active}">LOR</a>
+          <a href="javascript:void(0)" onclick="if(typeof openTemplatesModal==='function')openTemplatesModal();else showToast('Templates library')" class="nav-subitem{certs_templates_active}">Templates</a>
+          <a href="javascript:void(0)" onclick="showToast('Pending Certificate Requests: 34')" class="nav-subitem{certs_requests_active}">Requests</a>
+          <a href="javascript:void(0)" onclick="if(typeof openVerificationModal==='function')openVerificationModal();else showToast('Verification portal')" class="nav-subitem{certs_verification_active}">Verification</a>
+          <a href="javascript:void(0)" onclick="showToast('Certificates Configuration & Signatures')" class="nav-subitem{certs_settings_active}">Settings</a>
         </div>
       </div>
 
