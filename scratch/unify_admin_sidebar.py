@@ -34,6 +34,8 @@ PAGES_CONFIG = {
     'admin-lor-overview.html': 'certificates-overview',
     'admin-course-reports.html': 'attendance-course-reports',
     'admin-course-report.html': 'attendance-course-reports',
+    'admin-student-reports.html': 'attendance-student',
+    'admin-student-report.html': 'attendance-student',
 }
 
 SIDEBAR_CSS = """
@@ -462,7 +464,7 @@ def build_sidebar_html(page_key):
           <a href="javascript:void(0)" onclick="showToast('Attendance & Performance Reports')" class="nav-subitem{attendance_reports_active}">Reports</a>
           <a href="javascript:void(0)" onclick="showToast('Batch-wise Reports')" class="nav-subitem{attendance_batch_active}">Batch Reports</a>
           <a href="javascript:void(0)" onclick="showToast('Trainer Evaluation Reports')" class="nav-subitem{attendance_trainer_active}">Trainer Reports</a>
-          <a href="javascript:void(0)" onclick="showToast('Student Performance Reports')" class="nav-subitem{attendance_student_active}">Student Reports</a>
+          <a href="admin-student-reports.html" class="nav-subitem{attendance_student_active}">Student Reports</a>
           <a href="admin-course-reports.html" class="nav-subitem{attendance_course_active}">Course Reports</a>
         </div>
       </div>
