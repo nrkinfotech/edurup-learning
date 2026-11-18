@@ -32,6 +32,8 @@ PAGES_CONFIG = {
     'admin-certificate.html': 'certificates-all',
     'admin-certificates-overview.html': 'certificates-overview',
     'admin-lor-overview.html': 'certificates-overview',
+    'admin-course-reports.html': 'attendance-course-reports',
+    'admin-course-report.html': 'attendance-course-reports',
 }
 
 SIDEBAR_CSS = """
@@ -319,6 +321,17 @@ def build_sidebar_html(page_key):
     certs_verification_active = ' active-subitem' if page_key == 'certificates-verification' else ''
     certs_settings_active = ' active-subitem' if page_key == 'certificates-settings' else ''
 
+    # Attendance & Reports classes
+    is_attendance = page_key.startswith('attendance-')
+    attendance_open = ' open' if is_attendance else ''
+    attendance_cat_active = ' active-category' if is_attendance else ''
+    attendance_sub_active = ' active-subitem' if page_key == 'attendance-all' else ''
+    attendance_reports_active = ' active-subitem' if page_key == 'attendance-reports' else ''
+    attendance_batch_active = ' active-subitem' if page_key == 'attendance-batch' else ''
+    attendance_trainer_active = ' active-subitem' if page_key == 'attendance-trainer' else ''
+    attendance_student_active = ' active-subitem' if page_key == 'attendance-student' else ''
+    attendance_course_active = ' active-subitem' if page_key == 'attendance-course-reports' else ''
+
     return f"""  <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="adminSidebar">
     <div class="sidebar-header">
@@ -436,8 +449,8 @@ def build_sidebar_html(page_key):
       </div>
 
       <!-- Attendance & Reports -->
-      <div class="nav-group" id="navGroupAttendance">
-        <button type="button" class="nav-item-btn" onclick="toggleNavGroup('navGroupAttendance')">
+      <div class="nav-group{attendance_open}" id="navGroupAttendance">
+        <button type="button" class="nav-item-btn{attendance_cat_active}" onclick="toggleNavGroup('navGroupAttendance')">
           <div class="nav-item-left">
             <i class="fa-solid fa-calendar-check"></i>
             <span>Attendance & Reports</span>
@@ -445,8 +458,12 @@ def build_sidebar_html(page_key):
           <i class="fa-solid fa-chevron-down nav-chevron"></i>
         </button>
         <div class="nav-sublist">
-          <a href="javascript:void(0)" onclick="showToast('Attendance: 87% (612 present, 68 absent)')" class="nav-subitem">Attendance</a>
-          <a href="javascript:void(0)" onclick="showToast('Weekly Reports: 46 submitted, 42 approved')" class="nav-subitem">Weekly Reports</a>
+          <a href="javascript:void(0)" onclick="showToast('Daily Attendance Register')" class="nav-subitem{attendance_sub_active}">Attendance</a>
+          <a href="javascript:void(0)" onclick="showToast('Attendance & Performance Reports')" class="nav-subitem{attendance_reports_active}">Reports</a>
+          <a href="javascript:void(0)" onclick="showToast('Batch-wise Reports')" class="nav-subitem{attendance_batch_active}">Batch Reports</a>
+          <a href="javascript:void(0)" onclick="showToast('Trainer Evaluation Reports')" class="nav-subitem{attendance_trainer_active}">Trainer Reports</a>
+          <a href="javascript:void(0)" onclick="showToast('Student Performance Reports')" class="nav-subitem{attendance_student_active}">Student Reports</a>
+          <a href="admin-course-reports.html" class="nav-subitem{attendance_course_active}">Course Reports</a>
         </div>
       </div>
 
