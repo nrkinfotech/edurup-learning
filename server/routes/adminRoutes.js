@@ -24,6 +24,7 @@ const PartnerRequest = require('../models/PartnerRequest');
 const Certificate = require('../models/Certificate');
 const CourseReport = require('../models/CourseReport');
 const StudentReport = require('../models/StudentReport');
+const TrainerReport = require('../models/TrainerReport');
 
 // @route   GET /api/admin/overview
 // @desc    Get Admin Dashboard Overview Stats & Analytics
@@ -5472,6 +5473,147 @@ router.delete('/reports/students/:id', async (req, res) => {
     return res.json({ success: true, message: 'Student report deleted successfully' });
   } catch (err) {
     console.error('Delete Student Report Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ==========================================
+// TRAINER REPORTS ROUTES
+// ==========================================
+
+// @route   GET /api/admin/reports/trainers or /api/admin/trainer-reports
+// @desc    Get all Trainer Reports and aggregated performance metrics
+router.get(['/reports/trainers', '/trainer-reports'], async (req, res) => {
+  try {
+    const { trainer, course, month, status, search } = req.query;
+    let query = {};
+    if (trainer && trainer !== 'All' && trainer !== 'All Trainers') {
+      query.trainerName = trainer;
+    }
+    if (course && course !== 'All' && course !== 'All Courses') {
+      query.courses = course;
+    }
+    if (month && month !== 'All' && month !== 'All Months') {
+      query.subscriptionMonth = month;
+    }
+    if (status && status !== 'All' && status !== 'All Statuses') {
+      query.$or = [{ status: status }, { trainerStatus: status }];
+    }
+    if (search) {
+      const reg = new RegExp(search, 'i');
+      query.$or = [{ trainerName: reg }, { trainerId: reg }, { courses: reg }, { email: reg }];
+    }
+
+    const trainers = await TrainerReport.find(query).sort({ order: 1 });
+
+    const kpiSummary = {
+      totalTrainers: 12,
+      classesConducted: 186,
+      classesGrowth: '+8%',
+      studentsTaught: 1248,
+      avgLearningCompletion: '88%',
+      completionGrowth: '+4%',
+      avgStudentRating: '4.6 / 5',
+      placementRate: '70%'
+    };
+
+    const performanceTrend = {
+      labels: ['Nov 01', 'Nov 03', 'Nov 05', 'Nov 07', 'Nov 09', 'Nov 11', 'Nov 13'],
+      values: [82, 85, 88, 86, 87, 86, 88],
+      peakValue: 88,
+      peakDate: 'Nov 13'
+    };
+
+    const courseDelivery = {
+      totalClasses: 186,
+      completed: { count: 171, percentage: 92, label: 'Completed', color: '#10B981' },
+      rescheduled: { count: 9, percentage: 5, label: 'Rescheduled', color: '#3B82F6' },
+      cancelled: { count: 6, percentage: 3, label: 'Cancelled', color: '#F59E0B' }
+    };
+
+    const feedbackSummary = {
+      avgRating: '4.6 / 5',
+      distribution: [
+        { stars: 5, percentage: 62 },
+        { stars: 4, percentage: 28 },
+        { stars: 3, percentage: 7 },
+        { stars: 2, percentage: 2 },
+        { stars: 1, percentage: 1 }
+      ]
+    };
+
+    const insights = [
+      'Overall trainer rating is 4.6 / 5',
+      'Avg. learning completion is 88% (↑ +4%)',
+      'Soundarya G has the highest rating (4.7)',
+      '2 trainers need performance support',
+      '92% of classes were completed successfully'
+    ];
+
+    return res.json({
+      success: true,
+      kpis: kpiSummary,
+      performanceTrend,
+      courseDelivery,
+      feedbackSummary,
+      insights,
+      trainers
+    });
+  } catch (err) {
+    console.error('Trainer Reports Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   POST /api/admin/reports/trainers
+// @desc    Add a trainer report record
+router.post('/reports/trainers', async (req, res) => {
+  try {
+    const count = await TrainerReport.countDocuments();
+    const trainer = new TrainerReport({
+      ...req.body,
+      order: count + 1,
+      trainerId: req.body.trainerId || `TRN0${count + 1}`
+    });
+    await trainer.save();
+    return res.status(201).json({ success: true, trainer, message: 'Trainer report created successfully' });
+  } catch (err) {
+    console.error('Add Trainer Report Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   PUT /api/admin/reports/trainers/:id
+// @desc    Update trainer report
+router.put('/reports/trainers/:id', async (req, res) => {
+  try {
+    const trainer = await TrainerReport.findById(req.params.id);
+    if (!trainer) {
+      return res.status(404).json({ success: false, message: 'Trainer report not found' });
+    }
+    const updatable = ['trainerName', 'email', 'courses', 'classes', 'attendance', 'completion', 'avgRating', 'engagement', 'status', 'trainerStatus'];
+    updatable.forEach(f => {
+      if (req.body[f] !== undefined) trainer[f] = req.body[f];
+    });
+    await trainer.save();
+    return res.json({ success: true, trainer, message: 'Trainer report updated successfully' });
+  } catch (err) {
+    console.error('Update Trainer Report Error:', err);
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// @route   DELETE /api/admin/reports/trainers/:id
+// @desc    Delete trainer report
+router.delete('/reports/trainers/:id', async (req, res) => {
+  try {
+    const trainer = await TrainerReport.findByIdAndDelete(req.params.id);
+    if (!trainer) {
+      return res.status(404).json({ success: false, message: 'Trainer report not found' });
+    }
+    return res.json({ success: true, message: 'Trainer report deleted successfully' });
+  } catch (err) {
+    console.error('Delete Trainer Report Error:', err);
     return res.status(500).json({ success: false, message: err.message });
   }
 });
